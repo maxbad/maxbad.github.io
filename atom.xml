@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-05-05T07:15:39.818Z</updated>
+    <updated>2020-05-05T07:19:21.116Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -16,10 +16,13 @@
         <link href="https://blog.myxy.net/bian-cheng-zi-ti/">
         </link>
         <updated>2020-05-05T07:12:24.000Z</updated>
+        <summary type="html"><![CDATA[<p>最近，微软和 JetBrains 纷纷推出了自己的编程字体，你现在在用哪款呢？</p>
+]]></summary>
         <content type="html"><![CDATA[<p>最近，微软和 JetBrains 纷纷推出了自己的编程字体，你现在在用哪款呢？</p>
-<p><a href="https://github.com/belluzj/fantasque-sans">Fantasque Sans Mono</a>它是专门为程序员打造<br>
-<a href="https://www.jetbrains.com/lp/mono/">JetBrains Mono</a>JetBrains 出的一款编程字体。主要特性包含增加字母高度，以获得更好的阅读体验；符号的独特性，例如 0 中间包含一个点；9°角的斜体设计等。<br>
-<a href="https://github.com/microsoft/cascadia-code">Cascadia Code</a> 微软出的一款编程字体,它被默认集成到了 Windows Terminal 终端命令程序.</p>
+<!-- more -->
+<p><a href="https://github.com/belluzj/fantasque-sans">Fantasque Sans Mono</a>它是专门为程序员打造</p>
+<p><a href="https://www.jetbrains.com/lp/mono/">JetBrains Mono</a>JetBrains 出的一款编程字体。主要特性包含增加字母高度，以获得更好的阅读体验；符号的独特性，例如 0 中间包含一个点；9°角的斜体设计等。</p>
+<p><a href="https://github.com/microsoft/cascadia-code">Cascadia Code</a> 微软出的一款编程字体,它被默认集成到了 Windows Terminal 终端命令程序.</p>
 ]]></content>
     </entry>
     <entry>
