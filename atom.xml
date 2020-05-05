@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://maxbad.github.io</id>
+    <title>Maxbad`Blog</title>
+    <updated>2020-05-05T06:12:35.386Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="http://maxbad.github.io"/>
+    <link rel="self" href="http://maxbad.github.io/atom.xml"/>
+    <subtitle>记录一些东西</subtitle>
+    <logo>http://maxbad.github.io/images/avatar.png</logo>
+    <icon>http://maxbad.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[Windows API函数之MessageBoxTimeout 定时消失]]></title>
+        <id>http://maxbad.github.io/messageboxtimeout/</id>
+        <link href="http://maxbad.github.io/messageboxtimeout/">
+        </link>
+        <updated>2020-05-05T03:55:43.000Z</updated>
+        <content type="html"><![CDATA[<p>Windows下的消息框MessagBox，会把程序阻塞住，需要用户与其交互后才能继续往下执行。你可能希望有一个既能弹出消息框，而又不阻塞在界面上，能够超时自动消失，类似于Android下的Toast。如果你有时间可以自己实现一个这样的窗口类，所幸Window已经提供了这样的功能了。你只需要建立一个头文件，把它包含进需要调用的源文件里面。比如这个头文件叫MsgBoxTimeout.h，其内容为：</p>
+<pre><code class="language-cpp">#pragma once 
+#include &lt;Windows.h&gt; 
+// 此函数由user32.dll导出，windows2000及以下没有此函数 
+// 添加MessageBoxTimeout支持
+extern &quot;C&quot;
+{
+	int WINAPI MessageBoxTimeoutA(IN HWND hWnd, IN LPCSTR lpText, IN LPCSTR lpCaption, IN UINT uType, IN WORD wLanguageId, IN DWORD dwMilliseconds);
+	int WINAPI MessageBoxTimeoutW(IN HWND hWnd, IN LPCWSTR lpText, IN LPCWSTR lpCaption, IN UINT uType, IN WORD wLanguageId, IN DWORD dwMilliseconds);
+} 
+#ifdef UNICODE
+#define MessageBoxTimeout MessageBoxTimeoutW
+#else
+#define MessageBoxTimeout MessageBoxTimeoutA
+#endif
+
+//使用方法:
+// 设置1000ms自动关闭该提示对话框
+MessageBoxTimeout(NULL, L&quot;倒计时&quot;, L&quot;提示&quot;, MB_OKCANCEL, 0, 1000);
+</code></pre>
+<p>该API函数的参数与MessageBox的区别在于后面多了两个参数，其中wLanguageId缺省传0尽可，dwMilliseconds是希望此消息框停留的毫秒数。<br>
+<a href="https://baike.baidu.com/item/MessageBoxTimeout">参考:https://baike.baidu.com/item/MessageBoxTimeout</a></p>
+]]></content>
+    </entry>
+</feed>
