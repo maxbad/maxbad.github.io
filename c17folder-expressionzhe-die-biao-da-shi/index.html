@@ -78,6 +78,11 @@ template&amp;lt;...">
         <div class="mb-8 flex flex-wrap">
           <div class="text-gray-400 text-sm mr-4">2020-05-08 · 3 min read</div>
           
+            <a href="https://blog.myxy.net/tag/c17/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              c++17
+            </a>
+          
         </div>
         <div class="markdown mb-8" v-pre>
           <p>（1）先举一个不是很恰当的例子给大家看一下折叠表达式具体是怎么使用的：</p>
@@ -99,10 +104,10 @@ sum(1, 2, 3, 4, 5);
 </code></pre>
 <p>也就是说折叠表达式能够自动的将指定的操作应用于形参包。<code>(args + ... + 0)</code> 等价于<code>(1+2+3+4+5+0)</code></p>
 <p>（2）语法</p>
-<pre><code class="language-cpp">( pack op ... )                (1) 
-( ... op pack )                (2) 
-( pack op ... op init )     (3) 
-( init op ... op pack )     (4) 
+<pre><code class="language-cpp">( pack op ... )                             (1) 
+( ... op pack )                             (2) 
+( pack op ... op init )                 (3) 
+( init op ... op pack )                 (4) 
 </code></pre>
 <p><code>pack</code>指的是参数包，<code>op</code>指的是具体的操作，<code>init</code>指的是具体的初始值。<br>
 上述的语法等价于<br>

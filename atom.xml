@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-05-08T06:21:53.486Z</updated>
+    <updated>2020-05-08T10:02:08.085Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -35,10 +35,10 @@ sum(1, 2, 3, 4, 5);
 </code></pre>
 <p>也就是说折叠表达式能够自动的将指定的操作应用于形参包。<code>(args + ... + 0)</code> 等价于<code>(1+2+3+4+5+0)</code></p>
 <p>（2）语法</p>
-<pre><code class="language-cpp">( pack op ... )                (1) 
-( ... op pack )                (2) 
-( pack op ... op init )     (3) 
-( init op ... op pack )     (4) 
+<pre><code class="language-cpp">( pack op ... )                             (1) 
+( ... op pack )                             (2) 
+( pack op ... op init )                 (3) 
+( init op ... op pack )                 (4) 
 </code></pre>
 <p><code>pack</code>指的是参数包，<code>op</code>指的是具体的操作，<code>init</code>指的是具体的初始值。<br>
 上述的语法等价于<br>
