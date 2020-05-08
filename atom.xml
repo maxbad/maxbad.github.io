@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-05-05T07:39:58.053Z</updated>
+    <updated>2020-05-08T04:14:48.749Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,34 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[C++98、C++11使用C++17的 string_view]]></title>
+        <id>https://blog.myxy.net/c98c11-shi-yong-c17-de-string_view/</id>
+        <link href="https://blog.myxy.net/c98c11-shi-yong-c17-de-string_view/">
+        </link>
+        <updated>2020-05-08T04:09:36.000Z</updated>
+        <content type="html"><![CDATA[<p>项目地址:<a href="https://github.com/martinmoene/string-view-lite">string-view-lite</a></p>
+<pre><code class="language-cpp">#include &quot;nonstd/string_view.hpp&quot;
+#include &lt;iostream&gt;
+
+using namespace std::literals;
+using namespace nonstd::literals;
+using namespace nonstd;
+    
+void write( string_view sv )
+{
+    std::cout &lt;&lt; sv;
+}
+
+int main()
+{
+    write( &quot;hello&quot;     );   // C-string
+    write( &quot;, &quot;s       );   // std::string
+    write( &quot;world!&quot;_sv );   // nonstd::string_view
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[编程字体]]></title>
         <id>https://blog.myxy.net/bian-cheng-zi-ti/</id>
