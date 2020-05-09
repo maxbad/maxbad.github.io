@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-05-09T02:33:05.194Z</updated>
+    <updated>2020-05-09T03:02:07.536Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -136,9 +136,9 @@ int main()
         <link href="https://blog.myxy.net/yu-fa/">
         </link>
         <updated>2020-05-05T05:45:20.000Z</updated>
-        <summary type="html"><![CDATA[<p><a href="https://guides.github.com/features/mastering-markdown/">Mastering Markdown</a>作为一个强大的文本表示格式，能够轻而易举地渲染成HTML文档，以下是语法：</p>
+        <summary type="html"><![CDATA[<p><a href="https://guides.github.com/features/mastering-markdown/">Mastering Markdown</a>是一种纯文本格式的标记语言。通过简单的标记语法，它可以使普通文本内容具有一定的格式。</p>
 ]]></summary>
-        <content type="html"><![CDATA[<p><a href="https://guides.github.com/features/mastering-markdown/">Mastering Markdown</a>作为一个强大的文本表示格式，能够轻而易举地渲染成HTML文档，以下是语法：</p>
+        <content type="html"><![CDATA[<p><a href="https://guides.github.com/features/mastering-markdown/">Mastering Markdown</a>是一种纯文本格式的标记语言。通过简单的标记语法，它可以使普通文本内容具有一定的格式。</p>
 <!-- more -->
 <h2 id="文字加粗">文字加粗</h2>
 <p><code>**这是加粗的文字**</code><br>
@@ -159,6 +159,15 @@ int main()
 <big>字体变大</big></p>
 <h2 id="换行">换行</h2>
 <p><code>空格+空格+回车</code></p>
+<h2 id="分割线">分割线</h2>
+<h4 id="三个或者三个以上的-或者-都可以">三个或者三个以上的 - 或者 * 都可以。</h4>
+<h2 id="-"><code>---</code><br>
+<code>----</code><br>
+<code>***</code><br>
+<code>*****</code></h2>
+<hr>
+<hr>
+<hr>
 <h2 id="链接">链接</h2>
 <p><code>[baidu](https://www.baidu.com/)</code><br>
 <a href="https://www.baidu.com/">baidu</a></p>
