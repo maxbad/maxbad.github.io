@@ -15,28 +15,16 @@
     
 
   <meta name="description" content="Mastering Markdown是一种纯文本格式的标记语言。通过简单的标记语法，它可以使普通文本内容具有一定的格式。
+在线演示:https://markdown-it.github.io/
 
-文字加粗
-**这是加粗的文字**
-这是加粗的文字
-斜体文字
-*这是斜体文字*
-这是斜体文字
-删除线
-~~删除线~~
-..." />
+脚注
+Footnote 1 link^[fi..." />
   <meta property="og:title" content="Markdown语法 - Maxbad`Blog">
   <meta property="og:description" content="Mastering Markdown是一种纯文本格式的标记语言。通过简单的标记语法，它可以使普通文本内容具有一定的格式。
+在线演示:https://markdown-it.github.io/
 
-文字加粗
-**这是加粗的文字**
-这是加粗的文字
-斜体文字
-*这是斜体文字*
-这是斜体文字
-删除线
-~~删除线~~
-..." />
+脚注
+Footnote 1 link^[fi..." />
   <meta property="og:type" content="articles">
   <meta property="og:url" content="https://blog.myxy.net/yu-fa/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
@@ -44,16 +32,10 @@
   <meta property="og:image:width" content="1200">
   <meta name="twitter:title" content="Markdown语法 - Maxbad`Blog">
   <meta name="twitter:description" content="Mastering Markdown是一种纯文本格式的标记语言。通过简单的标记语法，它可以使普通文本内容具有一定的格式。
+在线演示:https://markdown-it.github.io/
 
-文字加粗
-**这是加粗的文字**
-这是加粗的文字
-斜体文字
-*这是斜体文字*
-这是斜体文字
-删除线
-~~删除线~~
-...">
+脚注
+Footnote 1 link^[fi...">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://blog.myxy.net/yu-fa/">
 
@@ -79,12 +61,24 @@
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-05-05 · 2 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-05-05 · 3 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
           <p><a href="https://guides.github.com/features/mastering-markdown/">Mastering Markdown</a>是一种纯文本格式的标记语言。通过简单的标记语法，它可以使普通文本内容具有一定的格式。</p>
+<p>在线演示:<a href="https://markdown-it.github.io/">https://markdown-it.github.io/</a></p>
 <!-- more -->
+<h2 id="脚注">脚注</h2>
+<p><code>Footnote 1 link^[first].</code><br>
+<code>Footnote 2 link^[second].</code><br>
+Footnote 1 link<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>.<br>
+Footnote 2 link<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>.</p>
+<h2 id="emojo">Emojo</h2>
+<p>在<a href="https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/full.json">这里</a>可以找到所有可用的 emojis 列表。<br>
+<code>:tada:</code><br>
+<code>:100:</code><br>
+🎉<br>
+💯</p>
 <h2 id="文字加粗">文字加粗</h2>
 <p><code>**这是加粗的文字**</code><br>
 <strong>这是加粗的文字</strong></p>
@@ -114,11 +108,11 @@
 <hr>
 <hr>
 <h2 id="链接">链接</h2>
-<p><code>[baidu](https://www.baidu.com/)</code><br>
-<a href="https://www.baidu.com/">baidu</a></p>
+<p><code>[显示文字](https://www.baidu.com/)</code><br>
+<a href="https://www.baidu.com/">百度一下</a></p>
 <h2 id="图片">图片</h2>
-<p><code>![](https://www.baidu.com/img/bd_logo1.png)</code><br>
-<img src="https://www.baidu.com/img/bd_logo1.png" alt="" loading="lazy"></p>
+<p><code>![提示语](https://www.baidu.com/img/bd_logo1.png)</code><br>
+<img src="https://www.baidu.com/img/bd_logo1.png" alt="我是LOGO" loading="lazy"></p>
 <h2 id="标题">标题</h2>
 <h4 id="markdown的标题越大字体越小">MarkDown的标题越大字体越小</h4>
 <p><code># 一级标题</code><br>
@@ -161,12 +155,57 @@
 <blockquote>
 <p>注意事项：<code>&gt;</code> 和文本之间要保留一个字符的空格。</p>
 </blockquote>
+<h2 id="表格">表格</h2>
+<pre><code>表头|表头|表头
+---|:--:|---:
+内容|内容|内容
+内容|内容|内容
+
+第二行分割表头和内容。
+- 有一个就行，为了对齐，多加了几个
+文字默认居左
+-两边加：表示文字居中
+-右边加：表示文字居右
+注：原生的语法两边都要用 | 包起来。此处省略
+示例:
+姓名|技能|排行
+--|:--:|--:
+刘备|哭|大哥
+关羽|打|二哥
+张飞|骂|三弟
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>姓名</th>
+<th style="text-align:center">技能</th>
+<th style="text-align:right">排行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>刘备</td>
+<td style="text-align:center">哭</td>
+<td style="text-align:right">大哥</td>
+</tr>
+<tr>
+<td>关羽</td>
+<td style="text-align:center">打</td>
+<td style="text-align:right">二哥</td>
+</tr>
+<tr>
+<td>张飞</td>
+<td style="text-align:center">骂</td>
+<td style="text-align:right">三弟</td>
+</tr>
+</tbody>
+</table>
 <h2 id="代码块">代码块</h2>
 <h4 id="使用-四个缩进空格-或-包裹代码">使用 四个缩进空格 或 ```包裹代码</h4>
-<pre><code>少量代码用` `包裹
-大量代码用``` ```包裹,并指定一种语言（也可以不指定）
-```cpp 渲染CPP文件
-```javascript 渲染JS文件
+<pre><code class="language-html">少量代码用` `包裹
+大量代码用(``` ```)包裹,并指定一种语言（也可以不指定）
+(```cpp 渲染CPP文件)
+(```javascript 渲染JS文件)
 </code></pre>
 <pre><code class="language-cpp">int main()
 {
@@ -179,6 +218,15 @@
   }
 }
 </code></pre>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>first <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>second <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -224,6 +272,8 @@
         <ul class="markdownIt-TOC">
 <li>
 <ul>
+<li><a href="#%E8%84%9A%E6%B3%A8">脚注</a></li>
+<li><a href="#emojo">Emojo</a></li>
 <li><a href="#%E6%96%87%E5%AD%97%E5%8A%A0%E7%B2%97">文字加粗</a></li>
 <li><a href="#%E6%96%9C%E4%BD%93%E6%96%87%E5%AD%97">斜体文字</a></li>
 <li><a href="#%E5%88%A0%E9%99%A4%E7%BA%BF">删除线</a></li>
@@ -277,6 +327,7 @@
 </li>
 <li><a href="#%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8">有序列表</a></li>
 <li><a href="#%E5%BC%95%E7%94%A8%E5%9D%97">引用块</a></li>
+<li><a href="#%E8%A1%A8%E6%A0%BC">表格</a></li>
 <li><a href="#%E4%BB%A3%E7%A0%81%E5%9D%97">代码块</a><br>
 *
 <ul>
