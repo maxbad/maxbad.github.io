@@ -4,32 +4,38 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>标准库std::min/std::max与min/max宏冲突 - Maxbad`Blog</title>
+<title>标准库std::min/std::max与min/max宏冲突的解决方案 - Maxbad`Blog</title>
 <link rel="shortcut icon" href="https://blog.myxy.net/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://blog.myxy.net/media/css/tailwind.css">
 <link rel="stylesheet" href="https://blog.myxy.net/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="标准库std::min/std::max与min/max宏冲突 - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="标准库std::min/std::max与min/max宏冲突的解决方案 - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
 
     
 
   <meta name="description" content="如题，因为windef.h中定义了max和min宏.
 如果工程中包含了windows.h或windef.h头文件，再使用c++标准库std::min或std::max，就会发生编译错误。
-解决的办法就是定义NOMINMAX宏，一般是在工程配..." />
-  <meta property="og:title" content="标准库std::min/std::max与min/max宏冲突 - Maxbad`Blog">
+方案一
+程序里面使用宏 min和max
+#ifnde..." />
+  <meta property="og:title" content="标准库std::min/std::max与min/max宏冲突的解决方案 - Maxbad`Blog">
   <meta property="og:description" content="如题，因为windef.h中定义了max和min宏.
 如果工程中包含了windows.h或windef.h头文件，再使用c++标准库std::min或std::max，就会发生编译错误。
-解决的办法就是定义NOMINMAX宏，一般是在工程配..." />
+方案一
+程序里面使用宏 min和max
+#ifnde..." />
   <meta property="og:type" content="articles">
   <meta property="og:url" content="https://blog.myxy.net/biao-zhun-ku-stdminstdmax-yu-minmax-hong-chong-tu/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="标准库std::min/std::max与min/max宏冲突 - Maxbad`Blog">
+  <meta name="twitter:title" content="标准库std::min/std::max与min/max宏冲突的解决方案 - Maxbad`Blog">
   <meta name="twitter:description" content="如题，因为windef.h中定义了max和min宏.
 如果工程中包含了windows.h或windef.h头文件，再使用c++标准库std::min或std::max，就会发生编译错误。
-解决的办法就是定义NOMINMAX宏，一般是在工程配...">
+方案一
+程序里面使用宏 min和max
+#ifnde...">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://blog.myxy.net/biao-zhun-ku-stdminstdmax-yu-minmax-hong-chong-tu/">
 
@@ -51,7 +57,7 @@
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          标准库std::min/std::max与min/max宏冲突
+          标准库std::min/std::max与min/max宏冲突的解决方案
         </h1>
         
         <div class="mb-8 flex flex-wrap">
@@ -60,8 +66,9 @@
         </div>
         <div class="markdown mb-8" v-pre>
           <p>如题，因为<code>windef.h</code>中定义了<code>max</code>和<code>min</code>宏.<br>
-如果工程中包含了<code>windows.h</code>或<code>windef.h</code>头文件，再使用c++标准库<code>std::min</code>或<code>std::max</code>，就会发生编译错误。<br>
-解决的办法就是定义<code>NOMINMAX</code>宏，一般是在工程配置中定义。</p>
+如果工程中包含了<code>windows.h</code>或<code>windef.h</code>头文件，再使用c++标准库<code>std::min</code>或<code>std::max</code>，就会发生编译错误。</p>
+<h2 id="方案一">方案一</h2>
+<h4 id="程序里面使用宏-min和max">程序里面使用宏 min和max</h4>
 <pre><code class="language-cpp">#ifndef NOMINMAX
 
 #ifndef max
@@ -74,15 +81,11 @@
 
 #endif  /* NOMINMAX */
 </code></pre>
-<p>另外方式解决方法:</p>
-<pre><code class="language-cpp">#include &lt;winsock2.h&gt;
-#include &lt;Windows.h&gt;
-#ifdef max
+<h2 id="方案二">方案二:</h2>
+<h4 id="程序里面要使用标准库-stdmin和stdmax">程序里面要使用标准库 std::min和std::max</h4>
+<pre><code class="language-cpp">#define NOMINMAX
 #undef max
-#endif
-#ifdef min
 #undef min
-#endif
 </code></pre>
 
         </div>
@@ -126,7 +129,25 @@
         </div>
       </div>
       <div class="post-toc-container">
-        
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%96%B9%E6%A1%88%E4%B8%80">方案一</a><br>
+*
+<ul>
+<li><a href="#%E7%A8%8B%E5%BA%8F%E9%87%8C%E9%9D%A2%E4%BD%BF%E7%94%A8%E5%AE%8F-min%E5%92%8Cmax">程序里面使用宏 min和max</a></li>
+</ul>
+</li>
+<li><a href="#%E6%96%B9%E6%A1%88%E4%BA%8C">方案二:</a><br>
+*
+<ul>
+<li><a href="#%E7%A8%8B%E5%BA%8F%E9%87%8C%E9%9D%A2%E8%A6%81%E4%BD%BF%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93-stdmin%E5%92%8Cstdmax">程序里面要使用标准库 std::min和std::max</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
       </div>
     </div>
 
