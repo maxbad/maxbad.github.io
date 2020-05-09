@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-05-09T02:06:07.557Z</updated>
+    <updated>2020-05-09T02:32:48.913Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -128,6 +128,103 @@ int main()
 <p><a href="https://github.com/belluzj/fantasque-sans">Fantasque Sans Mono</a>它是专门为程序员打造</p>
 <p><a href="https://www.jetbrains.com/lp/mono/">JetBrains Mono</a>JetBrains 出的一款编程字体。主要特性包含增加字母高度，以获得更好的阅读体验；符号的独特性，例如 0 中间包含一个点；9°角的斜体设计等。</p>
 <p><a href="https://github.com/microsoft/cascadia-code">Cascadia Code</a> 微软出的一款编程字体,它被默认集成到了 Windows Terminal 终端命令程序.</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Markdown语法]]></title>
+        <id>https://blog.myxy.net/yu-fa/</id>
+        <link href="https://blog.myxy.net/yu-fa/">
+        </link>
+        <updated>2020-05-05T05:45:20.000Z</updated>
+        <summary type="html"><![CDATA[<p><a href="https://guides.github.com/features/mastering-markdown/">Mastering Markdown</a>作为一个强大的文本表示格式，能够轻而易举地渲染成HTML文档，以下是语法：</p>
+]]></summary>
+        <content type="html"><![CDATA[<p><a href="https://guides.github.com/features/mastering-markdown/">Mastering Markdown</a>作为一个强大的文本表示格式，能够轻而易举地渲染成HTML文档，以下是语法：</p>
+<!-- more -->
+<h2 id="文字加粗">文字加粗</h2>
+<p><code>**这是加粗的文字**</code><br>
+<strong>这是加粗的文字</strong></p>
+<h2 id="斜体文字">斜体文字</h2>
+<p><code>*这是斜体文字*</code><br>
+<em>这是斜体文字</em></p>
+<h2 id="删除线">删除线</h2>
+<p><code>~~删除线~~</code><br>
+<s>删除线</s></p>
+<h2 id="自定义字体大小">自定义字体大小</h2>
+<p><code>&lt;font size=6&gt;我是变大的字&lt;/font&gt;</code><br>
+<font size=6>我是变大的字</font></p>
+<h2 id="字体变大变小标签">字体变大变小标签</h2>
+<p><code>&lt;small&gt;字体变小&lt;/small&gt;</code><br>
+<code>&lt;big&gt;字体变大&lt;/big&gt;</code><br>
+<small>字体变小</small><br>
+<big>字体变大</big></p>
+<h2 id="换行">换行</h2>
+<p><code>空格+空格+回车</code></p>
+<h2 id="链接">链接</h2>
+<p><code>[baidu](https://www.baidu.com/)</code><br>
+<a href="https://www.baidu.com/">baidu</a></p>
+<h2 id="图片">图片</h2>
+<p><code>![](https://www.baidu.com/img/bd_logo1.png)</code><br>
+<img src="https://www.baidu.com/img/bd_logo1.png" alt="" loading="lazy"></p>
+<h2 id="标题">标题</h2>
+<h4 id="markdown的标题越大字体越小">MarkDown的标题越大字体越小</h4>
+<p><code># 一级标题</code><br>
+<code>## 二级标题</code><br>
+<code>### 三级标题</code><br>
+<code>#### 四级标题</code><br>
+<code>##### 五级标题</code><br>
+<code>###### 六级标题</code></p>
+<h1 id="一级标题">一级标题</h1>
+<h2 id="二级标题">二级标题</h2>
+<h3 id="三级标题">三级标题</h3>
+<h4 id="四级标题">四级标题</h4>
+<h5 id="五级标题">五级标题</h5>
+<h6 id="六级标题">六级标题</h6>
+<h2 id="无序列表">无序列表</h2>
+<h4 id="三个符号的效果一致且可以混用">三个符号的效果一致,且可以混用</h4>
+<p><code>+ a</code><br>
+<code>- b</code><br>
+<code>* c</code></p>
+<ul>
+<li>a</li>
+</ul>
+<ul>
+<li>b</li>
+</ul>
+<ul>
+<li>c</li>
+</ul>
+<h2 id="有序列表">有序列表</h2>
+<p><code>1. a</code><br>
+<code>2. b</code><br>
+<code>3. c</code></p>
+<ol>
+<li>a</li>
+<li>b</li>
+<li>c</li>
+</ol>
+<h2 id="引用块">引用块</h2>
+<p><code>&gt;这是引用内容</code></p>
+<blockquote>
+<p>注意事项：<code>&gt;</code> 和文本之间要保留一个字符的空格。</p>
+</blockquote>
+<h2 id="代码块">代码块</h2>
+<h4 id="使用-四个缩进空格-或-包裹代码">使用 四个缩进空格 或 ```包裹代码</h4>
+<pre><code>少量代码用` `包裹
+大量代码用``` ```包裹,并指定一种语言（也可以不指定）
+```cpp 渲染CPP文件
+```javascript 渲染JS文件
+</code></pre>
+<pre><code class="language-cpp">int main()
+{
+    printf(&quot;hell&quot;);
+}
+</code></pre>
+<pre><code class="language-javascript">function fancyAlert(arg) {
+  if(arg) {
+    $.facebox({div:'#foo'})
+  }
+}
+</code></pre>
 ]]></content>
     </entry>
     <entry>
