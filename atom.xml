@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-05-09T04:20:59.837Z</updated>
+    <updated>2020-05-09T07:16:02.656Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,39 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[标准库std::min/std::max与min/max宏冲突]]></title>
+        <id>https://blog.myxy.net/biao-zhun-ku-stdminstdmax-yu-minmax-hong-chong-tu/</id>
+        <link href="https://blog.myxy.net/biao-zhun-ku-stdminstdmax-yu-minmax-hong-chong-tu/">
+        </link>
+        <updated>2020-05-09T07:09:14.000Z</updated>
+        <content type="html"><![CDATA[<p>如题，因为<code>windef.h</code>中定义了<code>max</code>和<code>min</code>宏.<br>
+如果工程中包含了<code>windows.h</code>或<code>windef.h</code>头文件，再使用c++标准库<code>std::min</code>或<code>std::max</code>，就会发生编译错误。<br>
+解决的办法就是定义<code>NOMINMAX</code>宏，一般是在工程配置中定义。</p>
+<pre><code class="language-cpp">#ifndef NOMINMAX
+
+#ifndef max
+#define max(a,b)            (((a) &gt; (b)) ? (a) : (b))
+#endif
+
+#ifndef min
+#define min(a,b)            (((a) &lt; (b)) ? (a) : (b))
+#endif
+
+#endif  /* NOMINMAX */
+</code></pre>
+<p>另外方式解决方法:</p>
+<pre><code class="language-cpp">#include &lt;winsock2.h&gt;
+#include &lt;Windows.h&gt;
+#ifdef max
+#undef max
+#endif
+#ifdef min
+#undef min
+#endif
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[C++17：folder expression（折叠表达式）]]></title>
         <id>https://blog.myxy.net/c17folder-expressionzhe-die-biao-da-shi/</id>
