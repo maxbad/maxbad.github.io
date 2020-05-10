@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-05-09T07:21:36.356Z</updated>
+    <updated>2020-05-10T05:43:07.673Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,22 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[std::wcout,wprintf控制台输出unicode中文]]></title>
+        <id>https://blog.myxy.net/stdwcoutwprintf-kong-zhi-tai-shu-chu-unicode-zhong-wen/</id>
+        <link href="https://blog.myxy.net/stdwcoutwprintf-kong-zhi-tai-shu-chu-unicode-zhong-wen/">
+        </link>
+        <updated>2020-05-10T05:25:23.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="wprintf">wprintf</h2>
+<p><code>_wsetlocale(LC_ALL, L&quot;chs&quot;);</code></p>
+<blockquote>
+<p>发现一个弊端,strftime格式化本地时间/日期的时候,星期几也会变成中文.</p>
+</blockquote>
+<hr>
+<h2 id="stdwcout">std::wcout</h2>
+<p><code>std::wcout.imbue(std::locale(&quot;chs&quot;, std::locale::all));</code></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[标准库std::min/std::max与min/max宏冲突的解决方案]]></title>
         <id>https://blog.myxy.net/biao-zhun-ku-stdminstdmax-yu-minmax-hong-chong-tu/</id>
@@ -211,6 +227,13 @@ Footnote 2 link<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup
 <hr>
 <hr>
 <hr>
+<h2 id="选框">选框</h2>
+<p><code>- [ ] 计划任务</code><br>
+<code>- [x] 完成任务</code></p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-487631"><label class="task-list-item-label" for="task-item-487631"> 计划任务</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-6711058"><label class="task-list-item-label" for="task-item-6711058"> 完成任务</label></li>
+</ul>
 <h2 id="链接">链接</h2>
 <p><code>[显示文字](https://www.baidu.com/)</code><br>
 <a href="https://www.baidu.com/">百度一下</a></p>
@@ -260,6 +283,9 @@ Footnote 2 link<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup
 <p>注意事项：<code>&gt;</code> 和文本之间要保留一个字符的空格。</p>
 </blockquote>
 <h2 id="表格">表格</h2>
+<p><code>使用</code>:---------:<code>居中</code><br>
+<code>使用</code>:----------<code>居左</code><br>
+<code>使用</code>----------:<code>居右</code></p>
 <pre><code>表头|表头|表头
 ---|:--:|---:
 内容|内容|内容
