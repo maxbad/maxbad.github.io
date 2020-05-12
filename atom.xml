@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-05-12T11:30:44.356Z</updated>
+    <updated>2020-05-12T11:31:08.718Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -435,8 +435,8 @@ Footnote 2 link<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup
 <p><code>- [ ] 计划任务</code><br>
 <code>- [x] 完成任务</code></p>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-3092994"><label class="task-list-item-label" for="task-item-3092994"> 计划任务</label></li>
-<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-2733404"><label class="task-list-item-label" for="task-item-2733404"> 完成任务</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-9814956"><label class="task-list-item-label" for="task-item-9814956"> 计划任务</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-1807939"><label class="task-list-item-label" for="task-item-1807939"> 完成任务</label></li>
 </ul>
 <h2 id="链接">链接</h2>
 <p><code>[显示文字](https://www.baidu.com/)</code><br>
