@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-05-10T05:43:07.673Z</updated>
+    <updated>2020-05-12T02:35:22.873Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,127 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[c++ Lambda 表达式]]></title>
+        <id>https://blog.myxy.net/c-lambda-biao-da-shi/</id>
+        <link href="https://blog.myxy.net/c-lambda-biao-da-shi/">
+        </link>
+        <updated>2020-05-12T02:17:19.000Z</updated>
+        <content type="html"><![CDATA[<p><code>Lambda</code> 表达式，实际上就是提供了一个类似匿名函数的特性，而匿名函数则是在需要一个函数，但是又不想费力去命名一个函数的情况下去使用的。<br>
+基本语法如下：<br>
+<code>[ caputrue ] ( params ) opt -&gt; ret { body; };</code></p>
+<ul>
+<li><strong>capture</strong> 是捕获列表；</li>
+<li><strong>params</strong> 是参数表；(选填)</li>
+<li><strong>opt是函数选项</strong> 可以填mutable,exception,attribute（选填）</li>
+</ul>
+<blockquote>
+<p><code>mutable</code>说明lambda表达式体内的代码可以修改被捕获的变量，并且可以访问被捕获的对象的non-const方法。<br>
+<code>exception</code>说明lambda表达式是否抛出异常以及何种异常。<br>
+<code>attribute</code>用来声明属性。</p>
+</blockquote>
+<ul>
+<li><strong>ret</strong> 是返回值类型（拖尾返回类型）。(选填)</li>
+<li><strong>body</strong> 是函数体。</li>
+</ul>
+<p><strong>捕获列表</strong>：lambda表达式的捕获列表精细控制了lambda表达式能够访问的外部变量，以及如何访问这些变量。</p>
+<ol>
+<li><strong>[]</strong> 不捕获任何变量。</li>
+<li><strong>[&amp;]</strong> 捕获外部作用域中所有变量，并作为引用在函数体中使用（按引用捕获）。</li>
+<li><strong>[=]</strong> 捕获外部作用域中所有变量，并作为副本在函数体中使用(按值捕获)。注意值捕获的前提是变量可以拷贝，且被捕获的变量在 lambda 表达式被创建时拷贝，而非调用时才拷贝。如果希望lambda表达式在调用时能即时访问外部变量，我们应当使用引用方式捕获。</li>
+</ol>
+<pre><code class="language-cpp">int a = 0;
+auto f = [=] { return a; };
+a+=1;
+cout &lt;&lt; f() &lt;&lt; endl;       //输出0
+int a = 0;
+auto f = [&amp;a] { return a; };
+a+=1;
+cout &lt;&lt; f() &lt;&lt;endl;       //输出1
+</code></pre>
+<ol start="4">
+<li><strong>[=,&amp;foo]</strong> 按值捕获外部作用域中所有变量，并按引用捕获foo变量。</li>
+<li><strong>[bar]</strong> 按值捕获bar变量，同时不捕获其他变量。</li>
+<li><strong>[this]</strong> 捕获当前类中的this指针，让lambda表达式拥有和当前类成员函数同样的访问权限。如果已经使用了<code>&amp;</code>或者<code>=</code>，就默认添加此选项。捕获this的目的是可以在lamda中使用当前类的成员函数和成员变量。</li>
+</ol>
+<p>'''cpp<br>
+class A<br>
+{<br>
+public:<br>
+int i_ = 0;</p>
+<pre><code> void func(int x,int y){
+     auto x1 = [] { return i_; };                   //error,没有捕获外部变量
+     auto x2 = [=] { return i_ + x + y; };          //OK
+     auto x3 = [&amp;] { return i_ + x + y; };        //OK
+     auto x4 = [this] { return i_; };               //OK
+     auto x5 = [this] { return i_ + x + y; };       //error,没有捕获x,y
+     auto x6 = [this, x, y] { return i_ + x + y; };     //OK
+     auto x7 = [this] { return i_++; };             //OK
+</code></pre>
+<p>};</p>
+<p>int a=0 , b=1;<br>
+auto f1 = [] { return a; };                         //error,没有捕获外部变量<br>
+auto f2 = [&amp;] { return a++ };                      //OK<br>
+auto f3 = [=] { return a; };                        //OK<br>
+auto f4 = [=] {return a++; };                       //error,a是以复制方式捕获的，无法修改<br>
+auto f5 = [a] { return a+b; };                      //error,没有捕获变量b<br>
+auto f6 = [a, &amp;b] { return a + (b++); };                //OK<br>
+auto f7 = [=, &amp;b] { return a + (b++); };                //OK</p>
+<pre><code>&gt; **注意** : 虽然按值捕获的变量值均复制一份存储在lambda表达式变量中，修改他们也并不会真正影响到外部，但我们却仍然无法修改它们。如果希望去修改按值捕获的外部变量，需要显示指明lambda表达式为`mutable`。被`mutable`修饰的lambda表达式就算没有参数也要写明参数列表。 
+**原因**：lambda表达式可以说是就地定义仿函数闭包的“语法糖”。它的捕获列表捕获住的任何外部变量，最终会变为闭包类型的成员变量。按照C++标准，lambda表达式的`operator()`默认是`const`的，一个`const`成员函数是无法修改成员变量的值的。而`mutable`的作用，就在于取消`operator()`的`const`。
+```cpp
+int a = 0;
+auto f1 = [=] { return a++; };                //error
+auto f2 = [=] () mutable { return a++; };       //OK
+</code></pre>
+<p><strong>lambda表达式的大致原理</strong> ：每当你定义一个lambda表达式后，编译器会自动生成一个匿名类（这个类重载了()运算符），我们称为闭包类型（closure type）。那么在运行时，这个lambda表达式就会返回一个匿名的闭包实例，是一个右值。所以，我们上面的lambda表达式的结果就是一个个闭包。对于复制传值捕捉方式，类中会相应添加对应类型的非静态数据成员。在运行时，会用复制的值初始化这些成员变量，从而生成闭包。对于引用捕获方式，无论是否标记<code>mutable</code>，都可以在lambda表达式中修改捕获的值。至于闭包类中是否有对应成员，C++标准中给出的答案是：不清楚的，与具体实现有关。</p>
+<p><a href="https://blog.csdn.net/jiange_zh/article/details/79356417">查看更多详情</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Ｃ++11 std::call_once：多线程仅执行一次的完美解决方案]]></title>
+        <id>https://blog.myxy.net/c11-stdcall_onceduo-xian-cheng-jin-zhi-xing-yi-ci-de-wan-mei-jie-jue-fang-an/</id>
+        <link href="https://blog.myxy.net/c11-stdcall_onceduo-xian-cheng-jin-zhi-xing-yi-ci-de-wan-mei-jie-jue-fang-an/">
+        </link>
+        <updated>2020-05-12T02:02:26.000Z</updated>
+        <content type="html"><![CDATA[<p><code>std::call_once</code> 的作用是很简单的,就是保证函数或者一些代码段在并发或者多线程的情况下,始终只会被执行一次。比如一些初始化函数，多次调用可能导致各种奇怪问题。<br>
+需要包含头文件：<code>#include &lt;mutex&gt;</code></p>
+<pre><code class="language-cpp">    template &lt;class Fn, class... Args&gt;
+    void call_once(once_flag &amp; flag, Fn &amp;&amp; fn, Args &amp;&amp;...args);
+</code></pre>
+<p><strong>参数</strong></p>
+<ul>
+<li><strong>flag</strong> 是std::once_falg对象,属于控制的标签，相同的falg只执行一次</li>
+<li><strong>fn</strong> 需要只执行一次的函数对象</li>
+<li><strong>args</strong> 传递给fn函数的参数,如果有就传递，没有就不传递。</li>
+</ul>
+<p>给个例子：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;mutex&gt;
+ 
+std::once_flag flag1;  //必须是全局变量
+ 
+void simple_do_once()
+{
+    std::call_once(flag1, [](){ std::cout &lt;&lt; &quot;Simple example: called once\n&quot;; });
+}
+ 
+int main()
+{
+    std::thread st1(simple_do_once);
+    std::thread st2(simple_do_once);
+    std::thread st3(simple_do_once);
+    std::thread st4(simple_do_once);
+    st1.join();
+    st2.join();
+    st3.join();
+    st4.join();
+}
+</code></pre>
+<p>只会输出一行:<code>Simple example: called once</code></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[std::wcout,wprintf控制台输出unicode中文]]></title>
         <id>https://blog.myxy.net/stdwcoutwprintf-kong-zhi-tai-shu-chu-unicode-zhong-wen/</id>
@@ -231,8 +352,8 @@ Footnote 2 link<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup
 <p><code>- [ ] 计划任务</code><br>
 <code>- [x] 完成任务</code></p>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-487631"><label class="task-list-item-label" for="task-item-487631"> 计划任务</label></li>
-<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-6711058"><label class="task-list-item-label" for="task-item-6711058"> 完成任务</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-8665111"><label class="task-list-item-label" for="task-item-8665111"> 计划任务</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-4353974"><label class="task-list-item-label" for="task-item-4353974"> 完成任务</label></li>
 </ul>
 <h2 id="链接">链接</h2>
 <p><code>[显示文字](https://www.baidu.com/)</code><br>
