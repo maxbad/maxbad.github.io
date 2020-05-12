@@ -96,33 +96,35 @@ cout &lt;&lt; f() &lt;&lt;endl;       //输出1
 <li><strong>[bar]</strong> 按值捕获bar变量，同时不捕获其他变量。</li>
 <li><strong>[this]</strong> 捕获当前类中的this指针，让lambda表达式拥有和当前类成员函数同样的访问权限。如果已经使用了<code>&amp;</code>或者<code>=</code>，就默认添加此选项。捕获this的目的是可以在lamda中使用当前类的成员函数和成员变量。</li>
 </ol>
-<p>'''cpp<br>
-class A<br>
-{<br>
-public:<br>
-int i_ = 0;</p>
-<pre><code> void func(int x,int y){
-     auto x1 = [] { return i_; };                   //error,没有捕获外部变量
-     auto x2 = [=] { return i_ + x + y; };          //OK
-     auto x3 = [&amp;] { return i_ + x + y; };        //OK
-     auto x4 = [this] { return i_; };               //OK
-     auto x5 = [this] { return i_ + x + y; };       //error,没有捕获x,y
-     auto x6 = [this, x, y] { return i_ + x + y; };     //OK
-     auto x7 = [this] { return i_++; };             //OK
+<pre><code class="language-cpp">class A
+{
+ public:
+     int i_ = 0;
+
+     void func(int x,int y){
+         auto x1 = [] { return i_; };                   //error,没有捕获外部变量
+         auto x2 = [=] { return i_ + x + y; };          //OK
+         auto x3 = [&amp;] { return i_ + x + y; };        //OK
+         auto x4 = [this] { return i_; };               //OK
+         auto x5 = [this] { return i_ + x + y; };       //error,没有捕获x,y
+         auto x6 = [this, x, y] { return i_ + x + y; };     //OK
+         auto x7 = [this] { return i_++; };             //OK
+};
+
+int a=0 , b=1;
+auto f1 = [] { return a; };                         //error,没有捕获外部变量    
+auto f2 = [&amp;] { return a++ };                      //OK
+auto f3 = [=] { return a; };                        //OK
+auto f4 = [=] {return a++; };                       //error,a是以复制方式捕获的，无法修改
+auto f5 = [a] { return a+b; };                      //error,没有捕获变量b
+auto f6 = [a, &amp;b] { return a + (b++); };                //OK
+auto f7 = [=, &amp;b] { return a + (b++); };                //OK
 </code></pre>
-<p>};</p>
-<p>int a=0 , b=1;<br>
-auto f1 = [] { return a; };                         //error,没有捕获外部变量<br>
-auto f2 = [&amp;] { return a++ };                      //OK<br>
-auto f3 = [=] { return a; };                        //OK<br>
-auto f4 = [=] {return a++; };                       //error,a是以复制方式捕获的，无法修改<br>
-auto f5 = [a] { return a+b; };                      //error,没有捕获变量b<br>
-auto f6 = [a, &amp;b] { return a + (b++); };                //OK<br>
-auto f7 = [=, &amp;b] { return a + (b++); };                //OK</p>
-<pre><code>&gt; **注意** : 虽然按值捕获的变量值均复制一份存储在lambda表达式变量中，修改他们也并不会真正影响到外部，但我们却仍然无法修改它们。如果希望去修改按值捕获的外部变量，需要显示指明lambda表达式为`mutable`。被`mutable`修饰的lambda表达式就算没有参数也要写明参数列表。 
-**原因**：lambda表达式可以说是就地定义仿函数闭包的“语法糖”。它的捕获列表捕获住的任何外部变量，最终会变为闭包类型的成员变量。按照C++标准，lambda表达式的`operator()`默认是`const`的，一个`const`成员函数是无法修改成员变量的值的。而`mutable`的作用，就在于取消`operator()`的`const`。
-```cpp
-int a = 0;
+<blockquote>
+<p><strong>注意</strong> : 虽然按值捕获的变量值均复制一份存储在lambda表达式变量中，修改他们也并不会真正影响到外部，但我们却仍然无法修改它们。如果希望去修改按值捕获的外部变量，需要显示指明lambda表达式为<code>mutable</code>。被<code>mutable</code>修饰的lambda表达式就算没有参数也要写明参数列表。<br>
+<strong>原因</strong>：lambda表达式可以说是就地定义仿函数闭包的“语法糖”。它的捕获列表捕获住的任何外部变量，最终会变为闭包类型的成员变量。按照C++标准，lambda表达式的<code>operator()</code>默认是<code>const</code>的，一个<code>const</code>成员函数是无法修改成员变量的值的。而<code>mutable</code>的作用，就在于取消<code>operator()</code>的<code>const</code>。</p>
+</blockquote>
+<pre><code class="language-cpp">int a = 0;
 auto f1 = [=] { return a++; };                //error
 auto f2 = [=] () mutable { return a++; };       //OK
 </code></pre>

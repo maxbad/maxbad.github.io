@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-05-12T02:49:35.390Z</updated>
+    <updated>2020-05-12T05:55:23.642Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,18 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[nlohmann/json 使用记录]]></title>
+        <id>https://blog.myxy.net/nlohmannjson-shi-yong-ji-lu/</id>
+        <link href="https://blog.myxy.net/nlohmannjson-shi-yong-ji-lu/">
+        </link>
+        <updated>2020-05-12T04:02:56.000Z</updated>
+        <content type="html"><![CDATA[<p><a href="https://github.com/nlohmann/json">nlohmann</a>库是C++解析json的库，库使用很简单，程序中使用nlohmann仅需要将json.hpp添加到工程中即可。<a href="https://nlohmann.github.io/json/">在线帮助文档</a><br>
+定义一个JSON对象: <code>nlohmann::json j_object;</code><br>
+打印json对象内容：<code>j_object.dump(缩进量)</code><br>
+删除: <code>j_object.erase(&quot;one&quot;);</code></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Windows 最常用的多线程同步对象 Event]]></title>
         <id>https://blog.myxy.net/windows-zui-chang-yong-de-duo-xian-cheng-tong-bu-dui-xiang-event/</id>
@@ -75,7 +87,7 @@ int main()
 <p><strong>Event 对象有两个显著的特点：</strong></p>
 <ul>
 <li>与临界区对象（以及接下来要介绍的 Mutex 对象）相比，Event 对象没有被谁持让持有者线程变成其 owner 这一说法，因此 Event 对象可以同时唤醒多个等待的工作线程。</li>
-<li>手动重置的 Event 对象一旦变成受信状态，其信号不会丢失，也就是说当 Event 从无信号变成有信号时，即使某个线程当时没有调用 WaitForSingleObject 等待该 Event 对象受信，而是在这之后才调用 WaitForSingleObject ，仍然能检测到事件的受信状态，即不会丢失信号，而后面要介绍的条件变量就可能会丢失信号。</li>
+<li>手动重置的 Event 对象一旦变成受信状态，其信号不会丢失，也就是说当 Event 从无信号变成有信号时，即使某个线程当时没有调用 <code>WaitForSingleObject</code>等待该 Event 对象受信，而是在这之后才调用 <code>WaitForSingleObject</code> ，仍然能检测到事件的受信状态，即不会丢失信号，而后面要介绍的条件变量就可能会丢失信号。</li>
 </ul>
 ]]></content>
     </entry>
@@ -122,33 +134,35 @@ cout &lt;&lt; f() &lt;&lt;endl;       //输出1
 <li><strong>[bar]</strong> 按值捕获bar变量，同时不捕获其他变量。</li>
 <li><strong>[this]</strong> 捕获当前类中的this指针，让lambda表达式拥有和当前类成员函数同样的访问权限。如果已经使用了<code>&amp;</code>或者<code>=</code>，就默认添加此选项。捕获this的目的是可以在lamda中使用当前类的成员函数和成员变量。</li>
 </ol>
-<p>'''cpp<br>
-class A<br>
-{<br>
-public:<br>
-int i_ = 0;</p>
-<pre><code> void func(int x,int y){
-     auto x1 = [] { return i_; };                   //error,没有捕获外部变量
-     auto x2 = [=] { return i_ + x + y; };          //OK
-     auto x3 = [&amp;] { return i_ + x + y; };        //OK
-     auto x4 = [this] { return i_; };               //OK
-     auto x5 = [this] { return i_ + x + y; };       //error,没有捕获x,y
-     auto x6 = [this, x, y] { return i_ + x + y; };     //OK
-     auto x7 = [this] { return i_++; };             //OK
+<pre><code class="language-cpp">class A
+{
+ public:
+     int i_ = 0;
+
+     void func(int x,int y){
+         auto x1 = [] { return i_; };                   //error,没有捕获外部变量
+         auto x2 = [=] { return i_ + x + y; };          //OK
+         auto x3 = [&amp;] { return i_ + x + y; };        //OK
+         auto x4 = [this] { return i_; };               //OK
+         auto x5 = [this] { return i_ + x + y; };       //error,没有捕获x,y
+         auto x6 = [this, x, y] { return i_ + x + y; };     //OK
+         auto x7 = [this] { return i_++; };             //OK
+};
+
+int a=0 , b=1;
+auto f1 = [] { return a; };                         //error,没有捕获外部变量    
+auto f2 = [&amp;] { return a++ };                      //OK
+auto f3 = [=] { return a; };                        //OK
+auto f4 = [=] {return a++; };                       //error,a是以复制方式捕获的，无法修改
+auto f5 = [a] { return a+b; };                      //error,没有捕获变量b
+auto f6 = [a, &amp;b] { return a + (b++); };                //OK
+auto f7 = [=, &amp;b] { return a + (b++); };                //OK
 </code></pre>
-<p>};</p>
-<p>int a=0 , b=1;<br>
-auto f1 = [] { return a; };                         //error,没有捕获外部变量<br>
-auto f2 = [&amp;] { return a++ };                      //OK<br>
-auto f3 = [=] { return a; };                        //OK<br>
-auto f4 = [=] {return a++; };                       //error,a是以复制方式捕获的，无法修改<br>
-auto f5 = [a] { return a+b; };                      //error,没有捕获变量b<br>
-auto f6 = [a, &amp;b] { return a + (b++); };                //OK<br>
-auto f7 = [=, &amp;b] { return a + (b++); };                //OK</p>
-<pre><code>&gt; **注意** : 虽然按值捕获的变量值均复制一份存储在lambda表达式变量中，修改他们也并不会真正影响到外部，但我们却仍然无法修改它们。如果希望去修改按值捕获的外部变量，需要显示指明lambda表达式为`mutable`。被`mutable`修饰的lambda表达式就算没有参数也要写明参数列表。 
-**原因**：lambda表达式可以说是就地定义仿函数闭包的“语法糖”。它的捕获列表捕获住的任何外部变量，最终会变为闭包类型的成员变量。按照C++标准，lambda表达式的`operator()`默认是`const`的，一个`const`成员函数是无法修改成员变量的值的。而`mutable`的作用，就在于取消`operator()`的`const`。
-```cpp
-int a = 0;
+<blockquote>
+<p><strong>注意</strong> : 虽然按值捕获的变量值均复制一份存储在lambda表达式变量中，修改他们也并不会真正影响到外部，但我们却仍然无法修改它们。如果希望去修改按值捕获的外部变量，需要显示指明lambda表达式为<code>mutable</code>。被<code>mutable</code>修饰的lambda表达式就算没有参数也要写明参数列表。<br>
+<strong>原因</strong>：lambda表达式可以说是就地定义仿函数闭包的“语法糖”。它的捕获列表捕获住的任何外部变量，最终会变为闭包类型的成员变量。按照C++标准，lambda表达式的<code>operator()</code>默认是<code>const</code>的，一个<code>const</code>成员函数是无法修改成员变量的值的。而<code>mutable</code>的作用，就在于取消<code>operator()</code>的<code>const</code>。</p>
+</blockquote>
+<pre><code class="language-cpp">int a = 0;
 auto f1 = [=] { return a++; };                //error
 auto f2 = [=] () mutable { return a++; };       //OK
 </code></pre>
@@ -421,8 +435,8 @@ Footnote 2 link<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup
 <p><code>- [ ] 计划任务</code><br>
 <code>- [x] 完成任务</code></p>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-8143138"><label class="task-list-item-label" for="task-item-8143138"> 计划任务</label></li>
-<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-1584676"><label class="task-list-item-label" for="task-item-1584676"> 完成任务</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-5757892"><label class="task-list-item-label" for="task-item-5757892"> 计划任务</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-2277120"><label class="task-list-item-label" for="task-item-2277120"> 完成任务</label></li>
 </ul>
 <h2 id="链接">链接</h2>
 <p><code>[显示文字](https://www.baidu.com/)</code><br>
@@ -547,36 +561,6 @@ Footnote 2 link<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup
 </li>
 </ol>
 </section>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[定时消失的信息框] Windows API函数之MessageBoxTimeout]]></title>
-        <id>https://blog.myxy.net/messageboxtimeout/</id>
-        <link href="https://blog.myxy.net/messageboxtimeout/">
-        </link>
-        <updated>2020-05-05T03:55:43.000Z</updated>
-        <content type="html"><![CDATA[<p>Windows下的消息框MessagBox，会把程序阻塞住，需要用户与其交互后才能继续往下执行。你可能希望有一个既能弹出消息框，而又不阻塞在界面上，能够超时自动消失，类似于Android下的Toast。如果你有时间可以自己实现一个这样的窗口类，所幸Window已经提供了这样的功能了。你只需要建立一个头文件，把它包含进需要调用的源文件里面。比如这个头文件叫MsgBoxTimeout.h，其内容为：</p>
-<pre><code class="language-cpp">#pragma once 
-#include &lt;Windows.h&gt; 
-// 此函数由user32.dll导出，windows2000及以下没有此函数 
-// 添加MessageBoxTimeout支持
-extern &quot;C&quot;
-{
-	int WINAPI MessageBoxTimeoutA(IN HWND hWnd, IN LPCSTR lpText, IN LPCSTR lpCaption, IN UINT uType, IN WORD wLanguageId, IN DWORD dwMilliseconds);
-	int WINAPI MessageBoxTimeoutW(IN HWND hWnd, IN LPCWSTR lpText, IN LPCWSTR lpCaption, IN UINT uType, IN WORD wLanguageId, IN DWORD dwMilliseconds);
-} 
-#ifdef UNICODE
-#define MessageBoxTimeout MessageBoxTimeoutW
-#else
-#define MessageBoxTimeout MessageBoxTimeoutA
-#endif
-
-//使用方法:
-// 设置1000ms自动关闭该提示对话框
-MessageBoxTimeout(NULL, L&quot;倒计时&quot;, L&quot;提示&quot;, MB_OKCANCEL, 0, 1000);
-</code></pre>
-<p>该API函数的参数与MessageBox的区别在于后面多了两个参数，其中wLanguageId缺省传0尽可，dwMilliseconds是希望此消息框停留的毫秒数。<br>
-<a href="https://baike.baidu.com/item/MessageBoxTimeout">参考:https://baike.baidu.com/item/MessageBoxTimeout</a></p>
 ]]></content>
     </entry>
 </feed>
