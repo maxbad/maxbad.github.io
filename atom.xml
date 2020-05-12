@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-05-12T02:36:07.821Z</updated>
+    <updated>2020-05-12T02:49:35.390Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,75 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[Windows 最常用的多线程同步对象 Event]]></title>
+        <id>https://blog.myxy.net/windows-zui-chang-yong-de-duo-xian-cheng-tong-bu-dui-xiang-event/</id>
+        <link href="https://blog.myxy.net/windows-zui-chang-yong-de-duo-xian-cheng-tong-bu-dui-xiang-event/">
+        </link>
+        <updated>2020-05-12T02:37:13.000Z</updated>
+        <content type="html"><![CDATA[<p>创建 Event 的 Windows API 函数签名是：</p>
+<pre><code class="language-cpp">HANDLE CreateEvent(
+  LPSECURITY_ATTRIBUTES lpEventAttributes,
+  BOOL                  bManualReset,
+  BOOL                  bInitialState,
+  LPCTSTR               lpName
+);
+</code></pre>
+<p><strong>参数和返回值的说明如下:</strong></p>
+<ul>
+<li>参数 <strong>lpEventAttributes</strong>，这个参数设置了 Event 对象的安全属性，Windows 中所有的内核对象都可以设置这个属性，我们一般设置为 NULL，即使用默认安全属性。</li>
+<li>参数 <strong>bManualReset</strong>，这个参数设置 Event 对象受信（变成有信号状态）时的行为，当设置为 TRUE 时，表示需要手动调用 ResetEvent 函数去将 Event 重置成无信号状态；当设置为 FALSE，Event 事件对象受信后会自动重置为无信号状态。</li>
+<li>参数 <strong>bInitialState</strong> 设置 Event 事件对象初始状态是否是受信的，TRUE 表示有信号，FALSE 表示无信号。</li>
+<li>参数 <strong>lpName</strong> 可以设置 Event 对象的名称，如果不需要设置名称，可以将该参数设置为 NULL。一个 Event 对象根据是否设置了名称分为具名对象（具有名称的对象）和匿名对象。Event 对象是可以通过名称在不同进程之间共享的，通过这种方式共享很有用，后面我们会相信介绍。</li>
+<li>返回值，如果成功创建 Event 对象返回对象的句柄，如果创建失败返回 NULL。</li>
+</ul>
+<p>一个无信号的 Event 对象，我们可以通过 <code>SetEvent</code> 将其变成受信状态，SetEvent 的函数签名如下：<code>BOOL SetEvent(HANDLE hEvent);</code> 参数 hEvent 设置为需要设置信号的 Event 句柄即可。</p>
+<p>同理，一个已经受信的 Event 对象，可以使用 <code>ResetEvent</code> 对象将其变成无信号状态，ResetEvent 的函数签名如下：<code>BOOL ResetEvent(HANDLE hEvent);</code> 参数 hEvent 即我们需要重置的 Event 对象句柄。</p>
+<p>例子,假设现在有两个线程，其中一个是主线程，主线程等待工作线程执行某一项耗时的任务完成后，将任务结果显示出来。代码如下：</p>
+<pre><code class="language-cpp"> #include &lt;Windows.h&gt;
+ #include &lt;string&gt;
+ #include &lt;iostream&gt;
+
+ bool        g_bTaskCompleted = false;
+ std::string g_TaskResult;
+ HANDLE      g_hTaskEvent = NULL;
+
+ DWORD __stdcall WorkerThreadProc(LPVOID lpThreadParameter)
+{
+   //使用 Sleep 函数模拟一个很耗时的操作
+   //睡眠3秒
+   Sleep(3000);
+   g_TaskResult = &quot;task completed&quot;;
+   g_bTaskCompleted = true;
+   //设置事件信号
+   SetEvent(g_hTaskEvent);
+   return 0;
+ }
+
+int main()
+{
+   //创建一个匿名的手动重置初始无信号的事件对象
+   g_hTaskEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+   HANDLE hWorkerThread = CreateThread(NULL, 0, WorkerThreadProc, NULL, 0, NULL); 
+   
+   DWORD dwResult = WaitForSingleObject(g_hTaskEvent, INFINITE);
+   if (dwResult == WAIT_OBJECT_0)
+   {
+       std::cout &lt;&lt; g_TaskResult &lt;&lt; std::endl;
+   }
+   
+   CloseHandle(hWorkerThread);
+   CloseHandle(g_hTaskEvent);
+   return 0;
+ }
+</code></pre>
+<p><strong>Event 对象有两个显著的特点：</strong></p>
+<ul>
+<li>与临界区对象（以及接下来要介绍的 Mutex 对象）相比，Event 对象没有被谁持让持有者线程变成其 owner 这一说法，因此 Event 对象可以同时唤醒多个等待的工作线程。</li>
+<li>手动重置的 Event 对象一旦变成受信状态，其信号不会丢失，也就是说当 Event 从无信号变成有信号时，即使某个线程当时没有调用 WaitForSingleObject 等待该 Event 对象受信，而是在这之后才调用 WaitForSingleObject ，仍然能检测到事件的受信状态，即不会丢失信号，而后面要介绍的条件变量就可能会丢失信号。</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[c++ Lambda 表达式]]></title>
         <id>https://blog.myxy.net/c-lambda-biao-da-shi/</id>
@@ -352,8 +421,8 @@ Footnote 2 link<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup
 <p><code>- [ ] 计划任务</code><br>
 <code>- [x] 完成任务</code></p>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-6296331"><label class="task-list-item-label" for="task-item-6296331"> 计划任务</label></li>
-<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-7603156"><label class="task-list-item-label" for="task-item-7603156"> 完成任务</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-8143138"><label class="task-list-item-label" for="task-item-8143138"> 计划任务</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-1584676"><label class="task-list-item-label" for="task-item-1584676"> 完成任务</label></li>
 </ul>
 <h2 id="链接">链接</h2>
 <p><code>[显示文字](https://www.baidu.com/)</code><br>
