@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-05-19T09:39:15.553Z</updated>
+    <updated>2020-05-19T10:39:05.859Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -349,6 +349,7 @@ auto f2 = [=] () mutable { return a++; };       //OK
 </code></pre>
 <p><strong>lambda表达式的大致原理</strong> ：每当你定义一个lambda表达式后，编译器会自动生成一个匿名类（这个类重载了()运算符），我们称为闭包类型（closure type）。那么在运行时，这个lambda表达式就会返回一个匿名的闭包实例，是一个右值。所以，我们上面的lambda表达式的结果就是一个个闭包。对于复制传值捕捉方式，类中会相应添加对应类型的非静态数据成员。在运行时，会用复制的值初始化这些成员变量，从而生成闭包。对于引用捕获方式，无论是否标记<code>mutable</code>，都可以在lambda表达式中修改捕获的值。至于闭包类中是否有对应成员，C++标准中给出的答案是：不清楚的，与具体实现有关。</p>
 <p><a href="https://blog.csdn.net/jiange_zh/article/details/79356417">查看更多C++11常用新特性</a></p>
+<p><a href="https://riptutorial.com/zh-CN/cplusplus/topic/572/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F">更多参考</a></p>
 ]]></content>
     </entry>
     <entry>
