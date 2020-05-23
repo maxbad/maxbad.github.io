@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-05-23T04:44:47.047Z</updated>
+    <updated>2020-05-23T06:07:17.827Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -34,6 +34,9 @@
     SetConsoleTextAttribute　　    // 设置颜色属性
     SetConsoleTitle　　　　　　　　  // 设置控制台窗口标题
     GetConsoleTitle　　　　　　　　  // 获取控制台窗口标题
+</code></pre>
+<p>打印日志:</p>
+<pre><code class="language-cpp">#define LOG(format, ...) fprintf(stdout, &quot;&gt;&gt; &quot;format&quot;\n&quot;, ##__VA_ARGS__)
 </code></pre>
 ]]></content>
     </entry>

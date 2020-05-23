@@ -78,6 +78,9 @@ freopen 函数用来替换一个流，或者说重新分配文件指针，以实
     SetConsoleTitle　　　　　　　　  // 设置控制台窗口标题
     GetConsoleTitle　　　　　　　　  // 获取控制台窗口标题
 </code></pre>
+<p>打印日志:</p>
+<pre><code class="language-cpp">#define LOG(format, ...) fprintf(stdout, &quot;&gt;&gt; &quot;format&quot;\n&quot;, ##__VA_ARGS__)
+</code></pre>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
