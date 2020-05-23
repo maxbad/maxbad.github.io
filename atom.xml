@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-05-19T10:39:05.859Z</updated>
+    <updated>2020-05-23T04:44:47.047Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,33 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[在Win32程序中调用控制台调试输出]]></title>
+        <id>https://blog.myxy.net/zai-win32-cheng-xu-zhong-diao-yong-kong-zhi-tai-diao-shi-shu-chu/</id>
+        <link href="https://blog.myxy.net/zai-win32-cheng-xu-zhong-diao-yong-kong-zhi-tai-diao-shi-shu-chu/">
+        </link>
+        <updated>2020-05-23T01:05:16.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p><strong>AllocConsole</strong> 函数的功能是为当前的窗口程序申请一个Console窗口，其原型为 <code>BOOL AllocConsole(void);</code><br>
+<strong>freopen</strong> 函数用来替换一个流，或者说重新分配文件指针，以实现重定向。可重定向的流有：标准输入流、标准输出流或者标准错误流。其函数原型为<code>FILE *freopen(const char *path, const char *mode, FILE *stream);</code><br>
+<code>CONOUT$</code> 是指代当前console的特殊字符串，<code>w</code>表明以written模式打开这个console，stdout指代标准输出流。</p>
+</blockquote>
+<p>完整代码如下：</p>
+<pre><code class="language-cpp">    AllocConsole();
+    freopen(&quot;CONOUT$&quot;, &quot;w&quot;, stdout);
+    std::cout &lt;&lt; &quot;This is a test info&quot; &lt;&lt; std::endl;
+</code></pre>
+<p>补充：</p>
+<p>AllocConsole函数不能改变控制台窗口在屏幕上的位置、尺寸等属性。以下函数可以控制&amp;获取控制台相关信息</p>
+<pre><code class="language-cpp">    GetConsoleScreenBufferInfo 　　// 检索窗口大小，屏幕缓冲区大小及颜色属性
+    SetConsoleWindowInfo 　　　　　 // 改变控制台窗口大小
+    SetConsoleScreenBufferSize　　 // 改变控制台屏幕缓冲区大小
+    SetConsoleTextAttribute　　    // 设置颜色属性
+    SetConsoleTitle　　　　　　　　  // 设置控制台窗口标题
+    GetConsoleTitle　　　　　　　　  // 获取控制台窗口标题
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[inja模板渲染]]></title>
         <id>https://blog.myxy.net/inja-mo-ban-xuan-ran/</id>
@@ -545,21 +572,6 @@ int main()
     write( &quot;world!&quot;_sv );   // nonstd::string_view
 }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[编程字体]]></title>
-        <id>https://blog.myxy.net/bian-cheng-zi-ti/</id>
-        <link href="https://blog.myxy.net/bian-cheng-zi-ti/">
-        </link>
-        <updated>2020-05-05T07:12:24.000Z</updated>
-        <summary type="html"><![CDATA[<p>最近，微软和 JetBrains 纷纷推出了自己的编程字体，你现在在用哪款呢？</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>最近，微软和 JetBrains 纷纷推出了自己的编程字体，你现在在用哪款呢？</p>
-<!-- more -->
-<p><a href="https://github.com/belluzj/fantasque-sans">Fantasque Sans Mono</a>它是专门为程序员打造</p>
-<p><a href="https://www.jetbrains.com/lp/mono/">JetBrains Mono</a>JetBrains 出的一款编程字体。主要特性包含增加字母高度，以获得更好的阅读体验；符号的独特性，例如 0 中间包含一个点；9°角的斜体设计等。</p>
-<p><a href="https://github.com/microsoft/cascadia-code">Cascadia Code</a> 微软出的一款编程字体,它被默认集成到了 Windows Terminal 终端命令程序.</p>
 ]]></content>
     </entry>
 </feed>
