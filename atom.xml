@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-05-23T06:08:33.495Z</updated>
+    <updated>2020-06-05T09:42:46.524Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,169 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[docsify一个神奇的文档网站生成工具]]></title>
+        <id>https://blog.myxy.net/docsify-yi-ge-shen-qi-de-wen-dang-wang-zhan-sheng-cheng-gong-ju/</id>
+        <link href="https://blog.myxy.net/docsify-yi-ge-shen-qi-de-wen-dang-wang-zhan-sheng-cheng-gong-ju/">
+        </link>
+        <updated>2020-06-05T09:41:32.000Z</updated>
+        <content type="html"><![CDATA[<p>https://docsify.js.org/#/zh-cn/</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[printf()中的%]]></title>
+        <id>https://blog.myxy.net/printfzhong-de/</id>
+        <link href="https://blog.myxy.net/printfzhong-de/">
+        </link>
+        <updated>2020-05-27T03:10:57.000Z</updated>
+        <content type="html"><![CDATA[<table>
+<thead>
+<tr>
+<th style="text-align:center">字符</th>
+<th style="text-align:center">对应数据类型</th>
+<th style="text-align:center">含义</th>
+<th style="text-align:center">示例</th>
+<th style="text-align:center">输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">o</td>
+<td style="text-align:center">unsigned int</td>
+<td style="text-align:center">无符号8进制(octal)整数(不输出前缀0)</td>
+<td style="text-align:center">printf(&quot;0%o&quot;,123);</td>
+<td style="text-align:center">0173</td>
+</tr>
+<tr>
+<td style="text-align:center">u</td>
+<td style="text-align:center">unsigned int</td>
+<td style="text-align:center">无符号10进制整数</td>
+<td style="text-align:center">printf(&quot;%u&quot;,123);</td>
+<td style="text-align:center">123</td>
+</tr>
+<tr>
+<td style="text-align:center">x/X</td>
+<td style="text-align:center">unsigned int</td>
+<td style="text-align:center">无符号16进制整数，x对应的是abcdef，X对应的是ABCDEF（不输出前缀0x)</td>
+<td style="text-align:center">printf(&quot;0x%x 0x%X&quot;,123,123);</td>
+<td style="text-align:center">0x7b 0x7B</td>
+</tr>
+<tr>
+<td style="text-align:center">f/lf</td>
+<td style="text-align:center">float(double)</td>
+<td style="text-align:center">单精度浮点数用f,双精度浮点数用lf(printf可混用，但scanf不能混用)</td>
+<td style="text-align:center">printf(&quot;%.9f %.9lf&quot;,0.000000123,0.000000123);</td>
+<td style="text-align:center">0.000000123 0.000000123。注意指定精度，否则printf默认精确到小数点后六位</td>
+</tr>
+<tr>
+<td style="text-align:center">F</td>
+<td style="text-align:center">float(double)</td>
+<td style="text-align:center">与f格式相同，只不过 infinity 和 nan 输出为大写形式。</td>
+<td style="text-align:center">printf(&quot;%f %F %f %F\n&quot;,INFINITY,INFINITY,NAN,NAN);</td>
+<td style="text-align:center">inf INF nan NAN</td>
+</tr>
+<tr>
+<td style="text-align:center">e/E</td>
+<td style="text-align:center">float(double)</td>
+<td style="text-align:center">科学计数法，使用指数(Exponent)表示浮点数，此处”e”的大小写代表在输出时“e”的大小写</td>
+<td style="text-align:center">printf(&quot;%e %E&quot;,0.000000123,0.000000123);</td>
+<td style="text-align:center">1.230000e-07 1.230000E-07</td>
+</tr>
+<tr>
+<td style="text-align:center">g</td>
+<td style="text-align:center">float(double)</td>
+<td style="text-align:center">根据数值的长度，选择以最短的方式输出，%f或%e</td>
+<td style="text-align:center">printf(&quot;%g %g&quot;,0.000000123,0.123);</td>
+<td style="text-align:center">1.23e-07 0.123</td>
+</tr>
+<tr>
+<td style="text-align:center">G</td>
+<td style="text-align:center">float(double)</td>
+<td style="text-align:center">根据数值的长度，选择以最短的方式输出，%f或%E</td>
+<td style="text-align:center">printf(&quot;%G %G&quot;,0.000000123,0.123);</td>
+<td style="text-align:center">1.23E-07 0.123</td>
+</tr>
+<tr>
+<td style="text-align:center">c</td>
+<td style="text-align:center">char</td>
+<td style="text-align:center">字符型。可以把输入的数字按照ASCII码相应转换为对应的字符</td>
+<td style="text-align:center">printf(&quot;%c\n&quot;,64)</td>
+<td style="text-align:center">A</td>
+</tr>
+<tr>
+<td style="text-align:center">s</td>
+<td style="text-align:center">char*</td>
+<td style="text-align:center">字符串。输出字符串中的字符直至字符串中的空字符（字符串以空字符’\0‘结尾）</td>
+<td style="text-align:center">printf(&quot;%s&quot;,&quot;测试test&quot;);</td>
+<td style="text-align:center">测试test</td>
+</tr>
+<tr>
+<td style="text-align:center">S</td>
+<td style="text-align:center">wchar_t*</td>
+<td style="text-align:center">宽字符串。输出字符串中的字符直至字符串中的空字符（宽字符串以两个空字符’\0‘结尾）</td>
+<td style="text-align:center">setlocale(LC_ALL,&quot;zh_CN.UTF-8&quot;);wchar_t wtest[]=L&quot;测试Test&quot;;printf(&quot;%S\n&quot;,wtest);</td>
+<td style="text-align:center">测试test</td>
+</tr>
+<tr>
+<td style="text-align:center">p</td>
+<td style="text-align:center">void*</td>
+<td style="text-align:center">以16进制形式输出指针</td>
+<td style="text-align:center">printf(&quot;%010p&quot;,&quot;lvlv&quot;);</td>
+<td style="text-align:center">0x004007e6</td>
+</tr>
+<tr>
+<td style="text-align:center">n</td>
+<td style="text-align:center">int*</td>
+<td style="text-align:center">什么也不输出。%n对应的参数是一个指向signed int的指针，在此之前输出的字符数将存储到指针所指的位置	int num=0;</td>
+<td style="text-align:center">printf(&quot;lvlv%n&quot;,&amp;num);printf(&quot;num:%d&quot;,num);</td>
+<td style="text-align:center">lvlvnum:4</td>
+</tr>
+<tr>
+<td style="text-align:center">%</td>
+<td style="text-align:center">字符%</td>
+<td style="text-align:center">输出字符‘%’（百分号）本身</td>
+<td style="text-align:center">printf(&quot;%%&quot;);</td>
+<td style="text-align:center">%</td>
+</tr>
+<tr>
+<td style="text-align:center">m</td>
+<td style="text-align:center">无</td>
+<td style="text-align:center">打印errno值对应的出错内容</td>
+<td style="text-align:center">printf(&quot;%m\n&quot;);</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">a/A</td>
+<td style="text-align:center">float(double)</td>
+<td style="text-align:center">十六进制p计数法输出浮点数，a为小写，A为大写</td>
+<td style="text-align:center">printf(&quot;%a %A&quot;,15.15,15.15);</td>
+<td style="text-align:center">0x1.e4ccccccccccdp+3 0X1.E4CCCCCCCCCCDP+3</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字符</th>
+<th style="text-align:center">对应数据类型</th>
+<th style="text-align:center">含义</th>
+<th style="text-align:center">示例</th>
+<th style="text-align:center">输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">lu</td>
+<td style="text-align:center">unsigned long</td>
+<td style="text-align:center">无符号长整数</td>
+<td style="text-align:center">printf(&quot;%lu&quot;,123);</td>
+<td style="text-align:center">123</td>
+</tr>
+</tbody>
+</table>
+<p>https://blog.csdn.net/JX_Cesare/article/details/81153410</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[在Win32程序中调用控制台调试输出]]></title>
         <id>https://blog.myxy.net/zai-win32-cheng-xu-zhong-diao-yong-kong-zhi-tai-diao-shi-shu-chu/</id>
@@ -25,6 +188,9 @@
 <pre><code class="language-cpp">    AllocConsole();
     freopen(&quot;CONOUT$&quot;, &quot;w&quot;, stdout);
     std::cout &lt;&lt; &quot;This is a test info&quot; &lt;&lt; std::endl;
+</code></pre>
+<p>最后要记得关闭控制台:</p>
+<pre><code class="language-cpp">FreeConsole();
 </code></pre>
 <p>补充：</p>
 <p>AllocConsole函数不能改变控制台窗口在屏幕上的位置、尺寸等属性。以下函数可以控制&amp;获取控制台相关信息</p>
@@ -469,111 +635,6 @@ int main()
 <pre><code class="language-cpp">#define NOMINMAX
 #undef max
 #undef min
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[C++17：folder expression（折叠表达式）]]></title>
-        <id>https://blog.myxy.net/c17folder-expressionzhe-die-biao-da-shi/</id>
-        <link href="https://blog.myxy.net/c17folder-expressionzhe-die-biao-da-shi/">
-        </link>
-        <updated>2020-05-08T06:15:00.000Z</updated>
-        <content type="html"><![CDATA[<p>（1）先举一个不是很恰当的例子给大家看一下折叠表达式具体是怎么使用的：</p>
-<pre><code class="language-cpp">int sum_1_to_5()
-{
-  return (1 + 2 + 3 + 4 + 5);
-}
-
-sum_1_to_5();
-</code></pre>
-<p>我们使用</p>
-<pre><code class="language-cpp">template&lt;typename ...Args&gt;
-int sum(Args&amp;&amp;... args) 
-{
-    return (args + ... + 0); 
-}
-
-sum(1, 2, 3, 4, 5);
-</code></pre>
-<p>也就是说折叠表达式能够自动的将指定的操作应用于形参包。<code>(args + ... + 0)</code> 等价于<code>(1+2+3+4+5+0)</code></p>
-<p>（2）语法</p>
-<pre><code class="language-cpp">( pack op ... )                             (1) 
-( ... op pack )                             (2) 
-( pack op ... op init )                 (3) 
-( init op ... op pack )                 (4) 
-</code></pre>
-<p><code>pack</code>指的是参数包，<code>op</code>指的是具体的操作，<code>init</code>指的是具体的初始值。<br>
-上述的语法等价于<br>
-(1) 称为一元右折叠：unary right fold<br>
-(2) 称为一元左折叠：unary left fold<br>
-(3) 称为二元右折叠：binary right fold<br>
-(4) 称为二元左折叠：binary left fold<br>
-上述的表达式等价于：<br>
-<code>(E op ...)</code> &lt;=&gt; <code>(E1 op (... op (E N-1 op EN))) （1）</code><br>
-<code>(... op E)</code>&lt;=&gt; <code>(((E1 op E2) op ...) op EN) （2）</code><br>
-<code>(E op ... op I)</code>&lt;=&gt; <code>(E1 op (... op (EN−1 op (EN op I)))) （3）</code><br>
-<code>(I op ... op E)</code>&lt;=&gt; <code>((((I op E1) op E2) op ...) op EN) （4）</code><br>
-E 为有N个元素的参数包，<code>op</code>为具体的操作符，<code>I</code>为初始值。在（3），（4）中，两个<code>op</code>一定要是一样的。</p>
-<p>需要比较值得重点关注的一点是，二元<code>op</code>的取值范围为:<br>
-<code>+</code>，<code>-</code>，<code>*</code>， <code>/</code>， <code>%</code>， <code>^</code>， <code>&amp;</code>， <code>|</code>， <code>=</code>， <code>&lt;</code>， <code>&gt;</code>， <code>&lt;&lt;</code>， <code>&gt;&gt;</code>， <code>+=</code>， <code>-=</code>， <code>*=</code>， <code>/=</code>， <code>%=</code>， <code>^=</code>， <code>&amp;=</code>， <code>|=</code>， <code>&lt;&lt;=</code>， <code>&gt;&gt;=</code>， <code>==</code>， <code>!=</code>， <code>&lt;=</code>， <code>&gt;=</code>， <code>&amp;&amp;</code>， <code>||</code> ，<code>,，</code> <code>.*</code>， <code>-&gt;*</code>。</p>
-<p>再给大家两个比较简单的例子:</p>
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-
-//(1) ( pack op ... )
-template&lt;class T, class... Args&gt;
-void push_back_vec(std::vector&lt;T&gt;&amp; v, Args&amp;&amp;... args)
-{
-   static_assert((std::is_constructible_v&lt;T, Args&amp;&gt; &amp;&amp; ...));
-   (v.push_back(args), ...);
-}
-
-//(4) (init op ... op pack)
-template&lt;class ...Args&gt;
-void printer(Args&amp;&amp;... args)
-{
-   (std::cout &lt;&lt; ... &lt;&lt; args) &lt;&lt; '\n';
-}
-
-int main()
-{
-   std::vector&lt;int&gt; v;
-   push_back_vec(v, 6, 2, 45, 12);
-   for (int i : v) std::cout &lt;&lt; i &lt;&lt; ' ';   //6 2 45 12
-   std::cout &lt;&lt; &quot;\n&quot;;
-   
-   printer(1, 2, 3, &quot;abc&quot;);   //123abc
-   return 0;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[C++98、C++11使用C++17的 string_view]]></title>
-        <id>https://blog.myxy.net/c98c11-shi-yong-c17-de-string_view/</id>
-        <link href="https://blog.myxy.net/c98c11-shi-yong-c17-de-string_view/">
-        </link>
-        <updated>2020-05-08T04:09:36.000Z</updated>
-        <content type="html"><![CDATA[<p>项目地址:<a href="https://github.com/martinmoene/string-view-lite">string-view-lite</a></p>
-<p>使用示例:</p>
-<pre><code class="language-cpp">#include &quot;nonstd/string_view.hpp&quot;
-#include &lt;iostream&gt;
-
-using namespace std::literals;
-using namespace nonstd::literals;
-using namespace nonstd;
-    
-void write( string_view sv )
-{
-    std::cout &lt;&lt; sv;
-}
-
-int main()
-{
-    write( &quot;hello&quot;     );   // C-string
-    write( &quot;, &quot;s       );   // std::string
-    write( &quot;world!&quot;_sv );   // nonstd::string_view
-}
 </code></pre>
 ]]></content>
     </entry>

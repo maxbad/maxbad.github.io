@@ -69,6 +69,9 @@ freopen 函数用来替换一个流，或者说重新分配文件指针，以实
     freopen(&quot;CONOUT$&quot;, &quot;w&quot;, stdout);
     std::cout &lt;&lt; &quot;This is a test info&quot; &lt;&lt; std::endl;
 </code></pre>
+<p>最后要记得关闭控制台:</p>
+<pre><code class="language-cpp">FreeConsole();
+</code></pre>
 <p>补充：</p>
 <p>AllocConsole函数不能改变控制台窗口在屏幕上的位置、尺寸等属性。以下函数可以控制&amp;获取控制台相关信息</p>
 <pre><code class="language-cpp">    GetConsoleScreenBufferInfo 　　// 检索窗口大小，屏幕缓冲区大小及颜色属性
