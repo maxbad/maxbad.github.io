@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-06-06T13:52:15.409Z</updated>
+    <updated>2020-06-13T10:15:02.008Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -18,9 +18,17 @@
         <updated>2020-06-05T09:41:32.000Z</updated>
         <content type="html"><![CDATA[<p><a href="https://docsify.js.org/#/zh-cn/">docsify一个神奇的文档网站生成工具</a></p>
 <p><a href="https://mornin.fm/">Mornin 是一个匿名语音群聊服务</a></p>
+<p><a href="https://swagger.io/">swagger</a></p>
+<blockquote>
+<p>swagger是一个REST APIs文档生成工具，可以在许多不同的平台上从代码注释中自动生成，开源，支持大部分语言，社区好，总之就是一个强大.</p>
+</blockquote>
 <p><a href="https://lab.lyric.im/wxformat/">微信公众号文章排版</a></p>
 <blockquote>
 <p>源码:https://github.com/lyricat/wechat-format</p>
+</blockquote>
+<p><a href="http://www.51yuansu.com/">觅元素</a></p>
+<blockquote>
+<p>一天免费下载十张 psd</p>
 </blockquote>
 ]]></content>
     </entry>
