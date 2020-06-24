@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-06-15T06:52:11.982Z</updated>
+    <updated>2020-06-24T02:14:28.142Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,21 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[宝塔nginx配置]]></title>
+        <id>https://blog.myxy.net/bao-ta-nginx-pei-zhi/</id>
+        <link href="https://blog.myxy.net/bao-ta-nginx-pei-zhi/">
+        </link>
+        <updated>2020-06-24T01:46:18.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="自定义日志格式">自定义日志格式</h2>
+<pre><code>log_format  main '$http_x_forwarded_for - [$time_iso8601] &quot;$request&quot; '
+	                                    '$status $body_bytes_sent '
+	                                    '&quot;$http_referer&quot; &quot;$http_user_agent&quot; ';
+        access_log logs/access.log main;
+</code></pre>
+<p>https://blog.csdn.net/xqhys/article/details/81782633</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[一些有趣的网址]]></title>
         <id>https://blog.myxy.net/docsify-yi-ge-shen-qi-de-wen-dang-wang-zhan-sheng-cheng-gong-ju/</id>
@@ -620,36 +635,6 @@ int main()
 <hr>
 <h2 id="stdwcout">std::wcout</h2>
 <p><code>std::wcout.imbue(std::locale(&quot;chs&quot;, std::locale::all));</code></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[标准库std::min/std::max与min/max宏冲突的解决方案]]></title>
-        <id>https://blog.myxy.net/biao-zhun-ku-stdminstdmax-yu-minmax-hong-chong-tu/</id>
-        <link href="https://blog.myxy.net/biao-zhun-ku-stdminstdmax-yu-minmax-hong-chong-tu/">
-        </link>
-        <updated>2020-05-09T07:09:14.000Z</updated>
-        <content type="html"><![CDATA[<p>如题，因为<code>windef.h</code>中定义了<code>max</code>和<code>min</code>宏.<br>
-如果工程中包含了<code>windows.h</code>或<code>windef.h</code>头文件，再使用c++标准库<code>std::min</code>或<code>std::max</code>，就会发生编译错误。</p>
-<h2 id="方案一">方案一</h2>
-<h4 id="程序里面使用宏-min和max">程序里面使用宏 min和max</h4>
-<pre><code class="language-cpp">#ifndef NOMINMAX
-
-#ifndef max
-#define max(a,b)            (((a) &gt; (b)) ? (a) : (b))
-#endif
-
-#ifndef min
-#define min(a,b)            (((a) &lt; (b)) ? (a) : (b))
-#endif
-
-#endif  /* NOMINMAX */
-</code></pre>
-<h2 id="方案二">方案二:</h2>
-<h4 id="程序里面要使用标准库-stdmin和stdmax">程序里面要使用标准库 std::min和std::max</h4>
-<pre><code class="language-cpp">#define NOMINMAX
-#undef max
-#undef min
-</code></pre>
 ]]></content>
     </entry>
 </feed>
