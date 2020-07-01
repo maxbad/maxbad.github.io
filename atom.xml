@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-07-01T08:55:56.023Z</updated>
+    <updated>2020-07-01T14:15:45.948Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,25 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[uinapp]]></title>
+        <id>https://blog.myxy.net/uinapp/</id>
+        <link href="https://blog.myxy.net/uinapp/">
+        </link>
+        <updated>2020-07-01T12:26:45.000Z</updated>
+        <content type="html"><![CDATA[<p>跳转tabbar页:</p>
+<pre><code>uni.switchTab({
+    url: '/pages/tabBar/component/component'
+});
+</code></pre>
+<p>向本地存储中设置值</p>
+<pre><code>uni.setStorage({
+        key: 'launchFlag',
+        data: true,
+});
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[宝塔nginx配置]]></title>
         <id>https://blog.myxy.net/bao-ta-nginx-pei-zhi/</id>
@@ -621,22 +640,6 @@ int main()
 }
 </code></pre>
 <p>只会输出一行:<code>Simple example: called once</code></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[std::wcout,wprintf控制台输出unicode中文]]></title>
-        <id>https://blog.myxy.net/stdwcoutwprintf-kong-zhi-tai-shu-chu-unicode-zhong-wen/</id>
-        <link href="https://blog.myxy.net/stdwcoutwprintf-kong-zhi-tai-shu-chu-unicode-zhong-wen/">
-        </link>
-        <updated>2020-05-10T05:25:23.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="wprintf">wprintf</h2>
-<p><code>_wsetlocale(LC_ALL, L&quot;chs&quot;);</code></p>
-<blockquote>
-<p>发现一个弊端,strftime格式化本地时间/日期的时候,星期几也会变成中文.</p>
-</blockquote>
-<hr>
-<h2 id="stdwcout">std::wcout</h2>
-<p><code>std::wcout.imbue(std::locale(&quot;chs&quot;, std::locale::all));</code></p>
 ]]></content>
     </entry>
 </feed>
