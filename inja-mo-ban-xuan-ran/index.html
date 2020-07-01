@@ -201,7 +201,8 @@ res.write_view(&quot;./tpl/login.html&quot;, jsondata,false);
 &lt;div&gt;@{even(42)}&lt;/div&gt;
 </code></pre>
 <h2 id="保留小数点n位">保留小数点N位</h2>
-<pre><code class="language-html">&lt;div&gt;round(3.1415, 0)&lt;/div&gt;
+<pre><code class="language-html">@{ round(3.1415, 2)  }
+&lt;div&gt;round(3.1415, 0)&lt;/div&gt;
 &lt;div&gt;round(3.1415, 2)&lt;/div&gt;
 </code></pre>
 <h2 id="是否能整除">是否能整除</h2>
