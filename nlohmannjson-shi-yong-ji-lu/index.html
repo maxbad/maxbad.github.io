@@ -63,6 +63,7 @@
 定义一个JSON对象: <code>nlohmann::json j_object;</code><br>
 打印json对象内容：<code>j_object.dump(缩进量)</code><br>
 删除: <code>j_object.erase(&quot;one&quot;);</code></p>
+<p>获取值:<code>auto&amp; username = req_json[&quot;username&quot;].get&lt;std::string&gt;();</code></p>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->

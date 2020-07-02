@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-07-02T11:42:18.089Z</updated>
+    <updated>2020-07-02T12:21:42.508Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -464,6 +464,7 @@ server.add_view_method(&quot;str2int&quot;, 1, [](inja::Arguments const&amp; arg
 定义一个JSON对象: <code>nlohmann::json j_object;</code><br>
 打印json对象内容：<code>j_object.dump(缩进量)</code><br>
 删除: <code>j_object.erase(&quot;one&quot;);</code></p>
+<p>获取值:<code>auto&amp; username = req_json[&quot;username&quot;].get&lt;std::string&gt;();</code></p>
 ]]></content>
     </entry>
     <entry>
