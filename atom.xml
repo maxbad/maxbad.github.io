@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-07-01T14:15:45.948Z</updated>
+    <updated>2020-07-02T11:42:18.089Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,23 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[SmartSniff过滤器的规则]]></title>
+        <id>https://blog.myxy.net/smartsniff-guo-lu-qi-de-gui-ze/</id>
+        <link href="https://blog.myxy.net/smartsniff-guo-lu-qi-de-gui-ze/">
+        </link>
+        <updated>2020-07-02T08:24:13.000Z</updated>
+        <content type="html"><![CDATA[<p>显示:<code>include</code><br>
+排除:<code>exclude</code></p>
+<p>本地:<code>local</code><br>
+远程:<code>remote</code><br>
+双向:<code>both</code></p>
+<p>[<code>include</code>|<code>exclude</code>] : [<code>local</code>|<code>remote</code>|<code>both</code>] : [<code>tcp</code>|<code>udp</code>|<code>tcpudp</code>|<code>icmp</code>|<code>all</code>] : [<code>IP Range</code>|<code>Ports Range</code>]</p>
+<p>[<code>显示</code>|<code>排除</code>] : [<code>本地</code>|<code>远程</code>|<code>双向</code>] : [<code>tcp</code>|<code>udp</code>|<code>tcpudp</code>|<code>icmp</code>|<code>all</code>] : [<code>ip地址范围</code>|<code>端口范围</code>]</p>
+<p>例如在菜单：options-&gt;Display Filter中添加如下语句：<br>
+include:local:all:6434，就会只显示服务器端口为6434和本机的抓包信息</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[uinapp]]></title>
         <id>https://blog.myxy.net/uinapp/</id>
@@ -596,50 +613,6 @@ auto f2 = [=] () mutable { return a++; };       //OK
 <p><strong>lambda表达式的大致原理</strong> ：每当你定义一个lambda表达式后，编译器会自动生成一个匿名类（这个类重载了()运算符），我们称为闭包类型（closure type）。那么在运行时，这个lambda表达式就会返回一个匿名的闭包实例，是一个右值。所以，我们上面的lambda表达式的结果就是一个个闭包。对于复制传值捕捉方式，类中会相应添加对应类型的非静态数据成员。在运行时，会用复制的值初始化这些成员变量，从而生成闭包。对于引用捕获方式，无论是否标记<code>mutable</code>，都可以在lambda表达式中修改捕获的值。至于闭包类中是否有对应成员，C++标准中给出的答案是：不清楚的，与具体实现有关。</p>
 <p><a href="https://blog.csdn.net/jiange_zh/article/details/79356417">查看更多C++11常用新特性</a></p>
 <p><a href="https://riptutorial.com/zh-CN/cplusplus/topic/572/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F">更多参考</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Ｃ++11 std::call_once：多线程仅执行一次的完美解决方案]]></title>
-        <id>https://blog.myxy.net/c11-stdcall_onceduo-xian-cheng-jin-zhi-xing-yi-ci-de-wan-mei-jie-jue-fang-an/</id>
-        <link href="https://blog.myxy.net/c11-stdcall_onceduo-xian-cheng-jin-zhi-xing-yi-ci-de-wan-mei-jie-jue-fang-an/">
-        </link>
-        <updated>2020-05-12T02:02:26.000Z</updated>
-        <content type="html"><![CDATA[<p><code>std::call_once</code> 的作用是很简单的,就是保证函数或者一些代码段在并发或者多线程的情况下,始终只会被执行一次。比如一些初始化函数，多次调用可能导致各种奇怪问题。<br>
-需要包含头文件：<code>#include &lt;mutex&gt;</code></p>
-<pre><code class="language-cpp">    template &lt;class Fn, class... Args&gt;
-    void call_once(once_flag &amp; flag, Fn &amp;&amp; fn, Args &amp;&amp;...args);
-</code></pre>
-<p><strong>参数</strong></p>
-<ul>
-<li><strong>flag</strong> 是std::once_falg对象,属于控制的标签，相同的falg只执行一次</li>
-<li><strong>fn</strong> 需要只执行一次的函数对象</li>
-<li><strong>args</strong> 传递给fn函数的参数,如果有就传递，没有就不传递。</li>
-</ul>
-<p>给个例子：</p>
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;mutex&gt;
- 
-std::once_flag flag1;  //必须是全局变量
- 
-void simple_do_once()
-{
-    std::call_once(flag1, [](){ std::cout &lt;&lt; &quot;Simple example: called once\n&quot;; });
-}
- 
-int main()
-{
-    std::thread st1(simple_do_once);
-    std::thread st2(simple_do_once);
-    std::thread st3(simple_do_once);
-    std::thread st4(simple_do_once);
-    st1.join();
-    st2.join();
-    st3.join();
-    st4.join();
-}
-</code></pre>
-<p>只会输出一行:<code>Simple example: called once</code></p>
 ]]></content>
     </entry>
 </feed>
