@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-07-02T12:21:42.508Z</updated>
+    <updated>2020-07-03T06:16:12.527Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -33,12 +33,31 @@ include:local:all:6434，就会只显示服务器端口为6434和本机的抓包
         <link href="https://blog.myxy.net/uinapp/">
         </link>
         <updated>2020-07-01T12:26:45.000Z</updated>
-        <content type="html"><![CDATA[<p>跳转tabbar页:</p>
+        <content type="html"><![CDATA[<h3 id="初始化npm工程">初始化npm工程:</h3>
+<blockquote>
+<p>若项目之前未使用npm管理依赖（项目根目录下无package.json文件），先在项目根目录执行命令初始化npm工程：</p>
+</blockquote>
+<pre><code>npm init -y
+</code></pre>
+<h3 id="安装依赖">安装依赖</h3>
+<blockquote>
+<p>在项目根目录执行命令安装npm包：</p>
+</blockquote>
+<pre><code>npm install packageName --save
+</code></pre>
+<h3 id="使用">使用</h3>
+<blockquote>
+<p>安装完即可使用npm包，js中引入npm包：</p>
+</blockquote>
+<pre><code>import package from 'packageName'
+const package = require('packageName')
+</code></pre>
+<h3 id="跳转tabbar页">跳转tabbar页:</h3>
 <pre><code>uni.switchTab({
     url: '/pages/tabBar/component/component'
 });
 </code></pre>
-<p>向本地存储中设置值</p>
+<h3 id="向本地存储中设置值">向本地存储中设置值</h3>
 <pre><code>uni.setStorage({
         key: 'launchFlag',
         data: true,
