@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-07-03T06:16:12.527Z</updated>
+    <updated>2020-07-07T16:21:02.579Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,21 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[vue]]></title>
+        <id>https://blog.myxy.net/vue/</id>
+        <link href="https://blog.myxy.net/vue/">
+        </link>
+        <updated>2020-07-07T15:26:02.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="创建项目">创建项目:</h3>
+<p><code>vue init webpack test1</code></p>
+<blockquote>
+<p>配置项目</p>
+</blockquote>
+<h4 id="如果创建失败则重新安装一次vue-cli">如果创建失败则重新安装一次vue-cli:</h4>
+<p><code>cnpm install -gd vue-cli</code></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[SmartSniff过滤器的规则]]></title>
         <id>https://blog.myxy.net/smartsniff-guo-lu-qi-de-gui-ze/</id>
@@ -62,6 +77,19 @@ const package = require('packageName')
         key: 'launchFlag',
         data: true,
 });
+</code></pre>
+<h3 id="从本地缓存中同步获取指定-key-对应的内容">从本地缓存中同步获取指定 key 对应的内容。</h3>
+<blockquote>
+<p>https://uniapp.dcloud.io/api/storage/storage?id=getstoragesync</p>
+</blockquote>
+<pre><code>try {
+    const value = uni.getStorageSync('storage_key');
+    if (value) {
+        console.log(value);
+    }
+} catch (e) {
+    // error
+}
 </code></pre>
 ]]></content>
     </entry>
@@ -553,86 +581,6 @@ int main()
 <li>与临界区对象（以及接下来要介绍的 Mutex 对象）相比，Event 对象没有被谁持让持有者线程变成其 owner 这一说法，因此 Event 对象可以同时唤醒多个等待的工作线程。</li>
 <li>手动重置的 Event 对象一旦变成受信状态，其信号不会丢失，也就是说当 Event 从无信号变成有信号时，即使某个线程当时没有调用 <code>WaitForSingleObject</code>等待该 Event 对象受信，而是在这之后才调用 <code>WaitForSingleObject</code> ，仍然能检测到事件的受信状态，即不会丢失信号，而后面要介绍的条件变量就可能会丢失信号。</li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[c++ Lambda 表达式]]></title>
-        <id>https://blog.myxy.net/c-lambda-biao-da-shi/</id>
-        <link href="https://blog.myxy.net/c-lambda-biao-da-shi/">
-        </link>
-        <updated>2020-05-12T02:17:19.000Z</updated>
-        <content type="html"><![CDATA[<p><code>Lambda</code> 表达式，实际上就是提供了一个类似匿名函数的特性，而匿名函数则是在需要一个函数，但是又不想费力去命名一个函数的情况下去使用的。<br>
-基本语法如下：<br>
-<code>[ caputrue ] ( params ) opt -&gt; ret { body; };</code></p>
-<ul>
-<li><strong>capture</strong> 是捕获列表；</li>
-<li><strong>params</strong> 是参数表；(选填)</li>
-<li><strong>opt是函数选项</strong> 可以填mutable,exception,attribute（选填）</li>
-</ul>
-<blockquote>
-<p><code>mutable</code>说明lambda表达式体内的代码可以修改被捕获的变量，并且可以访问被捕获的对象的non-const方法。<br>
-<code>exception</code>说明lambda表达式是否抛出异常以及何种异常。<br>
-<code>attribute</code>用来声明属性。</p>
-</blockquote>
-<ul>
-<li><strong>ret</strong> 是返回值类型（拖尾返回类型）。(选填)</li>
-<li><strong>body</strong> 是函数体。</li>
-</ul>
-<p><strong>捕获列表</strong>：lambda表达式的捕获列表精细控制了lambda表达式能够访问的外部变量，以及如何访问这些变量。</p>
-<ol>
-<li><strong>[]</strong> 不捕获任何变量。</li>
-<li><strong>[&amp;]</strong> 捕获外部作用域中所有变量，并作为引用在函数体中使用（按引用捕获）。</li>
-<li><strong>[=]</strong> 捕获外部作用域中所有变量，并作为副本在函数体中使用(按值捕获)。注意值捕获的前提是变量可以拷贝，且被捕获的变量在 lambda 表达式被创建时拷贝，而非调用时才拷贝。如果希望lambda表达式在调用时能即时访问外部变量，我们应当使用引用方式捕获。</li>
-</ol>
-<pre><code class="language-cpp">int a = 0;
-auto f = [=] { return a; };
-a+=1;
-cout &lt;&lt; f() &lt;&lt; endl;       //输出0
-int a = 0;
-auto f = [&amp;a] { return a; };
-a+=1;
-cout &lt;&lt; f() &lt;&lt;endl;       //输出1
-</code></pre>
-<ol start="4">
-<li><strong>[=,&amp;foo]</strong> 按值捕获外部作用域中所有变量，并按引用捕获foo变量。</li>
-<li><strong>[bar]</strong> 按值捕获bar变量，同时不捕获其他变量。</li>
-<li><strong>[this]</strong> 捕获当前类中的this指针，让lambda表达式拥有和当前类成员函数同样的访问权限。如果已经使用了<code>&amp;</code>或者<code>=</code>，就默认添加此选项。捕获this的目的是可以在lamda中使用当前类的成员函数和成员变量。</li>
-</ol>
-<pre><code class="language-cpp">class A
-{
- public:
-     int i_ = 0;
-
-     void func(int x,int y){
-         auto x1 = [] { return i_; };                   //error,没有捕获外部变量
-         auto x2 = [=] { return i_ + x + y; };          //OK
-         auto x3 = [&amp;] { return i_ + x + y; };        //OK
-         auto x4 = [this] { return i_; };               //OK
-         auto x5 = [this] { return i_ + x + y; };       //error,没有捕获x,y
-         auto x6 = [this, x, y] { return i_ + x + y; };     //OK
-         auto x7 = [this] { return i_++; };             //OK
-};
-
-int a=0 , b=1;
-auto f1 = [] { return a; };                         //error,没有捕获外部变量    
-auto f2 = [&amp;] { return a++ };                      //OK
-auto f3 = [=] { return a; };                        //OK
-auto f4 = [=] {return a++; };                       //error,a是以复制方式捕获的，无法修改
-auto f5 = [a] { return a+b; };                      //error,没有捕获变量b
-auto f6 = [a, &amp;b] { return a + (b++); };                //OK
-auto f7 = [=, &amp;b] { return a + (b++); };                //OK
-</code></pre>
-<blockquote>
-<p><strong>注意</strong> : 虽然按值捕获的变量值均复制一份存储在lambda表达式变量中，修改他们也并不会真正影响到外部，但我们却仍然无法修改它们。如果希望去修改按值捕获的外部变量，需要显示指明lambda表达式为<code>mutable</code>。被<code>mutable</code>修饰的lambda表达式就算没有参数也要写明参数列表。<br>
-<strong>原因</strong>：lambda表达式可以说是就地定义仿函数闭包的“语法糖”。它的捕获列表捕获住的任何外部变量，最终会变为闭包类型的成员变量。按照C++标准，lambda表达式的<code>operator()</code>默认是<code>const</code>的，一个<code>const</code>成员函数是无法修改成员变量的值的。而<code>mutable</code>的作用，就在于取消<code>operator()</code>的<code>const</code>。</p>
-</blockquote>
-<pre><code class="language-cpp">int a = 0;
-auto f1 = [=] { return a++; };                //error
-auto f2 = [=] () mutable { return a++; };       //OK
-</code></pre>
-<p><strong>lambda表达式的大致原理</strong> ：每当你定义一个lambda表达式后，编译器会自动生成一个匿名类（这个类重载了()运算符），我们称为闭包类型（closure type）。那么在运行时，这个lambda表达式就会返回一个匿名的闭包实例，是一个右值。所以，我们上面的lambda表达式的结果就是一个个闭包。对于复制传值捕捉方式，类中会相应添加对应类型的非静态数据成员。在运行时，会用复制的值初始化这些成员变量，从而生成闭包。对于引用捕获方式，无论是否标记<code>mutable</code>，都可以在lambda表达式中修改捕获的值。至于闭包类中是否有对应成员，C++标准中给出的答案是：不清楚的，与具体实现有关。</p>
-<p><a href="https://blog.csdn.net/jiange_zh/article/details/79356417">查看更多C++11常用新特性</a></p>
-<p><a href="https://riptutorial.com/zh-CN/cplusplus/topic/572/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F">更多参考</a></p>
 ]]></content>
     </entry>
 </feed>
