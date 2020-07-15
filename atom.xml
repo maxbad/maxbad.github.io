@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-07-11T14:28:18.602Z</updated>
+    <updated>2020-07-15T13:51:11.210Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,41 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[GraceUI]]></title>
+        <id>https://blog.myxy.net/graceui/</id>
+        <link href="https://blog.myxy.net/graceui/">
+        </link>
+        <updated>2020-07-14T12:16:23.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="组件插槽">组件插槽</h2>
+<pre><code>&lt;slot name=&quot;gHeader&quot;&gt;&lt;/slot&gt; 头部导航内容
+&lt;slot name=&quot;gBody&quot;&gt;&lt;/slot&gt; 页面主体内容
+&lt;slot name=&quot;gFooter&quot;&gt;&lt;/slot&gt; 页面底部导航内容
+&lt;slot name=&quot;gRTArea&quot;&gt;&lt;/slot&gt; 页面悬浮挂件内容
+</code></pre>
+<h3 id="uni-app-开发时-app-端必须的设置manifastjson">uni-app 开发时 APP 端必须的设置（manifast.json）</h3>
+<pre><code>/* 5+App特有相关 */
+&quot;app-plus&quot;: {
+    &quot;nvueCompiler&quot;:&quot;uni-app&quot;,
+    &quot;safearea&quot;: {
+        &quot;background&quot;: &quot;#FFFFFF&quot;,  
+        &quot;bottom&quot;: {  
+            &quot;offset&quot;: &quot;auto&quot;  
+        }  
+    },
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JSON_API]]></title>
+        <id>https://blog.myxy.net/json_api/</id>
+        <link href="https://blog.myxy.net/json_api/">
+        </link>
+        <updated>2020-07-11T15:18:46.000Z</updated>
+        <content type="html"><![CDATA[<p>获取IP地址: <code>http://mam.netease.com/api/config/getClientIp</code></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[iconfont 批量把图标加入购物车的方法]]></title>
         <id>https://blog.myxy.net/iconfont-pi-liang-ba-tu-biao-jia-ru-gou-wu-che-de-fang-fa/</id>
@@ -318,221 +353,6 @@ const package = require('packageName')
 </tbody>
 </table>
 <p>https://blog.csdn.net/JX_Cesare/article/details/81153410</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[在Win32程序中调用控制台调试输出]]></title>
-        <id>https://blog.myxy.net/zai-win32-cheng-xu-zhong-diao-yong-kong-zhi-tai-diao-shi-shu-chu/</id>
-        <link href="https://blog.myxy.net/zai-win32-cheng-xu-zhong-diao-yong-kong-zhi-tai-diao-shi-shu-chu/">
-        </link>
-        <updated>2020-05-23T01:05:16.000Z</updated>
-        <content type="html"><![CDATA[<blockquote>
-<p><strong>AllocConsole</strong> 函数的功能是为当前的窗口程序申请一个Console窗口，其原型为 <code>BOOL AllocConsole(void);</code><br>
-<strong>freopen</strong> 函数用来替换一个流，或者说重新分配文件指针，以实现重定向。可重定向的流有：标准输入流、标准输出流或者标准错误流。其函数原型为<code>FILE *freopen(const char *path, const char *mode, FILE *stream);</code><br>
-<code>CONOUT$</code> 是指代当前console的特殊字符串，<code>w</code>表明以written模式打开这个console，stdout指代标准输出流。</p>
-</blockquote>
-<p>完整代码如下：</p>
-<pre><code class="language-cpp">    AllocConsole();
-    freopen(&quot;CONOUT$&quot;, &quot;w&quot;, stdout);
-    std::cout &lt;&lt; &quot;This is a test info&quot; &lt;&lt; std::endl;
-</code></pre>
-<p>最后要记得关闭控制台:</p>
-<pre><code class="language-cpp">FreeConsole();
-</code></pre>
-<p>补充：</p>
-<p>AllocConsole函数不能改变控制台窗口在屏幕上的位置、尺寸等属性。以下函数可以控制&amp;获取控制台相关信息</p>
-<pre><code class="language-cpp">    GetConsoleScreenBufferInfo 　　// 检索窗口大小，屏幕缓冲区大小及颜色属性
-    SetConsoleWindowInfo 　　　　　 // 改变控制台窗口大小
-    SetConsoleScreenBufferSize　　 // 改变控制台屏幕缓冲区大小
-    SetConsoleTextAttribute　　    // 设置颜色属性
-    SetConsoleTitle　　　　　　　　  // 设置控制台窗口标题
-    GetConsoleTitle　　　　　　　　  // 获取控制台窗口标题
-</code></pre>
-<p>打印日志:</p>
-<pre><code class="language-cpp">#define LOG(format, ...) fprintf(stdout, &quot;&gt;&gt; &quot;format&quot;\n&quot;, ##__VA_ARGS__)
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[inja模板渲染]]></title>
-        <id>https://blog.myxy.net/inja-mo-ban-xuan-ran/</id>
-        <link href="https://blog.myxy.net/inja-mo-ban-xuan-ran/">
-        </link>
-        <updated>2020-05-16T01:55:17.000Z</updated>
-        <content type="html"><![CDATA[<p><a href="https://github.com/xmh0511/inja">inja</a><br>
-<a href="https://github.com/xmh0511/xfinal">xfinal</a></p>
-<h2 id="赋值方式">赋值方式</h2>
-<pre><code class="language-cpp">//方式一:
-res.set_attr(&quot;variable&quot;,&quot;hello,world&quot;);
-//方式二:
-json  jsondata;
-jsondata[&quot;code&quot;]=0;
-jsondata[&quot;msg&quot;]=&quot;ok&quot;;
-res.write_view(&quot;./tpl/login.html&quot;, jsondata,false);
-</code></pre>
-<h2 id="循环输出">循环输出</h2>
-<blockquote>
-<p>对json数组的遍历</p>
-</blockquote>
-<pre><code class="language-html">{% for item in list %}
-    &lt;p&gt;@{item.name}&lt;/p&gt;
-{% endfor %}
-
-// 数组元素的访问
-&lt;div&gt;@{list.0.name}&lt;/div&gt;
-
-// 获取list长度
-&lt;div&gt;@{length(list)}&lt;/div&gt;
-
-// 获取list中的第一个或最后一个元素
-&lt;div&gt;@{first (list)}&lt;/div&gt;
-&lt;div&gt;@{last (list)}&lt;/div&gt;
-
-//列表排序
-&lt;div&gt;@{sort([3,2,1])}&lt;/div&gt;
-&lt;div&gt;@{sort(list)}&lt;/div&gt;
-
-// 获取list中的最大最小值
-&lt;div&gt;max([1,3,2])&lt;/div&gt;
-&lt;div&gt;min([3,1,2])&lt;/div&gt;
-&lt;div&gt;min(list)&lt;/div&gt;
-
-// 还可以通过关键字loop访问当前循环的属性和值
-{% for item in list %}
-    &lt;p&gt;
-        &lt;span&gt;@{loop.index }&lt;/span&gt;
-        &lt;span&gt;@{loop.index1 }&lt;/span&gt;
-        &lt;span&gt;@{loop.is_first   }&lt;/span&gt;
-        &lt;span&gt;@{loop.is_last  }&lt;/span&gt;
-        &lt;span&gt;@{item.name}&lt;/span&gt;
-    &lt;/p&gt;
-{% endfor %}
-
-// 多重循环中，嵌套的循环中可以通过loop.parent访问父层循环的loop，以此类推loop.parent.parent
-{% for item in list %}
-    {% for item0 in item %}
-        &lt;p&gt;@{item0.abc}&lt;/p&gt;
-    {% endfor %}
-{% endfor %}
-</code></pre>
-<blockquote>
-<p>对json对象的遍历</p>
-</blockquote>
-<pre><code class="language-html">{% for key, value in object %}
-    &lt;p&gt;
-        &lt;span&gt;@{key}&lt;/span&gt;
-        &lt;span&gt;:&lt;/span&gt;
-        &lt;span&gt;@{value}&lt;/span&gt;
-    &lt;/p&gt;
-{% endfor %}
-</code></pre>
-<blockquote>
-<p>获取一个循环区间</p>
-</blockquote>
-<pre><code class="language-html">{% for i in range(4) %}
-    &lt;div&gt;@{ loop.index1 }&lt;/div&gt;
-{% endfor %}
-</code></pre>
-<h2 id="变量输出">变量输出:</h2>
-<pre><code class="language-html">@{downpath}
-</code></pre>
-<h2 id="条件判断">条件判断:</h2>
-<p><code>==</code> , <code>&gt;</code> , <code>&gt;=</code> , <code>&lt;</code> , <code>&lt;=</code> , <code>!=</code> , <code>逻辑与 and</code> , <code>逻辑或 or</code> , <code>逻辑非 not</code></p>
-<pre><code>{% if variable == true %}
-    &lt;div&gt;如果variable是true则显示&lt;/div&gt;
-{% endif %}
-
-{% if variable in list %}
-    &lt;div&gt;variable:&quot;a&quot;,list:[&quot;a&quot;,&quot;b&quot;]&lt;/div&gt;
-{% endif %}
-
-{% if variable == null %}
-    {% endif %}
-    {% if ... %}
-        {% else if ... %}
-    {% else %}
-{% endif %}
-
-// 判断对象中是否存在某键名
-{% if exists(\&quot;variable\&quot;) %}
-    存在
-{% endif %}
-
-{% if existsIn(variable,\&quot;time\&quot;) %}
-    &lt;div&gt;variable对象中是否存在key为time的键值对&lt;/div&gt;
-{% endif %}
-
-// 判断值的类型
-&lt;div&gt;@{isString(variable)}&lt;/div&gt;
-&lt;div&gt;@{isArray(variable)}&lt;/div&gt;
-</code></pre>
-<h2 id="包含外部模板文件">包含外部模板文件</h2>
-<pre><code class="language-cpp">{% include \&quot;footer.html\&quot; %}
-</code></pre>
-<h2 id="原样输出">原样输出</h2>
-<pre><code class="language-html">&lt;div&gt;
-    #(
-        {% for item in list %}
-        {% endfor %}
-    )#
-&lt;div&gt;
-</code></pre>
-<h2 id="转换成大小写输出">转换成大小写输出</h2>
-<pre><code class="language-html">&lt;div&gt;@{upper(variable)}&lt;/div&gt;
-&lt;div&gt;@{lower(variable)}&lt;/div&gt;
-</code></pre>
-<h2 id="判断数值奇偶性">判断数值奇偶性</h2>
-<pre><code class="language-html">&lt;div&gt;@{odd(42)}&lt;/div&gt;
-&lt;div&gt;@{even(42)}&lt;/div&gt;
-</code></pre>
-<h2 id="保留小数点n位">保留小数点N位</h2>
-<pre><code class="language-html">@{ round(3.1415, 2)  }
-&lt;div&gt;round(3.1415, 0)&lt;/div&gt;
-&lt;div&gt;round(3.1415, 2)&lt;/div&gt;
-</code></pre>
-<h2 id="是否能整除">是否能整除</h2>
-<pre><code class="language-html">&lt;div&gt;@{divisibleBy(42,7)}&lt;/div&gt;
-</code></pre>
-<h2 id="字符串转数值">字符串转数值</h2>
-<pre><code class="language-html">&lt;div&gt;@{int(\&quot;2\&quot;) == 2 } &lt;/div&gt;
-&lt;div&gt;@{float(\&quot;1.8\&quot;) &gt; 2}&lt;/div&gt;
-</code></pre>
-<h2 id="代码注释">代码注释:</h2>
-<pre><code class="language-html">&lt;div&gt;1&lt;/div&gt;
-{# 
-  Todo...
-#}
-</code></pre>
-<h2 id="给不存在的对象设置默认值">给不存在的对象设置默认值</h2>
-<pre><code class="language-html">&lt;div&gt;@{default(notexists, \&quot;默认值\&quot;)}&lt;/div&gt;
-</code></pre>
-<h2 id="自定义模板函数">自定义模板函数</h2>
-<blockquote>
-<p>通过http_server类的add_view_method方法可以给模板渲染引擎增加处理方法<br>
-add_view_method 参数解释</p>
-</blockquote>
-<pre><code class="language-cpp">参数一: 定义的方法名:string
-参数二: 方法参数个数
-参数三: 为该方法注册的cpp方法,其参数为 inja::Arguments const&amp; args，返回值为可以隐式转换成json对象的类型
-
-server.add_view_method(&quot;str2int&quot;, 1, [](inja::Arguments const&amp; args) {
-        auto i = std::atoi(args[0]-&gt;get&lt;std::string&gt;().data());
-        return std::string(&quot;transform:&quot;) + std::to_string(i);
-});
-
- &lt;div&gt;@{str2int(\&quot;123\&quot;)}&lt;/div&gt;
-</code></pre>
-<h2 id="自定义句法">自定义句法</h2>
-<blockquote>
-<p>通过response类中的view_environment方法获取模板渲染引擎的句柄 ,注意此设置只针对当前请求的返回，不是全局的</p>
-</blockquote>
-<ul>
-<li>set_expression 设置输出变量值的句法</li>
-<li>set_comment 设置注释句法</li>
-<li>set_statement 设置块状表达式句法</li>
-<li>set_line_statement 设置行表达式句法<br>
-<code>res. view_environment().set_expression(&quot;@{&quot;,&quot;}&quot;)</code></li>
-</ul>
 ]]></content>
     </entry>
 </feed>
