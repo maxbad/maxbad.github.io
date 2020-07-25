@@ -14,64 +14,34 @@
 
     
 
-  <meta name="description" content="条件编译
-
-仅出现在APP平台下面的代码
-
-#ifdef APP-PLUS
-需要条件编译的代码
-#endif
-
-
-除了H5平台,其他平台均存在的代码
-
-#ifndef H5
-需要条件编译的代码
-#endif
-
-
-在H5平台或微信小程序平台存..." />
+  <meta name="description" content="目录结构
+components  自定义组件目录
+pages 页面存放目录
+static 静态文件资源目录
+unpackage 编译后的文件存放目录
+App.vue    app.js 查看文档
+main.js  应用入口(  引用全局组件..." />
   <meta property="og:title" content="uin-app - Maxbad`Blog">
-  <meta property="og:description" content="条件编译
-
-仅出现在APP平台下面的代码
-
-#ifdef APP-PLUS
-需要条件编译的代码
-#endif
-
-
-除了H5平台,其他平台均存在的代码
-
-#ifndef H5
-需要条件编译的代码
-#endif
-
-
-在H5平台或微信小程序平台存..." />
+  <meta property="og:description" content="目录结构
+components  自定义组件目录
+pages 页面存放目录
+static 静态文件资源目录
+unpackage 编译后的文件存放目录
+App.vue    app.js 查看文档
+main.js  应用入口(  引用全局组件..." />
   <meta property="og:type" content="articles">
   <meta property="og:url" content="https://blog.myxy.net/uin-app/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
   <meta name="twitter:title" content="uin-app - Maxbad`Blog">
-  <meta name="twitter:description" content="条件编译
-
-仅出现在APP平台下面的代码
-
-#ifdef APP-PLUS
-需要条件编译的代码
-#endif
-
-
-除了H5平台,其他平台均存在的代码
-
-#ifndef H5
-需要条件编译的代码
-#endif
-
-
-在H5平台或微信小程序平台存...">
+  <meta name="twitter:description" content="目录结构
+components  自定义组件目录
+pages 页面存放目录
+static 静态文件资源目录
+unpackage 编译后的文件存放目录
+App.vue    app.js 查看文档
+main.js  应用入口(  引用全局组件...">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://blog.myxy.net/uin-app/">
 
@@ -97,32 +67,59 @@
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-07-25 · 2 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-07-25 · 3 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <h1 id="条件编译">条件编译</h1>
-<blockquote>
-<p>仅出现在APP平台下面的代码</p>
-</blockquote>
-<pre><code>#ifdef APP-PLUS
-需要条件编译的代码
-#endif
-</code></pre>
-<blockquote>
-<p>除了H5平台,其他平台均存在的代码</p>
-</blockquote>
-<pre><code>#ifndef H5
-需要条件编译的代码
-#endif
-</code></pre>
-<blockquote>
-<p>在H5平台或微信小程序平台存在的代码( 这里只有||,不可能出现&amp;&amp;,因为没有交集 )</p>
-</blockquote>
-<pre><code>#ifdef H5 || MP-WEIXIN
-需要条件编译的代码
-#endif
-</code></pre>
+          <h1 id="目录结构">目录结构</h1>
+<p><code>components</code>  自定义组件目录<br>
+<code>pages</code> 页面存放目录<br>
+<code>static</code> 静态文件资源目录<br>
+<code>unpackage</code> 编译后的文件存放目录<br>
+<code>App.vue</code>    app.js <a href="https://uniapp.dcloud.io/collocation/App">查看文档</a><br>
+<code>main.js</code>  应用入口(  引用全局组件 ) <a href="https://uniapp.dcloud.io/collocation/main">查看文档</a><br>
+<code>manifest,json</code>  项目配置  <a href="https://uniapp.dcloud.io/collocation/manifest">查看文档</a><br>
+<code>page.json</code> 页面配置 <a href="https://uniapp.dcloud.io/collocation/pages">查看文档</a><br>
+<code>package.json</code>  <a href="https://uniapp.dcloud.io/collocation/package">查看文档</a><br>
+<code>vue.config.js</code> 是一个可选的配置文件  <a href="https://uniapp.dcloud.io/collocation/vue-config">查看文档</a><br>
+<code>uni.scss</code>  <a href="https://uniapp.dcloud.io/collocation/uni-scss">查看文档</a></p>
+<p><code>utils</code> 自定义 - 公用的工具类<br>
+<code>common</code>  自定义 - 公用的文件</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>@</td>
+<td style="text-align:center">项目根目录</td>
+</tr>
+<tr>
+<td>vh</td>
+<td style="text-align:center">屏幕高度</td>
+</tr>
+<tr>
+<td>vw</td>
+<td style="text-align:center">屏幕宽度</td>
+</tr>
+<tr>
+<td>px</td>
+<td style="text-align:center">固定</td>
+</tr>
+<tr>
+<td>rpx</td>
+<td style="text-align:center">根据屏幕宽度750动态调整</td>
+</tr>
+<tr>
+<td>@import './index.css'</td>
+<td style="text-align:center">引入外部CSS文件</td>
+</tr>
+</tbody>
+</table>
+<p>尺寸单位 :  px  rpx rem</p>
 <h1 id="模板语法与数据绑定">模板语法与数据绑定</h1>
 <p><view class="content" v-bing:class="className" v-on:click="open"></view><br>
 &lt;view class=&quot;content&quot; :class=&quot;className&quot; @click=&quot;open&quot;&gt;</view></p>
@@ -155,6 +152,32 @@ index : 下标别名</p>
 <pre><code>&lt;view v-for=&quot;(item,index) in arr&quot;&gt; {{ (index+1) + '---' + item }} &lt;/view&gt;
 &lt;view v-for=&quot;(item,value) in obj&quot;&gt; {{ value + '---' + item }} &lt;/view&gt;
 </code></pre>
+<h1 id="基础组件">基础组件</h1>
+<view> 
+    <view></view>     试图容器 .
+    <scroll-view></scroll-view>   可滚动视图区域    
+    <button>vue</button>  按钮
+    <input value="1" />     输入框
+</view>
+<h1 id="自定义组件">自定义组件</h1>
+<h1 id="api">API</h1>
+<p><a href="https://uniapp.dcloud.io/api/README">API</a></p>
+<h1 id="条件编译">条件编译</h1>
+<p><a href="https://uniapp.dcloud.io/platform">条件编译</a></p>
+<h1 id="生命周期">生命周期</h1>
+<p><a href="https://uniapp.dcloud.io/collocation/frame/lifecycle?id=%e5%ba%94%e7%94%a8%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f">应用生命周期</a><br>
+<a href="https://uniapp.dcloud.io/collocation/frame/lifecycle?id=%e9%a1%b5%e9%9d%a2%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f">页面生命周期</a><br>
+<a href="https://uniapp.dcloud.io/collocation/frame/lifecycle?id=%e7%bb%84%e4%bb%b6%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f">组件生命周期</a></p>
+<p>uin.navigateTo()  //打开新页面. 返回键可返回到当前页面  只能打开非 tabBar 页面。<br>
+uin.redirectTo()   //关闭当前页面,打开新页面,会触发页面销毁事件.   只能打开非 tabBar 页面。</p>
+<p>uin.switchTab() 只能打开 tabBar 页面。<br>
+uin.reLaunch() 可以打开任意页面。</p>
+<h1 id="scss">SCSS</h1>
+<p>.content{<br>
+&amp;.box{}    <code>&amp;</code>表示父级<br>
+}</p>
+<h1 id="unicloule">uniCloule</h1>
+<p><a href="https://uniapp.dcloud.io/uniCloud/README">查看文档</a></p>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -198,10 +221,17 @@ index : 下标别名</p>
       </div>
       <div class="post-toc-container">
         <ul class="markdownIt-TOC">
-<li><a href="#%E6%9D%A1%E4%BB%B6%E7%BC%96%E8%AF%91">条件编译</a></li>
+<li><a href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84">目录结构</a></li>
 <li><a href="#%E6%A8%A1%E6%9D%BF%E8%AF%AD%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A">模板语法与数据绑定</a></li>
 <li><a href="#%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD">条件判断</a></li>
 <li><a href="#%E5%88%97%E8%A1%A8%E6%B8%B2%E6%9F%93">列表渲染</a></li>
+<li><a href="#%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6">基础组件</a></li>
+<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6">自定义组件</a></li>
+<li><a href="#api">API</a></li>
+<li><a href="#%E6%9D%A1%E4%BB%B6%E7%BC%96%E8%AF%91">条件编译</a></li>
+<li><a href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F">生命周期</a></li>
+<li><a href="#scss">SCSS</a></li>
+<li><a href="#unicloule">uniCloule</a></li>
 </ul>
 
       </div>
