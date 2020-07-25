@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-07-25T03:10:16.217Z</updated>
+    <updated>2020-07-25T05:23:29.114Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -37,6 +37,38 @@
 <pre><code>#ifdef H5 || MP-WEIXIN
 需要条件编译的代码
 #endif
+</code></pre>
+<h1 id="模板语法与数据绑定">模板语法与数据绑定</h1>
+<p><view class="content" v-bing:class="className" v-on:click="open"></view><br>
+&lt;view class=&quot;content&quot; :class=&quot;className&quot; @click=&quot;open&quot;&gt;</view></p>
+<table>
+<thead>
+<tr>
+<th>全写</th>
+<th style="text-align:center">简写</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v-bing</td>
+<td style="text-align:center">:</td>
+</tr>
+<tr>
+<td>v-on</td>
+<td style="text-align:center">@</td>
+</tr>
+</tbody>
+</table>
+<h1 id="条件判断">条件判断</h1>
+<pre><code>&lt;view v-if=&quot;show==='1'&quot;&gt; 1 &lt;/view&gt;  如果表达式返回真值为true,那么正常渲染内容
+&lt;view v-else-if=&quot;show==='2'&quot;&gt; 2 &lt;/view&gt;  如果表达式返回真值为true,那么正常渲染内容
+&lt;view v-else&gt; 3 &lt;/view&gt;
+</code></pre>
+<h1 id="列表渲染">列表渲染</h1>
+<p>item : 被迭代的数组元素的别名<br>
+index : 下标别名</p>
+<pre><code>&lt;view v-for=&quot;(item,index) in arr&quot;&gt; {{ (index+1) + '---' + item }} &lt;/view&gt;
+&lt;view v-for=&quot;(item,value) in obj&quot;&gt; {{ value + '---' + item }} &lt;/view&gt;
 </code></pre>
 ]]></content>
     </entry>
