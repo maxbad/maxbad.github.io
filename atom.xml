@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-07-25T12:33:42.839Z</updated>
+    <updated>2020-07-25T13:02:48.064Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,65 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[cjson 使用记录]]></title>
+        <id>https://blog.myxy.net/cjson-shi-yong-ji-lu/</id>
+        <link href="https://blog.myxy.net/cjson-shi-yong-ji-lu/">
+        </link>
+        <updated>2020-07-25T12:34:26.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="备忘">备忘</h1>
+<h3 id="打印">打印</h3>
+<p><code>cJSON_Print</code>会申请内存，使用完后要free掉。</p>
+<pre><code class="language-cpp">	const  char* pstr = cJSON_Print(json);
+	free(pstr);
+</code></pre>
+<p><code>cJSON_PrintUnformatted</code> 打印出的json字符串是紧凑的不用换行，适合传输json字符串时使用<br>
+<code>cJSON_PrintBuffered</code> 可以事先指定分配一个缓冲区，如果足够大，则可以节省不断重新分配空间的时间； 如果指定缓冲区过小，则与cJSON_Print和cJSON_PrintUnformatted性能能相同。<br>
+<code>cJSON_PrintPreallocated</code>  可以将json字符串填入给定的缓冲区，并指定缓冲区大小。 成功返回1，失败返回0。除了这个打印json字符串的函数，以上的函数在生成json字符串时若空间不足，都会重新分配一次空间。</p>
+<h3 id="销毁">销毁</h3>
+<p>JSON对象使用完成记得Delete</p>
+<pre><code class="language-cpp">	cJSON* pjson = NULL;
+	pjson = cJSON_Parse(&quot;{}&quot;);
+	cJSON_Delete(pjson);
+</code></pre>
+<h3 id="解析">解析</h3>
+<p><code>cJSON_ParseWithOpts</code>该函数是<code>cJSON_Parse</code>的实现，但是它比<code>cJSON_Parse</code>更灵活。</p>
+<ul>
+<li>如果cJSON_Parse解析错误，必须调用cJSON_GetErrorPtr找到解析错误位置</li>
+<li>cJSON_Parse解析不严谨，如&quot;<code>{\&quot;name\&quot;: \&quot;Lee\&quot;} }</code>&quot;这个字符串，后边多了一个大括号，但还是解析成功了。</li>
+<li><code>cJSON_ParseWithOpts</code>的return_parse_end参数可以获取解析失败的位置，          require_null_terminated参数为1会检查剩余未解析字符串是否是空字符串，若不为空字符串，则会释放内存，返回空。所以因该使用<code>cJSON_ParseWithOpts</code>解析json对象</li>
+</ul>
+<pre><code class="language-cpp">	char* end = NULL;
+	cJSON* cj_ParseWithOpts = cJSON_ParseWithOpts(&quot;{\&quot;name\&quot;: \&quot;Lee\&quot;} }&quot;, &amp;end, 1);
+	if (cj_ParseWithOpts) {
+		printf(&quot;%s\n\n&quot;, cJSON_Print(cj_ParseWithOpts));
+	}
+	else {
+		printf(&quot;[%s]\n\n&quot;, end);
+	}
+</code></pre>
+<h1 id="数组倒删除">数组倒删除</h1>
+<pre><code class="language-cpp">	cJSON* adArr = NULL;  //欲删除的数组
+	int arrCount = cJSON_GetArraySize(adArr);
+	if (arrCount &gt; 0)
+	{
+		for (int j = arrCount - 1; j &gt;= 0; j--)
+		{
+			cJSON_DeleteItemFromArray(adArr, j);  //删除json数组对象的第j个节点
+		}
+	}
+</code></pre>
+<h1 id="对象替换">对象替换</h1>
+<pre><code class="language-cpp"> cJSON* itemObj = NULL;  
+
+   //文本替换
+   cJSON_ReplaceItemInObject(itemObj, &quot;username&quot;, cJSON_CreateString(&quot;tom&quot;));
+
+   //数组清空
+   cJSON_ReplaceItemInObject(itemObj, &quot;userlist&quot;, cJSON_CreateArray());
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[uin-app]]></title>
         <id>https://blog.myxy.net/uin-app/</id>
@@ -295,30 +354,6 @@ const package = require('packageName')
         access_log logs/access.log main;
 </code></pre>
 <p>https://blog.csdn.net/xqhys/article/details/81782633</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[一些有趣的网址]]></title>
-        <id>https://blog.myxy.net/docsify-yi-ge-shen-qi-de-wen-dang-wang-zhan-sheng-cheng-gong-ju/</id>
-        <link href="https://blog.myxy.net/docsify-yi-ge-shen-qi-de-wen-dang-wang-zhan-sheng-cheng-gong-ju/">
-        </link>
-        <updated>2020-06-05T09:41:32.000Z</updated>
-        <content type="html"><![CDATA[<p><a href="https://docsify.js.org/#/zh-cn/">docsify一个神奇的文档网站生成工具</a></p>
-<p><a href="https://mornin.fm/">Mornin 是一个匿名语音群聊服务</a></p>
-<p><a href="https://swagger.io/">swagger</a></p>
-<blockquote>
-<p>swagger是一个REST APIs文档生成工具，可以在许多不同的平台上从代码注释中自动生成，开源，支持大部分语言，社区好，总之就是一个强大.</p>
-</blockquote>
-<p><a href="https://lab.lyric.im/wxformat/">微信公众号文章排版</a></p>
-<blockquote>
-<p>源码:https://github.com/lyricat/wechat-format</p>
-</blockquote>
-<p><a href="http://www.51yuansu.com/">觅元素</a></p>
-<blockquote>
-<p>一天免费下载十张 psd</p>
-</blockquote>
-<p><a href="https://ps.gaoding.com/">在线PS</a></p>
-<p><a href="https://send.firefox.com/">火狐-临时文件上传</a></p>
 ]]></content>
     </entry>
 </feed>
