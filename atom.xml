@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-07-25T13:09:55.097Z</updated>
+    <updated>2020-08-26T05:40:18.621Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,20 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[使用 vue-devtools]]></title>
+        <id>https://blog.myxy.net/shi-yong-vue-devtools/</id>
+        <link href="https://blog.myxy.net/shi-yong-vue-devtools/">
+        </link>
+        <updated>2020-08-10T11:18:10.000Z</updated>
+        <content type="html"><![CDATA[<p>找到<a href="https://github.com/vuejs/vue-devtools">vue-devtools</a>的github项目，克隆到本地；<br>
+进入到项目根目录，安装依赖 <code>npm install</code> 或着 <code>cpm install</code>；<br>
+找到<code>vue-devtools/shells/chrome/manifest.json</code> 文件，修改 <code>persistent</code> 为 <code>true</code>；<br>
+编译构建 <code>npm run build</code>；<br>
+打开chrome浏览器，输入 <code>chrome://extensions</code> 进入扩展程序页面，点击 加载已解压的扩展程序, 选择 <code>vue-devtools&gt;shells&gt;chrome</code>文件夹 （记得打开开发者模式)<br>
+<code>Vue.js devtools</code> 就安装好了，点击扩展应用卡片上的 详细信息，勾选(在所有网站上,允许访问文件网址,手机各项错误)三个选项。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[cjson 使用记录]]></title>
         <id>https://blog.myxy.net/cjson-shi-yong-ji-lu/</id>
@@ -216,7 +230,25 @@ uin.reLaunch() 可以打开任意页面。</p>
         <link href="https://blog.myxy.net/json_api/">
         </link>
         <updated>2020-07-11T15:18:46.000Z</updated>
-        <content type="html"><![CDATA[<p>获取IP地址: <code>http://mam.netease.com/api/config/getClientIp</code></p>
+        <content type="html"><![CDATA[<h1 id="获取ip地址">获取IP地址:</h1>
+<pre><code>http://mam.netease.com/api/config/getClientIp
+http://sdk.open.phone.igexin.com/api/addr.htm
+http://vv6.video.qq.com/checktime?otype=json&amp;guid=123&amp;randnum=0123
+http://pv.sohu.com/cityjson
+http://ip.360.cn/IPShare/info
+
+</code></pre>
+<h1 id="时间戳获取">时间戳获取</h1>
+<pre><code>http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp
+http://quan.suning.com/getSysTime.do
+http://api.pinduoduo.com/api/server/_stm
+https://a.jd.com//ajax/queryServerData.html
+https://mbuy.vmall.com/getSkuRushbuyInfo.json
+https://m.poizon.com/client/cold
+https://tptm.hd.mi.com/gettimestamp
+http://vv6.video.qq.com/checktime?otype=json&amp;guid=123&amp;randnum=0123
+
+</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -339,21 +371,6 @@ const package = require('packageName')
     // error
 }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[宝塔nginx配置]]></title>
-        <id>https://blog.myxy.net/bao-ta-nginx-pei-zhi/</id>
-        <link href="https://blog.myxy.net/bao-ta-nginx-pei-zhi/">
-        </link>
-        <updated>2020-06-24T01:46:18.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="自定义日志格式">自定义日志格式</h2>
-<pre><code>log_format  main '$http_x_forwarded_for - [$time_iso8601] &quot;$request&quot; '
-	                                    '$status $body_bytes_sent '
-	                                    '&quot;$http_referer&quot; &quot;$http_user_agent&quot; ';
-        access_log logs/access.log main;
-</code></pre>
-<p>https://blog.csdn.net/xqhys/article/details/81782633</p>
 ]]></content>
     </entry>
 </feed>
