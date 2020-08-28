@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-08-28T03:59:46.206Z</updated>
+    <updated>2020-08-28T10:27:54.070Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -575,6 +575,118 @@ vm.$watch('a',function(newval,oldval){</p>
 调用方式: 直接名称</p>
 <p><code>methods</code> 是函数调用<br>
 调用方式:名字后面加括号</p>
+<h1 id="vue-小技巧">VUE 小技巧</h1>
+<h2 id="生命周期-hook">生命周期 @hook</h2>
+<blockquote>
+<p>有时在一些业务场景下，需要在父组件监听子组件挂载后mounted, 做一些逻辑处理，一般我们会在每个子组件中去this.$emit事件，我们也可以使用 @hook 来方便的做这个事情。</p>
+</blockquote>
+<pre><code>// 子组件
+export default {
+    mounted() {
+        this.$emit('listenMounted')
+    }
+}
+
+// 父组件
+&lt;template&gt;
+    &lt;div&gt;
+        &lt;List @listenMounted=&quot;listenMounted&quot; /&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+
+其实还有一种简洁的方法，使用 @hook 即可监听组件生命周期，组件内无需做任何改变。同样的， created 、 updated 等也可以使用此方法。
+&lt;template&gt;
+    &lt;Child @hook:mounted=&quot;childMounted&quot; /&gt;
+&lt;/template&gt;
+</code></pre>
+<h2 id="动态注册-hook">动态注册 hook</h2>
+<p><em>常见业务场景：</em></p>
+<ul>
+<li>使用定时器，生命周期内清除定时器</li>
+<li>事件监听移除</li>
+<li>摧毁实例化的对象<br>
+一般我们会这样做</li>
+</ul>
+<pre><code>export default {
+  created() {
+    addEventListener(&quot;click&quot;, Function, false);
+  },
+
+  beforeDestroy() {
+    removeEventListener(&quot;click&quot;, Function, false);
+  },
+};
+</code></pre>
+<p>避免可能遗忘，我们可以这样</p>
+<pre><code>export default {
+  mounted() {
+    const picker = new Pickaday({
+      // ...
+    });
+
+    this.$once(&quot;hook:beforeDestroy&quot;, () =&gt; {
+      picker.destroy();
+    })
+  }
+};
+</code></pre>
+<h2 id="避免进行数据劫持">避免进行数据劫持</h2>
+<p><code>Vue</code> 中 <code>data</code> 的数据默认会 <code>Object.defineProperty</code> 对数据进行劫持, 以实现双向数据绑定，若是将大量的和渲染无关的数据直接放置在data中，将会浪费双向数据绑定时所消耗的性能，将这些和渲染无关的数据进行抽离并配合<code>Object.freeze</code>进行处理。</p>
+<pre><code>export default {
+  data() {
+    return {
+      tableList: [],
+    };
+  },
+
+  created() {
+    const tableList = [
+      { name: &quot;张四&quot;, gender: &quot;male&quot;, age: &quot;26&quot; },
+      { name: &quot;李三&quot;, gender: &quot;fmale&quot;, age: &quot;24&quot; },
+    ];
+    this.tableList = Object.freeze(tableList);
+  },
+};
+</code></pre>
+<h2 id="批量数据更新">批量数据更新</h2>
+<p>一次性更新多个数据时，可使用如下方法一起赋值。</p>
+<pre><code>const {name, age, gender} = resData
+this = Object.assign(this, {name, age, gender})
+</code></pre>
+<h2 id="watch-监听多个变量">watch 监听多个变量</h2>
+<p>watch本身无法监听多个变量。但我们可以将需要监听的多个变量通过计算属性返回对象，再监听这个对象来实现监听多个变量</p>
+<pre><code>export default {
+    data() {
+        return {
+            msg1: 'apple',
+            msg2: 'banana'
+        }
+    },
+    compouted: {
+        msgObj() {
+            const { msg1, msg2 } = this
+            return {
+                msg1,
+                msg2
+            }
+        }
+    },
+    watch: {
+        msgObj: {
+            handler(newVal, oldVal) {
+                if (newVal.msg1 != oldVal.msg1) {
+                    console.log('msg1 is change')
+                }
+                if (newVal.msg2 != oldVal.msg2) {
+                    console.log('msg2 is change')
+                }
+            },
+            deep: true
+        }
+    }
+}
+</code></pre>
 ]]></content>
     </entry>
     <entry>
