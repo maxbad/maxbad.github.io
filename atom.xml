@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-08-28T03:34:00.359Z</updated>
+    <updated>2020-08-28T03:59:46.206Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -570,6 +570,11 @@ import axios form 'axios'</p>
 vm.$watch('a',function(newval,oldval){</p>
 <p>})<br>
 输出HTML元素: v-html</p>
+<p><code>computed</code> 是属性调用,<br>
+带缓存功能<br>
+调用方式: 直接名称</p>
+<p><code>methods</code> 是函数调用<br>
+调用方式:名字后面加括号</p>
 ]]></content>
     </entry>
     <entry>
