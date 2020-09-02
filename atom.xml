@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-08-28T10:27:54.070Z</updated>
+    <updated>2020-09-02T13:42:16.635Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,20 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[iview 表单验证]]></title>
+        <id>https://blog.myxy.net/iview-biao-dan-yan-zheng/</id>
+        <link href="https://blog.myxy.net/iview-biao-dan-yan-zheng/">
+        </link>
+        <updated>2020-09-02T05:14:38.000Z</updated>
+        <content type="html"><![CDATA[<p>Form 组件基于 <a href="https://github.com/yiminghe/async-validator">async-validator</a>实现的数据验证，给 Form 设置属性 rules，同时给需要验证的 FormItem 设置属性 prop 指向对应字段即可。</p>
+<p>完整的验证规则请参照开源项目 async-validator。</p>
+<p>验证方法也支持 Promise。</p>
+<p>https://www.jianshu.com/p/627c42d6da79<br>
+https://www.cnblogs.com/wozho/p/10955525.html<br>
+https://www.jianshu.com/p/2105c48b45c7</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[ES6]]></title>
         <id>https://blog.myxy.net/es6/</id>
@@ -687,23 +701,6 @@ this = Object.assign(this, {name, age, gender})
     }
 }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[SmartSniff过滤器的规则]]></title>
-        <id>https://blog.myxy.net/smartsniff-guo-lu-qi-de-gui-ze/</id>
-        <link href="https://blog.myxy.net/smartsniff-guo-lu-qi-de-gui-ze/">
-        </link>
-        <updated>2020-07-02T08:24:13.000Z</updated>
-        <content type="html"><![CDATA[<p>显示:<code>include</code><br>
-排除:<code>exclude</code></p>
-<p>本地:<code>local</code><br>
-远程:<code>remote</code><br>
-双向:<code>both</code></p>
-<p>[<code>include</code>|<code>exclude</code>] : [<code>local</code>|<code>remote</code>|<code>both</code>] : [<code>tcp</code>|<code>udp</code>|<code>tcpudp</code>|<code>icmp</code>|<code>all</code>] : [<code>IP Range</code>|<code>Ports Range</code>]</p>
-<p>[<code>显示</code>|<code>排除</code>] : [<code>本地</code>|<code>远程</code>|<code>双向</code>] : [<code>tcp</code>|<code>udp</code>|<code>tcpudp</code>|<code>icmp</code>|<code>all</code>] : [<code>ip地址范围</code>|<code>端口范围</code>]</p>
-<p>例如在菜单：options-&gt;Display Filter中添加如下语句：<br>
-include:local:all:6434，就会只显示服务器端口为6434和本机的抓包信息</p>
 ]]></content>
     </entry>
 </feed>
