@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-09-02T13:42:16.635Z</updated>
+    <updated>2020-09-03T14:37:06.773Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -564,7 +564,8 @@ http://vv6.video.qq.com/checktime?otype=json&amp;guid=123&amp;randnum=0123
         <link href="https://blog.myxy.net/vue/">
         </link>
         <updated>2020-07-07T15:26:02.000Z</updated>
-        <content type="html"><![CDATA[<p>#vui2</p>
+        <content type="html"><![CDATA[<p>props : https://www.jianshu.com/p/89bd18e44e73</p>
+<p>#vui2</p>
 <h3 id="创建项目">创建项目:</h3>
 <p>基于webpack模板创建项目的语法是:<code>vue init webpack test1</code></p>
 <blockquote>
