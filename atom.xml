@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-09-19T08:48:15.271Z</updated>
+    <updated>2020-09-19T13:21:29.311Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,15 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[布隆过滤器]]></title>
+        <id>https://blog.myxy.net/bu-long-guo-lu-qi/</id>
+        <link href="https://blog.myxy.net/bu-long-guo-lu-qi/">
+        </link>
+        <updated>2020-09-19T13:21:18.000Z</updated>
+        <content type="html"><![CDATA[<p>https://blog.csdn.net/y1054765649/article/details/88712339</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[VS  自定义 clang-format 格式化代码格式]]></title>
         <id>https://blog.myxy.net/vs-zi-ding-yi-clang-format-ge-shi-hua-dai-ma-ge-shi/</id>
@@ -425,6 +434,301 @@ UseTab:	Never
 </tr>
 </tbody>
 </table>
+<h1 id="string类型">string类型</h1>
+<h2 id="字符串常见操作">字符串常见操作</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>set key value</td>
+<td style="text-align:left">存入键值对</td>
+</tr>
+<tr>
+<td>mset key value [key value…]</td>
+<td style="text-align:left">批量存储字符串键值对</td>
+</tr>
+<tr>
+<td>setnx key value</td>
+<td style="text-align:left">存入一个不存在的字符串键值对</td>
+</tr>
+<tr>
+<td>get key</td>
+<td style="text-align:left">获取一个字符串</td>
+</tr>
+<tr>
+<td>mget key [key…]</td>
+<td style="text-align:left">批量获取字符串键值</td>
+</tr>
+<tr>
+<td>del key [key…]</td>
+<td style="text-align:left">删除一个键</td>
+</tr>
+<tr>
+<td>expire key seconds</td>
+<td style="text-align:left">设置一个键的过期时间（秒）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="原子加减">原子加减</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>incr key</td>
+<td style="text-align:left">将key中存储的数字值加一</td>
+</tr>
+<tr>
+<td>decr key</td>
+<td style="text-align:left">将key中存储的数字值减一</td>
+</tr>
+<tr>
+<td>incr by key increment</td>
+<td style="text-align:left">将key中所存储的值加上increment</td>
+</tr>
+<tr>
+<td>decr by key decrement</td>
+<td style="text-align:left">将key所存储的值减去decrement</td>
+</tr>
+</tbody>
+</table>
+<h2 id="string应用场景">string应用场景</h2>
+<blockquote>
+<p>计数器<br>
+文章计数器 阅读量 incr article:num</p>
+</blockquote>
+<h2 id="分布式锁">分布式锁</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>setnx product true</td>
+<td style="text-align:left">返回1代表获取锁成功</td>
+</tr>
+<tr>
+<td>setnx product true</td>
+<td style="text-align:left">返回0代表获取锁失败</td>
+</tr>
+<tr>
+<td>del product</td>
+<td style="text-align:left">执行完业务释放锁</td>
+</tr>
+</tbody>
+</table>
+<h1 id="hash类型">hash类型</h1>
+<h2 id="hash常用操作">hash常用操作</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hset key field value</td>
+<td style="text-align:left">存储一个哈希key的键值</td>
+</tr>
+<tr>
+<td>hsetnx key field value</td>
+<td style="text-align:left">存储一个不存在的哈希表key的键值</td>
+</tr>
+<tr>
+<td>hmseet key field value[field value…]</td>
+<td style="text-align:left">在一个哈希表key中存储多个键值对</td>
+</tr>
+<tr>
+<td>hget key field</td>
+<td style="text-align:left">获取哈希表key对应的field的值</td>
+</tr>
+<tr>
+<td>hmget key field[field…]</td>
+<td style="text-align:left">批量获取哈希表key中多个field的值</td>
+</tr>
+<tr>
+<td>hdel key field [field…]</td>
+<td style="text-align:left">删除哈希表key中的field的键值</td>
+</tr>
+<tr>
+<td>hlen key</td>
+<td style="text-align:left">返回哈希表key中的field的数量</td>
+</tr>
+<tr>
+<td>hgetall key</td>
+<td style="text-align:left">返回哈希表key中所有的键值</td>
+</tr>
+<tr>
+<td>hincrby key field increment</td>
+<td style="text-align:left">为哈希表key中field键的值加上增量increment</td>
+</tr>
+</tbody>
+</table>
+<h2 id="hash应用场景">hash应用场景</h2>
+<blockquote>
+<p>对象缓存<br>
+hmset user userid1:name value userid1:age 14<br>
+购物车<br>
+hmset user product1:name value prodeuct1:num value</p>
+</blockquote>
+<h2 id="hash优缺点">hash优缺点</h2>
+<ul>
+<li>优点<br>
+同类数据归类整合存储，方便数据管理<br>
+相比string操作消耗内存与cpu更小<br>
+相比string存储更节省空间</li>
+<li>缺点<br>
+过期功能不能使用在field上，只能使用在key上<br>
+Redis集群架构下不适合大规模使用</li>
+</ul>
+<h1 id="list类型">list类型</h1>
+<h2 id="list常用操作">list常用操作</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lpush key value[value…]</td>
+<td style="text-align:left">将一个或多个值value插入到key列表的表头（最左边）</td>
+</tr>
+<tr>
+<td>rpush key value[value…]</td>
+<td style="text-align:left">将一个或多个value插入到key列表的表尾（最右边）</td>
+</tr>
+<tr>
+<td>lpop key</td>
+<td style="text-align:left">移除并返回key列表的头元素</td>
+</tr>
+<tr>
+<td>rpop key</td>
+<td style="text-align:left">移除并返回key列表的尾元素</td>
+</tr>
+<tr>
+<td>lrange key start stop</td>
+<td style="text-align:left">返回列表key中指定区间内的元素，区间以偏移量start和stop指定</td>
+</tr>
+<tr>
+<td>blpop key [key…] timeout</td>
+<td style="text-align:left">从key列表表头弹出一个元素，若列表中没有元素，阻塞等待timeout秒，如果timeout=0，一直阻塞等待</td>
+</tr>
+<tr>
+<td>brpop key [key…] timeout</td>
+<td style="text-align:left">从key列表表尾弹出一个元素，若列表中没有元素，阻塞等待timeout秒，如果timeout=0，一直阻塞等待</td>
+</tr>
+</tbody>
+</table>
+<h2 id="list应用场景">list应用场景</h2>
+<p>栈（stack）<br>
+lpush + lpop —&gt;FILO<br>
+队列（queue）<br>
+lpush + rpop<br>
+阻塞队列（Blocking MQ）<br>
+lpush + brpop<br>
+微博微信消息流<br>
+使用lpush放入用户ID消息，然后使用lrange 来获取消息</p>
+<h1 id="set类型">set类型</h1>
+<h2 id="set常用操作">set常用操作</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sadd key member [member…]</td>
+<td style="text-align:left">往集合key中存入元素，元素存在则忽略，若key不存在则创建</td>
+</tr>
+<tr>
+<td>srem key member[member…]</td>
+<td style="text-align:left">从集合key中删除元素</td>
+</tr>
+<tr>
+<td>smembers key</td>
+<td style="text-align:left">获取集合key中的所有元素</td>
+</tr>
+<tr>
+<td>scardkey</td>
+<td style="text-align:left">获取集合key中的元素的个数</td>
+</tr>
+<tr>
+<td>sismemver key member</td>
+<td style="text-align:left">判断member元素是否存在于集合key中</td>
+</tr>
+<tr>
+<td>srandmember key [count]</td>
+<td style="text-align:left">从集合key中选出count个元素，元素不从key中删除</td>
+</tr>
+</tbody>
+</table>
+<p>spop key [count]//从集合key中选出count个元素，元素从key中删除</p>
+<h2 id="set运算操作">set运算操作</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sinter key [key…]</td>
+<td style="text-align:left">交集运算</td>
+</tr>
+<tr>
+<td>sinterstore destination key [key…]</td>
+<td style="text-align:left">交集结果存入新集合destination中</td>
+</tr>
+<tr>
+<td>sunion key [key…]</td>
+<td style="text-align:left">并集运算</td>
+</tr>
+<tr>
+<td>sunionstore destination key [key…]</td>
+<td style="text-align:left">并集结果存入新集合destination中</td>
+</tr>
+<tr>
+<td>sdiff key [key…]</td>
+<td style="text-align:left">差集运算</td>
+</tr>
+<tr>
+<td>sdiffstore destination key [key…]</td>
+<td style="text-align:left">差集结果存入新集合destination中</td>
+</tr>
+</tbody>
+</table>
+<h2 id="set使用场景">set使用场景</h2>
+<p>微信抽奖小程序<br>
+点击参与抽奖加入集合 sadd key {userID}<br>
+查看参与抽奖所有用户 smembers key<br>
+抽取count名中奖者 srandmember key [count]/spop key [count]<br>
+微信微博点赞、收藏、标签<br>
+点赞 sadd user ID<br>
+取消点赞 srem user ID<br>
+检查用户是否点过赞 sismember user ID<br>
+获取用户点赞列表 smembers user<br>
+获取点赞用户数 scard user<br>
+关注模型 （使用集合）<br>
+共同关注的人 ------ 交集<br>
+可能认识的人 ------- 差集</p>
 ]]></content>
     </entry>
     <entry>
@@ -1075,32 +1379,6 @@ uin.reLaunch() 可以打开任意页面。</p>
 }</p>
 <h1 id="unicloule">uniCloule</h1>
 <p><a href="https://uniapp.dcloud.io/uniCloud/README">查看文档</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[GraceUI]]></title>
-        <id>https://blog.myxy.net/graceui/</id>
-        <link href="https://blog.myxy.net/graceui/">
-        </link>
-        <updated>2020-07-14T12:16:23.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="组件插槽">组件插槽</h2>
-<pre><code>&lt;slot name=&quot;gHeader&quot;&gt;&lt;/slot&gt; 头部导航内容
-&lt;slot name=&quot;gBody&quot;&gt;&lt;/slot&gt; 页面主体内容
-&lt;slot name=&quot;gFooter&quot;&gt;&lt;/slot&gt; 页面底部导航内容
-&lt;slot name=&quot;gRTArea&quot;&gt;&lt;/slot&gt; 页面悬浮挂件内容
-</code></pre>
-<h3 id="uni-app-开发时-app-端必须的设置manifastjson">uni-app 开发时 APP 端必须的设置（manifast.json）</h3>
-<pre><code>/* 5+App特有相关 */
-&quot;app-plus&quot;: {
-    &quot;nvueCompiler&quot;:&quot;uni-app&quot;,
-    &quot;safearea&quot;: {
-        &quot;background&quot;: &quot;#FFFFFF&quot;,  
-        &quot;bottom&quot;: {  
-            &quot;offset&quot;: &quot;auto&quot;  
-        }  
-    },
-}
-</code></pre>
 ]]></content>
     </entry>
 </feed>
