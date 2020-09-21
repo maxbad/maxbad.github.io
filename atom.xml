@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-09-20T08:34:19.794Z</updated>
+    <updated>2020-09-21T01:24:45.873Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -319,7 +319,8 @@ UseTab:	Never
         <link href="https://blog.myxy.net/redis/">
         </link>
         <updated>2020-09-19T05:59:55.000Z</updated>
-        <content type="html"><![CDATA[<p>命令:<a href="https://www.redis.net.cn/order/">https://www.redis.net.cn/order/</a></p>
+        <content type="html"><![CDATA[<p>命令手册1:<a href="https://www.redis.net.cn/order/">https://www.redis.net.cn/order/</a><br>
+命令手册2:<a href="https://www.redis.com.cn/commands/">https://www.redis.com.cn/commands/</a></p>
 <table>
 <thead>
 <tr>
