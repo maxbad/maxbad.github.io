@@ -14,58 +14,22 @@
 
     
 
-  <meta name="description" content="命令手册1:https://www.redis.net.cn/order/
-命令手册2:https://www.redis.com.cn/commands/
-
-
-
-角色
-redis.conf
-权限说明
-
-
-
-
-超户
-requirepass
-..." />
+  <meta name="description" content="官方命令手册:https://oss.redislabs.com/redisearch/Commands.html
+命令手册1:https://www.redis.net.cn/order/
+命令手册2:https://www.redis...." />
   <meta property="og:title" content="Redis - Maxbad`Blog">
-  <meta property="og:description" content="命令手册1:https://www.redis.net.cn/order/
-命令手册2:https://www.redis.com.cn/commands/
-
-
-
-角色
-redis.conf
-权限说明
-
-
-
-
-超户
-requirepass
-..." />
+  <meta property="og:description" content="官方命令手册:https://oss.redislabs.com/redisearch/Commands.html
+命令手册1:https://www.redis.net.cn/order/
+命令手册2:https://www.redis...." />
   <meta property="og:type" content="articles">
   <meta property="og:url" content="https://blog.myxy.net/redis/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
   <meta name="twitter:title" content="Redis - Maxbad`Blog">
-  <meta name="twitter:description" content="命令手册1:https://www.redis.net.cn/order/
-命令手册2:https://www.redis.com.cn/commands/
-
-
-
-角色
-redis.conf
-权限说明
-
-
-
-
-超户
-requirepass
-...">
+  <meta name="twitter:description" content="官方命令手册:https://oss.redislabs.com/redisearch/Commands.html
+命令手册1:https://www.redis.net.cn/order/
+命令手册2:https://www.redis....">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://blog.myxy.net/redis/">
 
@@ -95,7 +59,8 @@ requirepass
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <p>命令手册1:<a href="https://www.redis.net.cn/order/">https://www.redis.net.cn/order/</a><br>
+          <p>官方命令手册:<a href="https://oss.redislabs.com/redisearch/Commands.html">https://oss.redislabs.com/redisearch/Commands.html</a><br>
+命令手册1:<a href="https://www.redis.net.cn/order/">https://www.redis.net.cn/order/</a><br>
 命令手册2:<a href="https://www.redis.com.cn/commands/">https://www.redis.com.cn/commands/</a></p>
 <table>
 <thead>
@@ -132,6 +97,14 @@ requirepass
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>INFO commandstats</td>
+<td style="text-align:left">查看所有命令统计</td>
+</tr>
+<tr>
+<td>CONFIG RESETSTAT</td>
+<td style="text-align:left">重置统计</td>
+</tr>
 <tr>
 <td>save</td>
 <td style="text-align:left">SAVE命令执行一个同步保存操作,将当前Redis实列的所有数据快照(snapshot)以RDB文件的形式保存到硬盘</td>

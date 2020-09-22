@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-09-21T01:24:45.873Z</updated>
+    <updated>2020-09-22T02:46:33.270Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,238 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[Redis2]]></title>
+        <id>https://blog.myxy.net/redis2/</id>
+        <link href="https://blog.myxy.net/redis2/">
+        </link>
+        <updated>2020-09-22T01:42:16.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="结构类型">结构类型</h1>
+<table>
+<thead>
+<tr>
+<th>结构类型</th>
+<th style="text-align:left">结构存储的值</th>
+<th style="text-align:left">结构的读写能力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STRING</td>
+<td style="text-align:left">可以是字符串,整数或者浮点数</td>
+<td style="text-align:left">对整个字符串或者字符串的其中一部分执行操作;对整数和浮点数执行自增(increment)或者自减(decrement)操作</td>
+</tr>
+<tr>
+<td>LIST</td>
+<td style="text-align:left">一个链表,链表上的每个节点都包含了一个字符串</td>
+<td style="text-align:left">从链表的两端推入或者弹出元素;根据偏移量对链表进行修剪(trim);读取单个或者多个元素;根据值查找或者移除元素</td>
+</tr>
+<tr>
+<td>SET</td>
+<td style="text-align:left">包含字符串的无序收集器(unordered collection),并且被包含的每个字符串都是独一无二,各不相同的</td>
+<td style="text-align:left">添加,获取,移除单个元素;检查一个元素是否存在于集合中,计算交集,并集,差集;从集合里面随机获取元素</td>
+</tr>
+<tr>
+<td>HASH</td>
+<td style="text-align:left">包含键值对的无序散列表</td>
+<td style="text-align:left">添加,获取,移除单个键值对;获取所有键值对</td>
+</tr>
+<tr>
+<td>ZSET(有序集合)</td>
+<td style="text-align:left">字符串成员(member)与浮点数分值(score)之间的有序映射,元素的排列顺序由分值的大小决定</td>
+<td style="text-align:left">添加,获取,删除单个元素;根据分值范围(fange)或者成员来获取元素</td>
+</tr>
+</tbody>
+</table>
+<h2 id="string-字符串">STRING (字符串)</h2>
+<figure data-type="image" tabindex="1"><img src="https://blog.myxy.net/post-images/1600741899944.jpg" alt="" loading="lazy"></figure>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">行为</th>
+<th style="text-align:left">其他</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td style="text-align:left">获取存储在给定键中的值</td>
+<td style="text-align:left">不存在返回nil</td>
+</tr>
+<tr>
+<td>SET</td>
+<td style="text-align:left">设置存储在给定键中的值</td>
+<td style="text-align:left">执行成功返回OK</td>
+</tr>
+<tr>
+<td>DEL</td>
+<td style="text-align:left">删除存储在给定键中的值</td>
+<td style="text-align:left">这个命令可以用于所有类型,成功删除的值的数量</td>
+</tr>
+</tbody>
+</table>
+<h2 id="list-有序列表">LIST (有序列表)</h2>
+<blockquote>
+<p>列表结构可以<code>有序</code>地存储多个字符串,可重复<br>
+<img src="https://blog.myxy.net/post-images/1600741872621.jpg" alt="" loading="lazy"></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">行为</th>
+<th style="text-align:left">其他</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RPUSH</td>
+<td style="text-align:left">将给定值推入列表的右端</td>
+<td style="text-align:left">返回列表当前的长度</td>
+</tr>
+<tr>
+<td>LRANGE</td>
+<td style="text-align:left">获取列表在给定范围上的所有值</td>
+<td style="text-align:left">从0到-1范围可以去除全部列表</td>
+</tr>
+<tr>
+<td>LINDEX</td>
+<td style="text-align:left">获取列表在给定位置上的单个元素</td>
+<td style="text-align:left">取单个</td>
+</tr>
+<tr>
+<td>LPOP</td>
+<td style="text-align:left">从列表的左端弹出一个值,并返回被弹出的值</td>
+<td style="text-align:left">被弹出的元素将不再存在于列表</td>
+</tr>
+</tbody>
+</table>
+<h2 id="set-无序集合">SET (无序集合)</h2>
+<blockquote>
+<p>通过散列表来保证自己存储的每个字符串都是各不相同的(这些散列表只有键,但没有与键相关联的值),<code>无序</code>方式存储元素<br>
+<img src="https://blog.myxy.net/post-images/1600741849673.jpg" alt="" loading="lazy"></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">行为</th>
+<th style="text-align:left">其他</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SADD</td>
+<td style="text-align:left">将给定元素添加到集合</td>
+<td style="text-align:left">返回1表示成功,返回0表示已存在</td>
+</tr>
+<tr>
+<td>SMEMBERS</td>
+<td style="text-align:left">返回集合包含的所有元素</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>SISMEMBER</td>
+<td style="text-align:left">检查给定元素是否存在于集合中</td>
+<td style="text-align:left">返回1表示存在,返回0表示不存在</td>
+</tr>
+<tr>
+<td>SREM</td>
+<td style="text-align:left">如果给定的元素存在于集合中,那么移除这个元素</td>
+<td style="text-align:left">返回被移除元素的数量</td>
+</tr>
+<tr>
+<td>SINTER</td>
+<td style="text-align:left">交集</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>SUNION</td>
+<td style="text-align:left">并集</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>SDIFF</td>
+<td style="text-align:left">差集</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="hash-散列">HASH (散列)</h2>
+<blockquote>
+<p>可以存储多个键值对之间的映射,值可以是字符串也可以是数值,并且数值可以自增或自减操作.<br>
+<img src="https://blog.myxy.net/post-images/1600741809702.jpg" alt="" loading="lazy"></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">行为</th>
+<th style="text-align:left">其他</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HSET</td>
+<td style="text-align:left">在散列里面关联起给定的键值对</td>
+<td style="text-align:left">1表示成功,0表示已存在</td>
+</tr>
+<tr>
+<td>HGET</td>
+<td style="text-align:left">获取指定散列键的值</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>HGETALL</td>
+<td style="text-align:left">获取散列包含的所有键值对</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>HDEL</td>
+<td style="text-align:left">如果给定的键存在于散列里面,那么移除这个键</td>
+<td style="text-align:left">1表示成功,0表示不存在</td>
+</tr>
+</tbody>
+</table>
+<h2 id="zset-有序集合">ZSET (有序集合)</h2>
+<blockquote>
+<p>有序集合的键被称为成员(member),每个成员都是各不相同的,有序集合的值被称为分值(score),分值必须为浮点数,有序集合是Redis里面唯一一个既可以根据成员访问元素(散列一样),有可以根据分值以及分值的排序来访问元素的结构<br>
+<img src="https://blog.myxy.net/post-images/1600742459363.jpg" alt="" loading="lazy"></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">行为</th>
+<th style="text-align:left">其他</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ZADD</td>
+<td style="text-align:left">将一个带有给定分值的成员添加到有序集合里面</td>
+<td style="text-align:left">返回添加元素的数量</td>
+</tr>
+<tr>
+<td>ZRANGE</td>
+<td style="text-align:left">根据元素在有序排列中所处的位置,从有序集合里面获取多个元素</td>
+<td style="text-align:left">从0开始-1结束可返回全部</td>
+</tr>
+<tr>
+<td>ZRANGEBYSCORE</td>
+<td style="text-align:left">获取有序集合在给定分值范围内的所有元素</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>ZREM</td>
+<td style="text-align:left">如果给定成员存在于有序集合,那么移除这个成员</td>
+<td style="text-align:left">返回被移除元素的数量</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[布隆过滤器]]></title>
         <id>https://blog.myxy.net/bu-long-guo-lu-qi/</id>
@@ -319,7 +551,8 @@ UseTab:	Never
         <link href="https://blog.myxy.net/redis/">
         </link>
         <updated>2020-09-19T05:59:55.000Z</updated>
-        <content type="html"><![CDATA[<p>命令手册1:<a href="https://www.redis.net.cn/order/">https://www.redis.net.cn/order/</a><br>
+        <content type="html"><![CDATA[<p>官方命令手册:<a href="https://oss.redislabs.com/redisearch/Commands.html">https://oss.redislabs.com/redisearch/Commands.html</a><br>
+命令手册1:<a href="https://www.redis.net.cn/order/">https://www.redis.net.cn/order/</a><br>
 命令手册2:<a href="https://www.redis.com.cn/commands/">https://www.redis.com.cn/commands/</a></p>
 <table>
 <thead>
@@ -356,6 +589,14 @@ UseTab:	Never
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>INFO commandstats</td>
+<td style="text-align:left">查看所有命令统计</td>
+</tr>
+<tr>
+<td>CONFIG RESETSTAT</td>
+<td style="text-align:left">重置统计</td>
+</tr>
 <tr>
 <td>save</td>
 <td style="text-align:left">SAVE命令执行一个同步保存操作,将当前Redis实列的所有数据快照(snapshot)以RDB文件的形式保存到硬盘</td>
@@ -1268,121 +1509,6 @@ new Promise((resolve,reject)=&gt;{
    //数组清空
    cJSON_ReplaceItemInObject(itemObj, &quot;userlist&quot;, cJSON_CreateArray());
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[uin-app]]></title>
-        <id>https://blog.myxy.net/uin-app/</id>
-        <link href="https://blog.myxy.net/uin-app/">
-        </link>
-        <updated>2020-07-25T03:06:36.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="目录结构">目录结构</h1>
-<p><code>components</code>  自定义组件目录<br>
-<code>pages</code> 页面存放目录<br>
-<code>static</code> 静态文件资源目录<br>
-<code>unpackage</code> 编译后的文件存放目录<br>
-<code>App.vue</code>    app.js <a href="https://uniapp.dcloud.io/collocation/App">查看文档</a><br>
-<code>main.js</code>  应用入口(  引用全局组件 ) <a href="https://uniapp.dcloud.io/collocation/main">查看文档</a><br>
-<code>manifest,json</code>  项目配置  <a href="https://uniapp.dcloud.io/collocation/manifest">查看文档</a><br>
-<code>page.json</code> 页面配置 <a href="https://uniapp.dcloud.io/collocation/pages">查看文档</a><br>
-<code>package.json</code>  <a href="https://uniapp.dcloud.io/collocation/package">查看文档</a><br>
-<code>vue.config.js</code> 是一个可选的配置文件  <a href="https://uniapp.dcloud.io/collocation/vue-config">查看文档</a><br>
-<code>uni.scss</code>  <a href="https://uniapp.dcloud.io/collocation/uni-scss">查看文档</a></p>
-<p><code>utils</code> 自定义 - 公用的工具类<br>
-<code>common</code>  自定义 - 公用的文件</p>
-<table>
-<thead>
-<tr>
-<th>符号</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>@</td>
-<td style="text-align:center">项目根目录</td>
-</tr>
-<tr>
-<td>vh</td>
-<td style="text-align:center">屏幕高度</td>
-</tr>
-<tr>
-<td>vw</td>
-<td style="text-align:center">屏幕宽度</td>
-</tr>
-<tr>
-<td>px</td>
-<td style="text-align:center">固定</td>
-</tr>
-<tr>
-<td>rpx</td>
-<td style="text-align:center">根据屏幕宽度750动态调整</td>
-</tr>
-<tr>
-<td>@import './index.css'</td>
-<td style="text-align:center">引入外部CSS文件</td>
-</tr>
-</tbody>
-</table>
-<p>尺寸单位 :  px  rpx rem</p>
-<h1 id="模板语法与数据绑定">模板语法与数据绑定</h1>
-<p><view class="content" v-bing:class="className" v-on:click="open"></view><br>
-&lt;view class=&quot;content&quot; :class=&quot;className&quot; @click=&quot;open&quot;&gt;</view></p>
-<table>
-<thead>
-<tr>
-<th>全写</th>
-<th style="text-align:center">简写</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>v-bing</td>
-<td style="text-align:center">:</td>
-</tr>
-<tr>
-<td>v-on</td>
-<td style="text-align:center">@</td>
-</tr>
-</tbody>
-</table>
-<h1 id="条件判断">条件判断</h1>
-<pre><code>&lt;view v-if=&quot;show==='1'&quot;&gt; 1 &lt;/view&gt;  如果表达式返回真值为true,那么正常渲染内容
-&lt;view v-else-if=&quot;show==='2'&quot;&gt; 2 &lt;/view&gt;  如果表达式返回真值为true,那么正常渲染内容
-&lt;view v-else&gt; 3 &lt;/view&gt;
-</code></pre>
-<h1 id="列表渲染">列表渲染</h1>
-<p>item : 被迭代的数组元素的别名<br>
-index : 下标别名</p>
-<pre><code>&lt;view v-for=&quot;(item,index) in arr&quot;&gt; {{ (index+1) + '---' + item }} &lt;/view&gt;
-&lt;view v-for=&quot;(item,value) in obj&quot;&gt; {{ value + '---' + item }} &lt;/view&gt;
-</code></pre>
-<h1 id="基础组件">基础组件</h1>
-<view> 
-    <view></view>     试图容器 .
-    <scroll-view></scroll-view>   可滚动视图区域    
-    <button>vue</button>  按钮
-    <input value="1" />     输入框
-</view>
-<h1 id="自定义组件">自定义组件</h1>
-<h1 id="api">API</h1>
-<p><a href="https://uniapp.dcloud.io/api/README">API</a></p>
-<h1 id="条件编译">条件编译</h1>
-<p><a href="https://uniapp.dcloud.io/platform">条件编译</a></p>
-<h1 id="生命周期">生命周期</h1>
-<p><a href="https://uniapp.dcloud.io/collocation/frame/lifecycle?id=%e5%ba%94%e7%94%a8%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f">应用生命周期</a><br>
-<a href="https://uniapp.dcloud.io/collocation/frame/lifecycle?id=%e9%a1%b5%e9%9d%a2%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f">页面生命周期</a><br>
-<a href="https://uniapp.dcloud.io/collocation/frame/lifecycle?id=%e7%bb%84%e4%bb%b6%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f">组件生命周期</a></p>
-<p>uin.navigateTo()  //打开新页面. 返回键可返回到当前页面  只能打开非 tabBar 页面。<br>
-uin.redirectTo()   //关闭当前页面,打开新页面,会触发页面销毁事件.   只能打开非 tabBar 页面。</p>
-<p>uin.switchTab() 只能打开 tabBar 页面。<br>
-uin.reLaunch() 可以打开任意页面。</p>
-<h1 id="scss">SCSS</h1>
-<p>.content{<br>
-&amp;.box{}    <code>&amp;</code>表示父级<br>
-}</p>
-<h1 id="unicloule">uniCloule</h1>
-<p><a href="https://uniapp.dcloud.io/uniCloud/README">查看文档</a></p>
 ]]></content>
     </entry>
 </feed>
