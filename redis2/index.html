@@ -97,7 +97,7 @@ LI...">
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-09-22 · 4 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-09-22 · 10 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
@@ -139,6 +139,9 @@ LI...">
 </tbody>
 </table>
 <h2 id="string-字符串">STRING (字符串)</h2>
+<blockquote>
+<p>可存储: 字节串,整数,浮点数</p>
+</blockquote>
 <figure data-type="image" tabindex="1"><img src="https://blog.myxy.net/post-images/1600741899944.jpg" alt="" loading="lazy"></figure>
 <table>
 <thead>
@@ -164,9 +167,34 @@ LI...">
 <td style="text-align:left">删除存储在给定键中的值</td>
 <td style="text-align:left">这个命令可以用于所有类型,成功删除的值的数量</td>
 </tr>
+<tr>
+<td>INCR</td>
+<td style="text-align:left">将键存储的值加上1</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>DECR</td>
+<td style="text-align:left">将键存储的值减去1</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>INCRBY</td>
+<td style="text-align:left">将键存储的值加上整数 amount</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>DECRBY</td>
+<td style="text-align:left">将键存储的值减去整数 amount</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>INCRBYFPOAT</td>
+<td style="text-align:left">将键存储的值加上浮点数 amount</td>
+<td style="text-align:left"></td>
+</tr>
 </tbody>
 </table>
-<h2 id="list-有序列表">LIST (有序列表)</h2>
+<h2 id="list-列表有序">LIST (列表)(有序)</h2>
 <blockquote>
 <p>列表结构可以<code>有序</code>地存储多个字符串,可重复<br>
 <img src="https://blog.myxy.net/post-images/1600741872621.jpg" alt="" loading="lazy"></p>
@@ -186,6 +214,11 @@ LI...">
 <td style="text-align:left">返回列表当前的长度</td>
 </tr>
 <tr>
+<td>LPUSH</td>
+<td style="text-align:left">将一个或多个值推入列表的左端</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
 <td>LRANGE</td>
 <td style="text-align:left">获取列表在给定范围上的所有值</td>
 <td style="text-align:left">从0到-1范围可以去除全部列表</td>
@@ -200,9 +233,39 @@ LI...">
 <td style="text-align:left">从列表的左端弹出一个值,并返回被弹出的值</td>
 <td style="text-align:left">被弹出的元素将不再存在于列表</td>
 </tr>
+<tr>
+<td>RPOP</td>
+<td style="text-align:left">移除并返回列表最右端的元素</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>LTRIM</td>
+<td style="text-align:left">对列表进行修剪,只保留从start偏移量到end偏移量范围内的元素,其中偏移量为start和偏移量为end的元素也会被保留</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>BLPOP</td>
+<td style="text-align:left">从第一个非空列表中弹出位于最左端的元素,或者在timeout秒之内阻塞并等待可弹出的元素出现</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>BRPOP</td>
+<td style="text-align:left">从第一个非空列表中弹出位于最右端的元素,或者在timeout秒之内阻塞并等待可弹出的元素出现</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>RPOPLPUSH</td>
+<td style="text-align:left">从source-key列表中弹出位于最右端的元素,然后将这个元素推入dest-key列表的最左端,并向用户返回这个元素</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>BRPOPLPUSH</td>
+<td style="text-align:left">从source-key列表中弹出位于最右端的元素,然后将这个元素推入dest-key列表的最左端,并向用户返回这个元素;如果source-key为空,那么在timeout秒之内阻塞并等待可弹出的元素出现</td>
+<td style="text-align:left"></td>
+</tr>
 </tbody>
 </table>
-<h2 id="set-无序集合">SET (无序集合)</h2>
+<h2 id="set-集合无序">SET (集合)(无序)</h2>
 <blockquote>
 <p>通过散列表来保证自己存储的每个字符串都是各不相同的(这些散列表只有键,但没有与键相关联的值),<code>无序</code>方式存储元素<br>
 <img src="https://blog.myxy.net/post-images/1600741849673.jpg" alt="" loading="lazy"></p>
@@ -239,16 +302,51 @@ LI...">
 <tr>
 <td>SINTER</td>
 <td style="text-align:left">交集</td>
-<td style="text-align:left"></td>
+<td style="text-align:left">返回那些同事存在于所有集合中的元素</td>
 </tr>
 <tr>
 <td>SUNION</td>
 <td style="text-align:left">并集</td>
-<td style="text-align:left"></td>
+<td style="text-align:left">返回那些至少存在于一个集合中的元素</td>
 </tr>
 <tr>
 <td>SDIFF</td>
 <td style="text-align:left">差集</td>
+<td style="text-align:left">返回那些存在于第一个集合,但不存在与其他集合中的元素</td>
+</tr>
+<tr>
+<td>SCARD</td>
+<td style="text-align:left">返回集合包含的元素的数量</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>SRANDMEMBER</td>
+<td style="text-align:left">从集合里面随机返回一个或多个元素,单count为正数时,命令返回的随机元素不会重复;当count为负数时.命令返回的随机数可能会出现重复</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>SPOP</td>
+<td style="text-align:left">随机移除集合中的一个元素,并返回被移除的元素</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>SMOVE</td>
+<td style="text-align:left">如果集合source-key包含元素item,那么从集合source-key里面移除元素item.,并将元素item添加到集合dest-key中;如果item被成功移除,那么返回1否则返回0</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>SDIFFSTORE</td>
+<td style="text-align:left">将那些存在于第一个集合但并不存在于其他集合中的元素(差集运算)存储到dest-key键里面</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>SINTERSTORE</td>
+<td style="text-align:left">将那些同时存在于所有集合的元素(交集运算)存储到dest-key键里面</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>SUNIONSTORE</td>
+<td style="text-align:left">将那些是少存在于一个集合中的元素(并集计算)存储到dest-key键里面</td>
 <td style="text-align:left"></td>
 </tr>
 </tbody>
@@ -287,6 +385,56 @@ LI...">
 <td style="text-align:left">如果给定的键存在于散列里面,那么移除这个键</td>
 <td style="text-align:left">1表示成功,0表示不存在</td>
 </tr>
+<tr>
+<td>HMGET</td>
+<td style="text-align:left">从散列里面获取一个或多个键的值</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>HMSET</td>
+<td style="text-align:left">为散列里面的一个或多个键设置值</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>HDEL</td>
+<td style="text-align:left">删除散列里面的一个或多个键值对,返回成功找到并删除的键值对数量</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>HLEN</td>
+<td style="text-align:left">返回散列包含的键值对数量</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>HEXISTS</td>
+<td style="text-align:left">检查给定键是否存在于散列中</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>HKEYS</td>
+<td style="text-align:left">获取散列包含的所有键</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>HVALS</td>
+<td style="text-align:left">获取散列包含的所有值</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>HGETALL</td>
+<td style="text-align:left">获取散列包含的所有键值对</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>HINCRBY</td>
+<td style="text-align:left">将键key存储的值加上整数increment</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>HINCRBYFLOAT</td>
+<td style="text-align:left">将键key存储的值加上浮点数increment</td>
+<td style="text-align:left"></td>
+</tr>
 </tbody>
 </table>
 <h2 id="zset-有序集合">ZSET (有序集合)</h2>
@@ -310,7 +458,7 @@ LI...">
 </tr>
 <tr>
 <td>ZRANGE</td>
-<td style="text-align:left">根据元素在有序排列中所处的位置,从有序集合里面获取多个元素</td>
+<td style="text-align:left">返回有序集合中排名介于start和stop之间的成员,如果给定了可选的withsocores选项,那么命令会将成员的分值也一并返回</td>
 <td style="text-align:left">从0开始-1结束可返回全部</td>
 </tr>
 <tr>
@@ -322,6 +470,203 @@ LI...">
 <td>ZREM</td>
 <td style="text-align:left">如果给定成员存在于有序集合,那么移除这个成员</td>
 <td style="text-align:left">返回被移除元素的数量</td>
+</tr>
+<tr>
+<td>ZCARD</td>
+<td style="text-align:left">返回有序集合包含的成员数量</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>ZINCRBY</td>
+<td style="text-align:left">返回分值介于min和max之间的成员数量</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>ZRANK</td>
+<td style="text-align:left">返回成员member在有序集合中的排名</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>ZSCORE</td>
+<td style="text-align:left">妇女和成员member的分值</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>ZREVRANK</td>
+<td style="text-align:left">返回有序集合里成员member的排名.成员按照分值从大到小排列</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>ZREVRANGE</td>
+<td style="text-align:left">返回有序集合给定排名范围内的成员,成员按照分值从大到小排序</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>ZRANGEBYSOCRE</td>
+<td style="text-align:left">返回有序集合中,分值介于min和max之间的所有成员</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>ZREVRANGEBYSOCRE</td>
+<td style="text-align:left">获取有序集合中分值介于min和max之间的所有成员,并按照分值从大到小的顺序来返回它们</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>ZREMRANGEBYRANK</td>
+<td style="text-align:left">移除有序集合中排名界面start和stop之间的所有成员</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>ZREMRANGEBYSCORE</td>
+<td style="text-align:left">移除有序集合中分值介于min和max之间的所有成员</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>ZINTERSTORE</td>
+<td style="text-align:left">对给定的有序集合执行类似于集合的交集运算</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>ZUNIONSTORE</td>
+<td style="text-align:left">对给定的有序集合执行类似于集合的并集运算</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="发布于订阅">发布于订阅</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">示例</th>
+<th style="text-align:left">行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SUBSCRIBE</td>
+<td style="text-align:left">SUBSCRIBE changel [changel ...]</td>
+<td style="text-align:left">订阅给定的一个或多个频道</td>
+</tr>
+<tr>
+<td>UNSUBSCRIBE</td>
+<td style="text-align:left">UNSUBSCRIBE [changel [changel ...]]</td>
+<td style="text-align:left">退订给定的一个或多个频道,如果执行时没有给定任何频道,那么推定所有频道</td>
+</tr>
+<tr>
+<td>PUBLISH</td>
+<td style="text-align:left">PUBLIST changel message</td>
+<td style="text-align:left">向给定频道发送消息</td>
+</tr>
+<tr>
+<td>PSUBSCRIBE</td>
+<td style="text-align:left">PSUBSCRIBE pattern [pattern ...]</td>
+<td style="text-align:left">订阅与给定模式相匹配的所有频道</td>
+</tr>
+<tr>
+<td>PUNSUBSCRIBE</td>
+<td style="text-align:left">PUNSUBSCRIBE [pattern [pattern ...]]</td>
+<td style="text-align:left">退订给定的模式,如果执行时没有给定任何模式,那么退订所有模式</td>
+</tr>
+</tbody>
+</table>
+<h2 id="其他命令">其他命令</h2>
+<h3 id="排序">排序</h3>
+<p>SORT命令不仅可以对列表进行排序,还可以对集合进行排序,然后返回一个列表形式的排序结果,</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">示例</th>
+<th style="text-align:left">行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SORT</td>
+<td style="text-align:left">SORT source-key [BY pattern] [LIMIT offset count] [GET pattern [GET pattern ...]] [ASC or DESC] [ALPHA] [STORE dest-key]</td>
+<td style="text-align:left">根据给定的选项,对输入列表,集合或者有序集合进行排序,然后返回或者存储排序的结果</td>
+</tr>
+</tbody>
+</table>
+<h3 id="事务">事务</h3>
+<blockquote>
+<p>用户在不被打断的情况下对多个键执行操作</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WATCH</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>MULTI</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>EXEC</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>UNWATCH</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>DISCARD</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="键的过期时间">键的过期时间</h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">示例</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PERSIST</td>
+<td style="text-align:left">PERSIST key-name</td>
+<td style="text-align:left">移除键的国企时间</td>
+</tr>
+<tr>
+<td>TTL</td>
+<td style="text-align:left">TTL key-name</td>
+<td style="text-align:left">查看给定键距离过期还有多少秒</td>
+</tr>
+<tr>
+<td>EXPIRE</td>
+<td style="text-align:left">EXPIRE key-name seconds</td>
+<td style="text-align:left">让给定键在指定的秒数之后过期</td>
+</tr>
+<tr>
+<td>EXPIREAT</td>
+<td style="text-align:left">EXPIREAT key-name timestamp</td>
+<td style="text-align:left">将给定键的过期时间设置为给定的unix时间戳</td>
+</tr>
+<tr>
+<td>PTTL</td>
+<td style="text-align:left">PTTL key-name</td>
+<td style="text-align:left">查看给定键距离过期时间还有多少毫秒</td>
+</tr>
+<tr>
+<td>PEXPIRE</td>
+<td style="text-align:left">PEXPIRE key-name milliseconds</td>
+<td style="text-align:left">让给定键在指定的毫秒数之后过期</td>
+</tr>
+<tr>
+<td>PEXPIREAT</td>
+<td style="text-align:left">PEXPIREAT key-name timestamp-milliseconds</td>
+<td style="text-align:left">将一个毫秒级精度的unix时间戳设置为给定键的过期时间</td>
 </tr>
 </tbody>
 </table>
@@ -371,10 +716,18 @@ LI...">
 <li><a href="#%E7%BB%93%E6%9E%84%E7%B1%BB%E5%9E%8B">结构类型</a>
 <ul>
 <li><a href="#string-%E5%AD%97%E7%AC%A6%E4%B8%B2">STRING (字符串)</a></li>
-<li><a href="#list-%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8">LIST (有序列表)</a></li>
-<li><a href="#set-%E6%97%A0%E5%BA%8F%E9%9B%86%E5%90%88">SET (无序集合)</a></li>
+<li><a href="#list-%E5%88%97%E8%A1%A8%E6%9C%89%E5%BA%8F">LIST (列表)(有序)</a></li>
+<li><a href="#set-%E9%9B%86%E5%90%88%E6%97%A0%E5%BA%8F">SET (集合)(无序)</a></li>
 <li><a href="#hash-%E6%95%A3%E5%88%97">HASH (散列)</a></li>
 <li><a href="#zset-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88">ZSET (有序集合)</a></li>
+<li><a href="#%E5%8F%91%E5%B8%83%E4%BA%8E%E8%AE%A2%E9%98%85">发布于订阅</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4">其他命令</a>
+<ul>
+<li><a href="#%E6%8E%92%E5%BA%8F">排序</a></li>
+<li><a href="#%E4%BA%8B%E5%8A%A1">事务</a></li>
+<li><a href="#%E9%94%AE%E7%9A%84%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4">键的过期时间</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
