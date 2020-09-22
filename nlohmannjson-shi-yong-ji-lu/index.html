@@ -58,7 +58,7 @@ nlohmann::json ret_json =...">
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-05-12 · 1 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-05-12 · 2 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
@@ -91,6 +91,41 @@ nlohmann::json ret_json = { {&quot;code&quot;, 1}, {&quot;msg&quot;, u8&quot;系
 </code></pre>
 <h2 id="获取值">获取值:</h2>
 <pre><code>auto&amp; username = req_json[&quot;username&quot;].get&lt;std::string&gt;();
+</code></pre>
+<h2 id="遍历对象">遍历对象</h2>
+<pre><code>for (auto it=j.begin(); it!=j.end(); it++) {
+    std::cout &lt;&lt; &quot;key: &quot; &lt;&lt; it.key() &lt;&lt; &quot; : &quot; &lt;&lt; it.value() &lt;&lt; std::endl; 
+    // it.value() 是json对象
+  }
+</code></pre>
+<pre><code class="language-cpp">#include &quot;json.hpp&quot;
+#include &lt;iostream&gt;
+
+using json = nlohmann::json;
+
+template&lt;class UnaryFunction&gt;
+void recursive_iterate(const json&amp; j, UnaryFunction f)
+{
+    for(auto it = j.begin(); it != j.end(); ++it)
+    {
+        if (it-&gt;is_structured())
+        {
+            recursive_iterate(*it, f);
+        }
+        else
+        {
+            f(it);
+        }
+    }
+}
+
+int main()
+{
+    json j = {{&quot;one&quot;, 1}, {&quot;two&quot;, 2}, {&quot;three&quot;, {&quot;three.one&quot;, 3.1}}};
+    recursive_iterate(j, [](json::const_iterator it){
+        std::cout &lt;&lt; *it &lt;&lt; std::endl;
+    });
+}
 </code></pre>
 
         </div>
@@ -142,6 +177,7 @@ nlohmann::json ret_json = { {&quot;code&quot;, 1}, {&quot;msg&quot;, u8&quot;系
 <li><a href="#%E9%80%9A%E8%BF%87key%E5%88%A0%E9%99%A4">通过key删除</a></li>
 <li><a href="#%E9%80%9A%E8%BF%87%E7%B4%A2%E5%BC%95%E5%88%A0%E9%99%A4">通过索引删除</a></li>
 <li><a href="#%E8%8E%B7%E5%8F%96%E5%80%BC">获取值:</a></li>
+<li><a href="#%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1">遍历对象</a></li>
 </ul>
 </li>
 </ul>
