@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-09-23T01:27:21.563Z</updated>
+    <updated>2020-09-23T11:19:59.565Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -398,9 +398,11 @@ int main() {
 <p>想知道类中数据成员的大小在c++11中是不是方便了许多，而不需要定义一个对象，在计算对象的成员大小。</p>
 <h2 id="assertion">assertion</h2>
 <blockquote>
-<p>c++11引入static_assert声明，用于在编译期间检查，如果第一个参数值为false，则打印message，编译失败。</p>
+<p>c++11引入static_assert声明，静态断言,用于在编译期间检查，如果第一个参数值为false，则打印message，编译失败。</p>
 </blockquote>
-<pre><code class="language-cpp">static_assert(true/false, message);
+<pre><code class="language-cpp">// static_assert(常量表达式，&quot;提示字符串&quot;)
+const int n = 5;
+static_assert(n &gt; 0, &quot;value must &gt; 0&quot;);
 </code></pre>
 <h2 id="自定义字面量">自定义字面量</h2>
 <p>c++11可以自定义字面量，我们平时c++中都或多或少使用过chrono中的时间，例如：</p>
@@ -1593,6 +1595,7 @@ UseTab:	Never
         </link>
         <updated>2020-09-19T05:59:55.000Z</updated>
         <content type="html"><![CDATA[<p>官方命令手册:<a href="https://oss.redislabs.com/redisearch/Commands.html">https://oss.redislabs.com/redisearch/Commands.html</a><br>
+中文手册:<a href="https://www.php.cn/redis/redis-commands.html">https://www.php.cn/redis/redis-commands.html</a><br>
 命令手册1:<a href="https://www.redis.net.cn/order/">https://www.redis.net.cn/order/</a><br>
 命令手册2:<a href="https://www.redis.com.cn/commands/">https://www.redis.com.cn/commands/</a></p>
 <table>

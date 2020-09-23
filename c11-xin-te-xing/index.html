@@ -447,9 +447,11 @@ int main() {
 <p>想知道类中数据成员的大小在c++11中是不是方便了许多，而不需要定义一个对象，在计算对象的成员大小。</p>
 <h2 id="assertion">assertion</h2>
 <blockquote>
-<p>c++11引入static_assert声明，用于在编译期间检查，如果第一个参数值为false，则打印message，编译失败。</p>
+<p>c++11引入static_assert声明，静态断言,用于在编译期间检查，如果第一个参数值为false，则打印message，编译失败。</p>
 </blockquote>
-<pre><code class="language-cpp">static_assert(true/false, message);
+<pre><code class="language-cpp">// static_assert(常量表达式，&quot;提示字符串&quot;)
+const int n = 5;
+static_assert(n &gt; 0, &quot;value must &gt; 0&quot;);
 </code></pre>
 <h2 id="自定义字面量">自定义字面量</h2>
 <p>c++11可以自定义字面量，我们平时c++中都或多或少使用过chrono中的时间，例如：</p>
