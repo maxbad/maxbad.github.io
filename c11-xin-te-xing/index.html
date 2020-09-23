@@ -1,0 +1,1027 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>C++11新特性 - Maxbad`Blog</title>
+<link rel="shortcut icon" href="https://blog.myxy.net/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://blog.myxy.net/media/css/tailwind.css">
+<link rel="stylesheet" href="https://blog.myxy.net/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="C++11新特性 - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
+
+    
+
+  <meta name="description" content="转自:https://zhuanlan.zhihu.com/p/139515439
+auto &amp;amp; decltype
+https://zhuanlan.zhihu.com/p/137662774
+左值右值
+https://zhuanl..." />
+  <meta property="og:title" content="C++11新特性 - Maxbad`Blog">
+  <meta property="og:description" content="转自:https://zhuanlan.zhihu.com/p/139515439
+auto &amp;amp; decltype
+https://zhuanlan.zhihu.com/p/137662774
+左值右值
+https://zhuanl..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://blog.myxy.net/c11-xin-te-xing/" />
+  <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="C++11新特性 - Maxbad`Blog">
+  <meta name="twitter:description" content="转自:https://zhuanlan.zhihu.com/p/139515439
+auto &amp;amp; decltype
+https://zhuanlan.zhihu.com/p/137662774
+左值右值
+https://zhuanl...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://blog.myxy.net/c11-xin-te-xing/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://blog.myxy.net/media/css/prism-atom-dark.css">
+  
+
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://blog.myxy.net" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      Maxbad`Blog
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          C++11新特性
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2020-09-23 · 22 min read</div>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <p>转自:<a href="https://zhuanlan.zhihu.com/p/139515439">https://zhuanlan.zhihu.com/p/139515439</a></p>
+<h2 id="auto-decltype">auto &amp; decltype</h2>
+<p>https://zhuanlan.zhihu.com/p/137662774</p>
+<h2 id="左值右值">左值右值</h2>
+<p>https://zhuanlan.zhihu.com/p/137662465</p>
+<h2 id="列表初始化">列表初始化</h2>
+<p>https://zhuanlan.zhihu.com/p/137851769</p>
+<h2 id="stdfunction-stdbind-lambda表达式">std::function &amp; std::bind &amp; lambda表达式</h2>
+<p>https://zhuanlan.zhihu.com/p/137884434</p>
+<h2 id="模板的改进">模板的改进</h2>
+<p>https://zhuanlan.zhihu.com/p/137851516</p>
+<h2 id="并发">并发</h2>
+<p>https://zhuanlan.zhihu.com/p/137914574</p>
+<h2 id="智能指针">智能指针</h2>
+<p>https://zhuanlan.zhihu.com/p/137958974</p>
+<h2 id="基于范围的for循环">基于范围的for循环</h2>
+<pre><code class="language-cpp">vector&lt;int&gt; vec;
+
+for (auto iter = vec.begin(); iter != vec.end(); iter++) { // before c++11
+    cout &lt;&lt; *iter &lt;&lt; endl;
+}
+
+for (int i : vec) { // c++11基于范围的for循环
+    cout &lt;&lt; &quot;i&quot; &lt;&lt; endl;
+}
+</code></pre>
+<h2 id="委托构造函数">委托构造函数</h2>
+<pre><code class="language-cpp">struct A {
+    A(){}
+    A(int a) { a_ = a; }
+
+    A(int a, int b) : A(a) { b_ = b; }
+
+    A(int a, int b, int c) : A(a, b) { c_ = c; }
+
+    int a_;
+    int b_;
+    int c_;
+};
+</code></pre>
+<h2 id="继承构造函数">继承构造函数</h2>
+<blockquote>
+<p>只需要使用<code>using Base::Base</code>继承构造函数，就免去了很多重写代码的麻烦。</p>
+</blockquote>
+<pre><code class="language-cpp">struct Base {
+    Base() {}
+    Base(int a) { a_ = a; }
+
+    Base(int a, int b) : Base(a) { b_ = b; }
+
+    Base(int a, int b, int c) : Base(a, b) { c_ = c; }
+
+    int a_;
+    int b_;
+    int c_;
+};
+
+struct Derived : Base {
+    using Base::Base;
+};
+
+int main() {
+    Derived a(1, 2, 3);
+    return 0;
+}
+</code></pre>
+<h2 id="nullptr">nullptr</h2>
+<blockquote>
+<p>nullptr是c++11用来表示空指针新引入的常量值，在c++中如果表示空指针语义时建议使用nullptr而不要使用NULL，因为NULL本质上是个int型的0，其实不是个指针。举例：</p>
+</blockquote>
+<pre><code class="language-cpp">void func(void *ptr) {
+    cout &lt;&lt; &quot;func ptr&quot; &lt;&lt; endl;
+}
+
+void func(int i) {
+    cout &lt;&lt; &quot;func i&quot; &lt;&lt; endl;
+}
+
+int main() {
+    func(NULL); // 编译失败，会产生二义性
+    func(nullptr); // 输出func ptr
+    return 0;
+}
+</code></pre>
+<h2 id="final-override">final &amp; override</h2>
+<blockquote>
+<p>c++11关于继承新增了两个关键字，final用于修饰一个类，表示禁止该类进一步派生和虚函数的进一步重载，override用于修饰派生类中的成员函数，标明该函数重写了基类函数，如果一个函数声明了override但父类却没有这个虚函数，编译报错，使用override关键字可以避免开发者在重写基类函数时无意产生的错误。</p>
+</blockquote>
+<pre><code class="language-cpp">struct Base {
+    virtual void func() {
+        cout &lt;&lt; &quot;base&quot; &lt;&lt; endl;
+    }
+};
+
+struct Derived : public Base{
+    void func() override { // 确保func被重写
+        cout &lt;&lt; &quot;derived&quot; &lt;&lt; endl;
+    }
+
+    void fu() override { // error，基类没有fu()，不可以被重写
+        
+    }
+};
+</code></pre>
+<pre><code class="language-cpp">struct Base final {
+    virtual void func() {
+        cout &lt;&lt; &quot;base&quot; &lt;&lt; endl;
+    }
+};
+
+struct Derived : public Base{ // 编译失败，final修饰的类不可以被继承
+    void func() override {
+        cout &lt;&lt; &quot;derived&quot; &lt;&lt; endl;
+    }
+
+};
+</code></pre>
+<h2 id="default">default</h2>
+<blockquote>
+<p>c++11引入default特性，多数时候用于声明构造函数为默认构造函数，如果类中有了自定义的构造函数，编译器就不会隐式生成默认构造函数，如下代码：</p>
+</blockquote>
+<pre><code class="language-cpp">struct A {
+    int a;
+    A(int i) { a = i; }
+};
+
+int main() {
+    A a; // 编译出错
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>上面代码编译出错，因为没有匹配的构造函数，因为编译器没有生成默认构造函数，而通过default，程序员只需在函数声明后加上“=default;”，就可将该函数声明为 defaulted 函数，编译器将为显式声明的 defaulted 函数自动生成函数体，如下：</p>
+</blockquote>
+<pre><code class="language-cpp">struct A {
+    A() = default;
+    int a;
+    A(int i) { a = i; }
+};
+
+int main() {
+    A a;
+    return 0;
+}
+// 编译通过。
+</code></pre>
+<h2 id="delete">delete</h2>
+<blockquote>
+<p>c++中，如果开发人员没有定义特殊成员函数，那么编译器在需要特殊成员函数时候会隐式自动生成一个默认的特殊成员函数，例如拷贝构造函数或者拷贝赋值操作符，如下代码：</p>
+</blockquote>
+<pre><code class="language-cpp">struct A {
+    A() = default;
+    int a;
+    A(int i) { a = i; }
+};
+
+int main() {
+    A a1;
+    A a2 = a1;  // 正确，调用编译器隐式生成的默认拷贝构造函数
+    A a3;
+    a3 = a1;  // 正确，调用编译器隐式生成的默认拷贝赋值操作符
+}
+</code></pre>
+<blockquote>
+<p>而我们有时候想禁止对象的拷贝与赋值，可以使用delete修饰，如下：</p>
+</blockquote>
+<pre><code class="language-cpp">struct A {
+    A() = default;
+    A(const A&amp;) = delete;
+    A&amp; operator=(const A&amp;) = delete;
+    int a;
+    A(int i) { a = i; }
+};
+
+int main() {
+    A a1;
+    A a2 = a1;  // 错误，拷贝构造函数被禁用
+    A a3;
+    a3 = a1;  // 错误，拷贝赋值操作符被禁用
+}
+</code></pre>
+<blockquote>
+<p>delele函数在c++11中很常用，std::unique_ptr就是通过delete修饰来禁止对象的拷贝的。</p>
+</blockquote>
+<h2 id="explicit">explicit</h2>
+<blockquote>
+<p>explicit专用于修饰构造函数，表示只能显式构造，不可以被隐式转换，根据代码看explicit的作用：</p>
+</blockquote>
+<ul>
+<li>不用explicit：</li>
+</ul>
+<pre><code class="language-cpp">struct A {
+    A(int value) { // 没有explicit关键字
+        cout &lt;&lt; &quot;value&quot; &lt;&lt; endl;
+    }
+};
+
+int main() {
+    A a = 1; // 可以隐式转换
+    return 0;
+}
+</code></pre>
+<ul>
+<li>使用explicit:</li>
+</ul>
+<pre><code class="language-cpp">struct A {
+    explicit A(int value) {
+        cout &lt;&lt; &quot;value&quot; &lt;&lt; endl;
+    }
+};
+
+int main() {
+    A a = 1; // error，不可以隐式转换
+    A aa(2); // ok
+    return 0;
+}
+</code></pre>
+<h2 id="const">const</h2>
+<p>因为要讲后面的constexpr，所以这里简单介绍下const。</p>
+<p>const字面意思为只读，可用于定义变量，表示变量是只读的，不可以更改，如果更改，编译期间就会报错。</p>
+<p>主要用法如下：</p>
+<ul>
+<li>用于定义常量，const的修饰的变量不可更改。</li>
+</ul>
+<pre><code class="language-cpp">const int value = 5;
+</code></pre>
+<ul>
+<li>指针也可以使用const，这里有个小技巧，从右向左读，即可知道const究竟修饰的是指针还是指针所指向的内容。</li>
+</ul>
+<pre><code class="language-cpp">char *const ptr; // 指针本身是常量
+const char* ptr; // 指针指向的变量为常量
+</code></pre>
+<ul>
+<li>在函数参数中使用const，一般会传递类对象时会传递一个const的引用或者指针，这样可以避免对象的拷贝，也可以防止对象被修改。<pre><code class="language-cpp"></code></pre>
+</li>
+</ul>
+<p>class A{};<br>
+void func(const A&amp; a);</p>
+<pre><code>- const修饰类的成员变量，表示是成员常量，不能被修改，可以在初始化列表中被赋值。
+```cpp
+class A {
+    const int value = 5;
+};
+class B {
+    const int value;
+    B(int v) : value(v){}
+};
+</code></pre>
+<ul>
+<li>修饰类成员函数，表示在该函数内不可以修改该类的成员变量。</li>
+</ul>
+<pre><code class="language-cpp">class A{
+    void func() const;
+};
+</code></pre>
+<ul>
+<li>修饰类对象，类对象只能调用该对象的const成员函数。</li>
+</ul>
+<pre><code class="language-cpp">class A {
+    void func() const;
+};
+const A a;
+a.func();
+</code></pre>
+<h2 id="constexpr">constexpr</h2>
+<blockquote>
+<p>constexpr是c++11新引入的关键字，用于编译时的常量和常量函数，这里直接介绍constexpr和const的区别：<br>
+两者都代表可读，const只表示read only的语义，只保证了运行时不可以被修改，但它修饰的仍然有可能是个动态变量，而constexpr修饰的才是真正的常量，它会在编译期间就会被计算出来，整个运行过程中都不可以被改变，constexpr可以用于修饰函数，这个函数的返回值会尽可能在编译期间被计算出来当作一个常量，但是如果编译期间此函数不能被计算出来，那它就会当作一个普通函数被处理。如下代码：</p>
+</blockquote>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+using namespace std;
+
+constexpr int func(int i) {
+    return i + 1;
+}
+
+int main() {
+    int i = 2;
+    func(i);// 普通函数
+    func(2);// 编译期间就会被计算出来
+}
+</code></pre>
+<h2 id="enum-class">enum class</h2>
+<blockquote>
+<p>c++11新增有作用域的枚举类型，看代码</p>
+</blockquote>
+<p>不带作用域的枚举代码：</p>
+<pre><code class="language-cpp">enum AColor {
+    kRed,
+    kGreen,
+    kBlue
+};
+
+enum BColor {
+    kWhite,
+    kBlack,
+    kYellow
+};
+
+int main() {
+    if (kRed == kWhite) {
+        cout &lt;&lt; &quot;red == white&quot; &lt;&lt; endl;
+    }
+    return 0;
+}
+</code></pre>
+<p>如上代码，不带作用域的枚举类型可以自动转换成整形，且不同的枚举可以相互比较，代码中的红色居然可以和白色比较，这都是潜在的难以调试的bug，而这种完全可以通过有作用域的枚举来规避。</p>
+<p>有作用域的枚举代码：</p>
+<pre><code class="language-cpp">enum class AColor {
+    kRed,
+    kGreen,
+    kBlue
+};
+
+enum class BColor {
+    kWhite,
+    kBlack,
+    kYellow
+};
+
+int main() {
+    if (AColor::kRed == BColor::kWhite) { // 编译失败
+        cout &lt;&lt; &quot;red == white&quot; &lt;&lt; endl;
+    }
+    return 0;
+}
+</code></pre>
+<p>使用带有作用域的枚举类型后，对不同的枚举进行比较会导致编译失败，消除潜在bug，同时带作用域的枚举类型可以选择底层类型，默认是int，可以改成char等别的类型。</p>
+<pre><code class="language-cpp">enum class AColor : char {
+    kRed,
+    kGreen,
+    kBlue
+};
+</code></pre>
+<p><em>我们平时编程过程中使用枚举，一定要使用有作用域的枚举取代传统的枚举。</em></p>
+<h2 id="非受限联合体">非受限联合体</h2>
+<blockquote>
+<p>c++11之前union中数据成员的类型不允许有非POD类型，而这个限制在c++11被取消，允许数据成员类型有非POD类型，看代码：</p>
+</blockquote>
+<pre><code class="language-cpp">struct A {
+    int a;
+    int *b;
+};
+
+union U {
+    A a; // 非POD类型 c++11之前不可以这样定义联合体
+    int b;
+};
+</code></pre>
+<p>对于什么是POD类型，大家可以自行查下资料，大体上可以理解为对象可以直接memcpy的类型。</p>
+<h2 id="sizeof">sizeof</h2>
+<p>c++11中sizeof可以用的类的数据成员上，看代码：</p>
+<ul>
+<li>c++11前：</li>
+</ul>
+<pre><code class="language-cpp">struct A {
+    int data[10];
+    int a;
+};
+
+int main() {
+    A a;
+    cout &lt;&lt; &quot;size &quot; &lt;&lt; sizeof(a.data) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<ul>
+<li>c++11后：</li>
+</ul>
+<pre><code class="language-cpp">struct A {
+    int data[10];
+    int a;
+};
+
+int main() {
+    cout &lt;&lt; &quot;size &quot; &lt;&lt; sizeof(A::data) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p>想知道类中数据成员的大小在c++11中是不是方便了许多，而不需要定义一个对象，在计算对象的成员大小。</p>
+<h2 id="assertion">assertion</h2>
+<blockquote>
+<p>c++11引入static_assert声明，用于在编译期间检查，如果第一个参数值为false，则打印message，编译失败。</p>
+</blockquote>
+<pre><code class="language-cpp">static_assert(true/false, message);
+</code></pre>
+<h2 id="自定义字面量">自定义字面量</h2>
+<p>c++11可以自定义字面量，我们平时c++中都或多或少使用过chrono中的时间，例如：</p>
+<pre><code class="language-cpp">std::this_thread::sleep_for(std::chrono::milliseconds(100)); // 100ms
+std::this_thread::sleep_for(std::chrono::seconds(100)); // 100s
+</code></pre>
+<p>其实没必要这么麻烦，也可以这么写：</p>
+<pre><code class="language-cpp">std::this_thread::sleep_for(100ms); // c++14里可以这么使用，这里只是举个自定义字面量使用的例子
+std::this_thread::sleep_for(100s);
+</code></pre>
+<p>这就是自定义字面量的使用，示例如下：</p>
+<pre><code class="language-cpp">struct mytype {
+    unsigned long long value;
+};
+constexpr mytype operator&quot;&quot; _mytype ( unsigned long long n ) {
+    return mytype{n};
+}
+mytype mm = 123_mytype;
+cout &lt;&lt; mm.value &lt;&lt; endl;
+</code></pre>
+<p>关于自定义字面量，可以看下chrono的源代码，相信大家会有很大收获，需要源码分析chrono的话，可以留言给我。</p>
+<h2 id="内存对齐">内存对齐</h2>
+<ul>
+<li>什么是内存对齐<br>
+理论上计算机对于任何变量的访问都可以从任意位置开始，然而实际上系统会对这些变量的存放地址有限制，通常将变量首地址设为某个数N的倍数，这就是内存对齐。</li>
+<li>为什么要内存对齐<br>
+1: 硬件平台限制，内存以字节为单位，不同硬件平台不一定支持任何内存地址的存取，一般可能以双字节、4字节等为单位存取内存，为了保证处理器正确存取数据，需要进行内存对齐。<br>
+2: 提高CPU内存访问速度，一般处理器的内存存取粒度都是N的整数倍，假如访问N大小的数据，没有进行内存对齐，有可能就需要两次访问才可以读取出数据，而进行内存对齐可以一次性把数据全部读取出来，提高效率。<br>
+在c++11之前如果想创建内存对齐需要：</li>
+</ul>
+<pre><code class="language-cpp">void align_cpp11_before()
+{
+    static char data[sizeof(void *) + sizeof(A)];
+    const uintptr_t kAlign = sizeof(void *) - 1;
+    char *align_ptr =
+        reinterpret_cast&lt;char *&gt;(reinterpret_cast&lt;uintptr_t&gt;(data + kAlign) &amp; ~kAlign);
+    A *attr = new (align_ptr) A;
+}
+</code></pre>
+<p>c++11关于内存对齐新增了一些函数：</p>
+<pre><code class="language-cpp">void align_cpp11_after()
+{
+    static std::aligned_storage&lt;sizeof(A),
+                                alignof(A)&gt;::type data;
+    A *attr = new (&amp;data) A;
+}
+</code></pre>
+<p>还有：alignof()、std::alignment_of()、alignas()，关于内存对齐详情可以看这篇文章:https://zhuanlan.zhihu.com/p/139520591</p>
+<h2 id="thread_local">thread_local</h2>
+<p>c++11引入thread_local，用thread_local修饰的变量具有thread周期，每一个线程都拥有并只拥有一个该变量的独立实例，一般用于需要保证线程安全的函数中。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;thread&gt;
+
+class A {
+   public:
+    A() {}
+    ~A() {}
+
+    void test(const std::string &amp;name) {
+        thread_local int count = 0;
+        ++count;
+        std::cout &lt;&lt; name &lt;&lt; &quot;: &quot; &lt;&lt; count &lt;&lt; std::endl;
+    }
+};
+
+void func(const std::string &amp;name) {
+    A a1;
+    a1.test(name);
+    a1.test(name);
+    A a2;
+    a2.test(name);
+    a2.test(name);
+}
+
+int main() {
+    std::thread(func, &quot;thread1&quot;).join();
+    std::thread(func, &quot;thread2&quot;).join();
+    return 0;
+}
+
+// 输出
+// thread1: 1
+// thread1: 2
+// thread1: 3
+// thread1: 4
+// thread2: 1
+// thread2: 2
+// thread2: 3
+// thread2: 4
+</code></pre>
+<p>验证上述说法，对于一个线程私有变量，一个线程拥有且只拥有一个该实例，类似于static。</p>
+<h2 id="基础数值类型">基础数值类型</h2>
+<p>c++11新增了几种数据类型：long long、char16_t、char32_t等</p>
+<h2 id="随机数功能">随机数功能</h2>
+<p>c++11关于随机数功能则较之前丰富了很多，典型的可以选择概率分布类型，先看如下代码：</p>
+<pre><code class="language-cpp">#include &lt;time.h&gt;
+
+#include &lt;iostream&gt;
+#include &lt;random&gt;
+
+using namespace std;
+
+int main() {
+    std::default_random_engine random(time(nullptr));
+
+    std::uniform_int_distribution&lt;int&gt; int_dis(0, 100); // 整数均匀分布
+    std::uniform_real_distribution&lt;float&gt; real_dis(0.0, 1.0); // 浮点数均匀分布
+
+    for (int i = 0; i &lt; 10; ++i) {
+        cout &lt;&lt; int_dis(random) &lt;&lt; ' ';
+    }
+    cout &lt;&lt; endl;
+
+    for (int i = 0; i &lt; 10; ++i) {
+        cout &lt;&lt; real_dis(random) &lt;&lt; ' ';
+    }
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+
+// 输出
+// 38 100 93 7 66 0 68 99 41 7
+// 0.232202 0.617716 0.959241 0.970859 0.230406 0.430682 0.477359 0.971858 0.0171148 0.64863
+</code></pre>
+<p>代码中举例的是整数均匀分布和浮点数均匀分布，c++11提供的概率分布类型还有好多，例如伯努利分布、正态分布等，具体可以见最后的参考资料。</p>
+<h2 id="正则表达式">正则表达式</h2>
+<p>c++11引入了regex库更好的支持正则表达式，见代码：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;iterator&gt;
+#include &lt;regex&gt;
+#include &lt;string&gt;
+
+int main() {
+    std::string s = &quot;I know, I'll use2 regular expressions.&quot;;
+    // 忽略大小写
+    std::regex self_regex(&quot;REGULAR EXPRESSIONS&quot;, std::regex_constants::icase); 
+    if (std::regex_search(s, self_regex)) {
+        std::cout &lt;&lt; &quot;Text contains the phrase 'regular expressions'\n&quot;;
+    }
+
+    std::regex word_regex(&quot;(\\w+)&quot;);  // 匹配字母数字等字符
+    auto words_begin = std::sregex_iterator(s.begin(), s.end(), word_regex);
+    auto words_end = std::sregex_iterator();
+
+    std::cout &lt;&lt; &quot;Found &quot; &lt;&lt; std::distance(words_begin, words_end) &lt;&lt; &quot; words\n&quot;;
+
+    const int N = 6;
+    std::cout &lt;&lt; &quot;Words longer than &quot; &lt;&lt; N &lt;&lt; &quot; characters:\n&quot;;
+    for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
+        std::smatch match = *i;
+        std::string match_str = match.str();
+        if (match_str.size() &gt; N) {
+            std::cout &lt;&lt; &quot;  &quot; &lt;&lt; match_str &lt;&lt; '\n';
+        }
+    }
+
+    std::regex long_word_regex(&quot;(\\w{7,})&quot;);
+    // 超过7个字符的单词用[]包围
+    std::string new_s = std::regex_replace(s, long_word_regex, &quot;[$&amp;]&quot;);
+    std::cout &lt;&lt; new_s &lt;&lt; '\n';
+}
+</code></pre>
+<h2 id="chrono">chrono</h2>
+<p>c++11关于时间引入了chrono库，源于boost，功能强大，chrono主要有三个点：</p>
+<ul>
+<li>duration</li>
+<li>time_point</li>
+<li>clocks</li>
+</ul>
+<h3 id="duration">duration</h3>
+<p>std::chrono::duration表示一段时间，常见的单位有s、ms等，示例代码：</p>
+<pre><code class="language-cpp">// 拿休眠一段时间举例，这里表示休眠100ms
+std::this_thread::sleep_for(std::chrono::milliseconds(100));
+</code></pre>
+<p>sleep_for里面其实就是std::chrono::duration，表示一段时间，实际是这样：</p>
+<pre><code class="language-cpp">typedef duration&lt;int64_t, milli&gt; milliseconds;
+typedef duration&lt;int64_t&gt; seconds;
+</code></pre>
+<p>duration具体模板如下：</p>
+<pre><code class="language-cpp">template &lt;class Rep, class Period = ratio&lt;1&gt; &gt; class duration;
+</code></pre>
+<p>Rep表示一种数值类型，用来表示Period的数量，比如int、float、double，Period是ratio类型，用来表示【用秒表示的时间单位】比如second，常用的duration&lt;Rep, Period&gt;已经定义好了，在std::chrono::duration下：</p>
+<ul>
+<li>ratio&lt;3600, 1&gt;：hours</li>
+<li>ratio&lt;60, 1&gt;：minutes</li>
+<li>ratio&lt;1, 1&gt;：seconds</li>
+<li>ratio&lt;1, 1000&gt;：microseconds</li>
+<li>ratio&lt;1, 1000000&gt;：microseconds</li>
+<li>ratio&lt;1, 1000000000&gt;：nanosecons<br>
+ratio的具体模板如下：</li>
+</ul>
+<pre><code class="language-cpp">template &lt;intmax_t N, intmax_t D = 1&gt; class ratio;
+</code></pre>
+<p>N代表分子，D代表分母，所以ratio表示一个分数，我们可以自定义Period，比如ratio&lt;2, 1&gt;表示单位时间是2秒。</p>
+<h3 id="time_point">time_point</h3>
+<p>表示一个具体时间点，如2020年5月10日10点10分10秒，拿获取当前时间举例：</p>
+<pre><code class="language-cpp">std::chrono::time_point&lt;std::chrono::high_resolution_clock&gt; Now() { 
+    return std::chrono::high_resolution_clock::now(); 
+}
+// std::chrono::high_resolution_clock为高精度时钟，下面会提到
+</code></pre>
+<h3 id="clocks">clocks</h3>
+<p>时钟，chrono里面提供了三种时钟：</p>
+<ul>
+<li>steady_clock</li>
+<li>system_clock</li>
+<li>high_resolution_clock</li>
+</ul>
+<h4 id="steady_clock">steady_clock</h4>
+<p>稳定的时间间隔，表示相对时间，相对于系统开机启动的时间，无论系统时间如何被更改，后一次调用now()肯定比前一次调用now()的数值大，可用于计时。</p>
+<h4 id="system_clock">system_clock</h4>
+<p>表示当前的系统时钟，可以用于获取当前时间：<br>
+更多查看:https://zhuanlan.zhihu.com/p/139519294</p>
+<pre><code class="language-cpp">int main() {
+    using std::chrono::system_clock;
+    system_clock::time_point today = system_clock::now();
+
+    std::time_t tt = system_clock::to_time_t(today);
+    std::cout &lt;&lt; &quot;today is: &quot; &lt;&lt; ctime(&amp;tt);
+
+    return 0;
+}
+// today is: Sun May 10 09:48:36 2020
+</code></pre>
+<h3 id="high_resolution_clock">high_resolution_clock</h3>
+<p>high_resolution_clock表示系统可用的最高精度的时钟，实际上就是system_clock或者steady_clock其中一种的定义，官方没有说明具体是哪个，不同系统可能不一样，我之前看gcc chrono源码中high_resolution_clock是steady_clock的typedef。</p>
+<h2 id="新增数据结构">新增数据结构</h2>
+<ul>
+<li>std::forward_list：单向链表，只可以前进，在特定场景下使用，相比于std::list节省了内存，提高了性能</li>
+</ul>
+<pre><code class="language-cpp">std::forward_list&lt;int&gt; fl = {1, 2, 3, 4, 5};
+for (const auto &amp;elem : fl) {
+    cout &lt;&lt; elem;
+}
+</code></pre>
+<ul>
+<li>std::unordered_set：基于hash表实现的set，内部不会排序，使用方法和set类似</li>
+<li>std::unordered_map：基于hash表实现的map，内部不会排序，使用方法和set类似</li>
+<li>std::array：数组，在越界访问时抛出异常，建议使用std::array替代普通的数组</li>
+<li>std::tuple：元组类型，类似pair，但比pair扩展性好</li>
+</ul>
+<pre><code class="language-cpp">typedef std::tuple&lt;int, double, int, double&gt; Mytuple;
+Mytuple t(0, 1, 2, 3);
+std::cout &lt;&lt; &quot;0 &quot; &lt;&lt; std::get&lt;0&gt;(t);
+std::cout &lt;&lt; &quot;1 &quot; &lt;&lt; std::get&lt;1&gt;(t);
+std::cout &lt;&lt; &quot;2 &quot; &lt;&lt; std::get&lt;2&gt;(t);
+std::cout &lt;&lt; &quot;3 &quot; &lt;&lt; std::get&lt;3&gt;(t);
+</code></pre>
+<h2 id="新增算法">新增算法</h2>
+<ul>
+<li>all_of：检测表达式是否对范围[first, last)中所有元素都返回true，如果都满足，则返回true</li>
+</ul>
+<pre><code class="language-cpp">std::vector&lt;int&gt; v(10, 2);
+if (std::all_of(v.cbegin(), v.cend(), [](int i) { return i % 2 == 0; })) {
+  std::cout &lt;&lt; &quot;All numbers are even\n&quot;;
+}
+</code></pre>
+<ul>
+<li>any_of：检测表达式是否对范围[first, last)中至少一个元素返回true，如果满足，则返回true，否则返回false，用法和上面一样</li>
+<li>none_of：检测表达式是否对范围[first, last)中所有元素都不返回true，如果都不满足，则返回true，否则返回false，用法和上面一样</li>
+<li>find_if_not：找到第一个不符合要求的元素迭代器，和find_if相反</li>
+<li>copy_if：复制满足条件的元素</li>
+<li>itoa：对容器内的元素按序递增</li>
+</ul>
+<pre><code class="language-cpp">std::vector&lt;int&gt; l(10);
+std::iota(l.begin(), l.end(), 19); // 19为初始值
+for (auto n : l) std::cout &lt;&lt; n &lt;&lt; ' ';
+// 19 20 21 22 23 24 25 26 27 28
+</code></pre>
+<ul>
+<li>minmax_element：返回容器内最大元素和最小元素位置</li>
+</ul>
+<pre><code class="language-cpp">int main() {
+    std::vector&lt;int&gt; v = {3, 9, 1, 4, 2, 5, 9};
+
+    auto result = std::minmax_element(v.begin(), v.end());
+    std::cout &lt;&lt; &quot;min element at: &quot; &lt;&lt; *(result.first) &lt;&lt; '\n';
+    std::cout &lt;&lt; &quot;max element at: &quot; &lt;&lt; *(result.second) &lt;&lt; '\n';
+    return 0;
+}
+// min element at: 1
+// max element at: 9
+</code></pre>
+<ul>
+<li>is_sorted、is_sorted_until：返回容器内元素是否已经排好序。</li>
+</ul>
+<p>关于c++11的新特性基本上就是这些，相信各位看完一定会有所收获。<br>
+参考资料<br>
+https://zh.cppreference.com/w/cpp/language/range-for<br>
+https://juejin.im/post/5dcaa857e51d457f7675360b<br>
+https://zhuanlan.zhihu.com/p/21930436<br>
+https://zh.wikipedia.org/wiki/Nullptr<br>
+https://zh.wikipedia.org/wiki/Constexpr<br>
+https://zh.cppreference.com/w/cpp/language/enum<br>
+https://kheresy.wordpress.com/2019/03/27/using-enum-class/<br>
+https://zh.cppreference.com/w/cpp/language/union<br>
+http://c.biancheng.net/view/7165.html<br>
+https://zhuanlan.zhihu.com/p/77585472<br>
+http://www.cplusplus.com/reference/random/<br>
+https://zh.cppreference.com/w/cpp/regex<br>
+https://www.cnblogs.com/jwk000/p/3560086.html<br>
+https://zh.cppreference.com/w/cpp/algorithm/all_any_none_of</p>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+   
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#auto-decltype">auto &amp; decltype</a></li>
+<li><a href="#%E5%B7%A6%E5%80%BC%E5%8F%B3%E5%80%BC">左值右值</a></li>
+<li><a href="#%E5%88%97%E8%A1%A8%E5%88%9D%E5%A7%8B%E5%8C%96">列表初始化</a></li>
+<li><a href="#stdfunction-stdbind-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F">std::function &amp; std::bind &amp; lambda表达式</a></li>
+<li><a href="#%E6%A8%A1%E6%9D%BF%E7%9A%84%E6%94%B9%E8%BF%9B">模板的改进</a></li>
+<li><a href="#%E5%B9%B6%E5%8F%91">并发</a></li>
+<li><a href="#%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88">智能指针</a></li>
+<li><a href="#%E5%9F%BA%E4%BA%8E%E8%8C%83%E5%9B%B4%E7%9A%84for%E5%BE%AA%E7%8E%AF">基于范围的for循环</a></li>
+<li><a href="#%E5%A7%94%E6%89%98%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">委托构造函数</a></li>
+<li><a href="#%E7%BB%A7%E6%89%BF%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">继承构造函数</a></li>
+<li><a href="#nullptr">nullptr</a></li>
+<li><a href="#final-override">final &amp; override</a></li>
+<li><a href="#default">default</a></li>
+<li><a href="#delete">delete</a></li>
+<li><a href="#explicit">explicit</a></li>
+<li><a href="#const">const</a></li>
+<li><a href="#constexpr">constexpr</a></li>
+<li><a href="#enum-class">enum class</a></li>
+<li><a href="#%E9%9D%9E%E5%8F%97%E9%99%90%E8%81%94%E5%90%88%E4%BD%93">非受限联合体</a></li>
+<li><a href="#sizeof">sizeof</a></li>
+<li><a href="#assertion">assertion</a></li>
+<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%97%E9%9D%A2%E9%87%8F">自定义字面量</a></li>
+<li><a href="#%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90">内存对齐</a></li>
+<li><a href="#thread_local">thread_local</a></li>
+<li><a href="#%E5%9F%BA%E7%A1%80%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B">基础数值类型</a></li>
+<li><a href="#%E9%9A%8F%E6%9C%BA%E6%95%B0%E5%8A%9F%E8%83%BD">随机数功能</a></li>
+<li><a href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F">正则表达式</a></li>
+<li><a href="#chrono">chrono</a>
+<ul>
+<li><a href="#duration">duration</a></li>
+<li><a href="#time_point">time_point</a></li>
+<li><a href="#clocks">clocks</a>
+<ul>
+<li><a href="#steady_clock">steady_clock</a></li>
+<li><a href="#system_clock">system_clock</a></li>
+</ul>
+</li>
+<li><a href="#high_resolution_clock">high_resolution_clock</a></li>
+</ul>
+</li>
+<li><a href="#%E6%96%B0%E5%A2%9E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">新增数据结构</a></li>
+<li><a href="#%E6%96%B0%E5%A2%9E%E7%AE%97%E6%B3%95">新增算法</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://blog.myxy.net/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://blog.myxy.net/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: 'ShP9GugKCRogT3XJI7ygXVA8-gzGzoHsz',
+    appKey: '7T6zCGYKlMV6sNz4aBoPhLE3',
+    pageSize: 10,
+    notify: true,
+    avatar: 'mp',
+    verify: true,
+    placeholder: '来都来了，不妨评论一下',
+    visitor: true,
+    highlight: true,
+    recordIP: true,
+  })
+</script>
+  
+  
+</body>
+
+</html>

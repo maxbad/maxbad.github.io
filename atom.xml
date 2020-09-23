@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-09-22T13:01:16.165Z</updated>
+    <updated>2020-09-23T01:27:21.563Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,702 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[C++11新特性]]></title>
+        <id>https://blog.myxy.net/c11-xin-te-xing/</id>
+        <link href="https://blog.myxy.net/c11-xin-te-xing/">
+        </link>
+        <updated>2020-09-23T00:52:22.000Z</updated>
+        <content type="html"><![CDATA[<p>转自:<a href="https://zhuanlan.zhihu.com/p/139515439">https://zhuanlan.zhihu.com/p/139515439</a></p>
+<h2 id="auto-decltype">auto &amp; decltype</h2>
+<p>https://zhuanlan.zhihu.com/p/137662774</p>
+<h2 id="左值右值">左值右值</h2>
+<p>https://zhuanlan.zhihu.com/p/137662465</p>
+<h2 id="列表初始化">列表初始化</h2>
+<p>https://zhuanlan.zhihu.com/p/137851769</p>
+<h2 id="stdfunction-stdbind-lambda表达式">std::function &amp; std::bind &amp; lambda表达式</h2>
+<p>https://zhuanlan.zhihu.com/p/137884434</p>
+<h2 id="模板的改进">模板的改进</h2>
+<p>https://zhuanlan.zhihu.com/p/137851516</p>
+<h2 id="并发">并发</h2>
+<p>https://zhuanlan.zhihu.com/p/137914574</p>
+<h2 id="智能指针">智能指针</h2>
+<p>https://zhuanlan.zhihu.com/p/137958974</p>
+<h2 id="基于范围的for循环">基于范围的for循环</h2>
+<pre><code class="language-cpp">vector&lt;int&gt; vec;
+
+for (auto iter = vec.begin(); iter != vec.end(); iter++) { // before c++11
+    cout &lt;&lt; *iter &lt;&lt; endl;
+}
+
+for (int i : vec) { // c++11基于范围的for循环
+    cout &lt;&lt; &quot;i&quot; &lt;&lt; endl;
+}
+</code></pre>
+<h2 id="委托构造函数">委托构造函数</h2>
+<pre><code class="language-cpp">struct A {
+    A(){}
+    A(int a) { a_ = a; }
+
+    A(int a, int b) : A(a) { b_ = b; }
+
+    A(int a, int b, int c) : A(a, b) { c_ = c; }
+
+    int a_;
+    int b_;
+    int c_;
+};
+</code></pre>
+<h2 id="继承构造函数">继承构造函数</h2>
+<blockquote>
+<p>只需要使用<code>using Base::Base</code>继承构造函数，就免去了很多重写代码的麻烦。</p>
+</blockquote>
+<pre><code class="language-cpp">struct Base {
+    Base() {}
+    Base(int a) { a_ = a; }
+
+    Base(int a, int b) : Base(a) { b_ = b; }
+
+    Base(int a, int b, int c) : Base(a, b) { c_ = c; }
+
+    int a_;
+    int b_;
+    int c_;
+};
+
+struct Derived : Base {
+    using Base::Base;
+};
+
+int main() {
+    Derived a(1, 2, 3);
+    return 0;
+}
+</code></pre>
+<h2 id="nullptr">nullptr</h2>
+<blockquote>
+<p>nullptr是c++11用来表示空指针新引入的常量值，在c++中如果表示空指针语义时建议使用nullptr而不要使用NULL，因为NULL本质上是个int型的0，其实不是个指针。举例：</p>
+</blockquote>
+<pre><code class="language-cpp">void func(void *ptr) {
+    cout &lt;&lt; &quot;func ptr&quot; &lt;&lt; endl;
+}
+
+void func(int i) {
+    cout &lt;&lt; &quot;func i&quot; &lt;&lt; endl;
+}
+
+int main() {
+    func(NULL); // 编译失败，会产生二义性
+    func(nullptr); // 输出func ptr
+    return 0;
+}
+</code></pre>
+<h2 id="final-override">final &amp; override</h2>
+<blockquote>
+<p>c++11关于继承新增了两个关键字，final用于修饰一个类，表示禁止该类进一步派生和虚函数的进一步重载，override用于修饰派生类中的成员函数，标明该函数重写了基类函数，如果一个函数声明了override但父类却没有这个虚函数，编译报错，使用override关键字可以避免开发者在重写基类函数时无意产生的错误。</p>
+</blockquote>
+<pre><code class="language-cpp">struct Base {
+    virtual void func() {
+        cout &lt;&lt; &quot;base&quot; &lt;&lt; endl;
+    }
+};
+
+struct Derived : public Base{
+    void func() override { // 确保func被重写
+        cout &lt;&lt; &quot;derived&quot; &lt;&lt; endl;
+    }
+
+    void fu() override { // error，基类没有fu()，不可以被重写
+        
+    }
+};
+</code></pre>
+<pre><code class="language-cpp">struct Base final {
+    virtual void func() {
+        cout &lt;&lt; &quot;base&quot; &lt;&lt; endl;
+    }
+};
+
+struct Derived : public Base{ // 编译失败，final修饰的类不可以被继承
+    void func() override {
+        cout &lt;&lt; &quot;derived&quot; &lt;&lt; endl;
+    }
+
+};
+</code></pre>
+<h2 id="default">default</h2>
+<blockquote>
+<p>c++11引入default特性，多数时候用于声明构造函数为默认构造函数，如果类中有了自定义的构造函数，编译器就不会隐式生成默认构造函数，如下代码：</p>
+</blockquote>
+<pre><code class="language-cpp">struct A {
+    int a;
+    A(int i) { a = i; }
+};
+
+int main() {
+    A a; // 编译出错
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>上面代码编译出错，因为没有匹配的构造函数，因为编译器没有生成默认构造函数，而通过default，程序员只需在函数声明后加上“=default;”，就可将该函数声明为 defaulted 函数，编译器将为显式声明的 defaulted 函数自动生成函数体，如下：</p>
+</blockquote>
+<pre><code class="language-cpp">struct A {
+    A() = default;
+    int a;
+    A(int i) { a = i; }
+};
+
+int main() {
+    A a;
+    return 0;
+}
+// 编译通过。
+</code></pre>
+<h2 id="delete">delete</h2>
+<blockquote>
+<p>c++中，如果开发人员没有定义特殊成员函数，那么编译器在需要特殊成员函数时候会隐式自动生成一个默认的特殊成员函数，例如拷贝构造函数或者拷贝赋值操作符，如下代码：</p>
+</blockquote>
+<pre><code class="language-cpp">struct A {
+    A() = default;
+    int a;
+    A(int i) { a = i; }
+};
+
+int main() {
+    A a1;
+    A a2 = a1;  // 正确，调用编译器隐式生成的默认拷贝构造函数
+    A a3;
+    a3 = a1;  // 正确，调用编译器隐式生成的默认拷贝赋值操作符
+}
+</code></pre>
+<blockquote>
+<p>而我们有时候想禁止对象的拷贝与赋值，可以使用delete修饰，如下：</p>
+</blockquote>
+<pre><code class="language-cpp">struct A {
+    A() = default;
+    A(const A&amp;) = delete;
+    A&amp; operator=(const A&amp;) = delete;
+    int a;
+    A(int i) { a = i; }
+};
+
+int main() {
+    A a1;
+    A a2 = a1;  // 错误，拷贝构造函数被禁用
+    A a3;
+    a3 = a1;  // 错误，拷贝赋值操作符被禁用
+}
+</code></pre>
+<blockquote>
+<p>delele函数在c++11中很常用，std::unique_ptr就是通过delete修饰来禁止对象的拷贝的。</p>
+</blockquote>
+<h2 id="explicit">explicit</h2>
+<blockquote>
+<p>explicit专用于修饰构造函数，表示只能显式构造，不可以被隐式转换，根据代码看explicit的作用：</p>
+</blockquote>
+<ul>
+<li>不用explicit：</li>
+</ul>
+<pre><code class="language-cpp">struct A {
+    A(int value) { // 没有explicit关键字
+        cout &lt;&lt; &quot;value&quot; &lt;&lt; endl;
+    }
+};
+
+int main() {
+    A a = 1; // 可以隐式转换
+    return 0;
+}
+</code></pre>
+<ul>
+<li>使用explicit:</li>
+</ul>
+<pre><code class="language-cpp">struct A {
+    explicit A(int value) {
+        cout &lt;&lt; &quot;value&quot; &lt;&lt; endl;
+    }
+};
+
+int main() {
+    A a = 1; // error，不可以隐式转换
+    A aa(2); // ok
+    return 0;
+}
+</code></pre>
+<h2 id="const">const</h2>
+<p>因为要讲后面的constexpr，所以这里简单介绍下const。</p>
+<p>const字面意思为只读，可用于定义变量，表示变量是只读的，不可以更改，如果更改，编译期间就会报错。</p>
+<p>主要用法如下：</p>
+<ul>
+<li>用于定义常量，const的修饰的变量不可更改。</li>
+</ul>
+<pre><code class="language-cpp">const int value = 5;
+</code></pre>
+<ul>
+<li>指针也可以使用const，这里有个小技巧，从右向左读，即可知道const究竟修饰的是指针还是指针所指向的内容。</li>
+</ul>
+<pre><code class="language-cpp">char *const ptr; // 指针本身是常量
+const char* ptr; // 指针指向的变量为常量
+</code></pre>
+<ul>
+<li>在函数参数中使用const，一般会传递类对象时会传递一个const的引用或者指针，这样可以避免对象的拷贝，也可以防止对象被修改。<pre><code class="language-cpp"></code></pre>
+</li>
+</ul>
+<p>class A{};<br>
+void func(const A&amp; a);</p>
+<pre><code>- const修饰类的成员变量，表示是成员常量，不能被修改，可以在初始化列表中被赋值。
+```cpp
+class A {
+    const int value = 5;
+};
+class B {
+    const int value;
+    B(int v) : value(v){}
+};
+</code></pre>
+<ul>
+<li>修饰类成员函数，表示在该函数内不可以修改该类的成员变量。</li>
+</ul>
+<pre><code class="language-cpp">class A{
+    void func() const;
+};
+</code></pre>
+<ul>
+<li>修饰类对象，类对象只能调用该对象的const成员函数。</li>
+</ul>
+<pre><code class="language-cpp">class A {
+    void func() const;
+};
+const A a;
+a.func();
+</code></pre>
+<h2 id="constexpr">constexpr</h2>
+<blockquote>
+<p>constexpr是c++11新引入的关键字，用于编译时的常量和常量函数，这里直接介绍constexpr和const的区别：<br>
+两者都代表可读，const只表示read only的语义，只保证了运行时不可以被修改，但它修饰的仍然有可能是个动态变量，而constexpr修饰的才是真正的常量，它会在编译期间就会被计算出来，整个运行过程中都不可以被改变，constexpr可以用于修饰函数，这个函数的返回值会尽可能在编译期间被计算出来当作一个常量，但是如果编译期间此函数不能被计算出来，那它就会当作一个普通函数被处理。如下代码：</p>
+</blockquote>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+using namespace std;
+
+constexpr int func(int i) {
+    return i + 1;
+}
+
+int main() {
+    int i = 2;
+    func(i);// 普通函数
+    func(2);// 编译期间就会被计算出来
+}
+</code></pre>
+<h2 id="enum-class">enum class</h2>
+<blockquote>
+<p>c++11新增有作用域的枚举类型，看代码</p>
+</blockquote>
+<p>不带作用域的枚举代码：</p>
+<pre><code class="language-cpp">enum AColor {
+    kRed,
+    kGreen,
+    kBlue
+};
+
+enum BColor {
+    kWhite,
+    kBlack,
+    kYellow
+};
+
+int main() {
+    if (kRed == kWhite) {
+        cout &lt;&lt; &quot;red == white&quot; &lt;&lt; endl;
+    }
+    return 0;
+}
+</code></pre>
+<p>如上代码，不带作用域的枚举类型可以自动转换成整形，且不同的枚举可以相互比较，代码中的红色居然可以和白色比较，这都是潜在的难以调试的bug，而这种完全可以通过有作用域的枚举来规避。</p>
+<p>有作用域的枚举代码：</p>
+<pre><code class="language-cpp">enum class AColor {
+    kRed,
+    kGreen,
+    kBlue
+};
+
+enum class BColor {
+    kWhite,
+    kBlack,
+    kYellow
+};
+
+int main() {
+    if (AColor::kRed == BColor::kWhite) { // 编译失败
+        cout &lt;&lt; &quot;red == white&quot; &lt;&lt; endl;
+    }
+    return 0;
+}
+</code></pre>
+<p>使用带有作用域的枚举类型后，对不同的枚举进行比较会导致编译失败，消除潜在bug，同时带作用域的枚举类型可以选择底层类型，默认是int，可以改成char等别的类型。</p>
+<pre><code class="language-cpp">enum class AColor : char {
+    kRed,
+    kGreen,
+    kBlue
+};
+</code></pre>
+<p><em>我们平时编程过程中使用枚举，一定要使用有作用域的枚举取代传统的枚举。</em></p>
+<h2 id="非受限联合体">非受限联合体</h2>
+<blockquote>
+<p>c++11之前union中数据成员的类型不允许有非POD类型，而这个限制在c++11被取消，允许数据成员类型有非POD类型，看代码：</p>
+</blockquote>
+<pre><code class="language-cpp">struct A {
+    int a;
+    int *b;
+};
+
+union U {
+    A a; // 非POD类型 c++11之前不可以这样定义联合体
+    int b;
+};
+</code></pre>
+<p>对于什么是POD类型，大家可以自行查下资料，大体上可以理解为对象可以直接memcpy的类型。</p>
+<h2 id="sizeof">sizeof</h2>
+<p>c++11中sizeof可以用的类的数据成员上，看代码：</p>
+<ul>
+<li>c++11前：</li>
+</ul>
+<pre><code class="language-cpp">struct A {
+    int data[10];
+    int a;
+};
+
+int main() {
+    A a;
+    cout &lt;&lt; &quot;size &quot; &lt;&lt; sizeof(a.data) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<ul>
+<li>c++11后：</li>
+</ul>
+<pre><code class="language-cpp">struct A {
+    int data[10];
+    int a;
+};
+
+int main() {
+    cout &lt;&lt; &quot;size &quot; &lt;&lt; sizeof(A::data) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p>想知道类中数据成员的大小在c++11中是不是方便了许多，而不需要定义一个对象，在计算对象的成员大小。</p>
+<h2 id="assertion">assertion</h2>
+<blockquote>
+<p>c++11引入static_assert声明，用于在编译期间检查，如果第一个参数值为false，则打印message，编译失败。</p>
+</blockquote>
+<pre><code class="language-cpp">static_assert(true/false, message);
+</code></pre>
+<h2 id="自定义字面量">自定义字面量</h2>
+<p>c++11可以自定义字面量，我们平时c++中都或多或少使用过chrono中的时间，例如：</p>
+<pre><code class="language-cpp">std::this_thread::sleep_for(std::chrono::milliseconds(100)); // 100ms
+std::this_thread::sleep_for(std::chrono::seconds(100)); // 100s
+</code></pre>
+<p>其实没必要这么麻烦，也可以这么写：</p>
+<pre><code class="language-cpp">std::this_thread::sleep_for(100ms); // c++14里可以这么使用，这里只是举个自定义字面量使用的例子
+std::this_thread::sleep_for(100s);
+</code></pre>
+<p>这就是自定义字面量的使用，示例如下：</p>
+<pre><code class="language-cpp">struct mytype {
+    unsigned long long value;
+};
+constexpr mytype operator&quot;&quot; _mytype ( unsigned long long n ) {
+    return mytype{n};
+}
+mytype mm = 123_mytype;
+cout &lt;&lt; mm.value &lt;&lt; endl;
+</code></pre>
+<p>关于自定义字面量，可以看下chrono的源代码，相信大家会有很大收获，需要源码分析chrono的话，可以留言给我。</p>
+<h2 id="内存对齐">内存对齐</h2>
+<ul>
+<li>什么是内存对齐<br>
+理论上计算机对于任何变量的访问都可以从任意位置开始，然而实际上系统会对这些变量的存放地址有限制，通常将变量首地址设为某个数N的倍数，这就是内存对齐。</li>
+<li>为什么要内存对齐<br>
+1: 硬件平台限制，内存以字节为单位，不同硬件平台不一定支持任何内存地址的存取，一般可能以双字节、4字节等为单位存取内存，为了保证处理器正确存取数据，需要进行内存对齐。<br>
+2: 提高CPU内存访问速度，一般处理器的内存存取粒度都是N的整数倍，假如访问N大小的数据，没有进行内存对齐，有可能就需要两次访问才可以读取出数据，而进行内存对齐可以一次性把数据全部读取出来，提高效率。<br>
+在c++11之前如果想创建内存对齐需要：</li>
+</ul>
+<pre><code class="language-cpp">void align_cpp11_before()
+{
+    static char data[sizeof(void *) + sizeof(A)];
+    const uintptr_t kAlign = sizeof(void *) - 1;
+    char *align_ptr =
+        reinterpret_cast&lt;char *&gt;(reinterpret_cast&lt;uintptr_t&gt;(data + kAlign) &amp; ~kAlign);
+    A *attr = new (align_ptr) A;
+}
+</code></pre>
+<p>c++11关于内存对齐新增了一些函数：</p>
+<pre><code class="language-cpp">void align_cpp11_after()
+{
+    static std::aligned_storage&lt;sizeof(A),
+                                alignof(A)&gt;::type data;
+    A *attr = new (&amp;data) A;
+}
+</code></pre>
+<p>还有：alignof()、std::alignment_of()、alignas()，关于内存对齐详情可以看这篇文章:https://zhuanlan.zhihu.com/p/139520591</p>
+<h2 id="thread_local">thread_local</h2>
+<p>c++11引入thread_local，用thread_local修饰的变量具有thread周期，每一个线程都拥有并只拥有一个该变量的独立实例，一般用于需要保证线程安全的函数中。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;thread&gt;
+
+class A {
+   public:
+    A() {}
+    ~A() {}
+
+    void test(const std::string &amp;name) {
+        thread_local int count = 0;
+        ++count;
+        std::cout &lt;&lt; name &lt;&lt; &quot;: &quot; &lt;&lt; count &lt;&lt; std::endl;
+    }
+};
+
+void func(const std::string &amp;name) {
+    A a1;
+    a1.test(name);
+    a1.test(name);
+    A a2;
+    a2.test(name);
+    a2.test(name);
+}
+
+int main() {
+    std::thread(func, &quot;thread1&quot;).join();
+    std::thread(func, &quot;thread2&quot;).join();
+    return 0;
+}
+
+// 输出
+// thread1: 1
+// thread1: 2
+// thread1: 3
+// thread1: 4
+// thread2: 1
+// thread2: 2
+// thread2: 3
+// thread2: 4
+</code></pre>
+<p>验证上述说法，对于一个线程私有变量，一个线程拥有且只拥有一个该实例，类似于static。</p>
+<h2 id="基础数值类型">基础数值类型</h2>
+<p>c++11新增了几种数据类型：long long、char16_t、char32_t等</p>
+<h2 id="随机数功能">随机数功能</h2>
+<p>c++11关于随机数功能则较之前丰富了很多，典型的可以选择概率分布类型，先看如下代码：</p>
+<pre><code class="language-cpp">#include &lt;time.h&gt;
+
+#include &lt;iostream&gt;
+#include &lt;random&gt;
+
+using namespace std;
+
+int main() {
+    std::default_random_engine random(time(nullptr));
+
+    std::uniform_int_distribution&lt;int&gt; int_dis(0, 100); // 整数均匀分布
+    std::uniform_real_distribution&lt;float&gt; real_dis(0.0, 1.0); // 浮点数均匀分布
+
+    for (int i = 0; i &lt; 10; ++i) {
+        cout &lt;&lt; int_dis(random) &lt;&lt; ' ';
+    }
+    cout &lt;&lt; endl;
+
+    for (int i = 0; i &lt; 10; ++i) {
+        cout &lt;&lt; real_dis(random) &lt;&lt; ' ';
+    }
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+
+// 输出
+// 38 100 93 7 66 0 68 99 41 7
+// 0.232202 0.617716 0.959241 0.970859 0.230406 0.430682 0.477359 0.971858 0.0171148 0.64863
+</code></pre>
+<p>代码中举例的是整数均匀分布和浮点数均匀分布，c++11提供的概率分布类型还有好多，例如伯努利分布、正态分布等，具体可以见最后的参考资料。</p>
+<h2 id="正则表达式">正则表达式</h2>
+<p>c++11引入了regex库更好的支持正则表达式，见代码：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;iterator&gt;
+#include &lt;regex&gt;
+#include &lt;string&gt;
+
+int main() {
+    std::string s = &quot;I know, I'll use2 regular expressions.&quot;;
+    // 忽略大小写
+    std::regex self_regex(&quot;REGULAR EXPRESSIONS&quot;, std::regex_constants::icase); 
+    if (std::regex_search(s, self_regex)) {
+        std::cout &lt;&lt; &quot;Text contains the phrase 'regular expressions'\n&quot;;
+    }
+
+    std::regex word_regex(&quot;(\\w+)&quot;);  // 匹配字母数字等字符
+    auto words_begin = std::sregex_iterator(s.begin(), s.end(), word_regex);
+    auto words_end = std::sregex_iterator();
+
+    std::cout &lt;&lt; &quot;Found &quot; &lt;&lt; std::distance(words_begin, words_end) &lt;&lt; &quot; words\n&quot;;
+
+    const int N = 6;
+    std::cout &lt;&lt; &quot;Words longer than &quot; &lt;&lt; N &lt;&lt; &quot; characters:\n&quot;;
+    for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
+        std::smatch match = *i;
+        std::string match_str = match.str();
+        if (match_str.size() &gt; N) {
+            std::cout &lt;&lt; &quot;  &quot; &lt;&lt; match_str &lt;&lt; '\n';
+        }
+    }
+
+    std::regex long_word_regex(&quot;(\\w{7,})&quot;);
+    // 超过7个字符的单词用[]包围
+    std::string new_s = std::regex_replace(s, long_word_regex, &quot;[$&amp;]&quot;);
+    std::cout &lt;&lt; new_s &lt;&lt; '\n';
+}
+</code></pre>
+<h2 id="chrono">chrono</h2>
+<p>c++11关于时间引入了chrono库，源于boost，功能强大，chrono主要有三个点：</p>
+<ul>
+<li>duration</li>
+<li>time_point</li>
+<li>clocks</li>
+</ul>
+<h3 id="duration">duration</h3>
+<p>std::chrono::duration表示一段时间，常见的单位有s、ms等，示例代码：</p>
+<pre><code class="language-cpp">// 拿休眠一段时间举例，这里表示休眠100ms
+std::this_thread::sleep_for(std::chrono::milliseconds(100));
+</code></pre>
+<p>sleep_for里面其实就是std::chrono::duration，表示一段时间，实际是这样：</p>
+<pre><code class="language-cpp">typedef duration&lt;int64_t, milli&gt; milliseconds;
+typedef duration&lt;int64_t&gt; seconds;
+</code></pre>
+<p>duration具体模板如下：</p>
+<pre><code class="language-cpp">template &lt;class Rep, class Period = ratio&lt;1&gt; &gt; class duration;
+</code></pre>
+<p>Rep表示一种数值类型，用来表示Period的数量，比如int、float、double，Period是ratio类型，用来表示【用秒表示的时间单位】比如second，常用的duration&lt;Rep, Period&gt;已经定义好了，在std::chrono::duration下：</p>
+<ul>
+<li>ratio&lt;3600, 1&gt;：hours</li>
+<li>ratio&lt;60, 1&gt;：minutes</li>
+<li>ratio&lt;1, 1&gt;：seconds</li>
+<li>ratio&lt;1, 1000&gt;：microseconds</li>
+<li>ratio&lt;1, 1000000&gt;：microseconds</li>
+<li>ratio&lt;1, 1000000000&gt;：nanosecons<br>
+ratio的具体模板如下：</li>
+</ul>
+<pre><code class="language-cpp">template &lt;intmax_t N, intmax_t D = 1&gt; class ratio;
+</code></pre>
+<p>N代表分子，D代表分母，所以ratio表示一个分数，我们可以自定义Period，比如ratio&lt;2, 1&gt;表示单位时间是2秒。</p>
+<h3 id="time_point">time_point</h3>
+<p>表示一个具体时间点，如2020年5月10日10点10分10秒，拿获取当前时间举例：</p>
+<pre><code class="language-cpp">std::chrono::time_point&lt;std::chrono::high_resolution_clock&gt; Now() { 
+    return std::chrono::high_resolution_clock::now(); 
+}
+// std::chrono::high_resolution_clock为高精度时钟，下面会提到
+</code></pre>
+<h3 id="clocks">clocks</h3>
+<p>时钟，chrono里面提供了三种时钟：</p>
+<ul>
+<li>steady_clock</li>
+<li>system_clock</li>
+<li>high_resolution_clock</li>
+</ul>
+<h4 id="steady_clock">steady_clock</h4>
+<p>稳定的时间间隔，表示相对时间，相对于系统开机启动的时间，无论系统时间如何被更改，后一次调用now()肯定比前一次调用now()的数值大，可用于计时。</p>
+<h4 id="system_clock">system_clock</h4>
+<p>表示当前的系统时钟，可以用于获取当前时间：<br>
+更多查看:https://zhuanlan.zhihu.com/p/139519294</p>
+<pre><code class="language-cpp">int main() {
+    using std::chrono::system_clock;
+    system_clock::time_point today = system_clock::now();
+
+    std::time_t tt = system_clock::to_time_t(today);
+    std::cout &lt;&lt; &quot;today is: &quot; &lt;&lt; ctime(&amp;tt);
+
+    return 0;
+}
+// today is: Sun May 10 09:48:36 2020
+</code></pre>
+<h3 id="high_resolution_clock">high_resolution_clock</h3>
+<p>high_resolution_clock表示系统可用的最高精度的时钟，实际上就是system_clock或者steady_clock其中一种的定义，官方没有说明具体是哪个，不同系统可能不一样，我之前看gcc chrono源码中high_resolution_clock是steady_clock的typedef。</p>
+<h2 id="新增数据结构">新增数据结构</h2>
+<ul>
+<li>std::forward_list：单向链表，只可以前进，在特定场景下使用，相比于std::list节省了内存，提高了性能</li>
+</ul>
+<pre><code class="language-cpp">std::forward_list&lt;int&gt; fl = {1, 2, 3, 4, 5};
+for (const auto &amp;elem : fl) {
+    cout &lt;&lt; elem;
+}
+</code></pre>
+<ul>
+<li>std::unordered_set：基于hash表实现的set，内部不会排序，使用方法和set类似</li>
+<li>std::unordered_map：基于hash表实现的map，内部不会排序，使用方法和set类似</li>
+<li>std::array：数组，在越界访问时抛出异常，建议使用std::array替代普通的数组</li>
+<li>std::tuple：元组类型，类似pair，但比pair扩展性好</li>
+</ul>
+<pre><code class="language-cpp">typedef std::tuple&lt;int, double, int, double&gt; Mytuple;
+Mytuple t(0, 1, 2, 3);
+std::cout &lt;&lt; &quot;0 &quot; &lt;&lt; std::get&lt;0&gt;(t);
+std::cout &lt;&lt; &quot;1 &quot; &lt;&lt; std::get&lt;1&gt;(t);
+std::cout &lt;&lt; &quot;2 &quot; &lt;&lt; std::get&lt;2&gt;(t);
+std::cout &lt;&lt; &quot;3 &quot; &lt;&lt; std::get&lt;3&gt;(t);
+</code></pre>
+<h2 id="新增算法">新增算法</h2>
+<ul>
+<li>all_of：检测表达式是否对范围[first, last)中所有元素都返回true，如果都满足，则返回true</li>
+</ul>
+<pre><code class="language-cpp">std::vector&lt;int&gt; v(10, 2);
+if (std::all_of(v.cbegin(), v.cend(), [](int i) { return i % 2 == 0; })) {
+  std::cout &lt;&lt; &quot;All numbers are even\n&quot;;
+}
+</code></pre>
+<ul>
+<li>any_of：检测表达式是否对范围[first, last)中至少一个元素返回true，如果满足，则返回true，否则返回false，用法和上面一样</li>
+<li>none_of：检测表达式是否对范围[first, last)中所有元素都不返回true，如果都不满足，则返回true，否则返回false，用法和上面一样</li>
+<li>find_if_not：找到第一个不符合要求的元素迭代器，和find_if相反</li>
+<li>copy_if：复制满足条件的元素</li>
+<li>itoa：对容器内的元素按序递增</li>
+</ul>
+<pre><code class="language-cpp">std::vector&lt;int&gt; l(10);
+std::iota(l.begin(), l.end(), 19); // 19为初始值
+for (auto n : l) std::cout &lt;&lt; n &lt;&lt; ' ';
+// 19 20 21 22 23 24 25 26 27 28
+</code></pre>
+<ul>
+<li>minmax_element：返回容器内最大元素和最小元素位置</li>
+</ul>
+<pre><code class="language-cpp">int main() {
+    std::vector&lt;int&gt; v = {3, 9, 1, 4, 2, 5, 9};
+
+    auto result = std::minmax_element(v.begin(), v.end());
+    std::cout &lt;&lt; &quot;min element at: &quot; &lt;&lt; *(result.first) &lt;&lt; '\n';
+    std::cout &lt;&lt; &quot;max element at: &quot; &lt;&lt; *(result.second) &lt;&lt; '\n';
+    return 0;
+}
+// min element at: 1
+// max element at: 9
+</code></pre>
+<ul>
+<li>is_sorted、is_sorted_until：返回容器内元素是否已经排好序。</li>
+</ul>
+<p>关于c++11的新特性基本上就是这些，相信各位看完一定会有所收获。<br>
+参考资料<br>
+https://zh.cppreference.com/w/cpp/language/range-for<br>
+https://juejin.im/post/5dcaa857e51d457f7675360b<br>
+https://zhuanlan.zhihu.com/p/21930436<br>
+https://zh.wikipedia.org/wiki/Nullptr<br>
+https://zh.wikipedia.org/wiki/Constexpr<br>
+https://zh.cppreference.com/w/cpp/language/enum<br>
+https://kheresy.wordpress.com/2019/03/27/using-enum-class/<br>
+https://zh.cppreference.com/w/cpp/language/union<br>
+http://c.biancheng.net/view/7165.html<br>
+https://zhuanlan.zhihu.com/p/77585472<br>
+http://www.cplusplus.com/reference/random/<br>
+https://zh.cppreference.com/w/cpp/regex<br>
+https://www.cnblogs.com/jwk000/p/3560086.html<br>
+https://zh.cppreference.com/w/cpp/algorithm/all_any_none_of</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Redis2]]></title>
         <id>https://blog.myxy.net/redis2/</id>
@@ -1795,65 +2491,6 @@ new Promise((resolve,reject)=&gt;{
 编译构建 <code>npm run build</code>；<br>
 打开chrome浏览器，输入 <code>chrome://extensions</code> 进入扩展程序页面，点击 加载已解压的扩展程序, 选择 <code>vue-devtools&gt;shells&gt;chrome</code>文件夹 （记得打开开发者模式)<br>
 <code>Vue.js devtools</code> 就安装好了，点击扩展应用卡片上的 详细信息，勾选(在所有网站上,允许访问文件网址,手机各项错误)三个选项。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[cjson 使用记录]]></title>
-        <id>https://blog.myxy.net/cjson-shi-yong-ji-lu/</id>
-        <link href="https://blog.myxy.net/cjson-shi-yong-ji-lu/">
-        </link>
-        <updated>2020-07-25T12:34:26.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="备忘">备忘</h1>
-<h3 id="打印">打印</h3>
-<p><code>cJSON_Print</code>会申请内存，使用完后要free掉。</p>
-<pre><code class="language-cpp">	const  char* pstr = cJSON_Print(json);
-	free(pstr);
-</code></pre>
-<p><code>cJSON_PrintUnformatted</code> 打印出的json字符串是紧凑的不用换行，适合传输json字符串时使用<br>
-<code>cJSON_PrintBuffered</code> 可以事先指定分配一个缓冲区，如果足够大，则可以节省不断重新分配空间的时间； 如果指定缓冲区过小，则与cJSON_Print和cJSON_PrintUnformatted性能能相同。<br>
-<code>cJSON_PrintPreallocated</code>  可以将json字符串填入给定的缓冲区，并指定缓冲区大小。 成功返回1，失败返回0。除了这个打印json字符串的函数，以上的函数在生成json字符串时若空间不足，都会重新分配一次空间。</p>
-<h3 id="销毁">销毁</h3>
-<p>JSON对象使用完成记得Delete</p>
-<pre><code class="language-cpp">	cJSON* pjson = NULL;
-	pjson = cJSON_Parse(&quot;{}&quot;);
-	cJSON_Delete(pjson);
-</code></pre>
-<h3 id="解析">解析</h3>
-<p><code>cJSON_ParseWithOpts</code>该函数是<code>cJSON_Parse</code>的实现，但是它比<code>cJSON_Parse</code>更灵活。</p>
-<ul>
-<li>如果cJSON_Parse解析错误，必须调用cJSON_GetErrorPtr找到解析错误位置</li>
-<li>cJSON_Parse解析不严谨，如&quot;<code>{\&quot;name\&quot;: \&quot;Lee\&quot;} }</code>&quot;这个字符串，后边多了一个大括号，但还是解析成功了。</li>
-<li><code>cJSON_ParseWithOpts</code>的return_parse_end参数可以获取解析失败的位置，          require_null_terminated参数为1会检查剩余未解析字符串是否是空字符串，若不为空字符串，则会释放内存，返回空。所以因该使用<code>cJSON_ParseWithOpts</code>解析json对象</li>
-</ul>
-<pre><code class="language-cpp">	char* end = NULL;
-	cJSON* cj_ParseWithOpts = cJSON_ParseWithOpts(&quot;{\&quot;name\&quot;: \&quot;Lee\&quot;} }&quot;, &amp;end, 1);
-	if (cj_ParseWithOpts) {
-		printf(&quot;%s\n\n&quot;, cJSON_Print(cj_ParseWithOpts));
-	}
-	else {
-		printf(&quot;[%s]\n\n&quot;, end);
-	}
-</code></pre>
-<h1 id="数组倒删除">数组倒删除</h1>
-<pre><code class="language-cpp">	cJSON* adArr = NULL;  //欲删除的数组
-	int arrCount = cJSON_GetArraySize(adArr);
-	if (arrCount &gt; 0)
-	{
-		for (int j = arrCount - 1; j &gt;= 0; j--)
-		{
-			cJSON_DeleteItemFromArray(adArr, j);  //删除json数组对象的第j个节点
-		}
-	}
-</code></pre>
-<h1 id="对象替换">对象替换</h1>
-<pre><code class="language-cpp"> cJSON* itemObj = NULL;  
-
-   //文本替换
-   cJSON_ReplaceItemInObject(itemObj, &quot;username&quot;, cJSON_CreateString(&quot;tom&quot;));
-
-   //数组清空
-   cJSON_ReplaceItemInObject(itemObj, &quot;userlist&quot;, cJSON_CreateArray());
-</code></pre>
 ]]></content>
     </entry>
 </feed>
