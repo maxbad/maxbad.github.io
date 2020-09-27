@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-09-23T11:19:59.565Z</updated>
+    <updated>2020-09-27T07:36:40.383Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,39 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[功能日志回调接口]]></title>
+        <id>https://blog.myxy.net/gong-neng-ri-zhi-hui-diao-jie-kou/</id>
+        <link href="https://blog.myxy.net/gong-neng-ri-zhi-hui-diao-jie-kou/">
+        </link>
+        <updated>2020-09-27T07:23:50.000Z</updated>
+        <content type="html"><![CDATA[<p>功能日志接口</p>
+<pre><code class="language-cpp">// 定义一个输出接口
+void on_error(std::function&lt;void(std::string const&amp;)&gt; const&amp; callback) {
+    m_err_callback = callback;
+}
+
+// 全局变量
+std::function&lt;void(std::string const&amp;)&gt; m_err_callback = nullptr; 
+
+// 格式化日志
+	void trigger_message(const char* format, ...) {
+		if (m_err_callback) {
+			std::string text;
+			va_list ap = 0;
+			va_start(ap, format);
+			text.resize(_vscprintf(format, ap) + 1);
+			vsprintf_s(&amp;text[0], text.capacity(), format, ap);
+			va_end(ap);
+			m_err_callback(text.data());
+		}
+	}
+
+// 使用
+trigger_message(&quot;[%s:%d],ConnectRedisCache faild&quot;, __FUNCTION__, __LINE__);
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[C++11新特性]]></title>
         <id>https://blog.myxy.net/c11-xin-te-xing/</id>
@@ -1596,6 +1629,7 @@ UseTab:	Never
         <updated>2020-09-19T05:59:55.000Z</updated>
         <content type="html"><![CDATA[<p>官方命令手册:<a href="https://oss.redislabs.com/redisearch/Commands.html">https://oss.redislabs.com/redisearch/Commands.html</a><br>
 中文手册:<a href="https://www.php.cn/redis/redis-commands.html">https://www.php.cn/redis/redis-commands.html</a><br>
+命令参考:<a href="http://doc.redisfans.com/index.html">http://doc.redisfans.com/index.html</a><br>
 命令手册1:<a href="https://www.redis.net.cn/order/">https://www.redis.net.cn/order/</a><br>
 命令手册2:<a href="https://www.redis.com.cn/commands/">https://www.redis.com.cn/commands/</a></p>
 <table>
@@ -2480,20 +2514,6 @@ new Promise((resolve,reject)=&gt;{
         //失败的返回值
     })
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[使用 vue-devtools]]></title>
-        <id>https://blog.myxy.net/shi-yong-vue-devtools/</id>
-        <link href="https://blog.myxy.net/shi-yong-vue-devtools/">
-        </link>
-        <updated>2020-08-10T11:18:10.000Z</updated>
-        <content type="html"><![CDATA[<p>找到<a href="https://github.com/vuejs/vue-devtools">vue-devtools</a>的github项目，克隆到本地；<br>
-进入到项目根目录，安装依赖 <code>npm install</code> 或着 <code>cpm install</code>；<br>
-找到<code>vue-devtools/shells/chrome/manifest.json</code> 文件，修改 <code>persistent</code> 为 <code>true</code>；<br>
-编译构建 <code>npm run build</code>；<br>
-打开chrome浏览器，输入 <code>chrome://extensions</code> 进入扩展程序页面，点击 加载已解压的扩展程序, 选择 <code>vue-devtools&gt;shells&gt;chrome</code>文件夹 （记得打开开发者模式)<br>
-<code>Vue.js devtools</code> 就安装好了，点击扩展应用卡片上的 详细信息，勾选(在所有网站上,允许访问文件网址,手机各项错误)三个选项。</p>
 ]]></content>
     </entry>
 </feed>
