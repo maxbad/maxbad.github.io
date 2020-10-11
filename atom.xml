@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-10-11T09:02:22.078Z</updated>
+    <updated>2020-10-11T09:57:50.325Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,81 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[Redis持久化RDB和AOF]]></title>
+        <id>https://blog.myxy.net/redis-chi-jiu-hua-rdb-he-aof/</id>
+        <link href="https://blog.myxy.net/redis-chi-jiu-hua-rdb-he-aof/">
+        </link>
+        <updated>2020-10-11T09:46:54.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>Redis 还可以同时使用 AOF 持久化和 RDB 持久化。 在这种情况下， 当 Redis 重启时， 它会优先使用 AOF 文件来还原数据集， 因为 AOF 文件保存的数据集通常比 RDB 文件所保存的数据集更完整。你甚至可以关闭持久化功能，让数据只在服务器运行时存在。</p>
+</blockquote>
+<h1 id="rdb特性">rdb特性</h1>
+<blockquote>
+<p>持久化可以在指定的时间间隔内生成数据集的时间点快照</p>
+</blockquote>
+<pre><code>fork一个进程，遍历hash table，利用copy on write，把整个db dump保存下来。
+save, shutdown, slave 命令会触发这个操作。
+粒度比较大，如果save, shutdown, slave 之前crash了，则中间的操作没办法恢复。
+平时写操作的时候不触发写，只有手动提交save命令，或者是关闭命令时，才触发备份操作。
+</code></pre>
+<h1 id="aof特性">aof特性</h1>
+<blockquote>
+<p>牺牲一些性能，换取更高的缓存一致性,持久化记录服务器执行的所有写操作命令，并在服务器启动时，通过重新执行这些命令来还原数据集</p>
+</blockquote>
+<pre><code>把写操作指令，持续的写到一个类似日志文件里。（类似于从postgresql等数据库导出sql一样，只记录写操作）
+粒度较小，crash之后，只有crash之前没有来得及做日志的操作没办法恢复。
+持续的用日志记录写操作，crash后利用日志恢复；
+</code></pre>
+<p><a href="https://www.cnblogs.com/shizhengwen/p/9283973.html">https://www.cnblogs.com/shizhengwen/p/9283973.html</a></p>
+<ul>
+<li>Redis 默认开启RDB持久化方式，在指定的时间间隔内，执行指定次数的写操作，则将内存中的数据写入到磁盘中。</li>
+<li>RDB 持久化适合大规模的数据恢复但它的数据一致性和完整性较差。</li>
+<li>Redis 需要手动开启AOF持久化方式，默认是每秒将写操作日志追加到AOF文件中。</li>
+<li>AOF 的数据完整性比RDB高，但记录内容多了，会影响数据恢复的效率。</li>
+<li>Redis 针对 AOF文件大的问题，提供重写的瘦身机制。</li>
+<li>若只打算用Redis 做缓存，可以关闭持久化。</li>
+<li>若打算使用Redis 的持久化。建议RDB和AOF都开启。其实RDB更适合做数据的备份，留一后手。AOF出问题了，还有RDB。</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Redis的RDB和AOF选择]]></title>
+        <id>https://blog.myxy.net/redis-de-rdb-he-aof-xuan-ze/</id>
+        <link href="https://blog.myxy.net/redis-de-rdb-he-aof-xuan-ze/">
+        </link>
+        <updated>2020-10-11T09:46:54.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>aof，rdb是两种 redis持久化的机制,用于crash后，redis的恢复。</p>
+</blockquote>
+<h1 id="rdb特性">rdb特性</h1>
+<blockquote>
+<p>写操作频繁的时候，不启用备份来换取更高的性能，待手动运行save的时候，再做备份.</p>
+</blockquote>
+<pre><code>fork一个进程，遍历hash table，利用copy on write，把整个db dump保存下来。
+save, shutdown, slave 命令会触发这个操作。
+粒度比较大，如果save, shutdown, slave 之前crash了，则中间的操作没办法恢复。
+平时写操作的时候不触发写，只有手动提交save命令，或者是关闭命令时，才触发备份操作。
+</code></pre>
+<h1 id="aof特性">aof特性</h1>
+<blockquote>
+<p>牺牲一些性能，换取更高的缓存一致性</p>
+</blockquote>
+<pre><code>把写操作指令，持续的写到一个类似日志文件里。（类似于从postgresql等数据库导出sql一样，只记录写操作）
+粒度较小，crash之后，只有crash之前没有来得及做日志的操作没办法恢复。
+持续的用日志记录写操作，crash后利用日志恢复；
+</code></pre>
+<ul>
+<li>Redis 默认开启RDB持久化方式，在指定的时间间隔内，执行指定次数的写操作，则将内存中的数据写入到磁盘中。</li>
+<li>RDB 持久化适合大规模的数据恢复但它的数据一致性和完整性较差。</li>
+<li>Redis 需要手动开启AOF持久化方式，默认是每秒将写操作日志追加到AOF文件中。</li>
+<li>AOF 的数据完整性比RDB高，但记录内容多了，会影响数据恢复的效率。</li>
+<li>Redis 针对 AOF文件大的问题，提供重写的瘦身机制。</li>
+<li>若只打算用Redis 做缓存，可以关闭持久化。</li>
+<li>若打算使用Redis 的持久化。建议RDB和AOF都开启。其实RDB更适合做数据的备份，留一后手。AOF出问题了，还有RDB。</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[c++ 宏]]></title>
         <id>https://blog.myxy.net/c-hong/</id>
@@ -1660,309 +1735,6 @@ https://zh.cppreference.com/w/cpp/algorithm/all_any_none_of</p>
 </tr>
 </tbody>
 </table>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[布隆过滤器]]></title>
-        <id>https://blog.myxy.net/bu-long-guo-lu-qi/</id>
-        <link href="https://blog.myxy.net/bu-long-guo-lu-qi/">
-        </link>
-        <updated>2020-09-19T13:21:18.000Z</updated>
-        <content type="html"><![CDATA[<p>https://blog.csdn.net/y1054765649/article/details/88712339</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[VS  自定义 clang-format 格式化代码格式]]></title>
-        <id>https://blog.myxy.net/vs-zi-ding-yi-clang-format-ge-shi-hua-dai-ma-ge-shi/</id>
-        <link href="https://blog.myxy.net/vs-zi-ding-yi-clang-format-ge-shi-hua-dai-ma-ge-shi/">
-        </link>
-        <updated>2020-09-19T06:52:53.000Z</updated>
-        <content type="html"><![CDATA[<p>将<code>.clang-format</code> 文件放到工程根目录</p>
-<pre><code class="language-python">ColumnLimit:     0   # 这样就不会限制行宽，自动折行了
-IndentWidth:     4
-</code></pre>
-<p>官方文档:http://clang.llvm.org/docs/ClangFormatStyleOptions.html<br>
-中文文档: https://www.cnblogs.com/PaulpauL/p/5929753.html</p>
-<h2 id="示例文件">示例文件:</h2>
-<pre><code class="language-python">---
-Language:        Cpp
-
-AccessModifierOffset:                                       -2
-AlignAfterOpenBracket:                                      DontAlign
-AlignConsecutiveAssignments:                                true
-AlignConsecutiveDeclarations:                               false
-AlignEscapedNewlinesLeft:                                   false
-AlignOperands:                                              true
-AlignTrailingComments:                                      true
-AllowAllParametersOfDeclarationOnNextLine:                  false
-AllowShortBlocksOnASingleLine:                              true
-AllowShortCaseLabelsOnASingleLine:                          true
-AllowShortFunctionsOnASingleLine:                           All
-AllowShortIfStatementsOnASingleLine:                        true
-AllowShortLoopsOnASingleLine:                               true
-AlwaysBreakAfterDefinitionReturnType:                       All
-AlwaysBreakAfterReturnType:                                 AllDefinitions
-AlwaysBreakBeforeMultilineStrings:                          false
-AlwaysBreakTemplateDeclarations:                            true
-BinPackArguments:                                           true
-BinPackParameters:                                          true
-# Ignored if BreakBeforeBraces different from Custom
-BraceWrapping:
-  AfterClass:                                               false
-  AfterControlStatement:                                    false
-  AfterEnum:                                                false
-  AfterFunction:                                            false
-  AfterNamespace:                                           false
-  AfterObjCDeclaration:                                     false
-  AfterStruct:                                              false
-  AfterUnion:                                               false
-  BeforeCatch:                                              true
-  BeforeElse:                                               true
-  IndentBraces:                                             false
-BreakBeforeBinaryOperators:                                 NonAssignment
-BreakBeforeBraces:                                          Custom
-BreakBeforeTernaryOperators:                                true
-BreakConstructorInitializersBeforeComma:                    true
-# Ignored in C++
-BreakAfterJavaFieldAnnotations:                             false
-BreakStringLiterals:                                        false
-ColumnLimit:                                                0
-CommentPragmas:                                             '.*'
-ConstructorInitializerAllOnOneLineOrOnePerLine:             true
-ConstructorInitializerIndentWidth:                          0
-ContinuationIndentWidth:                                    2
-Cpp11BracedListStyle:                                       true
-DerivePointerAlignment:                                     false
-DisableFormat:                                              false
-ExperimentalAutoDetectBinPacking:                           false
-ForEachMacros:                                              [ foreach, Q_FOREACH, BOOST_FOREACH ]
-IncludeCategories:
-  - Regex:                                                  'cpp_redis'
-    Priority:                                               1
-IncludeIsMainRegex:                                         '$'
-IndentCaseLabels:                                           false
-IndentWidth:                                                2
-IndentWrappedFunctionNames:                                 false
-# Ignored in C++
-JavaScriptQuotes:                                           Leave
-# Ignored in C++
-JavaScriptWrapImports:                                      true
-KeepEmptyLinesAtTheStartOfBlocks:                           true
-MacroBlockBegin:                                            ''
-MacroBlockEnd:                                              ''
-MaxEmptyLinesToKeep:                                        2
-NamespaceIndentation:                                       None
-# Ignored in C++
-ObjCBlockIndentWidth:                                       2
-# Ignored in C++
-ObjCSpaceAfterProperty:                                     false
-# Ignored in C++
-ObjCSpaceBeforeProtocolList:                                true
-PenaltyBreakBeforeFirstCallParameter:                       19
-PenaltyBreakComment:                                        300
-PenaltyBreakFirstLessLess:                                  120
-PenaltyBreakString:                                         1000
-PenaltyExcessCharacter:                                     1000000
-PenaltyReturnTypeOnItsOwnLine:                              60
-PointerAlignment:                                           Left
-ReflowComments:                                             true
-SortIncludes:                                               true
-SpaceAfterCStyleCast:                                       true
-SpaceBeforeAssignmentOperators:                             true
-SpaceBeforeParens:                                          ControlStatements
-SpaceInEmptyParentheses:                                    false
-SpacesBeforeTrailingComments:                               1
-SpacesInAngles:                                             false
-SpacesInContainerLiterals:                                  true
-SpacesInCStyleCastParentheses:                              false
-SpacesInParentheses:                                        false
-SpacesInSquareBrackets:                                     false
-Standard:                                                   Cpp11
-TabWidth:                                                   8
-UseTab:                                                     Never
-...
-</code></pre>
-<h2 id="说明">说明</h2>
-<pre><code class="language-python">
----
-# 语言: None, Cpp, Java, JavaScript, ObjC, Proto, TableGen, TextProto #
-Language:	Cpp
-# 基础格式 #
-BasedOnStyle: Google
-# 访问说明符(public、private等)的偏移 #
-AccessModifierOffset: -4
-
-# 开括号(开圆括号、开尖括号、开方括号)后的对齐: Align, DontAlign, AlwaysBreak(总是在开括号后换行)
-AlignAfterOpenBracket:	Align
-# 连续赋值时，对齐所有等号
-AlignConsecutiveAssignments:	true
-# 连续声明时，对齐所有声明的变量名
-AlignConsecutiveDeclarations:	true
-# 左对齐逃脱换行(使用反斜杠换行)的反斜杠
-AlignEscapedNewlinesLeft:	true
-# 水平对齐二元和三元表达式的操作数
-AlignOperands:	true
-# 对齐连续的尾随的注释
-AlignTrailingComments:	true
-# 允许函数声明的所有参数在放在下一行
-AllowAllParametersOfDeclarationOnNextLine:	true
-# 允许短的块放在同一行
-AllowShortBlocksOnASingleLine:	false
-# 允许短的case标签放在同一行
-AllowShortCaseLabelsOnASingleLine:	false
-# 允许短的函数放在同一行: None, InlineOnly(定义在类中), Empty(空函数), Inline(定义在类中，空函数), All
-AllowShortFunctionsOnASingleLine:	Empty
-# 允许短的if语句保持在同一行
-AllowShortIfStatementsOnASingleLine:	false
-# 允许短的循环保持在同一行
-AllowShortLoopsOnASingleLine:	false
-# 总是在定义返回类型后换行(deprecated)
-AlwaysBreakAfterDefinitionReturnType:	None
-# 总是在返回类型后换行: None, All, TopLevel(顶级函数，不包括在类中的函数), 
-#   AllDefinitions(所有的定义，不包括声明), TopLevelDefinitions(所有的顶级函数的定义)
-AlwaysBreakAfterReturnType:	None
-# 总是在多行string字面量前换行
-AlwaysBreakBeforeMultilineStrings:	false
-# 总是在template声明后换行
-AlwaysBreakTemplateDeclarations:	false
-# false表示函数实参要么都在同一行，要么都各自一行
-BinPackArguments:	true
-# false表示所有形参要么都在同一行，要么都各自一行
-BinPackParameters:	true
-# 大括号换行，只有当BreakBeforeBraces设置为Custom时才有效
-BraceWrapping:   
-  # class定义后面
-  AfterClass:	false
-  # 控制语句后面
-  AfterControlStatement:	false
-  # enum定义后面
-  AfterEnum:	false
-  # 函数定义后面
-  AfterFunction:	false
-  # 命名空间定义后面
-  AfterNamespace:	false
-  # ObjC定义后面
-  AfterObjCDeclaration:	false
-  # struct定义后面
-  AfterStruct:	false
-  # union定义后面
-  AfterUnion:	false
-  # catch之前
-  BeforeCatch:	true
-  # else之前
-  BeforeElse:	true
-  # 缩进大括号
-  IndentBraces:	false
-# 在二元运算符前换行: None(在操作符后换行), NonAssignment(在非赋值的操作符前换行), All(在操作符前换行)
-BreakBeforeBinaryOperators:	NonAssignment
-# 在大括号前换行: Attach(始终将大括号附加到周围的上下文), Linux(除函数、命名空间和类定义，与Attach类似), 
-#   Mozilla(除枚举、函数、记录定义，与Attach类似), Stroustrup(除函数定义、catch、else，与Attach类似), 
-#   Allman(总是在大括号前换行), GNU(总是在大括号前换行，并对于控制语句的大括号增加额外的缩进), WebKit(在函数前换行), Custom
-#   注：这里认为语句块也属于函数
-BreakBeforeBraces:	Custom
-# 在三元运算符前换行
-BreakBeforeTernaryOperators:	true
-# 在构造函数的初始化列表的逗号前换行
-BreakConstructorInitializersBeforeComma:	false
-# 每行字符的限制，0表示没有限制
-ColumnLimit:	200
-# 描述具有特殊意义的注释的正则表达式，它不应该被分割为多行或以其它方式改变
-CommentPragmas:	'^ IWYU pragma:'
-# 构造函数的初始化列表要么都在同一行，要么都各自一行
-ConstructorInitializerAllOnOneLineOrOnePerLine:	false
-# 构造函数的初始化列表的缩进宽度
-ConstructorInitializerIndentWidth:	4
-# 延续的行的缩进宽度
-ContinuationIndentWidth:	4
-# 去除C++11的列表初始化的大括号{后和}前的空格
-Cpp11BracedListStyle:	false
-# 继承最常用的指针和引用的对齐方式
-DerivePointerAlignment:	false
-# 关闭格式化
-DisableFormat:	false
-# 自动检测函数的调用和定义是否被格式为每行一个参数(Experimental)
-ExperimentalAutoDetectBinPacking:	false
-# 需要被解读为foreach循环而不是函数调用的宏
-ForEachMacros:	[ foreach, Q_FOREACH, BOOST_FOREACH ]
-# 对#include进行排序，匹配了某正则表达式的#include拥有对应的优先级，匹配不到的则默认优先级为INT_MAX(优先级越小排序越靠前)，
-#   可以定义负数优先级从而保证某些#include永远在最前面
-IncludeCategories: 
-  - Regex:	'^&quot;(llvm|llvm-c|clang|clang-c)/'
-    Priority:	2
-  - Regex:	'^(&lt;|&quot;(gtest|isl|json)/)'
-    Priority:	3
-  - Regex:	'.*'
-    Priority:	1
-# 缩进case标签
-IndentCaseLabels:	false
-
-# 缩进宽度 #
-IndentWidth: 4
-
-# 函数返回类型换行时，缩进函数声明或函数定义的函数名
-IndentWrappedFunctionNames:	false
-# 保留在块开始处的空行
-KeepEmptyLinesAtTheStartOfBlocks:	true
-# 开始一个块的宏的正则表达式
-MacroBlockBegin:	''
-# 结束一个块的宏的正则表达式
-MacroBlockEnd:	''
-# 连续空行的最大数量
-MaxEmptyLinesToKeep:	1
-# 命名空间的缩进: None, Inner(缩进嵌套的命名空间中的内容), All
-NamespaceIndentation:	Inner
-# 使用ObjC块时缩进宽度
-ObjCBlockIndentWidth:	4
-# 在ObjC的@property后添加一个空格
-ObjCSpaceAfterProperty:	false
-# 在ObjC的protocol列表前添加一个空格
-ObjCSpaceBeforeProtocolList:	true
-# 在call(后对函数调用换行的penalty
-PenaltyBreakBeforeFirstCallParameter:	19
-# 在一个注释中引入换行的penalty
-PenaltyBreakComment:	300
-# 第一次在&lt;&lt;前换行的penalty
-PenaltyBreakFirstLessLess:	120
-# 在一个字符串字面量中引入换行的penalty
-PenaltyBreakString:	1000
-# 对于每个在行字符数限制之外的字符的penalty
-PenaltyExcessCharacter:	1000000
-# 将函数的返回类型放到它自己的行的penalty
-PenaltyReturnTypeOnItsOwnLine:	60
-# 指针和引用的对齐: Left, Right, Middle
-PointerAlignment:	Left
-# 允许重新排版注释
-ReflowComments:	true
-# 允许排序#include
-SortIncludes:	true
-# 在C风格类型转换后添加空格
-SpaceAfterCStyleCast:	false
-# 在赋值运算符之前添加空格
-SpaceBeforeAssignmentOperators:	true
-# 开圆括号之前添加一个空格: Never, ControlStatements, Always
-SpaceBeforeParens:	ControlStatements
-# 在空的圆括号中添加空格
-SpaceInEmptyParentheses:	false
-# 在尾随的评论前添加的空格数(只适用于//)
-SpacesBeforeTrailingComments:	2
-# 在尖括号的&lt;后和&gt;前添加空格
-SpacesInAngles:	true
-# 在容器(ObjC和JavaScript的数组和字典等)字面量中添加空格
-SpacesInContainerLiterals:	true
-# 在C风格类型转换的括号中添加空格
-SpacesInCStyleCastParentheses:	true
-# 在圆括号的(后和)前添加空格
-SpacesInParentheses:	true
-# 在方括号的[后和]前添加空格，lamda表达式和未指明大小的数组的声明不受影响
-SpacesInSquareBrackets:	true
-# 标准: Cpp03, Cpp11, Auto
-Standard:	Cpp11
-# tab宽度
-TabWidth:	4
-# 使用tab字符: Never, ForIndentation, ForContinuationAndIndentation, Always
-UseTab:	Never
-...
-</code></pre>
 ]]></content>
     </entry>
 </feed>
