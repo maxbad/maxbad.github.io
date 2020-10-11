@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-10-10T14:07:58.160Z</updated>
+    <updated>2020-10-11T08:30:52.791Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,66 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[c++ 宏]]></title>
+        <id>https://blog.myxy.net/c-hong/</id>
+        <link href="https://blog.myxy.net/c-hong/">
+        </link>
+        <updated>2020-10-11T08:28:31.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="宏的妙用">宏“#”的妙用</h2>
+<blockquote>
+<p>如果熟悉 C++ 宏的小伙伴，可能知道里面有个 # 的用法，可以将对应的参数变成字符串，效果如下：</p>
+</blockquote>
+<pre><code class="language-cpp">#define  toStr(x)  #x
+char *str = toStr(hello);  
+//  等价于 
+char *str = &quot;hello&quot;;
+</code></pre>
+<p>那么对于单个变量最简单的宏实现方式就是：</p>
+<pre><code class="language-cpp">#define logs(x)  std::cout &lt;&lt; #x&quot;:&quot; &lt;&lt; x &lt;&lt; std::endl;
+......
+int delay = 5;
+int other = 3;
+logs(delay);
+logs(other);
+
+// 输出结果
+// delay:5
+// other:3
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[std::string 转 std::wstring]]></title>
+        <id>https://blog.myxy.net/stdstring-zhuan-stdwstring/</id>
+        <link href="https://blog.myxy.net/stdstring-zhuan-stdwstring/">
+        </link>
+        <updated>2020-10-11T07:04:31.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-cpp">
+inline std::wstring StringToWString(const std::string&amp; str)
+{
+    int len = ::MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, NULL, 0);
+
+    std::wstring buff(len, 0);
+    ::MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, (LPWSTR)buff.data(), len);
+
+    if(buff[buff.size()-1] == '\0')
+        buff.erase( buff.begin() + (buff.size()-1) );
+
+    return buff;
+}
+</code></pre>
+<h2 id="任意类型转-stdwstring">任意类型转 std::wstring</h2>
+<pre><code class="language-cpp">template&lt;class T&gt;
+inline std::wstring ToWString(const T&amp; arg) 
+{
+    std::wstringstream temp;
+    temp &lt;&lt; arg;
+    return temp.str();
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[C++11函数返回多个不同类型的值, std::tuple]]></title>
         <id>https://blog.myxy.net/c11-han-shu-fan-hui-duo-ge-bu-tong-lei-xing-de-zhi-stdtuple/</id>
@@ -1898,539 +1958,6 @@ TabWidth:	4
 UseTab:	Never
 ...
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Redis]]></title>
-        <id>https://blog.myxy.net/redis/</id>
-        <link href="https://blog.myxy.net/redis/">
-        </link>
-        <updated>2020-09-19T05:59:55.000Z</updated>
-        <content type="html"><![CDATA[<p>官方命令手册:<a href="https://oss.redislabs.com/redisearch/Commands.html">https://oss.redislabs.com/redisearch/Commands.html</a><br>
-中文手册:<a href="https://www.php.cn/redis/redis-commands.html">https://www.php.cn/redis/redis-commands.html</a><br>
-命令参考:<a href="http://doc.redisfans.com/index.html">http://doc.redisfans.com/index.html</a><br>
-命令手册1:<a href="https://www.redis.net.cn/order/">https://www.redis.net.cn/order/</a><br>
-命令手册2:<a href="https://www.redis.com.cn/commands/">https://www.redis.com.cn/commands/</a></p>
-<table>
-<thead>
-<tr>
-<th>角色</th>
-<th style="text-align:left">redis.conf</th>
-<th style="text-align:left">权限说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>超户</td>
-<td style="text-align:left">requirepass</td>
-<td style="text-align:left">所有功能</td>
-</tr>
-<tr>
-<td>普通</td>
-<td style="text-align:left">requireuserpass</td>
-<td style="text-align:left">不能进程管理类命令,如shutdown</td>
-</tr>
-<tr>
-<td>只读</td>
-<td style="text-align:left">requirereaduserpass</td>
-<td style="text-align:left">在普通用户基础上,进一步限制只能进行读操作,没有script命令权限</td>
-</tr>
-</tbody>
-</table>
-<h2 id="普通用户不能进行的操作有">普通用户不能进行的操作有：</h2>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th style="text-align:left">解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>INFO commandstats</td>
-<td style="text-align:left">查看所有命令统计</td>
-</tr>
-<tr>
-<td>CONFIG RESETSTAT</td>
-<td style="text-align:left">重置统计</td>
-</tr>
-<tr>
-<td>save</td>
-<td style="text-align:left">SAVE命令执行一个同步保存操作,将当前Redis实列的所有数据快照(snapshot)以RDB文件的形式保存到硬盘</td>
-</tr>
-<tr>
-<td>bgsave</td>
-<td style="text-align:left">在后台异步(Asynchronously)保存当前数据库的数据到磁盘</td>
-</tr>
-<tr>
-<td>bgrrwriteaof</td>
-<td style="text-align:left">执行一个AOF文件重写操作,重写会创建一个当前AOF文件的体积优化版本,即使BGREWRITEAOF执行失败,也不会有任何数据丢失,因为旧的AOF文件在BGREWRITEAOF成功之前不会被修改</td>
-</tr>
-<tr>
-<td>shutdown</td>
-<td style="text-align:left">停止所有客户端,如果有至少一个保存点在等待,执行SAVE命令,如果AOF选项被打开,更新AOF文件,关闭Redis服务器(server)</td>
-</tr>
-<tr>
-<td>sync</td>
-<td style="text-align:left">用户复制功能(replication)的内部命令</td>
-</tr>
-<tr>
-<td>psync</td>
-<td style="text-align:left">用户复制功能(replication)的内部命令</td>
-</tr>
-<tr>
-<td>replconf</td>
-<td style="text-align:left">暂无用处</td>
-</tr>
-<tr>
-<td>monitor</td>
-<td style="text-align:left">实时打印出Redis服务器收到的命令,调试专用</td>
-</tr>
-<tr>
-<td>slaveof</td>
-<td style="text-align:left">SLAVEOF命令用户在Redis运行时动态地修改复制(replication)功能的行为</td>
-</tr>
-<tr>
-<td>debug</td>
-<td style="text-align:left">调试命令</td>
-</tr>
-<tr>
-<td>config</td>
-<td style="text-align:left">配置参数</td>
-</tr>
-<tr>
-<td>restore</td>
-<td style="text-align:left">反序列化给定的序列化值,并将它和给定的KEY关联</td>
-</tr>
-<tr>
-<td>migrate</td>
-<td style="text-align:left">将key原子性地从当前实例传送到目标实例的指定数据库上,一旦传送成功,KEY保证会出现在目标实例上,而当前实例上的KEY会被删除</td>
-</tr>
-<tr>
-<td>dump</td>
-<td style="text-align:left">序列化给定KEY,并返回被序列化的值,使用restore命令可以将这个值反序列化为Redis键</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th style="text-align:left">解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>查看锁定IP</td>
-<td style="text-align:left">config get lockedips</td>
-</tr>
-<tr>
-<td>解锁单个IP</td>
-<td style="text-align:left">config set unlockips 10.67.147.111</td>
-</tr>
-<tr>
-<td>解锁所有IP</td>
-<td style="text-align:left">config set unlockips “all”</td>
-</tr>
-</tbody>
-</table>
-<h1 id="string类型">string类型</h1>
-<h2 id="字符串常见操作">字符串常见操作</h2>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th style="text-align:left">解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>set key value</td>
-<td style="text-align:left">存入键值对</td>
-</tr>
-<tr>
-<td>mset key value [key value…]</td>
-<td style="text-align:left">批量存储字符串键值对</td>
-</tr>
-<tr>
-<td>setnx key value</td>
-<td style="text-align:left">存入一个不存在的字符串键值对</td>
-</tr>
-<tr>
-<td>get key</td>
-<td style="text-align:left">获取一个字符串</td>
-</tr>
-<tr>
-<td>mget key [key…]</td>
-<td style="text-align:left">批量获取字符串键值</td>
-</tr>
-<tr>
-<td>del key [key…]</td>
-<td style="text-align:left">删除一个键</td>
-</tr>
-<tr>
-<td>expire key seconds</td>
-<td style="text-align:left">设置一个键的过期时间（秒）</td>
-</tr>
-</tbody>
-</table>
-<h2 id="原子加减">原子加减</h2>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th style="text-align:left">解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>incr key</td>
-<td style="text-align:left">将key中存储的数字值加一</td>
-</tr>
-<tr>
-<td>decr key</td>
-<td style="text-align:left">将key中存储的数字值减一</td>
-</tr>
-<tr>
-<td>incr by key increment</td>
-<td style="text-align:left">将key中所存储的值加上increment</td>
-</tr>
-<tr>
-<td>decr by key decrement</td>
-<td style="text-align:left">将key所存储的值减去decrement</td>
-</tr>
-</tbody>
-</table>
-<h2 id="string应用场景">string应用场景</h2>
-<blockquote>
-<p>计数器<br>
-文章计数器 阅读量 incr article:num</p>
-</blockquote>
-<h2 id="分布式锁">分布式锁</h2>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th style="text-align:left">解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>setnx product true</td>
-<td style="text-align:left">返回1代表获取锁成功</td>
-</tr>
-<tr>
-<td>setnx product true</td>
-<td style="text-align:left">返回0代表获取锁失败</td>
-</tr>
-<tr>
-<td>del product</td>
-<td style="text-align:left">执行完业务释放锁</td>
-</tr>
-</tbody>
-</table>
-<h1 id="hash类型">hash类型</h1>
-<h2 id="hash常用操作">hash常用操作</h2>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th style="text-align:left">解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>hset key field value</td>
-<td style="text-align:left">存储一个哈希key的键值</td>
-</tr>
-<tr>
-<td>hsetnx key field value</td>
-<td style="text-align:left">存储一个不存在的哈希表key的键值</td>
-</tr>
-<tr>
-<td>hmseet key field value[field value…]</td>
-<td style="text-align:left">在一个哈希表key中存储多个键值对</td>
-</tr>
-<tr>
-<td>hget key field</td>
-<td style="text-align:left">获取哈希表key对应的field的值</td>
-</tr>
-<tr>
-<td>hmget key field[field…]</td>
-<td style="text-align:left">批量获取哈希表key中多个field的值</td>
-</tr>
-<tr>
-<td>hdel key field [field…]</td>
-<td style="text-align:left">删除哈希表key中的field的键值</td>
-</tr>
-<tr>
-<td>hlen key</td>
-<td style="text-align:left">返回哈希表key中的field的数量</td>
-</tr>
-<tr>
-<td>hgetall key</td>
-<td style="text-align:left">返回哈希表key中所有的键值</td>
-</tr>
-<tr>
-<td>hincrby key field increment</td>
-<td style="text-align:left">为哈希表key中field键的值加上增量increment</td>
-</tr>
-</tbody>
-</table>
-<h2 id="hash应用场景">hash应用场景</h2>
-<blockquote>
-<p>对象缓存<br>
-hmset user userid1:name value userid1:age 14<br>
-购物车<br>
-hmset user product1:name value prodeuct1:num value</p>
-</blockquote>
-<h2 id="hash优缺点">hash优缺点</h2>
-<ul>
-<li>优点<br>
-同类数据归类整合存储，方便数据管理<br>
-相比string操作消耗内存与cpu更小<br>
-相比string存储更节省空间</li>
-<li>缺点<br>
-过期功能不能使用在field上，只能使用在key上<br>
-Redis集群架构下不适合大规模使用</li>
-</ul>
-<h1 id="list类型">list类型</h1>
-<h2 id="list常用操作">list常用操作</h2>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th style="text-align:left">解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>lpush key value[value…]</td>
-<td style="text-align:left">将一个或多个值value插入到key列表的表头（最左边）</td>
-</tr>
-<tr>
-<td>rpush key value[value…]</td>
-<td style="text-align:left">将一个或多个value插入到key列表的表尾（最右边）</td>
-</tr>
-<tr>
-<td>lpop key</td>
-<td style="text-align:left">移除并返回key列表的头元素</td>
-</tr>
-<tr>
-<td>rpop key</td>
-<td style="text-align:left">移除并返回key列表的尾元素</td>
-</tr>
-<tr>
-<td>lrange key start stop</td>
-<td style="text-align:left">返回列表key中指定区间内的元素，区间以偏移量start和stop指定</td>
-</tr>
-<tr>
-<td>blpop key [key…] timeout</td>
-<td style="text-align:left">从key列表表头弹出一个元素，若列表中没有元素，阻塞等待timeout秒，如果timeout=0，一直阻塞等待</td>
-</tr>
-<tr>
-<td>brpop key [key…] timeout</td>
-<td style="text-align:left">从key列表表尾弹出一个元素，若列表中没有元素，阻塞等待timeout秒，如果timeout=0，一直阻塞等待</td>
-</tr>
-</tbody>
-</table>
-<h2 id="list应用场景">list应用场景</h2>
-<p>栈（stack）<br>
-lpush + lpop —&gt;FILO<br>
-队列（queue）<br>
-lpush + rpop<br>
-阻塞队列（Blocking MQ）<br>
-lpush + brpop<br>
-微博微信消息流<br>
-使用lpush放入用户ID消息，然后使用lrange 来获取消息</p>
-<h1 id="set类型">set类型</h1>
-<h2 id="set常用操作">set常用操作</h2>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th style="text-align:left">解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>sadd key member [member…]</td>
-<td style="text-align:left">往集合key中存入元素，元素存在则忽略，若key不存在则创建</td>
-</tr>
-<tr>
-<td>srem key member[member…]</td>
-<td style="text-align:left">从集合key中删除元素</td>
-</tr>
-<tr>
-<td>smembers key</td>
-<td style="text-align:left">获取集合key中的所有元素</td>
-</tr>
-<tr>
-<td>scardkey</td>
-<td style="text-align:left">获取集合key中的元素的个数</td>
-</tr>
-<tr>
-<td>sismemver key member</td>
-<td style="text-align:left">判断member元素是否存在于集合key中</td>
-</tr>
-<tr>
-<td>srandmember key [count]</td>
-<td style="text-align:left">从集合key中选出count个元素，元素不从key中删除</td>
-</tr>
-</tbody>
-</table>
-<p>spop key [count]//从集合key中选出count个元素，元素从key中删除</p>
-<h2 id="set运算操作">set运算操作</h2>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th style="text-align:left">解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>sinter key [key…]</td>
-<td style="text-align:left">交集运算</td>
-</tr>
-<tr>
-<td>sinterstore destination key [key…]</td>
-<td style="text-align:left">交集结果存入新集合destination中</td>
-</tr>
-<tr>
-<td>sunion key [key…]</td>
-<td style="text-align:left">并集运算</td>
-</tr>
-<tr>
-<td>sunionstore destination key [key…]</td>
-<td style="text-align:left">并集结果存入新集合destination中</td>
-</tr>
-<tr>
-<td>sdiff key [key…]</td>
-<td style="text-align:left">差集运算</td>
-</tr>
-<tr>
-<td>sdiffstore destination key [key…]</td>
-<td style="text-align:left">差集结果存入新集合destination中</td>
-</tr>
-</tbody>
-</table>
-<h2 id="set使用场景">set使用场景</h2>
-<p>微信抽奖小程序<br>
-点击参与抽奖加入集合 sadd key {userID}<br>
-查看参与抽奖所有用户 smembers key<br>
-抽取count名中奖者 srandmember key [count]/spop key [count]<br>
-微信微博点赞、收藏、标签<br>
-点赞 sadd user ID<br>
-取消点赞 srem user ID<br>
-检查用户是否点过赞 sismember user ID<br>
-获取用户点赞列表 smembers user<br>
-获取点赞用户数 scard user<br>
-关注模型 （使用集合）<br>
-共同关注的人 ------ 交集<br>
-可能认识的人 ------- 差集</p>
-<p>其他应用场景:<br>
-https://bbs.huaweicloud.com/forum/thread-10558-1-1.html</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Promise]]></title>
-        <id>https://blog.myxy.net/promise/</id>
-        <link href="https://blog.myxy.net/promise/">
-        </link>
-        <updated>2020-09-07T08:11:00.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="promise是什么">promise是什么？</h1>
-<ul>
-<li>主要用于异步计算</li>
-<li>可以将异步操作队列化，按照期望的顺序执行，返回符合预期的结果</li>
-<li>可以在对象之间传递和操作promise，帮助我们处理队列</li>
-</ul>
-<blockquote>
-<p><em>同步</em>：假设你去了一家饭店，找个位置，叫来服务员，这个时候服务员对你说，对不起我是“同步”服务员，我要服务完这张桌子才能招呼你。那桌客人明明已经吃上了，你只是想要个菜单，这么小的动作，服务员却要你等到别人的一个大动作完成之后，才能再来招呼你，这个便是同步的问题：也就是“顺序交付的工作1234，必须按照1234的顺序完成”。<br>
-<em>异步</em>：则是将耗时很长的A交付的工作交给系统之后，就去继续做B交付的工作，。等到系统完成了前面的工作之后，再通过回调或者事件，继续做A剩下的工作。<br>
-AB工作的完成顺序，和交付他们的时间顺序无关，所以叫“异步”。</p>
-</blockquote>
-<p>promise详解</p>
-<pre><code>new Promise(
-  function (resolve, reject) {
-    // 一段耗时的异步操作
-    resolve('成功') // 数据处理完成
-    // reject('失败') // 数据处理出错
-  }
-).then(
-  (res) =&gt; {console.log(res)},  // 成功
-  (err) =&gt; {console.log(err)} // 失败
-)
-</code></pre>
-<p><code>resolve</code>作用是，将Promise对象的状态从“未完成”变为“成功”（即从 pending 变为 resolved），在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；</p>
-<p><code>reject</code>作用是，将Promise对象的状态从“未完成”变为“失败”（即从 pending 变为 rejected），在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。</p>
-<p><em>promise</em>有三个状态：<br>
-1、pending[待定]初始状态<br>
-2、fulfilled[实现]操作成功<br>
-3、rejected[被否决]操作失败<br>
-当promise状态发生改变，就会触发then()里的响应函数处理后续步骤；<br>
-promise状态一经改变，不会再变。</p>
-<p>Promise对象的状态改变，只有两种可能：<br>
-从pending变为fulfilled<br>
-从pending变为rejected。<br>
-这两种情况只要发生，状态就凝固了，不会再变了。</p>
-<p>1.promise简单用法</p>
-<pre><code>function2(){
-    // 你的逻辑代码 
-    return Promise.resolve(/* 这里是需要返回的数据*/)
-}
-
-function3(){
-    // 你的逻辑代码 
-    return Promise.resolve(/* 这里是需要返回的数据*/)
-}
-
-// 调用
-function1(){
-    this.function2().then(val =&gt; { 
-        this.function3();
-    });
-}
-</code></pre>
-<p>2.promise高阶用法</p>
-<pre><code>init1(){
-return new Promise((resolve, reject) =&gt; {
-    let data={
-        dateStr:this.time
-    };
-    api.get('url', null).then( res =&gt; {
-       //自己的操作
-        resolve()
-    }).catch(err =&gt; {
-        reject()
-    });
-});
-};
-init2(){
-return new Promise((resolve, reject) =&gt; {
-    let data={
-        dateStr:this.time
-    };
-    api.get('url', null).then( res =&gt; {
-       //自己的操作
-        resolve()
-    }).catch(err =&gt; {
-        reject()
-    });
-});
-};
-
-
-//调用
-Promise.all([this.init1(),this.init2()]).then(() =&gt; {
-    //两个都调成功以后执行的操作
-//主要是loading问题
-}).catch(err =&gt; {
-    // 抛出错误信息
-});
-</code></pre>
-<p>https://www.jianshu.com/p/1b63a13c2701<br>
-https://blog.csdn.net/qq_34645412/article/details/81170576</p>
 ]]></content>
     </entry>
 </feed>
