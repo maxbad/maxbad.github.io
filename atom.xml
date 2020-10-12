@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-10-11T09:57:50.325Z</updated>
+    <updated>2020-10-12T14:55:33.024Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -363,32 +363,44 @@ if (std::get&lt;0&gt;(result)) {
  
 class Task {
 public:
-  void execute(std::string command) {
-    for(int i = 0; i &lt; 5; i++) {
-    std::cout&lt;&lt;command&lt;&lt;&quot; :: &quot;&lt;&lt;i&lt;&lt;std::endl;
-    }
+Task(){
+    cnt_thread.store(0);
+	exit_workThread.store(false);
+    
+  std::thread th(&amp;Task::execute, this, &quot;Sample Task&quot;); 
+  th.detach();
+
+}
+~Task(){
+	exit_workThread.store(true);
+    while (cnt_thread);
+}
+  void execute(std::string command) {      
+	cnt_thread++;
+    int i = 0;
+    while(1)
+    {
+        if (exit_workThread)
+			break;
+              std::cout&lt;&lt;command&lt;&lt;&quot; :: &quot;&lt;&lt;i&lt;&lt;std::endl;
+		this_thread::sleep_for(std::chrono::seconds(1));
+              i++
+    }  
+	cnt_thread--;
   }
+  private:  
+	std::atomic&lt;int&gt;         cnt_thread;
+	std::atomic&lt;bool&gt;        exit_workThread;
 };
  
 int main() {
-  Task * taskPtr = new Task();
- 
-  // Create a thread using member function
-  std::thread th(&amp;Task::execute, taskPtr, &quot;Sample Task&quot;);
- 
-  th.join();
- 
+  Task * taskPtr = new Task();  
+ getchar();
   delete taskPtr;
   
   return 0;
 }
-
-// 输出如下:
-Sample Task :: 0
-Sample Task :: 1
-Sample Task :: 2
-Sample Task :: 3
-Sample Task :: 4
+ 
 </code></pre>
 <h2 id="使用静态成员函数作为线程启动函数">使用静态成员函数作为线程启动函数</h2>
 <blockquote>

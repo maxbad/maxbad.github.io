@@ -19,16 +19,18 @@
  
 class Task {
 public:
-  void execute(std::string command) {
-    for(int i = ..." />
+Task(){
+    cnt_thread.store(0);
+	exit_workThread.stor..." />
   <meta property="og:title" content="C++11：参数按成员函数启动线程 - Maxbad`Blog">
   <meta property="og:description" content="使用非静态类成员上述作为线程启动函数
 #include &amp;lt;thread&amp;gt;
  
 class Task {
 public:
-  void execute(std::string command) {
-    for(int i = ..." />
+Task(){
+    cnt_thread.store(0);
+	exit_workThread.stor..." />
   <meta property="og:type" content="articles">
   <meta property="og:url" content="https://blog.myxy.net/c11can-shu-an-cheng-yuan-han-shu-qi-dong-xian-cheng/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
@@ -40,8 +42,9 @@ public:
  
 class Task {
 public:
-  void execute(std::string command) {
-    for(int i = ...">
+Task(){
+    cnt_thread.store(0);
+	exit_workThread.stor...">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://blog.myxy.net/c11can-shu-an-cheng-yuan-han-shu-qi-dong-xian-cheng/">
 
@@ -76,32 +79,44 @@ public:
  
 class Task {
 public:
-  void execute(std::string command) {
-    for(int i = 0; i &lt; 5; i++) {
-    std::cout&lt;&lt;command&lt;&lt;&quot; :: &quot;&lt;&lt;i&lt;&lt;std::endl;
-    }
+Task(){
+    cnt_thread.store(0);
+	exit_workThread.store(false);
+    
+  std::thread th(&amp;Task::execute, this, &quot;Sample Task&quot;); 
+  th.detach();
+
+}
+~Task(){
+	exit_workThread.store(true);
+    while (cnt_thread);
+}
+  void execute(std::string command) {      
+	cnt_thread++;
+    int i = 0;
+    while(1)
+    {
+        if (exit_workThread)
+			break;
+              std::cout&lt;&lt;command&lt;&lt;&quot; :: &quot;&lt;&lt;i&lt;&lt;std::endl;
+		this_thread::sleep_for(std::chrono::seconds(1));
+              i++
+    }  
+	cnt_thread--;
   }
+  private:  
+	std::atomic&lt;int&gt;         cnt_thread;
+	std::atomic&lt;bool&gt;        exit_workThread;
 };
  
 int main() {
-  Task * taskPtr = new Task();
- 
-  // Create a thread using member function
-  std::thread th(&amp;Task::execute, taskPtr, &quot;Sample Task&quot;);
- 
-  th.join();
- 
+  Task * taskPtr = new Task();  
+ getchar();
   delete taskPtr;
   
   return 0;
 }
-
-// 输出如下:
-Sample Task :: 0
-Sample Task :: 1
-Sample Task :: 2
-Sample Task :: 3
-Sample Task :: 4
+ 
 </code></pre>
 <h2 id="使用静态成员函数作为线程启动函数">使用静态成员函数作为线程启动函数</h2>
 <blockquote>
