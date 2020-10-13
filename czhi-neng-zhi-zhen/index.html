@@ -4,40 +4,34 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Markdown语法 - Maxbad`Blog</title>
+<title>c++智能指针 - Maxbad`Blog</title>
 <link rel="shortcut icon" href="https://blog.myxy.net/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://blog.myxy.net/media/css/tailwind.css">
 <link rel="stylesheet" href="https://blog.myxy.net/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="Markdown语法 - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="c++智能指针 - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
 
     
 
-  <meta name="description" content="Mastering Markdown是一种纯文本格式的标记语言。通过简单的标记语法，它可以使普通文本内容具有一定的格式。
-在线演示:https://markdown-it.github.io/
-
-脚注
-Footnote 1 link^[fi..." />
-  <meta property="og:title" content="Markdown语法 - Maxbad`Blog">
-  <meta property="og:description" content="Mastering Markdown是一种纯文本格式的标记语言。通过简单的标记语法，它可以使普通文本内容具有一定的格式。
-在线演示:https://markdown-it.github.io/
-
-脚注
-Footnote 1 link^[fi..." />
+  <meta name="description" content="文章来源:https://www.zhihu.com/question/319277442/answer/1517987598
+std::unique_ptr
+std::unique_ptr 对其持有的堆内存具有唯一拥有权，也就是说引用计数..." />
+  <meta property="og:title" content="c++智能指针 - Maxbad`Blog">
+  <meta property="og:description" content="文章来源:https://www.zhihu.com/question/319277442/answer/1517987598
+std::unique_ptr
+std::unique_ptr 对其持有的堆内存具有唯一拥有权，也就是说引用计数..." />
   <meta property="og:type" content="articles">
-  <meta property="og:url" content="https://blog.myxy.net/yu-fa/" />
+  <meta property="og:url" content="https://blog.myxy.net/czhi-neng-zhi-zhen/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="Markdown语法 - Maxbad`Blog">
-  <meta name="twitter:description" content="Mastering Markdown是一种纯文本格式的标记语言。通过简单的标记语法，它可以使普通文本内容具有一定的格式。
-在线演示:https://markdown-it.github.io/
-
-脚注
-Footnote 1 link^[fi...">
+  <meta name="twitter:title" content="c++智能指针 - Maxbad`Blog">
+  <meta name="twitter:description" content="文章来源:https://www.zhihu.com/question/319277442/answer/1517987598
+std::unique_ptr
+std::unique_ptr 对其持有的堆内存具有唯一拥有权，也就是说引用计数...">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://blog.myxy.net/yu-fa/">
+  <link rel="canonical" href="https://blog.myxy.net/czhi-neng-zhi-zhen/">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
@@ -57,186 +51,178 @@ Footnote 1 link^[fi...">
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          Markdown语法
+          c++智能指针
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-05-05 · 3 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-10-13 · 7 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <p><a href="https://guides.github.com/features/mastering-markdown/">Mastering Markdown</a>是一种纯文本格式的标记语言。通过简单的标记语法，它可以使普通文本内容具有一定的格式。</p>
-<p>在线演示:<a href="https://markdown-it.github.io/">https://markdown-it.github.io/</a></p>
-<!-- more -->
-<h2 id="脚注">脚注</h2>
-<p><code>Footnote 1 link^[first].</code><br>
-<code>Footnote 2 link^[second].</code><br>
-Footnote 1 link<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>.<br>
-Footnote 2 link<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>.</p>
-<h2 id="emojo">Emojo</h2>
-<p>在<a href="https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/full.json">这里</a>可以找到所有可用的 emojis 列表。<br>
-<code>:tada:</code><br>
-<code>:100:</code><br>
-🎉<br>
-💯</p>
-<h2 id="文字加粗">文字加粗</h2>
-<p><code>**这是加粗的文字**</code><br>
-<strong>这是加粗的文字</strong></p>
-<h2 id="斜体文字">斜体文字</h2>
-<p><code>*这是斜体文字*</code><br>
-<em>这是斜体文字</em></p>
-<h2 id="删除线">删除线</h2>
-<p><code>~~删除线~~</code><br>
-<s>删除线</s></p>
-<h2 id="自定义字体大小">自定义字体大小</h2>
-<p><code>&lt;font size=6&gt;我是变大的字&lt;/font&gt;</code><br>
-<font size=6>我是变大的字</font></p>
-<h2 id="字体变大变小标签">字体变大变小标签</h2>
-<p><code>&lt;small&gt;字体变小&lt;/small&gt;</code><br>
-<code>&lt;big&gt;字体变大&lt;/big&gt;</code><br>
-<small>字体变小</small><br>
-<big>字体变大</big></p>
-<h2 id="换行">换行</h2>
-<p><code>空格+空格+回车</code></p>
-<h2 id="分割线">分割线</h2>
-<h4 id="三个或者三个以上的-或者-都可以">三个或者三个以上的 - 或者 * 都可以。</h4>
-<h2 id="-"><code>---</code><br>
-<code>----</code><br>
-<code>***</code><br>
-<code>*****</code></h2>
-<hr>
-<hr>
-<hr>
-<h2 id="选框">选框</h2>
-<p><code>- [ ] 计划任务</code><br>
-<code>- [x] 完成任务</code></p>
-<ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-8430388"><label class="task-list-item-label" for="task-item-8430388"> 计划任务</label></li>
-<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-4419934"><label class="task-list-item-label" for="task-item-4419934"> 完成任务</label></li>
-</ul>
-<h2 id="链接">链接</h2>
-<p><code>[显示文字](https://www.baidu.com/)</code><br>
-<a href="https://www.baidu.com/">百度一下</a></p>
-<h2 id="图片">图片</h2>
-<p><code>![提示语](https://www.baidu.com/img/bd_logo1.png)</code><br>
-<img src="https://www.baidu.com/img/bd_logo1.png" alt="我是LOGO" loading="lazy"></p>
-<h2 id="标题">标题</h2>
-<h4 id="markdown的标题越大字体越小">MarkDown的标题越大字体越小</h4>
-<p><code># 一级标题</code><br>
-<code>## 二级标题</code><br>
-<code>### 三级标题</code><br>
-<code>#### 四级标题</code><br>
-<code>##### 五级标题</code><br>
-<code>###### 六级标题</code></p>
-<h1 id="一级标题">一级标题</h1>
-<h2 id="二级标题">二级标题</h2>
-<h3 id="三级标题">三级标题</h3>
-<h4 id="四级标题">四级标题</h4>
-<h5 id="五级标题">五级标题</h5>
-<h6 id="六级标题">六级标题</h6>
-<h2 id="无序列表">无序列表</h2>
-<h4 id="三个符号的效果一致且可以混用">三个符号的效果一致,且可以混用</h4>
-<p><code>+ a</code><br>
-<code>- b</code><br>
-<code>* c</code></p>
-<ul>
-<li>a</li>
-</ul>
-<ul>
-<li>b</li>
-</ul>
-<ul>
-<li>c</li>
-</ul>
-<h2 id="有序列表">有序列表</h2>
-<p><code>1. a</code><br>
-<code>2. b</code><br>
-<code>3. c</code></p>
-<ol>
-<li>a</li>
-<li>b</li>
-<li>c</li>
-</ol>
-<h2 id="引用块">引用块</h2>
-<p><code>&gt;这是引用内容</code></p>
-<blockquote>
-<p>注意事项：<code>&gt;</code> 和文本之间要保留一个字符的空格。</p>
-</blockquote>
-<h2 id="表格">表格</h2>
-<p><code>使用</code>:---------:<code>居中</code><br>
-<code>使用</code>:----------<code>居左</code><br>
-<code>使用</code>----------:<code>居右</code></p>
-<pre><code>表头|表头|表头
----|:--:|---:
-内容|内容|内容
-内容|内容|内容
+          <p>文章来源:<a href="https://www.zhihu.com/question/319277442/answer/1517987598">https://www.zhihu.com/question/319277442/answer/1517987598</a></p>
+<h1 id="stdunique_ptr">std::unique_ptr</h1>
+<p>std::unique_ptr 对其持有的堆内存具有唯一拥有权，也就是说引用计数永远是 1，std::unique_ptr 对象销毁时会释放其持有的堆内存。</p>
+<p>可以使用以下方式初始化一个 std::unique_ptr 对象：</p>
+<pre><code class="language-cpp">//初始化方式1
+std::unique_ptr&lt;int&gt; sp1(new int(123));
 
-第二行分割表头和内容。
-- 有一个就行，为了对齐，多加了几个
-文字默认居左
--两边加：表示文字居中
--右边加：表示文字居右
-注：原生的语法两边都要用 | 包起来。此处省略
-示例:
-姓名|技能|排行
---|:--:|--:
-刘备|哭|大哥
-关羽|打|二哥
-张飞|骂|三弟
+//初始化方式2
+std::unique_ptr&lt;int&gt; sp2;
+sp2.reset(new int(123));
+
+//初始化方式3
+std::unique_ptr&lt;int&gt; sp3 = std::make_unique&lt;int&gt;(123);  // C++14支持
 </code></pre>
-<table>
-<thead>
-<tr>
-<th>姓名</th>
-<th style="text-align:center">技能</th>
-<th style="text-align:right">排行</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>刘备</td>
-<td style="text-align:center">哭</td>
-<td style="text-align:right">大哥</td>
-</tr>
-<tr>
-<td>关羽</td>
-<td style="text-align:center">打</td>
-<td style="text-align:right">二哥</td>
-</tr>
-<tr>
-<td>张飞</td>
-<td style="text-align:center">骂</td>
-<td style="text-align:right">三弟</td>
-</tr>
-</tbody>
-</table>
-<h2 id="代码块">代码块</h2>
-<h4 id="使用-四个缩进空格-或-包裹代码">使用 四个缩进空格 或 ```包裹代码</h4>
-<pre><code class="language-html">少量代码用` `包裹
-大量代码用(``` ```)包裹,并指定一种语言（也可以不指定）
-(```cpp 渲染CPP文件)
-(```javascript 渲染JS文件)
+<p>你应该尽量使用初始化方式 3 的方式去创建一个 std::unique_ptr 而不是方式 1 和 2，因为形式 3 更安全，原因 Scott Meyers 在其《Effective Modern C++》中已经解释过了，有兴趣的读者可以阅读此书相关章节。</p>
+<h1 id="stdshared_ptr">std::shared_ptr</h1>
+<p>std::unique_ptr 对其持有的资源具有独占性，而 std::shared_ptr 持有的资源可以在多个 std::shared_ptr 之间共享，每多一个 std::shared_ptr 对资源的引用，资源引用计数将增加 1，每一个指向该资源的 std::shared_ptr 对象析构时，资源引用计数减 1，最后一个 std::shared_ptr 对象析构时，发现资源计数为 0，将释放其持有的资源。多个线程之间，递增和减少资源的引用计数是安全的。（注意：这不意味着多个线程同时操作 std::shared_ptr 引用的对象是安全的）。std::shared_ptr 提供了一个 use_count() 方法来获取当前持有资源的引用计数。除了上面描述的，std::shared_ptr 用法和 std::unique_ptr 基本相同。</p>
+<p>下面是一个初始化 std::shared_ptr 的示例：</p>
+<pre><code class="language-cpp">//初始化方式1
+std::shared_ptr&lt;int&gt; sp1(new int(123));
+
+//初始化方式2
+std::shared_ptr&lt;int&gt; sp2;
+sp2.reset(new int(123));
+
+//初始化方式3
+std::shared_ptr&lt;int&gt; sp3;
+sp3 = std::make_shared&lt;int&gt;(123);
 </code></pre>
-<pre><code class="language-cpp">int main()
+<p>和 std::unique_ptr 一样，你应该优先使用 std::make_shared 去初始化一个 std::shared_ptr 对象。</p>
+<p>实际开发中，有时候需要在类中返回包裹当前对象（this）的一个 std::shared_ptr 对象给外部使用，C++ 新标准也为我们考虑到了这一点，有如此需求的类只要继承自 std::enable_shared_from_this 模板对象即可。用法如下：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+
+class A : public std::enable_shared_from_this&lt;A&gt;
 {
-    printf(&quot;hell&quot;);
+public:
+    A()
+    {
+        std::cout &lt;&lt; &quot;A constructor&quot; &lt;&lt; std::endl;
+    }
+
+    ~A()
+    {
+        std::cout &lt;&lt; &quot;A destructor&quot; &lt;&lt; std::endl;
+    }
+
+    std::shared_ptr&lt;A&gt; getSelf()
+    {
+        return shared_from_this();
+    }
+};
+
+int main()
+{
+    std::shared_ptr&lt;A&gt; sp1(new A());
+
+    std::shared_ptr&lt;A&gt; sp2 = sp1-&gt;getSelf();
+
+    std::cout &lt;&lt; &quot;use count: &quot; &lt;&lt; sp1.use_count() &lt;&lt; std::endl;
+
+    return 0;
 }
 </code></pre>
-<pre><code class="language-javascript">function fancyAlert(arg) {
-  if(arg) {
-    $.facebox({div:'#foo'})
-  }
+<p>上述代码中，类 A 的继承 std::enable_shared_from_this 并提供一个 getSelf() 方法返回自身的 std::shared_ptr 对象，在 getSelf() 中调用 shared_from_this() 即可。</p>
+<p>std::enable_shared_from_this 用起来比较方便，但是也存在很多不易察觉的陷阱。<br>
+陷阱一：不应该共享栈对象的 this 给智能指针对象<br>
+陷阱二：避免 std::enable_shared_from_this 的循环引用问题</p>
+<h1 id="stdweak_ptr">std::weak_ptr</h1>
+<p>std::weak_ptr 是一个不控制资源生命周期的智能指针，是对对象的一种弱引用，只是提供了对其管理的资源的一个访问手段，引入它的目的为协助 std::shared_ptr 工作。</p>
+<p>std::weak_ptr 可以从一个 std::shared_ptr 或另一个 std::weak_ptr 对象构造，std::shared_ptr 可以直接赋值给 std::weak_ptr ，也可以通过 std::weak_ptr 的 lock() 函数来获得 std::shared_ptr。它的构造和析构不会引起引用计数的增加或减少。std::weak_ptr 可用来解决 std::shared_ptr 相互引用时的死锁问题（即两个std::shared_ptr 相互引用，那么这两个指针的引用计数永远不可能下降为 0， 资源永远不会释放）。</p>
+<p>示例代码如下：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+
+int main()
+{
+    //创建一个std::shared_ptr对象
+    std::shared_ptr&lt;int&gt; sp1(new int(123));
+    std::cout &lt;&lt; &quot;use count: &quot; &lt;&lt; sp1.use_count() &lt;&lt; std::endl;
+
+    //通过构造函数得到一个std::weak_ptr对象
+    std::weak_ptr&lt;int&gt; sp2(sp1);
+    std::cout &lt;&lt; &quot;use count: &quot; &lt;&lt; sp1.use_count() &lt;&lt; std::endl;
+
+    //通过赋值运算符得到一个std::weak_ptr对象
+    std::weak_ptr&lt;int&gt; sp3 = sp1;
+    std::cout &lt;&lt; &quot;use count: &quot; &lt;&lt; sp1.use_count() &lt;&lt; std::endl;
+
+    //通过一个std::weak_ptr对象得到另外一个std::weak_ptr对象
+    std::weak_ptr&lt;int&gt; sp4 = sp2;
+    std::cout &lt;&lt; &quot;use count: &quot; &lt;&lt; sp1.use_count() &lt;&lt; std::endl;
+
+    return 0;
+
+// 执行结果如下:
+//use count: 1
+//use count: 1
+//use count: 1
+//use count: 1
 }
 </code></pre>
-<hr class="footnotes-sep">
-<section class="footnotes">
-<ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p>first <a href="#fnref1" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn2" class="footnote-item"><p>second <a href="#fnref2" class="footnote-backref">↩︎</a></p>
-</li>
-</ol>
-</section>
+<p>无论通过何种方式创建 std::weak_ptr 都不会增加资源的引用计数，因此每次输出引用计数的值都是 1。<br>
+既然，std::weak_ptr 不管理对象的生命周期，那么其引用的对象可能在某个时刻被销毁了，如何得知呢？std::weak_ptr 提供了一个 expired() 方法来做这一项检测，返回 true，说明其引用的资源已经不存在了；返回 false，说明该资源仍然存在，这个时候可以使用 std::weak_ptr 的 lock() 方法得到一个 std::shared_ptr 对象然后继续操作资源，以下代码演示了该用法：</p>
+<pre><code class="language-cpp">//tmpConn_ 是一个 std::weak_ptr&lt;TcpConnection&gt; 对象
+//tmpConn_引用的TcpConnection已经销毁，直接返回
+if (tmpConn_.expired())
+    return;
+
+std::shared_ptr&lt;TcpConnection&gt; conn = tmpConn_.lock();
+if (conn)
+{
+    //对conn进行操作，省略...
+}
+</code></pre>
+<p>有读者可能对上述代码产生疑问，既然使用了 std::weak_ptr 的 expired() 方法判断了对象是否存在，为什么不直接使用 std::weak_ptr 对象对引用资源进行操作呢？实际上这是行不通的，std::weak_ptr 类没有重写 operator-&gt; 和 operator 方法，因此不能像 <em>std::shared_ptr 或 std::unique_ptr 一样直接操作对象，同时 std::weak_ptr 类也没有重写 operator! 操作，因此也不能通过 std::weak_ptr</em>* 对象直接判断其引用的资源是否存在：</p>
+<pre><code class="language-cpp">#include &lt;memory&gt;
+
+class A
+{
+public:
+    void doSomething()
+    {
+
+    }
+};
+
+int main()
+{    
+    std::shared_ptr&lt;A&gt; sp1(new A());
+
+    std::weak_ptr&lt;A&gt; sp2(sp1);
+
+    //正确代码
+    if (sp1)
+    {
+        //正确代码
+        sp1-&gt;doSomething();
+        (*sp1).doSomething();
+    }
+
+    //正确代码
+    if (!sp1)
+    {
+
+    }
+
+    //错误代码，无法编译通过
+    //if (sp2)
+    //{
+    //    //错误代码，无法编译通过
+    //    sp2-&gt;doSomething();
+    //    (*sp2).doSomething();
+    //}
+
+    //错误代码，无法编译通过
+    //if (!sp2)
+    //{
+
+    //}
+
+    return 0;
+}
+</code></pre>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -280,73 +266,9 @@ Footnote 2 link<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup
       </div>
       <div class="post-toc-container">
         <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E8%84%9A%E6%B3%A8">脚注</a></li>
-<li><a href="#emojo">Emojo</a></li>
-<li><a href="#%E6%96%87%E5%AD%97%E5%8A%A0%E7%B2%97">文字加粗</a></li>
-<li><a href="#%E6%96%9C%E4%BD%93%E6%96%87%E5%AD%97">斜体文字</a></li>
-<li><a href="#%E5%88%A0%E9%99%A4%E7%BA%BF">删除线</a></li>
-<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%97%E4%BD%93%E5%A4%A7%E5%B0%8F">自定义字体大小</a></li>
-<li><a href="#%E5%AD%97%E4%BD%93%E5%8F%98%E5%A4%A7%E5%8F%98%E5%B0%8F%E6%A0%87%E7%AD%BE">字体变大变小标签</a></li>
-<li><a href="#%E6%8D%A2%E8%A1%8C">换行</a></li>
-<li><a href="#%E5%88%86%E5%89%B2%E7%BA%BF">分割线</a><br>
-*
-<ul>
-<li><a href="#%E4%B8%89%E4%B8%AA%E6%88%96%E8%80%85%E4%B8%89%E4%B8%AA%E4%BB%A5%E4%B8%8A%E7%9A%84-%E6%88%96%E8%80%85-%E9%83%BD%E5%8F%AF%E4%BB%A5">三个或者三个以上的 - 或者 * 都可以。</a></li>
-</ul>
-</li>
-<li><a href="#-"><code>---</code><br>
-<code>----</code><br>
-<code>***</code><br>
-<code>*****</code></a></li>
-<li><a href="#%E9%80%89%E6%A1%86">选框</a></li>
-<li><a href="#%E9%93%BE%E6%8E%A5">链接</a></li>
-<li><a href="#%E5%9B%BE%E7%89%87">图片</a></li>
-<li><a href="#%E6%A0%87%E9%A2%98">标题</a><br>
-*
-<ul>
-<li><a href="#markdown%E7%9A%84%E6%A0%87%E9%A2%98%E8%B6%8A%E5%A4%A7%E5%AD%97%E4%BD%93%E8%B6%8A%E5%B0%8F">MarkDown的标题越大字体越小</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#%E4%B8%80%E7%BA%A7%E6%A0%87%E9%A2%98">一级标题</a>
-<ul>
-<li><a href="#%E4%BA%8C%E7%BA%A7%E6%A0%87%E9%A2%98">二级标题</a>
-<ul>
-<li><a href="#%E4%B8%89%E7%BA%A7%E6%A0%87%E9%A2%98">三级标题</a>
-<ul>
-<li><a href="#%E5%9B%9B%E7%BA%A7%E6%A0%87%E9%A2%98">四级标题</a>
-<ul>
-<li><a href="#%E4%BA%94%E7%BA%A7%E6%A0%87%E9%A2%98">五级标题</a>
-<ul>
-<li><a href="#%E5%85%AD%E7%BA%A7%E6%A0%87%E9%A2%98">六级标题</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8">无序列表</a><br>
-*
-<ul>
-<li><a href="#%E4%B8%89%E4%B8%AA%E7%AC%A6%E5%8F%B7%E7%9A%84%E6%95%88%E6%9E%9C%E4%B8%80%E8%87%B4%E4%B8%94%E5%8F%AF%E4%BB%A5%E6%B7%B7%E7%94%A8">三个符号的效果一致,且可以混用</a></li>
-</ul>
-</li>
-<li><a href="#%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8">有序列表</a></li>
-<li><a href="#%E5%BC%95%E7%94%A8%E5%9D%97">引用块</a></li>
-<li><a href="#%E8%A1%A8%E6%A0%BC">表格</a></li>
-<li><a href="#%E4%BB%A3%E7%A0%81%E5%9D%97">代码块</a><br>
-*
-<ul>
-<li><a href="#%E4%BD%BF%E7%94%A8-%E5%9B%9B%E4%B8%AA%E7%BC%A9%E8%BF%9B%E7%A9%BA%E6%A0%BC-%E6%88%96-%E5%8C%85%E8%A3%B9%E4%BB%A3%E7%A0%81">使用 四个缩进空格 或 ```包裹代码</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a href="#stdunique_ptr">std::unique_ptr</a></li>
+<li><a href="#stdshared_ptr">std::shared_ptr</a></li>
+<li><a href="#stdweak_ptr">std::weak_ptr</a></li>
 </ul>
 
       </div>
