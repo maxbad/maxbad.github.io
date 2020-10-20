@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-10-20T03:39:09.311Z</updated>
+    <updated>2020-10-20T11:05:21.375Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,64 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[系统服务弹出信息框!]]></title>
+        <id>https://blog.myxy.net/xi-tong-fu-wu-dan-chu-xin-xi-kuang/</id>
+        <link href="https://blog.myxy.net/xi-tong-fu-wu-dan-chu-xin-xi-kuang/">
+        </link>
+        <updated>2020-10-20T11:04:20.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-cpp">// dllmain.cpp : 定义 DLL 应用程序的入口点。
+#include &quot;pch.h&quot;
+#include &lt;tchar.h&gt;
+#include &lt;WtsApi32.h&gt;
+#pragma comment(lib, &quot;WtsApi32.lib&quot;)
+
+void ShowMessage(TCHAR* lpszMessage, TCHAR* lpszTitle)
+{
+	// 获取当前的Session ID
+	DWORD dwSessionId = ::WTSGetActiveConsoleSessionId();
+	// 显示消息对话框
+	DWORD dwResponse = 0;
+	::WTSSendMessage(WTS_CURRENT_SERVER_HANDLE, dwSessionId,
+		lpszTitle, static_cast&lt;DWORD&gt;((_tcslen(lpszTitle) + 1) * sizeof(TCHAR)),
+		lpszMessage, static_cast&lt;DWORD&gt;((_tcslen(lpszMessage) + 1) * sizeof(TCHAR)),
+		MB_ICONINFORMATION, 0 /*wait indefinitely*/, &amp;dwResponse, TRUE);
+}
+
+BOOL APIENTRY DllMain(HMODULE hModule,
+	DWORD  ul_reason_for_call,
+	LPVOID lpReserved
+)
+{
+	switch (ul_reason_for_call)
+	{
+	case DLL_PROCESS_ATTACH:
+	{
+		ShowMessage(TEXT(&quot;DLL_PROCESS_加载&quot;), TEXT(&quot;Tips:&quot;));
+	}
+	break;
+	case DLL_THREAD_ATTACH:
+	{
+		ShowMessage(TEXT(&quot;DLL_THREAD_加载&quot;), TEXT(&quot;Tips:&quot;));
+	}
+	break;
+	case DLL_THREAD_DETACH:
+	{
+		ShowMessage(TEXT(&quot;DLL_THREAD_销毁&quot;), TEXT(&quot;Tips:&quot;));
+	}
+	break;
+	case DLL_PROCESS_DETACH:
+	{
+		ShowMessage(TEXT(&quot;DLL_PROCESS_销毁&quot;), TEXT(&quot;Tips:&quot;));
+	}
+	break;
+	}
+	return TRUE;
+}
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[C++基础 – 容器 – VECTOR]]></title>
         <id>https://blog.myxy.net/cji-chu-rong-qi-vector/</id>
@@ -930,34 +988,6 @@ return 0;
 <pre><code class="language-cpp">score:3.8, name:
 </code></pre>
 <p>参考资料:<a href="https://zh.cppreference.com/w/cpp/utility/tuple/tuple_cat">https://zh.cppreference.com/w/cpp/utility/tuple/tuple_cat</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[C++11函数返回多个不同类型的值]]></title>
-        <id>https://blog.myxy.net/c11-han-shu-fan-hui-duo-ge-bu-tong-lei-xing-de-zhi/</id>
-        <link href="https://blog.myxy.net/c11-han-shu-fan-hui-duo-ge-bu-tong-lei-xing-de-zhi/">
-        </link>
-        <updated>2020-10-10T12:36:08.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">std::tuple&lt;bool, std::vector&lt;std::string&gt; &gt; find_urls(const std::string&amp; content) {
-    ...
-	return std::make_tuple(true, urls);
-}
-
-bool error = false;
-std::vector&lt;std::string&gt; urls;
-
-std::string content = &quot;...&quot;
-
-std::tie(error, urls) = find_urls(content);
-if (error) {
-	parse_content(urls)
-}
-
-auto result = find_urls(content);
-if (std::get&lt;0&gt;(result)) {
-	parse_content(std::get&lt;1&gt;(result));
-}
-</code></pre>
 ]]></content>
     </entry>
 </feed>
