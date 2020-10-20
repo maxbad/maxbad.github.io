@@ -4,55 +4,55 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>C++基础 – 容器 – LIST - Maxbad`Blog</title>
+<title>C++基础 – 容器 – ARRAY - Maxbad`Blog</title>
 <link rel="shortcut icon" href="https://blog.myxy.net/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://blog.myxy.net/media/css/tailwind.css">
 <link rel="stylesheet" href="https://blog.myxy.net/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="C++基础 – 容器 – LIST - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="C++基础 – 容器 – ARRAY - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
 
     
 
-  <meta name="description" content="list
+  <meta name="description" content="array
 
-std::list支持从容器的任何位置快速插入和删除元素，不支持随机访问。双向链表,头文件：&amp;lt; list &amp;gt;
-
-
-定义：
-
-template&amp;lt;
-    class T,
-    class Allocator ..." />
-  <meta property="og:title" content="C++基础 – 容器 – LIST - Maxbad`Blog">
-  <meta property="og:description" content="list
-
-std::list支持从容器的任何位置快速插入和删除元素，不支持随机访问。双向链表,头文件：&amp;lt; list &amp;gt;
+c++11封装固定大小数组的容器。不同于vector，不能自动扩展。头文件 &amp;lt; array &amp;gt;
 
 
 定义：
 
-template&amp;lt;
-    class T,
-    class Allocator ..." />
+template&amp;lt;class T,
+        std::size_t N
+&amp;gt; clas..." />
+  <meta property="og:title" content="C++基础 – 容器 – ARRAY - Maxbad`Blog">
+  <meta property="og:description" content="array
+
+c++11封装固定大小数组的容器。不同于vector，不能自动扩展。头文件 &amp;lt; array &amp;gt;
+
+
+定义：
+
+template&amp;lt;class T,
+        std::size_t N
+&amp;gt; clas..." />
   <meta property="og:type" content="articles">
-  <meta property="og:url" content="https://blog.myxy.net/cji-chu-rong-qi-list/" />
+  <meta property="og:url" content="https://blog.myxy.net/cji-chu-rong-qi-array/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="C++基础 – 容器 – LIST - Maxbad`Blog">
-  <meta name="twitter:description" content="list
+  <meta name="twitter:title" content="C++基础 – 容器 – ARRAY - Maxbad`Blog">
+  <meta name="twitter:description" content="array
 
-std::list支持从容器的任何位置快速插入和删除元素，不支持随机访问。双向链表,头文件：&amp;lt; list &amp;gt;
+c++11封装固定大小数组的容器。不同于vector，不能自动扩展。头文件 &amp;lt; array &amp;gt;
 
 
 定义：
 
-template&amp;lt;
-    class T,
-    class Allocator ...">
+template&amp;lt;class T,
+        std::size_t N
+&amp;gt; clas...">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://blog.myxy.net/cji-chu-rong-qi-list/">
+  <link rel="canonical" href="https://blog.myxy.net/cji-chu-rong-qi-array/">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
@@ -72,138 +72,98 @@ template&amp;lt;
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          C++基础 – 容器 – LIST
+          C++基础 – 容器 – ARRAY
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-10-20 · 4 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-10-20 · 2 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <h2 id="list">list</h2>
+          <h2 id="array">array</h2>
 <blockquote>
-<p>std::list支持从容器的任何位置快速插入和删除元素，不支持随机访问。双向链表,头文件：&lt; list &gt;</p>
+<p>c++11封装固定大小数组的容器。不同于vector，不能自动扩展。头文件 &lt; array &gt;</p>
 </blockquote>
 <ul>
 <li>定义：</li>
 </ul>
-<pre><code class="language-cpp">template&lt;
-    class T,
-    class Allocator = std::allocator&lt;T&gt;
-&gt; class list;
+<pre><code class="language-cpp">template&lt;class T,
+        std::size_t N
+&gt; class array;
 </code></pre>
 <ul>
-<li>参数解释：</li>
+<li>参数解释:</li>
 </ul>
 <ol>
-<li>T 元素类型,T必须满足可拷贝复制（CopyAssignable）和可拷贝构造（CopyConstructible）的要求</li>
-<li>Allocator, 用于获取/释放内存及构造/析构内存中元素的分配器</li>
+<li>T 元素类型</li>
+<li>N 元素个数</li>
 </ol>
 <h2 id="常用函数">常用函数</h2>
 <h2 id=""></h2>
+<p><code>operator()</code></p>
+<pre><code class="language-cpp">reference operator[](size_type pos);
+const_reference operator[](size_type pos) const;
+</code></pre>
+<p>返回位于指定位置pos的元素的引用。不进行边界检查。</p>
+<p><code>at()</code></p>
+<pre><code class="language-cpp">reference at(size_type pos);
+const_reference at(size_t pos) const;
+</code></pre>
+<p>返回位于指定位置pos的元素的引用。有边界检查。如果pos不在容器范围内，则抛出std::out_of_range类型的异常。</p>
 <p><code>front()</code></p>
 <pre><code class="language-cpp">reference front();
 const_reference front() const;
 </code></pre>
-<p>返回容器的第一个元素的引用。空容器上行为未定义</p>
+<p>返回容器的第一个元素的引用。在空容器上行为未定义。</p>
 <p><code>back()</code></p>
 <pre><code class="language-cpp">reference back();
 const_reference back() const;
 </code></pre>
-<p>返回到容器中最后一个元素的引用。空容器上行为未定义</p>
+<p>返回容器的最后一个元素的引用。在空容器上行为未定义。</p>
+<p><code>data()</code></p>
+<pre><code class="language-cpp">T* data() noexcept; //c++17
+constexpr T* data() noexcept; //c++17
+const T* data() const noexcept;
+constexpr const T* data() const noexcept;
+</code></pre>
+<p>返回指向元素存储的底层数组的指针。指针满足范围[data(); data() + size())</p>
 <p><code>empty()</code></p>
-<pre><code class="language-cpp">bool empty() const;
+<pre><code class="language-cpp">constexpr bool empty() const noexcept;
 </code></pre>
-<p>返回容器是否为空</p>
+<p>检查容器是否为空</p>
 <p><code>size()</code></p>
-<pre><code class="language-cpp">size_type size() const;
+<pre><code class="language-cpp">size_type size() const noexcept;
 </code></pre>
-<p>返回容器中元素个数</p>
-<p><code>clear()</code></p>
-<pre><code class="language-cpp">void clear();
+<p>返回容器可容纳的元素个数</p>
+<p><code>fill()</code></p>
+<pre><code class="language-cpp">void fill(const T&amp; value);
+constexpr void fill(const T&amp; value); //c++20
 </code></pre>
-<p>删除容器内所有元素。调用后size()返回0</p>
-<p><code>resize()</code></p>
-<pre><code class="language-cpp">void resize(size_type count, T value = T());
+<p>将给定value赋值给所有元素</p>
+<h3 id="简单使用示例">简单使用示例:</h3>
+<pre><code class="language-cpp">#include &lt;array&gt;
+#include &lt;iostream&gt;
+
+int main(int argc, char** argv) {
+    std::array&lt;int, 3&gt; arr = {1, 2, 3};
+    for(size_t i = 0; i &lt; arr.size(); ++i) {
+        if(i) {
+            std::cout &lt;&lt; &quot; &quot;;
+        }
+        std::cout &lt;&lt; arr[i];
+    }
+    std::cout &lt;&lt; std::endl;
+
+    try {
+        arr.at(3) = 4;
+    } catch (std::exception&amp; e) {
+        std::cout &lt;&lt; &quot;exception: &quot; &lt;&lt; e.what() &lt;&lt; std::endl;
+    }
+
+    arr[3] = 4; //未定义行为，可能会core
+    return 0;
+}
 </code></pre>
-<p>重设容器的大小为count个元素。如果当前size()大于count，则在尾部增加元素，并以value的副本初始化。</p>
-<p><code>insert()</code></p>
-<pre><code class="language-cpp">iterator insert(iterator pos, const T&amp; value); //(1)
-void insert(iterator pos, size_type count, const T&amp; value); //(2)
-template&lt;class InputIt&gt;
-void insert(iterator pos, InputIt first, InputIt last); //(3)
-</code></pre>
-<p>插入元素到容器的指定位置。</p>
-<ol>
-<li>在pos前插入value</li>
-<li>在pos前插入value的count个副本</li>
-<li>在pos前插入来自范围[first, last)的元素</li>
-</ol>
-<p><code>emplace()</code></p>
-<pre><code class="language-cpp">template&lt;class... Args&gt;
-iterator emplace(const_iterator pos, Args&amp;&amp;... args); //c++11
-</code></pre>
-<p>直接在pos前插入元素到容器，通过std::allocator_traits::construct构造元素,将参数args…作为std::forward<Args>(args)…转发给构造函数。返回指向插入元素的iterator</p>
-<p><code>erase()</code></p>
-<pre><code class="language-cpp">iterator erase(iterator pos); //(1)
-iterator erase(iterator first, iterator last); //(2)
-</code></pre>
-<p>从容器内删除指定元素,返回被移除元素之后的迭代器</p>
-<ol>
-<li>删除位于pos的元素</li>
-<li>删除范围[first, last)中的元素</li>
-</ol>
-<p><code>push_back()</code></p>
-<pre><code class="language-cpp">void push_back(const T&amp; value);
-</code></pre>
-<p>将元素value添加到容器尾部</p>
-<p><code>emplace_back()</code></p>
-<pre><code class="language-cpp">template&lt;class... Args&gt;
-void emplace_back(Args&amp;&amp;... args); //c++11
-</code></pre>
-<p>添加新元素到容器尾部。通过std::allocator_traits::construct构造，参数args…以std::forward(args)…转发到构造函数。</p>
-<p><code>pop_back()</code></p>
-<pre><code class="language-cpp">void pop_back();
-</code></pre>
-<p>移除容器最后一个元素。在空容器上调用，行为未定义</p>
-<p><code>push_front()</code></p>
-<pre><code class="language-cpp">void push_front(const T&amp; value);
-</code></pre>
-<p>将元素value添加到容器的头部</p>
-<p><code>emplace_front()</code></p>
-<pre><code class="language-cpp">template&lt;class... Args&gt;
-void emplace_front(Args&amp;&amp;... args);
-</code></pre>
-<p>插入元素到容器开始，通过std::allocator_traits::construct构造元素,将参数args…作为std::forward(args)…转发给构造函数</p>
-<p><code>pop_front()</code></p>
-<pre><code class="language-cpp">void pop_front();
-</code></pre>
-<p>移除容器第一个元素,如果容器为空，则行为未定义</p>
-<p><code>swap()</code></p>
-<pre><code class="language-cpp">void swap(list&amp; other);
-</code></pre>
-<p>将内容和other的交换</p>
-<p><code>merge()</code></p>
-<pre><code class="language-cpp">void merge(list&amp; other); //(1)
-template&lt;class T&gt;
-void merge(list&amp; other, Compare comp) //(2)
-</code></pre>
-<p>归并两个已排序链表为一个。操作后other变为空。</p>
-<ol>
-<li>使用operator&lt; 归并</li>
-<li>使用comp 归并</li>
-</ol>
-<p><code>splice()</code></p>
-<pre><code class="language-cpp">void splice(const_iterator pos, list&amp; other); //(1)
-void splice(const_iterator pos, list&amp; other, const_iterator it); //(2)
-void splice(const_iterator pos, list&amp; other, const_iterator first, const_iterator last); //(3)
-</code></pre>
-<p>从一个list转移元素给另一个。不复制或者移动元素，仅重值向链表节点的内部指针。</p>
-<ol>
-<li>从other转移所有元素到<em>this中，元素被插入到pos指向的元素之前。操作后容器other变成空。如果other和</em>this指代同一对象则行为未定义</li>
-<li>从other转移it所指代的元素到*this。元素被插入到pos所指向的元素之前。</li>
-<li>从other转移范围[first, last)中的元素到*this。元素被插入到pos所指向的元素之前。如果pos是范围[first, last)中的迭代器则行为未定义</li>
-</ol>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -249,9 +209,13 @@ void splice(const_iterator pos, list&amp; other, const_iterator first, const_ite
         <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#list">list</a></li>
+<li><a href="#array">array</a></li>
 <li><a href="#%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0">常用函数</a></li>
-<li></li>
+<li>
+<ul>
+<li><a href="#%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B">简单使用示例:</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

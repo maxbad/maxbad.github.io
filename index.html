@@ -59,13 +59,70 @@
     
   </div>
   <div class="md:mx-8 flex-shrink-0 self-start rounded-full border-4 border-dotted border-transparent hover:border-yellow-50 p-2 w-32 h-32 order-1 md:order-2 mx-auto s3-dotted">
-    <img class="rounded-full object-cover" src="https://blog.myxy.net/images/avatar.png?v=1603157734276" alt="Maxbad`Blog" width="100%" height="100%">
+    <img class="rounded-full object-cover" src="https://blog.myxy.net/images/avatar.png?v=1603158267021" alt="Maxbad`Blog" width="100%" height="100%">
   </div>
 </header>
       
 
       <div class="shadow-box bg-white dark:bg-gray-600 border-gray-300 rounded-none md:rounded-lg -mx-1 md:mx-0 md:px-0">
         
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/cji-chu-rong-qi-vector/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          C++基础 – 容器 – VECTOR
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-10-20</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        vector
+
+动态连续数组， 头文件 &lt; vector &gt;
+
+
+定义：
+
+template&lt;
+    class T,
+    class Allocator = std::allocator&lt;T&gt;
+&gt;...
+      </div>
+      <a href="https://blog.myxy.net/cji-chu-rong-qi-vector/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/cji-chu-rong-qi-array/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          C++基础 – 容器 – ARRAY
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-10-20</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        array
+
+c++11封装固定大小数组的容器。不同于vector，不能自动扩展。头文件 &lt; array &gt;
+
+
+定义：
+
+template&lt;class T,
+        std::size_t N
+&gt; clas...
+      </div>
+      <a href="https://blog.myxy.net/cji-chu-rong-qi-array/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
   <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
     
     <div class="flex-1 order-2 md:order-1">
@@ -78,14 +135,14 @@
       <div class="mb-4 text-gray-500 dark:text-gray-300">
         list
 
-std::list支持从容器的任何位置快速插入和删除元素，不支持随机访问。双向链表,头文件：
+std::list支持从容器的任何位置快速插入和删除元素，不支持随机访问。双向链表,头文件：&lt; list &gt;
 
 
 定义：
 
 template&lt;
     class T,
-    class Allocator = std::allocat...
+    class Allocator ...
       </div>
       <a href="https://blog.myxy.net/cji-chu-rong-qi-list/" class="btn">
         查看
@@ -245,54 +302,6 @@ inline std::wstring StringToWString(const std::string&amp; str)
 	return std:...
       </div>
       <a href="https://blog.myxy.net/c11-han-shu-fan-hui-duo-ge-bu-tong-lei-xing-de-zhi/" class="btn">
-        查看
-      </a>
-    </div>
-    
-  </div>
-
-  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
-    
-    <div class="flex-1 order-2 md:order-1">
-      <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://blog.myxy.net/c11can-shu-an-cheng-yuan-han-shu-qi-dong-xian-cheng/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
-          C++11：参数按成员函数启动线程
-        </a>
-      </h2>
-      <div class="mb-4 text-xs text-gray-500">2020-10-08</div>
-      <div class="mb-4 text-gray-500 dark:text-gray-300">
-        使用非静态类成员上述作为线程启动函数
-#include &lt;thread&gt;
- 
-class Task {
-public:
-Task(){
-    cnt_thread.store(0);
-	exit_workThread.stor...
-      </div>
-      <a href="https://blog.myxy.net/c11can-shu-an-cheng-yuan-han-shu-qi-dong-xian-cheng/" class="btn">
-        查看
-      </a>
-    </div>
-    
-  </div>
-
-  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
-    
-    <div class="flex-1 order-2 md:order-1">
-      <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://blog.myxy.net/gong-neng-ri-zhi-hui-diao-jie-kou/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
-          功能日志回调接口
-        </a>
-      </h2>
-      <div class="mb-4 text-xs text-gray-500">2020-09-27</div>
-      <div class="mb-4 text-gray-500 dark:text-gray-300">
-        功能日志接口
-// 定义一个输出接口
-void on_error(std::function&lt;void(std::string const&amp;)&gt; const&amp; callback) {
-    m_err_call...
-      </div>
-      <a href="https://blog.myxy.net/gong-neng-ri-zhi-hui-diao-jie-kou/" class="btn">
         查看
       </a>
     </div>

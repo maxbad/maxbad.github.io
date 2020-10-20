@@ -4,55 +4,58 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>C++基础 – 容器 – LIST - Maxbad`Blog</title>
+<title>C++基础 – 容器 – VECTOR - Maxbad`Blog</title>
 <link rel="shortcut icon" href="https://blog.myxy.net/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://blog.myxy.net/media/css/tailwind.css">
 <link rel="stylesheet" href="https://blog.myxy.net/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="C++基础 – 容器 – LIST - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="C++基础 – 容器 – VECTOR - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
 
     
 
-  <meta name="description" content="list
+  <meta name="description" content="vector
 
-std::list支持从容器的任何位置快速插入和删除元素，不支持随机访问。双向链表,头文件：&amp;lt; list &amp;gt;
-
-
-定义：
-
-template&amp;lt;
-    class T,
-    class Allocator ..." />
-  <meta property="og:title" content="C++基础 – 容器 – LIST - Maxbad`Blog">
-  <meta property="og:description" content="list
-
-std::list支持从容器的任何位置快速插入和删除元素，不支持随机访问。双向链表,头文件：&amp;lt; list &amp;gt;
+动态连续数组， 头文件 &amp;lt; vector &amp;gt;
 
 
 定义：
 
 template&amp;lt;
     class T,
-    class Allocator ..." />
+    class Allocator = std::allocator&amp;lt;T&amp;gt;
+&amp;gt;..." />
+  <meta property="og:title" content="C++基础 – 容器 – VECTOR - Maxbad`Blog">
+  <meta property="og:description" content="vector
+
+动态连续数组， 头文件 &amp;lt; vector &amp;gt;
+
+
+定义：
+
+template&amp;lt;
+    class T,
+    class Allocator = std::allocator&amp;lt;T&amp;gt;
+&amp;gt;..." />
   <meta property="og:type" content="articles">
-  <meta property="og:url" content="https://blog.myxy.net/cji-chu-rong-qi-list/" />
+  <meta property="og:url" content="https://blog.myxy.net/cji-chu-rong-qi-vector/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="C++基础 – 容器 – LIST - Maxbad`Blog">
-  <meta name="twitter:description" content="list
+  <meta name="twitter:title" content="C++基础 – 容器 – VECTOR - Maxbad`Blog">
+  <meta name="twitter:description" content="vector
 
-std::list支持从容器的任何位置快速插入和删除元素，不支持随机访问。双向链表,头文件：&amp;lt; list &amp;gt;
+动态连续数组， 头文件 &amp;lt; vector &amp;gt;
 
 
 定义：
 
 template&amp;lt;
     class T,
-    class Allocator ...">
+    class Allocator = std::allocator&amp;lt;T&amp;gt;
+&amp;gt;...">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://blog.myxy.net/cji-chu-rong-qi-list/">
+  <link rel="canonical" href="https://blog.myxy.net/cji-chu-rong-qi-vector/">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
@@ -72,17 +75,17 @@ template&amp;lt;
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          C++基础 – 容器 – LIST
+          C++基础 – 容器 – VECTOR
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-10-20 · 4 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-10-20 · 7 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <h2 id="list">list</h2>
+          <h2 id="vector">vector</h2>
 <blockquote>
-<p>std::list支持从容器的任何位置快速插入和删除元素，不支持随机访问。双向链表,头文件：&lt; list &gt;</p>
+<p>动态连续数组， 头文件 &lt; vector &gt;</p>
 </blockquote>
 <ul>
 <li>定义：</li>
@@ -90,120 +93,200 @@ template&amp;lt;
 <pre><code class="language-cpp">template&lt;
     class T,
     class Allocator = std::allocator&lt;T&gt;
-&gt; class list;
+&gt; class vector;
 </code></pre>
 <ul>
 <li>参数解释：</li>
 </ul>
 <ol>
-<li>T 元素类型,T必须满足可拷贝复制（CopyAssignable）和可拷贝构造（CopyConstructible）的要求</li>
-<li>Allocator, 用于获取/释放内存及构造/析构内存中元素的分配器</li>
+<li>T 元素类型<br>
+T必须满足可拷贝复制（CopyAssignable）和可拷贝构造（CopyConstructible）的要求</li>
+<li>Allocator 用于获取/释放内存及构造/析构内存中元素的分配器</li>
 </ol>
-<h2 id="常用函数">常用函数</h2>
-<h2 id=""></h2>
+<p>常用函数<br>
+<code>operator[]</code></p>
+<pre><code class="language-cpp">refrence operator[](size_type pos);
+const_refrence operator[](size_type pos) const;
+</code></pre>
+<p>返回给定pos位置的元素引用，不检查边界</p>
+<p><code>at()</code></p>
+<pre><code class="language-cpp">refrence at(size_type pos);
+const_refrence at(size_type pos) const;
+</code></pre>
+<p>返回给定pos位置的元素引用，会进行边界检查。如果给定pos超出边界，会报异常 std::out_of_range</p>
+<h3 id="示例">示例：</h3>
+<blockquote>
+<p>(演示operator[] 和 at() 使用上面的差别)</p>
+</blockquote>
+<pre><code class="language-cpp">#include &lt;vector&gt;
+#include &lt;iostream&gt;
+
+int main(int argc, char** argv) {
+    std::vector&lt;int&gt; int_vecs = {2, 3, 4, 5}; //c++ 11
+    std::cout &lt;&lt; int_vecs[3] &lt;&lt; std::endl; // 输出：5
+    int_vecs[3] = 6;
+    std::cout &lt;&lt; int_vecs[3] &lt;&lt; std::endl; // 输出：6
+
+    std::cout &lt;&lt; int_vecs.at(2) &lt;&lt; std::endl; // 输出：4
+    int_vecs.at(2) = 8;
+    std::cout &lt;&lt; int_vecs.at(2) &lt;&lt; std::endl; // 输出：8
+
+    try {
+        std::cout &lt;&lt; int_vecs.at(4) &lt;&lt; std::endl; // 跑出越界异常 std::out_of_range
+    } catch (std::exception&amp; e) {
+        std::cout &lt;&lt; e.what() &lt;&lt; std::endl; //打印异常信息
+    }
+
+    //遍历
+    for(size_t i = 0; i &lt; int_vecs.size(); ++i) {
+        std::cout &lt;&lt; int_vecs[i] &lt;&lt; std::endl;
+        std::cout &lt;&lt; int_vecs.at(i) &lt;&lt; std::endl;
+    }
+
+    std::cout &lt;&lt; int_vecs[4] &lt;&lt; std::endl; //程序崩溃
+    return 0;
+}
+
+//编译 &amp; 运行
+//g++ -std=c++11 main.cc -o test &amp; ./test
+</code></pre>
 <p><code>front()</code></p>
-<pre><code class="language-cpp">reference front();
-const_reference front() const;
+<pre><code class="language-cpp">refrence front();
+const_refrence front() const;
 </code></pre>
-<p>返回容器的第一个元素的引用。空容器上行为未定义</p>
+<p>返回容器中第一个元素的引用。如果容器为空，调用可能会出现coredump</p>
 <p><code>back()</code></p>
-<pre><code class="language-cpp">reference back();
-const_reference back() const;
+<pre><code class="language-cpp">refrence back();
+const_refrence back() const;
 </code></pre>
-<p>返回到容器中最后一个元素的引用。空容器上行为未定义</p>
+<p>返回容器中最后一个元素的引用。如果容器为空，调用可能会出现coredump</p>
 <p><code>empty()</code></p>
 <pre><code class="language-cpp">bool empty() const;
 </code></pre>
-<p>返回容器是否为空</p>
+<p>检查容器是否为空</p>
 <p><code>size()</code></p>
 <pre><code class="language-cpp">size_type size() const;
 </code></pre>
-<p>返回容器中元素个数</p>
-<p><code>clear()</code></p>
-<pre><code class="language-cpp">void clear();
+<p>返回容器中元素的个数</p>
+<p><code>capacity()</code></p>
+<pre><code class="language-cpp">size_type capacity() const;
 </code></pre>
-<p>删除容器内所有元素。调用后size()返回0</p>
+<p>返回容器当前已分配的元素数</p>
+<p><code>reserve()</code></p>
+<pre><code class="language-cpp">void reserve(size_type new_cap);
+</code></pre>
+<p>增加容器的容量到大于或者等于new_cap的值。如果new_cap大于当前的capacity(),则分配新存储，否则该方法不做任何事。reserve不会更改容器的size<br>
+如果new_cap大于capacity(),则所有迭代器，包括尾迭代器(end,cend)都失效</p>
 <p><code>resize()</code></p>
 <pre><code class="language-cpp">void resize(size_type count, T value = T());
 </code></pre>
-<p>重设容器的大小为count个元素。如果当前size()大于count，则在尾部增加元素，并以value的副本初始化。</p>
-<p><code>insert()</code></p>
-<pre><code class="language-cpp">iterator insert(iterator pos, const T&amp; value); //(1)
-void insert(iterator pos, size_type count, const T&amp; value); //(2)
-template&lt;class InputIt&gt;
-void insert(iterator pos, InputIt first, InputIt last); //(3)
-</code></pre>
-<p>插入元素到容器的指定位置。</p>
-<ol>
-<li>在pos前插入value</li>
-<li>在pos前插入value的count个副本</li>
-<li>在pos前插入来自范围[first, last)的元素</li>
-</ol>
-<p><code>emplace()</code></p>
-<pre><code class="language-cpp">template&lt;class... Args&gt;
-iterator emplace(const_iterator pos, Args&amp;&amp;... args); //c++11
-</code></pre>
-<p>直接在pos前插入元素到容器，通过std::allocator_traits::construct构造元素,将参数args…作为std::forward<Args>(args)…转发给构造函数。返回指向插入元素的iterator</p>
-<p><code>erase()</code></p>
-<pre><code class="language-cpp">iterator erase(iterator pos); //(1)
-iterator erase(iterator first, iterator last); //(2)
-</code></pre>
-<p>从容器内删除指定元素,返回被移除元素之后的迭代器</p>
-<ol>
-<li>删除位于pos的元素</li>
-<li>删除范围[first, last)中的元素</li>
-</ol>
+<p>重新设置容器大小为count<br>
+当前大小大于count，则减少容器元素个数<br>
+当前大小小于count，则往后添加额外的元素，并以value的副本初始化<br>
+当前capacity()小于count，则重新分配内存capacity()发生变化</p>
 <p><code>push_back()</code></p>
 <pre><code class="language-cpp">void push_back(const T&amp; value);
+void push_back(T&amp;&amp; vlaue); //(c++11)
 </code></pre>
-<p>将元素value添加到容器尾部</p>
-<p><code>emplace_back()</code></p>
-<pre><code class="language-cpp">template&lt;class... Args&gt;
-void emplace_back(Args&amp;&amp;... args); //c++11
-</code></pre>
-<p>添加新元素到容器尾部。通过std::allocator_traits::construct构造，参数args…以std::forward(args)…转发到构造函数。</p>
+<p>把元素添加到容器的末尾，如果新的size()大于capacity(),则所有迭代器（包括尾迭代器)失效</p>
 <p><code>pop_back()</code></p>
 <pre><code class="language-cpp">void pop_back();
 </code></pre>
-<p>移除容器最后一个元素。在空容器上调用，行为未定义</p>
-<p><code>push_front()</code></p>
-<pre><code class="language-cpp">void push_front(const T&amp; value);
-</code></pre>
-<p>将元素value添加到容器的头部</p>
-<p><code>emplace_front()</code></p>
+<p>移除容器的末尾元素，在空容器上调用，会产生未定义行为。</p>
+<p><code>emplace_back()</code></p>
 <pre><code class="language-cpp">template&lt;class... Args&gt;
-void emplace_front(Args&amp;&amp;... args);
+iterator emplace_back(Args&amp;&amp; args); //(C++11)
 </code></pre>
-<p>插入元素到容器开始，通过std::allocator_traits::construct构造元素,将参数args…作为std::forward(args)…转发给构造函数</p>
-<p><code>pop_front()</code></p>
-<pre><code class="language-cpp">void pop_front();
+<p>添加新元素到容器末尾，在容器所提供的位置原位构造元素。可以避免push_back时额外复制或移动操作</p>
+<p><code>insert()</code></p>
+<pre><code class="language-cpp">iterator insert(iterator pos, const T&amp; value);
+iterator insert(iterator pos, size_type count, const T&amp; value);
+template&lt;class InputIt&gt;
+iterator insert(iterator pos, InputIt first, InputIt last)
 </code></pre>
-<p>移除容器第一个元素,如果容器为空，则行为未定义</p>
-<p><code>swap()</code></p>
-<pre><code class="language-cpp">void swap(list&amp; other);
+<ol>
+<li>在pos前插入value，并返回iterator指向value</li>
+<li>在pos前插入value的count个副本，并返回指向插入的第一个value的iterator，如果count = 0，返回pos</li>
+<li>在pos前插入来自范围[first, last)的元素，并返回指向插入的第一个元素的iterator，如果范围为空，则返回pos</li>
+</ol>
+<p><code>erase()</code></p>
+<pre><code class="language-cpp">iterator erase(iterator pos);
+iterator erase(iterator first, iterator last);
 </code></pre>
-<p>将内容和other的交换</p>
-<p><code>merge()</code></p>
-<pre><code class="language-cpp">void merge(list&amp; other); //(1)
+<ol>
+<li>移除位于pos的元素， pos需要能合法，可解引用</li>
+<li>移除范围[first, last)中的元素<br>
+使删除点之后的元素的迭代器失效</li>
+</ol>
+<h3 id="基础使用示例">基础使用示例:</h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
 template&lt;class T&gt;
-void merge(list&amp; other, Compare comp) //(2)
+void print(const std::vector&lt;T&gt;&amp; vec) {
+    for(auto it = vec.begin(); it != vec.end(); ++it) {
+        if(it != vec.begin()) {
+            std::cout &lt;&lt; &quot; &quot;;
+        }
+        std::cout &lt;&lt; *it;
+    }
+    std::cout &lt;&lt; std::endl;
+}
+
+template&lt;class T&gt;
+void print_size(const std::vector&lt;T&gt;&amp; vec) {
+    std::cout &lt;&lt; &quot;size=&quot; &lt;&lt; vec.size() &lt;&lt; &quot; capacity=&quot; &lt;&lt; vec.capacity() &lt;&lt; std::endl;
+}
+
+int main(int argc, char** argv) {
+    std::vector&lt;int&gt; int_vec;
+    int_vec.resize(3);
+
+    print_size(int_vec); //输出: size=3 capacity=3
+    int_vec.push_back(10);
+    print_size(int_vec); //输出: size=4 capacity=6
+    print(int_vec); //输出: 0 0 0 10
+    int_vec.resize(3);
+    print_size(int_vec); //输出: size=3 capacity=6
+    print(int_vec); //输出: 0 0 0
+    int_vec.reserve(3);
+    print_size(int_vec); //输出: size=3 capacity=6
+
+    auto it = int_vec.insert(int_vec.begin(), 10);
+    print_size(int_vec); //输出: size=4 capacity=6
+    print(int_vec); //输出: 10 0 0 0
+    std::cout &lt;&lt; *it &lt;&lt; &quot; &quot; &lt;&lt; (it == int_vec.begin()) &lt;&lt; std::endl; //输出: 10 1
+
+    std::cout &lt;&lt; int_vec.back() &lt;&lt; &quot; &quot; &lt;&lt; int_vec.front() &lt;&lt; std::endl; //输出： 0 10
+
+    int_vec.push_back(11);
+    print_size(int_vec); //输出: size=5 capacity=6
+    print(int_vec); //输出: 10 0 0 0 11
+
+    int_vec.emplace_back(12);
+    print_size(int_vec); //输出: size=6 capacity=6
+    print(int_vec); //输出: 10 0 0 0 11 12
+
+    int_vec.emplace_back(13);
+    print_size(int_vec); //输出: size=7 capacity=12
+    print(int_vec); //输出: 10 0 0 0 11 12 13
+
+    std::cout &lt;&lt; (it == int_vec.begin()) &lt;&lt; std::endl; //输出： 0
+
+    //循环删除偶数
+    for(auto it = int_vec.begin(); it != int_vec.end();) {
+        if(*it % 2 == 0) {
+            it = int_vec.erase(it);
+        } else {
+            ++it;
+        }
+    }
+
+    print_size(int_vec); //输出: size=2 capacity=12
+    print(int_vec); //输出: 11 13
+    return true;
+}
 </code></pre>
-<p>归并两个已排序链表为一个。操作后other变为空。</p>
-<ol>
-<li>使用operator&lt; 归并</li>
-<li>使用comp 归并</li>
-</ol>
-<p><code>splice()</code></p>
-<pre><code class="language-cpp">void splice(const_iterator pos, list&amp; other); //(1)
-void splice(const_iterator pos, list&amp; other, const_iterator it); //(2)
-void splice(const_iterator pos, list&amp; other, const_iterator first, const_iterator last); //(3)
-</code></pre>
-<p>从一个list转移元素给另一个。不复制或者移动元素，仅重值向链表节点的内部指针。</p>
-<ol>
-<li>从other转移所有元素到<em>this中，元素被插入到pos指向的元素之前。操作后容器other变成空。如果other和</em>this指代同一对象则行为未定义</li>
-<li>从other转移it所指代的元素到*this。元素被插入到pos所指向的元素之前。</li>
-<li>从other转移范围[first, last)中的元素到*this。元素被插入到pos所指向的元素之前。如果pos是范围[first, last)中的迭代器则行为未定义</li>
-</ol>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -249,9 +332,12 @@ void splice(const_iterator pos, list&amp; other, const_iterator first, const_ite
         <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#list">list</a></li>
-<li><a href="#%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0">常用函数</a></li>
-<li></li>
+<li><a href="#vector">vector</a>
+<ul>
+<li><a href="#%E7%A4%BA%E4%BE%8B">示例：</a></li>
+<li><a href="#%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B">基础使用示例:</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

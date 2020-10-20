@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-10-20T01:35:36.812Z</updated>
+    <updated>2020-10-20T01:44:30.970Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -11,6 +11,310 @@
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
     <entry>
+        <title type="html"><![CDATA[C++基础 – 容器 – VECTOR]]></title>
+        <id>https://blog.myxy.net/cji-chu-rong-qi-vector/</id>
+        <link href="https://blog.myxy.net/cji-chu-rong-qi-vector/">
+        </link>
+        <updated>2020-10-20T01:39:02.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="vector">vector</h2>
+<blockquote>
+<p>动态连续数组， 头文件 &lt; vector &gt;</p>
+</blockquote>
+<ul>
+<li>定义：</li>
+</ul>
+<pre><code class="language-cpp">template&lt;
+    class T,
+    class Allocator = std::allocator&lt;T&gt;
+&gt; class vector;
+</code></pre>
+<ul>
+<li>参数解释：</li>
+</ul>
+<ol>
+<li>T 元素类型<br>
+T必须满足可拷贝复制（CopyAssignable）和可拷贝构造（CopyConstructible）的要求</li>
+<li>Allocator 用于获取/释放内存及构造/析构内存中元素的分配器</li>
+</ol>
+<p>常用函数<br>
+<code>operator[]</code></p>
+<pre><code class="language-cpp">refrence operator[](size_type pos);
+const_refrence operator[](size_type pos) const;
+</code></pre>
+<p>返回给定pos位置的元素引用，不检查边界</p>
+<p><code>at()</code></p>
+<pre><code class="language-cpp">refrence at(size_type pos);
+const_refrence at(size_type pos) const;
+</code></pre>
+<p>返回给定pos位置的元素引用，会进行边界检查。如果给定pos超出边界，会报异常 std::out_of_range</p>
+<h3 id="示例">示例：</h3>
+<blockquote>
+<p>(演示operator[] 和 at() 使用上面的差别)</p>
+</blockquote>
+<pre><code class="language-cpp">#include &lt;vector&gt;
+#include &lt;iostream&gt;
+
+int main(int argc, char** argv) {
+    std::vector&lt;int&gt; int_vecs = {2, 3, 4, 5}; //c++ 11
+    std::cout &lt;&lt; int_vecs[3] &lt;&lt; std::endl; // 输出：5
+    int_vecs[3] = 6;
+    std::cout &lt;&lt; int_vecs[3] &lt;&lt; std::endl; // 输出：6
+
+    std::cout &lt;&lt; int_vecs.at(2) &lt;&lt; std::endl; // 输出：4
+    int_vecs.at(2) = 8;
+    std::cout &lt;&lt; int_vecs.at(2) &lt;&lt; std::endl; // 输出：8
+
+    try {
+        std::cout &lt;&lt; int_vecs.at(4) &lt;&lt; std::endl; // 跑出越界异常 std::out_of_range
+    } catch (std::exception&amp; e) {
+        std::cout &lt;&lt; e.what() &lt;&lt; std::endl; //打印异常信息
+    }
+
+    //遍历
+    for(size_t i = 0; i &lt; int_vecs.size(); ++i) {
+        std::cout &lt;&lt; int_vecs[i] &lt;&lt; std::endl;
+        std::cout &lt;&lt; int_vecs.at(i) &lt;&lt; std::endl;
+    }
+
+    std::cout &lt;&lt; int_vecs[4] &lt;&lt; std::endl; //程序崩溃
+    return 0;
+}
+
+//编译 &amp; 运行
+//g++ -std=c++11 main.cc -o test &amp; ./test
+</code></pre>
+<p><code>front()</code></p>
+<pre><code class="language-cpp">refrence front();
+const_refrence front() const;
+</code></pre>
+<p>返回容器中第一个元素的引用。如果容器为空，调用可能会出现coredump</p>
+<p><code>back()</code></p>
+<pre><code class="language-cpp">refrence back();
+const_refrence back() const;
+</code></pre>
+<p>返回容器中最后一个元素的引用。如果容器为空，调用可能会出现coredump</p>
+<p><code>empty()</code></p>
+<pre><code class="language-cpp">bool empty() const;
+</code></pre>
+<p>检查容器是否为空</p>
+<p><code>size()</code></p>
+<pre><code class="language-cpp">size_type size() const;
+</code></pre>
+<p>返回容器中元素的个数</p>
+<p><code>capacity()</code></p>
+<pre><code class="language-cpp">size_type capacity() const;
+</code></pre>
+<p>返回容器当前已分配的元素数</p>
+<p><code>reserve()</code></p>
+<pre><code class="language-cpp">void reserve(size_type new_cap);
+</code></pre>
+<p>增加容器的容量到大于或者等于new_cap的值。如果new_cap大于当前的capacity(),则分配新存储，否则该方法不做任何事。reserve不会更改容器的size<br>
+如果new_cap大于capacity(),则所有迭代器，包括尾迭代器(end,cend)都失效</p>
+<p><code>resize()</code></p>
+<pre><code class="language-cpp">void resize(size_type count, T value = T());
+</code></pre>
+<p>重新设置容器大小为count<br>
+当前大小大于count，则减少容器元素个数<br>
+当前大小小于count，则往后添加额外的元素，并以value的副本初始化<br>
+当前capacity()小于count，则重新分配内存capacity()发生变化</p>
+<p><code>push_back()</code></p>
+<pre><code class="language-cpp">void push_back(const T&amp; value);
+void push_back(T&amp;&amp; vlaue); //(c++11)
+</code></pre>
+<p>把元素添加到容器的末尾，如果新的size()大于capacity(),则所有迭代器（包括尾迭代器)失效</p>
+<p><code>pop_back()</code></p>
+<pre><code class="language-cpp">void pop_back();
+</code></pre>
+<p>移除容器的末尾元素，在空容器上调用，会产生未定义行为。</p>
+<p><code>emplace_back()</code></p>
+<pre><code class="language-cpp">template&lt;class... Args&gt;
+iterator emplace_back(Args&amp;&amp; args); //(C++11)
+</code></pre>
+<p>添加新元素到容器末尾，在容器所提供的位置原位构造元素。可以避免push_back时额外复制或移动操作</p>
+<p><code>insert()</code></p>
+<pre><code class="language-cpp">iterator insert(iterator pos, const T&amp; value);
+iterator insert(iterator pos, size_type count, const T&amp; value);
+template&lt;class InputIt&gt;
+iterator insert(iterator pos, InputIt first, InputIt last)
+</code></pre>
+<ol>
+<li>在pos前插入value，并返回iterator指向value</li>
+<li>在pos前插入value的count个副本，并返回指向插入的第一个value的iterator，如果count = 0，返回pos</li>
+<li>在pos前插入来自范围[first, last)的元素，并返回指向插入的第一个元素的iterator，如果范围为空，则返回pos</li>
+</ol>
+<p><code>erase()</code></p>
+<pre><code class="language-cpp">iterator erase(iterator pos);
+iterator erase(iterator first, iterator last);
+</code></pre>
+<ol>
+<li>移除位于pos的元素， pos需要能合法，可解引用</li>
+<li>移除范围[first, last)中的元素<br>
+使删除点之后的元素的迭代器失效</li>
+</ol>
+<h3 id="基础使用示例">基础使用示例:</h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+template&lt;class T&gt;
+void print(const std::vector&lt;T&gt;&amp; vec) {
+    for(auto it = vec.begin(); it != vec.end(); ++it) {
+        if(it != vec.begin()) {
+            std::cout &lt;&lt; &quot; &quot;;
+        }
+        std::cout &lt;&lt; *it;
+    }
+    std::cout &lt;&lt; std::endl;
+}
+
+template&lt;class T&gt;
+void print_size(const std::vector&lt;T&gt;&amp; vec) {
+    std::cout &lt;&lt; &quot;size=&quot; &lt;&lt; vec.size() &lt;&lt; &quot; capacity=&quot; &lt;&lt; vec.capacity() &lt;&lt; std::endl;
+}
+
+int main(int argc, char** argv) {
+    std::vector&lt;int&gt; int_vec;
+    int_vec.resize(3);
+
+    print_size(int_vec); //输出: size=3 capacity=3
+    int_vec.push_back(10);
+    print_size(int_vec); //输出: size=4 capacity=6
+    print(int_vec); //输出: 0 0 0 10
+    int_vec.resize(3);
+    print_size(int_vec); //输出: size=3 capacity=6
+    print(int_vec); //输出: 0 0 0
+    int_vec.reserve(3);
+    print_size(int_vec); //输出: size=3 capacity=6
+
+    auto it = int_vec.insert(int_vec.begin(), 10);
+    print_size(int_vec); //输出: size=4 capacity=6
+    print(int_vec); //输出: 10 0 0 0
+    std::cout &lt;&lt; *it &lt;&lt; &quot; &quot; &lt;&lt; (it == int_vec.begin()) &lt;&lt; std::endl; //输出: 10 1
+
+    std::cout &lt;&lt; int_vec.back() &lt;&lt; &quot; &quot; &lt;&lt; int_vec.front() &lt;&lt; std::endl; //输出： 0 10
+
+    int_vec.push_back(11);
+    print_size(int_vec); //输出: size=5 capacity=6
+    print(int_vec); //输出: 10 0 0 0 11
+
+    int_vec.emplace_back(12);
+    print_size(int_vec); //输出: size=6 capacity=6
+    print(int_vec); //输出: 10 0 0 0 11 12
+
+    int_vec.emplace_back(13);
+    print_size(int_vec); //输出: size=7 capacity=12
+    print(int_vec); //输出: 10 0 0 0 11 12 13
+
+    std::cout &lt;&lt; (it == int_vec.begin()) &lt;&lt; std::endl; //输出： 0
+
+    //循环删除偶数
+    for(auto it = int_vec.begin(); it != int_vec.end();) {
+        if(*it % 2 == 0) {
+            it = int_vec.erase(it);
+        } else {
+            ++it;
+        }
+    }
+
+    print_size(int_vec); //输出: size=2 capacity=12
+    print(int_vec); //输出: 11 13
+    return true;
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[C++基础 – 容器 – ARRAY]]></title>
+        <id>https://blog.myxy.net/cji-chu-rong-qi-array/</id>
+        <link href="https://blog.myxy.net/cji-chu-rong-qi-array/">
+        </link>
+        <updated>2020-10-20T01:35:46.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="array">array</h2>
+<blockquote>
+<p>c++11封装固定大小数组的容器。不同于vector，不能自动扩展。头文件 &lt; array &gt;</p>
+</blockquote>
+<ul>
+<li>定义：</li>
+</ul>
+<pre><code class="language-cpp">template&lt;class T,
+        std::size_t N
+&gt; class array;
+</code></pre>
+<ul>
+<li>参数解释:</li>
+</ul>
+<ol>
+<li>T 元素类型</li>
+<li>N 元素个数</li>
+</ol>
+<h2 id="常用函数">常用函数</h2>
+<h2 id=""></h2>
+<p><code>operator()</code></p>
+<pre><code class="language-cpp">reference operator[](size_type pos);
+const_reference operator[](size_type pos) const;
+</code></pre>
+<p>返回位于指定位置pos的元素的引用。不进行边界检查。</p>
+<p><code>at()</code></p>
+<pre><code class="language-cpp">reference at(size_type pos);
+const_reference at(size_t pos) const;
+</code></pre>
+<p>返回位于指定位置pos的元素的引用。有边界检查。如果pos不在容器范围内，则抛出std::out_of_range类型的异常。</p>
+<p><code>front()</code></p>
+<pre><code class="language-cpp">reference front();
+const_reference front() const;
+</code></pre>
+<p>返回容器的第一个元素的引用。在空容器上行为未定义。</p>
+<p><code>back()</code></p>
+<pre><code class="language-cpp">reference back();
+const_reference back() const;
+</code></pre>
+<p>返回容器的最后一个元素的引用。在空容器上行为未定义。</p>
+<p><code>data()</code></p>
+<pre><code class="language-cpp">T* data() noexcept; //c++17
+constexpr T* data() noexcept; //c++17
+const T* data() const noexcept;
+constexpr const T* data() const noexcept;
+</code></pre>
+<p>返回指向元素存储的底层数组的指针。指针满足范围[data(); data() + size())</p>
+<p><code>empty()</code></p>
+<pre><code class="language-cpp">constexpr bool empty() const noexcept;
+</code></pre>
+<p>检查容器是否为空</p>
+<p><code>size()</code></p>
+<pre><code class="language-cpp">size_type size() const noexcept;
+</code></pre>
+<p>返回容器可容纳的元素个数</p>
+<p><code>fill()</code></p>
+<pre><code class="language-cpp">void fill(const T&amp; value);
+constexpr void fill(const T&amp; value); //c++20
+</code></pre>
+<p>将给定value赋值给所有元素</p>
+<h3 id="简单使用示例">简单使用示例:</h3>
+<pre><code class="language-cpp">#include &lt;array&gt;
+#include &lt;iostream&gt;
+
+int main(int argc, char** argv) {
+    std::array&lt;int, 3&gt; arr = {1, 2, 3};
+    for(size_t i = 0; i &lt; arr.size(); ++i) {
+        if(i) {
+            std::cout &lt;&lt; &quot; &quot;;
+        }
+        std::cout &lt;&lt; arr[i];
+    }
+    std::cout &lt;&lt; std::endl;
+
+    try {
+        arr.at(3) = 4;
+    } catch (std::exception&amp; e) {
+        std::cout &lt;&lt; &quot;exception: &quot; &lt;&lt; e.what() &lt;&lt; std::endl;
+    }
+
+    arr[3] = 4; //未定义行为，可能会core
+    return 0;
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[C++基础 – 容器 – LIST]]></title>
         <id>https://blog.myxy.net/cji-chu-rong-qi-list/</id>
         <link href="https://blog.myxy.net/cji-chu-rong-qi-list/">
@@ -18,7 +322,7 @@
         <updated>2020-10-20T01:27:31.000Z</updated>
         <content type="html"><![CDATA[<h2 id="list">list</h2>
 <blockquote>
-<p>std::list支持从容器的任何位置快速插入和删除元素，不支持随机访问。双向链表,头文件：<list></p>
+<p>std::list支持从容器的任何位置快速插入和删除元素，不支持随机访问。双向链表,头文件：&lt; list &gt;</p>
 </blockquote>
 <ul>
 <li>定义：</li>
@@ -653,123 +957,6 @@ auto result = find_urls(content);
 if (std::get&lt;0&gt;(result)) {
 	parse_content(std::get&lt;1&gt;(result));
 }
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[C++11：参数按成员函数启动线程]]></title>
-        <id>https://blog.myxy.net/c11can-shu-an-cheng-yuan-han-shu-qi-dong-xian-cheng/</id>
-        <link href="https://blog.myxy.net/c11can-shu-an-cheng-yuan-han-shu-qi-dong-xian-cheng/">
-        </link>
-        <updated>2020-10-08T06:19:18.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="使用非静态类成员上述作为线程启动函数">使用非静态类成员上述作为线程启动函数</h2>
-<pre><code class="language-cpp">#include &lt;thread&gt;
- 
-class Task {
-public:
-Task(){
-    cnt_thread.store(0);
-	exit_workThread.store(false);
-    
-  std::thread th(&amp;Task::execute, this, &quot;Sample Task&quot;); 
-  th.detach();
-
-}
-~Task(){
-	exit_workThread.store(true);
-    while (cnt_thread);
-}
-  void execute(std::string command) {      
-	cnt_thread++;
-    int i = 0;
-    while(1)
-    {
-        if (exit_workThread)
-			break;
-              std::cout&lt;&lt;command&lt;&lt;&quot; :: &quot;&lt;&lt;i&lt;&lt;std::endl;
-		this_thread::sleep_for(std::chrono::seconds(1));
-              i++
-    }  
-	cnt_thread--;
-  }
-  private:  
-	std::atomic&lt;int&gt;         cnt_thread;
-	std::atomic&lt;bool&gt;        exit_workThread;
-};
- 
-int main() {
-  Task * taskPtr = new Task();  
- getchar();
-  delete taskPtr;
-  
-  return 0;
-}
- 
-</code></pre>
-<h2 id="使用静态成员函数作为线程启动函数">使用静态成员函数作为线程启动函数</h2>
-<blockquote>
-<p>由于静态函数不依赖于任何类对象，所以我们可以直接将静态成员函数作为线程启动函数，而不必传递对象指针。</p>
-</blockquote>
-<pre><code class="language-cpp">#include &lt;thread&gt;
- 
-class Task {
-public:
-    static void test(std::string command) {
-        for(int i = 0; i &lt; 5; i++) {
-            std::cout&lt;&lt;command&lt;&lt;&quot; :: &quot;&lt;&lt;i&lt;&lt;std::endl;
-        }
-    }
-};
- 
-int main() {
-    // Create a thread using static member function
-    std::thread th(&amp;Task::test, &quot;Task&quot;);
- 
-    th.join();
-    return 0;
-}
-
-// 输出如下:
-Task :: 0
-Task :: 1
-Task :: 2
-Task :: 3
-Task :: 4
-</code></pre>
-<p>参考链接<br>
-<a href="https://thispointer.com/c11-start-thread-by-member-function-with-arguments/">https://thispointer.com/c11-start-thread-by-member-function-with-arguments/</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[功能日志回调接口]]></title>
-        <id>https://blog.myxy.net/gong-neng-ri-zhi-hui-diao-jie-kou/</id>
-        <link href="https://blog.myxy.net/gong-neng-ri-zhi-hui-diao-jie-kou/">
-        </link>
-        <updated>2020-09-27T07:23:50.000Z</updated>
-        <content type="html"><![CDATA[<p>功能日志接口</p>
-<pre><code class="language-cpp">// 定义一个输出接口
-void on_error(std::function&lt;void(std::string const&amp;)&gt; const&amp; callback) {
-    m_err_callback = callback;
-}
-
-// 全局变量
-std::function&lt;void(std::string const&amp;)&gt; m_err_callback = nullptr; 
-
-// 格式化日志
-	void trigger_message(const char* format, ...) {
-		if (m_err_callback) {
-			std::string text;
-			va_list ap = 0;
-			va_start(ap, format);
-			text.resize(_vscprintf(format, ap) + 1);
-			vsprintf_s(&amp;text[0], text.capacity(), format, ap);
-			va_end(ap);
-			m_err_callback(text.data());
-		}
-	}
-
-// 使用
-trigger_message(&quot;[%s:%d],ConnectRedisCache faild&quot;, __FUNCTION__, __LINE__);
 </code></pre>
 ]]></content>
     </entry>
