@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-10-20T13:59:18.055Z</updated>
+    <updated>2020-10-21T10:51:08.134Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,67 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[C++11 生产者消费者]]></title>
+        <id>https://blog.myxy.net/c11-sheng-chan-zhe-xiao-fei-zhe/</id>
+        <link href="https://blog.myxy.net/c11-sheng-chan-zhe-xiao-fei-zhe/">
+        </link>
+        <updated>2020-10-21T10:50:13.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-CPP">#include &lt;iostream&gt;
+#include &lt;deque&gt;
+#include &lt;thread&gt;
+#include &lt;mutex&gt;
+#include &lt;condition_variable&gt;
+#include&lt;Windows.h&gt;
+using namespace std;
+
+deque&lt;int&gt; q;
+mutex mu;
+condition_variable cond;
+int c = 0;//缓冲区的产品个数
+
+void producer() { 
+ int data1;
+ while (1) {//通过外层循环，能保证生产不停止
+  if(c &lt; 3) {//限流
+   {
+    data1 = rand();
+    unique_lock&lt;mutex&gt; locker(mu);//锁
+    q.push_front(data1);
+    cout &lt;&lt; &quot;存了&quot; &lt;&lt; data1 &lt;&lt; endl;
+    cond.notify_one();  // 通知取
+    ++c;
+   }
+   Sleep(500);
+  }
+ }
+}
+
+void consumer() {
+ int data2;//data用来覆盖存放取的数据
+ while (1) {
+  {
+   unique_lock&lt;mutex&gt; locker(mu);
+   while(q.empty())
+    cond.wait(locker); //wait()阻塞前先会解锁,解锁后生产者才能获得锁来放产品到缓冲区；生产者notify后，将不再阻塞，且自动又获得了锁。
+   data2 = q.back();//取的第一步
+   q.pop_back();//取的第二步
+   cout &lt;&lt; &quot;取了&quot; &lt;&lt; data2&lt;&lt;endl;
+   --c;
+  }
+  Sleep(1500);
+ }
+}
+int main() {
+ thread t1(producer);
+ thread t2(consumer);
+ t1.join();
+ t2.join();
+ return 0;
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[系统服务弹出信息框!]]></title>
         <id>https://blog.myxy.net/xi-tong-fu-wu-dan-chu-xin-xi-kuang/</id>
@@ -809,185 +870,6 @@ inline std::wstring ToWString(const T&amp; arg)
     return temp.str();
 }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[C++11函数返回多个不同类型的值, std::tuple]]></title>
-        <id>https://blog.myxy.net/c11-han-shu-fan-hui-duo-ge-bu-tong-lei-xing-de-zhi-stdtuple/</id>
-        <link href="https://blog.myxy.net/c11-han-shu-fan-hui-duo-ge-bu-tong-lei-xing-de-zhi-stdtuple/">
-        </link>
-        <updated>2020-10-10T12:36:08.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">std::tuple&lt;bool, std::vector&lt;std::string&gt; &gt; find_urls(const std::string&amp; content) {
-    ...
-	return std::make_tuple(true, urls);
-}
-
-bool error = false;
-std::vector&lt;std::string&gt; urls;
-
-std::string content = &quot;...&quot;
-
-std::tie(error, urls) = find_urls(content);
-if (error) {
-	parse_content(urls)
-}
-
-auto result = find_urls(content);
-if (std::get&lt;0&gt;(result)) {
-	parse_content(std::get&lt;1&gt;(result));
-}
-</code></pre>
-<h1 id="c11新特性-stdtuple">C++11新特性-std::tuple</h1>
-<ul>
-<li>引入头文件</li>
-</ul>
-<pre><code class="language-cpp">#include &lt;tuple&gt;
-</code></pre>
-<ul>
-<li>std::tuple初始化</li>
-</ul>
-<pre><code class="language-cpp">std::tuple&lt;int, std::string, float&gt; t1(10, &quot;Test&quot;, 3.14);
-</code></pre>
-<blockquote>
-<p>这里要注意，不是所有的C++ 11编译器都支持copy-list-initialization的方式。如下代码所示。</p>
-</blockquote>
-<pre><code class="language-cpp">std::tuple&lt;int, int&gt; foo_tuple() 
-{
-  return {1, -1};  // Error until N4387
-  return std::tuple&lt;int, int&gt;{1, -1}; // Always works
-  return std::make_tuple(1, -1); // Always works
-}
-</code></pre>
-<ul>
-<li>打印std::tuple</li>
-</ul>
-<blockquote>
-<p>打印std::tuple可以将它的元素逐个打印出来，不过非常繁琐，我们可以通过如下通用的打印函数，帮助我们一次性的将tuple的所有要素打印出来。</p>
-</blockquote>
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;tuple&gt;
-#include &lt;string&gt;
- 
-// helper function to print a tuple of any size
-template&lt;class Tuple, std::size_t N&gt;
-struct TuplePrinter {
-    static void print(const Tuple&amp; t) 
-    {
-        TuplePrinter&lt;Tuple, N-1&gt;::print(t);
-        std::cout &lt;&lt; &quot;, &quot; &lt;&lt; std::get&lt;N-1&gt;(t);
-    }
-};
- 
-template&lt;class Tuple&gt;
-struct TuplePrinter&lt;Tuple, 1&gt; {
-    static void print(const Tuple&amp; t) 
-    {
-        std::cout &lt;&lt; std::get&lt;0&gt;(t);
-    }
-};
- 
-template&lt;typename... Args, std::enable_if_t&lt;sizeof...(Args) == 0, int&gt; = 0&gt;
-void print(const std::tuple&lt;Args...&gt;&amp; t)
-{
-    std::cout &lt;&lt; &quot;()\n&quot;;
-}
- 
-template&lt;typename... Args, std::enable_if_t&lt;sizeof...(Args) != 0, int&gt; = 0&gt;
-void print(const std::tuple&lt;Args...&gt;&amp; t)
-{
-    std::cout &lt;&lt; &quot;(&quot;;
-    TuplePrinter&lt;decltype(t), sizeof...(Args)&gt;::print(t);
-    std::cout &lt;&lt; &quot;)\n&quot;;
-}
-// end helper function
- 
-int main()
-{
-    std::tuple&lt;int, std::string, float&gt; t1(10, &quot;Test&quot;, 3.14);
-    print(t1);
-}
-</code></pre>
-<p>输出：</p>
-<pre><code class="language-cpp">(10, Test, 3.14)
-</code></pre>
-<ul>
-<li>合并多个std::tuple</li>
-</ul>
-<blockquote>
-<p>std::tuple_cat函数可以将多个std::tuple合并为一个tuple。</p>
-</blockquote>
-<pre><code class="language-cpp">int main()
-{
-    std::tuple&lt;int, std::string, float&gt; t1(10, &quot;Test&quot;, 3.14);
-    int n = 7;
-    auto t2 = std::tuple_cat(t1, std::make_tuple(&quot;Foo&quot;, &quot;bar&quot;), t1, std::tie(n));
-    n = 42;
-    print(t2);
-}
-</code></pre>
-<p>输出：</p>
-<pre><code class="language-cpp">(10, Test, 3.14, Foo, bar, 10, Test, 3.14, 42)
-</code></pre>
-<ul>
-<li>std::tuple的解包(unpack)</li>
-</ul>
-<blockquote>
-<p>std::tie能够将std::tuple包含的要素解包(unpack)成单个的对象。</p>
-</blockquote>
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;tuple&gt;
-#include &lt;string&gt;
-int main() {
-  auto info = std::make_tuple(3.8, 'A', &quot;Lisa Simpson&quot;);
-  
-  double score = 0.0;
-  char grade;
-  std::string name;
-  std::tie(score, grade, name) = info;
-  std::cout &lt;&lt; &quot;score:&quot; &lt;&lt; score &lt;&lt; &quot;, grade:&quot; &lt;&lt; grade &lt;&lt; &quot;, name:&quot; &lt;&lt; name &lt;&lt; std::endl;
-return 0;
-}
-</code></pre>
-<p>输出:</p>
-<pre><code class="language-cpp">score:3.8, grade:A, name:Lisa Simpson
-</code></pre>
-<p>std::tie还支持std::pair对象的解包(unpack)。</p>
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;tuple&gt;
-#include &lt;string&gt;
-#include &lt;utility&gt;
-int main() {
-  auto info = std::make_pair(3.8, &quot;Lisa Simpson&quot;);
-  
-  double score = 0.0;
-  std::string name;
-  std::tie(score, name) = info;
-  std::cout &lt;&lt; &quot;score:&quot; &lt;&lt; score &lt;&lt; &quot;, name:&quot; &lt;&lt; name &lt;&lt; std::endl;
-return 0;
-}
-</code></pre>
-<p>输出:</p>
-<pre><code class="language-cpp">score:3.8, name:Lisa Simpson
-</code></pre>
-<p>当我们不关注tuple中的某个元素时，可以使用std::ignore忽略该元素。</p>
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;tuple&gt;
-#include &lt;string&gt;
-#include &lt;utility&gt;
-int main() {
-  auto info = std::make_pair(3.8, &quot;Lisa Simpson&quot;);
-  
-  double score = 0.0;
-  std::string name;
-  std::tie(score, std::ignore) = info;
-  std::cout &lt;&lt; &quot;score:&quot; &lt;&lt; score &lt;&lt; &quot;, name:&quot; &lt;&lt; name &lt;&lt; std::endl;
-return 0;
-}
-</code></pre>
-<p>输出:</p>
-<pre><code class="language-cpp">score:3.8, name:
-</code></pre>
-<p>参考资料:<a href="https://zh.cppreference.com/w/cpp/utility/tuple/tuple_cat">https://zh.cppreference.com/w/cpp/utility/tuple/tuple_cat</a></p>
 ]]></content>
     </entry>
 </feed>
