@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-10-27T06:26:59.710Z</updated>
+    <updated>2020-10-27T06:33:39.928Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -17,7 +17,7 @@
         </link>
         <updated>2020-10-27T05:40:44.000Z</updated>
         <content type="html"><![CDATA[<p><code>c/c++</code> - <code>命令行</code>  增加  <code>/Zc:threadSafeInit-</code> (注意后面的减号)</p>
-<p><a href="https://docs.microsoft.com/en-us/cpp/build/reference/zc-threadsafeinit-thread-safe-local-static-initialization?view=vs-2019">https://docs.microsoft.com/en-us/cpp/build/reference/zc-threadsafeinit-thread-safe-local-static-initialization?view=vs-2019</a></p>
+<p><a href="https://docs.microsoft.com/zh-cn/cpp/build/reference/zc-threadsafeinit-thread-safe-local-static-initialization?view=vs-2019">https://docs.microsoft.com/zh-cn/cpp/build/reference/zc-threadsafeinit-thread-safe-local-static-initialization?view=vs-2019</a></p>
 ]]></content>
     </entry>
     <entry>
