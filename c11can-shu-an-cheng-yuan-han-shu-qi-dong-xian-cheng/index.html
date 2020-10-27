@@ -16,21 +16,21 @@
 
   <meta name="description" content="使用非静态类成员上述作为线程启动函数
 #include &amp;lt;thread&amp;gt;
+#include &amp;lt;atomic&amp;gt;
  
 class Task {
 public:
 Task(){
-    cnt_thread.store(0);
-	exit_workThread.stor..." />
+    cnt_thread.store(0..." />
   <meta property="og:title" content="C++11：参数按成员函数启动线程 - Maxbad`Blog">
   <meta property="og:description" content="使用非静态类成员上述作为线程启动函数
 #include &amp;lt;thread&amp;gt;
+#include &amp;lt;atomic&amp;gt;
  
 class Task {
 public:
 Task(){
-    cnt_thread.store(0);
-	exit_workThread.stor..." />
+    cnt_thread.store(0..." />
   <meta property="og:type" content="articles">
   <meta property="og:url" content="https://blog.myxy.net/c11can-shu-an-cheng-yuan-han-shu-qi-dong-xian-cheng/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
@@ -39,12 +39,12 @@ Task(){
   <meta name="twitter:title" content="C++11：参数按成员函数启动线程 - Maxbad`Blog">
   <meta name="twitter:description" content="使用非静态类成员上述作为线程启动函数
 #include &amp;lt;thread&amp;gt;
+#include &amp;lt;atomic&amp;gt;
  
 class Task {
 public:
 Task(){
-    cnt_thread.store(0);
-	exit_workThread.stor...">
+    cnt_thread.store(0...">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://blog.myxy.net/c11can-shu-an-cheng-yuan-han-shu-qi-dong-xian-cheng/">
 
@@ -76,6 +76,7 @@ Task(){
         <div class="markdown mb-8" v-pre>
           <h2 id="使用非静态类成员上述作为线程启动函数">使用非静态类成员上述作为线程启动函数</h2>
 <pre><code class="language-cpp">#include &lt;thread&gt;
+#include &lt;atomic&gt;
  
 class Task {
 public:

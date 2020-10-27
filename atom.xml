@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-10-21T10:51:08.134Z</updated>
+    <updated>2020-10-27T05:42:14.093Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,15 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[hp-socket 内存加载失败]]></title>
+        <id>https://blog.myxy.net/hp-socket-nei-cun-jia-zai-shi-bai/</id>
+        <link href="https://blog.myxy.net/hp-socket-nei-cun-jia-zai-shi-bai/">
+        </link>
+        <updated>2020-10-27T05:40:44.000Z</updated>
+        <content type="html"><![CDATA[<p><code>c/c++</code> - <code>命令行</code>  增加  <code>/Zc:threadSafeInit-</code></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[C++11 生产者消费者]]></title>
         <id>https://blog.myxy.net/c11-sheng-chan-zhe-xiao-fei-zhe/</id>
@@ -838,37 +847,6 @@ logs(other);
 // 输出结果
 // delay:5
 // other:3
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[std::string 转 std::wstring]]></title>
-        <id>https://blog.myxy.net/stdstring-zhuan-stdwstring/</id>
-        <link href="https://blog.myxy.net/stdstring-zhuan-stdwstring/">
-        </link>
-        <updated>2020-10-11T07:04:31.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">
-inline std::wstring StringToWString(const std::string&amp; str)
-{
-    int len = ::MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, NULL, 0);
-
-    std::wstring buff(len, 0);
-    ::MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, (LPWSTR)buff.data(), len);
-
-    if(buff[buff.size()-1] == '\0')
-        buff.erase( buff.begin() + (buff.size()-1) );
-
-    return buff;
-}
-</code></pre>
-<h2 id="任意类型转-stdwstring">任意类型转 std::wstring</h2>
-<pre><code class="language-cpp">template&lt;class T&gt;
-inline std::wstring ToWString(const T&amp; arg) 
-{
-    std::wstringstream temp;
-    temp &lt;&lt; arg;
-    return temp.str();
-}
 </code></pre>
 ]]></content>
     </entry>
