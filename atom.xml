@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-10-27T06:42:05.210Z</updated>
+    <updated>2020-10-29T06:28:23.766Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,19 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[iview]]></title>
+        <id>https://blog.myxy.net/iview/</id>
+        <link href="https://blog.myxy.net/iview/">
+        </link>
+        <updated>2020-10-29T06:23:00.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="样式覆盖">样式覆盖</h1>
+<p>样式文件:  <code>src\styles\default\index.less</code></p>
+<pre><code class="language-style">// 下拉框,时间弹出动画速度
+@animation-time:.3x;    
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[hp-socket 内存加载失败]]></title>
         <id>https://blog.myxy.net/hp-socket-nei-cun-jia-zai-shi-bai/</id>
@@ -820,35 +833,6 @@ save, shutdown, slave 命令会触发这个操作。
 <li>若只打算用Redis 做缓存，可以关闭持久化。</li>
 <li>若打算使用Redis 的持久化。建议RDB和AOF都开启。其实RDB更适合做数据的备份，留一后手。AOF出问题了，还有RDB。</li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[c++ 宏]]></title>
-        <id>https://blog.myxy.net/c-hong/</id>
-        <link href="https://blog.myxy.net/c-hong/">
-        </link>
-        <updated>2020-10-11T08:28:31.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="宏的妙用">宏“#”的妙用</h2>
-<blockquote>
-<p>如果熟悉 C++ 宏的小伙伴，可能知道里面有个 # 的用法，可以将对应的参数变成字符串，效果如下：</p>
-</blockquote>
-<pre><code class="language-cpp">#define  toStr(x)  #x
-char *str = toStr(hello);  
-//  等价于 
-char *str = &quot;hello&quot;;
-</code></pre>
-<p>那么对于单个变量最简单的宏实现方式就是：</p>
-<pre><code class="language-cpp">#define logs(x)  std::cout &lt;&lt; #x&quot;:&quot; &lt;&lt; x &lt;&lt; std::endl;
-......
-int delay = 5;
-int other = 3;
-logs(delay);
-logs(other);
-
-// 输出结果
-// delay:5
-// other:3
-</code></pre>
 ]]></content>
     </entry>
 </feed>
