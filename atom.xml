@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-10-29T06:28:23.766Z</updated>
+    <updated>2020-10-30T03:21:30.318Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,36 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[解决DragQueryFile()在x64下获取文件数量为0]]></title>
+        <id>https://blog.myxy.net/jie-jue-dragqueryfilezai-x64-xia-huo-qu-wen-jian-shu-liang-wei-0/</id>
+        <link href="https://blog.myxy.net/jie-jue-dragqueryfilezai-x64-xia-huo-qu-wen-jian-shu-liang-wei-0/">
+        </link>
+        <updated>2020-10-30T03:20:32.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-cpp">HDROP hDrop = NULL;
+
+HANDLE hProcessHeap = ::GetProcessHeap();
+if (NULL != hProcessHeap &amp;&amp; ::HeapLock(hProcessHeap))
+{
+  PROCESS_HEAP_ENTRY heapEntry = { 0 };
+  while(::HeapWalk(hProcessHeap, &amp;heapEntry) != FALSE)
+  {
+    if ((heapEntry.wFlags &amp; PROCESS_HEAP_ENTRY_BUSY) != 0)
+    {
+      HGLOBAL hGlobal = ::GlobalHandle(heapEntry.lpData);
+      // Assuming wParam is the WM_DROPFILES WPARAM
+      if ((((DWORD_PTR) hGlobal) &amp; 0xFFFFFFFF) == (wParam &amp; 0xFFFFFFFF))
+      {
+        hDrop = (HDROP) hGlobal; // We got it !!
+        break;
+      }
+    }
+  }
+  ::HeapUnlock(hProcessHeap);
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[iview]]></title>
         <id>https://blog.myxy.net/iview/</id>
@@ -787,43 +817,6 @@ save, shutdown, slave 命令会触发这个操作。
 持续的用日志记录写操作，crash后利用日志恢复；
 </code></pre>
 <p><a href="https://www.cnblogs.com/shizhengwen/p/9283973.html">https://www.cnblogs.com/shizhengwen/p/9283973.html</a></p>
-<ul>
-<li>Redis 默认开启RDB持久化方式，在指定的时间间隔内，执行指定次数的写操作，则将内存中的数据写入到磁盘中。</li>
-<li>RDB 持久化适合大规模的数据恢复但它的数据一致性和完整性较差。</li>
-<li>Redis 需要手动开启AOF持久化方式，默认是每秒将写操作日志追加到AOF文件中。</li>
-<li>AOF 的数据完整性比RDB高，但记录内容多了，会影响数据恢复的效率。</li>
-<li>Redis 针对 AOF文件大的问题，提供重写的瘦身机制。</li>
-<li>若只打算用Redis 做缓存，可以关闭持久化。</li>
-<li>若打算使用Redis 的持久化。建议RDB和AOF都开启。其实RDB更适合做数据的备份，留一后手。AOF出问题了，还有RDB。</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Redis的RDB和AOF选择]]></title>
-        <id>https://blog.myxy.net/redis-de-rdb-he-aof-xuan-ze/</id>
-        <link href="https://blog.myxy.net/redis-de-rdb-he-aof-xuan-ze/">
-        </link>
-        <updated>2020-10-11T09:46:54.000Z</updated>
-        <content type="html"><![CDATA[<blockquote>
-<p>aof，rdb是两种 redis持久化的机制,用于crash后，redis的恢复。</p>
-</blockquote>
-<h1 id="rdb特性">rdb特性</h1>
-<blockquote>
-<p>写操作频繁的时候，不启用备份来换取更高的性能，待手动运行save的时候，再做备份.</p>
-</blockquote>
-<pre><code>fork一个进程，遍历hash table，利用copy on write，把整个db dump保存下来。
-save, shutdown, slave 命令会触发这个操作。
-粒度比较大，如果save, shutdown, slave 之前crash了，则中间的操作没办法恢复。
-平时写操作的时候不触发写，只有手动提交save命令，或者是关闭命令时，才触发备份操作。
-</code></pre>
-<h1 id="aof特性">aof特性</h1>
-<blockquote>
-<p>牺牲一些性能，换取更高的缓存一致性</p>
-</blockquote>
-<pre><code>把写操作指令，持续的写到一个类似日志文件里。（类似于从postgresql等数据库导出sql一样，只记录写操作）
-粒度较小，crash之后，只有crash之前没有来得及做日志的操作没办法恢复。
-持续的用日志记录写操作，crash后利用日志恢复；
-</code></pre>
 <ul>
 <li>Redis 默认开启RDB持久化方式，在指定的时间间隔内，执行指定次数的写操作，则将内存中的数据写入到磁盘中。</li>
 <li>RDB 持久化适合大规模的数据恢复但它的数据一致性和完整性较差。</li>
