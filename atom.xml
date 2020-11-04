@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-11-04T13:00:26.525Z</updated>
+    <updated>2020-11-04T13:32:58.030Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -17,7 +17,16 @@
         </link>
         <updated>2020-11-04T12:59:54.000Z</updated>
         <content type="html"><![CDATA[<pre><code class="language-cpp">#ifdef _DEBUG
-#define DBG_PRINTF(format,...) printf(&quot;Func:%s,Line[%05d]: &quot;format&quot;\n&quot;, __FUNCTION__,__LINE__, ##__VA_ARGS__)
+inline char* getDateTime() {
+	static char nowtime[20];
+	time_t rawtime;
+	struct tm* ltime;
+	time(&amp;rawtime);
+	ltime = localtime(&amp;rawtime);
+	strftime(nowtime, 20, &quot;%H:%M:%S&quot;, ltime);
+	return nowtime;
+}
+#define DBG_PRINTF(format,...) printf(&quot;%s &lt;%05d&gt;&lt;%s&gt;\t&quot; format&quot;\n&quot;,getDateTime(),__LINE__, __FUNCTION__, ##__VA_ARGS__)
 #else
 #define DBG_PRINTF(format,...)
 #endif

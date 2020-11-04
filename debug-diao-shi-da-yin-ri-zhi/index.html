@@ -15,10 +15,18 @@
     
 
   <meta name="description" content="#ifdef _DEBUG
-#define DBG_PRINTF(format,...) printf(&amp;quot;Func:%s,Line[%05d]: &amp;quot;format&amp;quot;\n&amp;quot;, __FUNCTION__,_..." />
+inline char* getDateTime() {
+	static char nowtime[20];
+	time_t rawtime;
+	struct tm* ltime;
+	time(&amp;amp;rawt..." />
   <meta property="og:title" content="debug调试打印日志 - Maxbad`Blog">
   <meta property="og:description" content="#ifdef _DEBUG
-#define DBG_PRINTF(format,...) printf(&amp;quot;Func:%s,Line[%05d]: &amp;quot;format&amp;quot;\n&amp;quot;, __FUNCTION__,_..." />
+inline char* getDateTime() {
+	static char nowtime[20];
+	time_t rawtime;
+	struct tm* ltime;
+	time(&amp;amp;rawt..." />
   <meta property="og:type" content="articles">
   <meta property="og:url" content="https://blog.myxy.net/debug-diao-shi-da-yin-ri-zhi/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
@@ -26,7 +34,11 @@
   <meta property="og:image:width" content="1200">
   <meta name="twitter:title" content="debug调试打印日志 - Maxbad`Blog">
   <meta name="twitter:description" content="#ifdef _DEBUG
-#define DBG_PRINTF(format,...) printf(&amp;quot;Func:%s,Line[%05d]: &amp;quot;format&amp;quot;\n&amp;quot;, __FUNCTION__,_...">
+inline char* getDateTime() {
+	static char nowtime[20];
+	time_t rawtime;
+	struct tm* ltime;
+	time(&amp;amp;rawt...">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://blog.myxy.net/debug-diao-shi-da-yin-ri-zhi/">
 
@@ -57,7 +69,16 @@
         </div>
         <div class="markdown mb-8" v-pre>
           <pre><code class="language-cpp">#ifdef _DEBUG
-#define DBG_PRINTF(format,...) printf(&quot;Func:%s,Line[%05d]: &quot;format&quot;\n&quot;, __FUNCTION__,__LINE__, ##__VA_ARGS__)
+inline char* getDateTime() {
+	static char nowtime[20];
+	time_t rawtime;
+	struct tm* ltime;
+	time(&amp;rawtime);
+	ltime = localtime(&amp;rawtime);
+	strftime(nowtime, 20, &quot;%H:%M:%S&quot;, ltime);
+	return nowtime;
+}
+#define DBG_PRINTF(format,...) printf(&quot;%s &lt;%05d&gt;&lt;%s&gt;\t&quot; format&quot;\n&quot;,getDateTime(),__LINE__, __FUNCTION__, ##__VA_ARGS__)
 #else
 #define DBG_PRINTF(format,...)
 #endif
