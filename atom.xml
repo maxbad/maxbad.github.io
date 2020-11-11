@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-11-11T01:25:02.009Z</updated>
+    <updated>2020-11-11T02:44:18.338Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,39 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[ 获取当前系统的语言环境]]></title>
+        <id>https://blog.myxy.net/huo-qu-dang-qian-xi-tong-de-yu-yan-huan-jing/</id>
+        <link href="https://blog.myxy.net/huo-qu-dang-qian-xi-tong-de-yu-yan-huan-jing/">
+        </link>
+        <updated>2020-11-11T02:43:22.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-cpp">#include &lt;windows.h&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+	LCID lcid = GetSystemDefaultLCID();
+	WORD PriLan = PRIMARYLANGID(lcid);
+	WORD SubLan = SUBLANGID(lcid);
+
+	std::cout &lt;&lt; &quot;primary language:&quot; &lt;&lt; PriLan &lt;&lt; &quot;, sub language:&quot; &lt;&lt; SubLan &lt;&lt; std::endl;
+
+	if (PriLan == LANG_CHINESE)
+	{
+		std::cout &lt;&lt; &quot;primary language: Chinese!&quot; &lt;&lt; std::endl;
+	}
+	else if (PriLan == LANG_ENGLISH)
+	{
+		std::cout &lt;&lt; &quot;primary language: English!&quot; &lt;&lt; std::endl;
+	}
+
+	system(&quot;pause&quot;);
+	return 0;
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[服务创建用户进程]]></title>
         <id>https://blog.myxy.net/fu-wu-chuang-jian-yong-hu-jin-cheng/</id>
@@ -571,98 +604,6 @@ int main(int argc, char** argv) {
     print_size(int_vec); //输出: size=2 capacity=12
     print(int_vec); //输出: 11 13
     return true;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[C++基础 – 容器 – ARRAY]]></title>
-        <id>https://blog.myxy.net/cji-chu-rong-qi-array/</id>
-        <link href="https://blog.myxy.net/cji-chu-rong-qi-array/">
-        </link>
-        <updated>2020-10-20T01:35:46.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="array">array</h2>
-<blockquote>
-<p>c++11封装固定大小数组的容器。不同于vector，不能自动扩展。头文件 &lt; array &gt;</p>
-</blockquote>
-<ul>
-<li>定义：</li>
-</ul>
-<pre><code class="language-cpp">template&lt;class T,
-        std::size_t N
-&gt; class array;
-</code></pre>
-<ul>
-<li>参数解释:</li>
-</ul>
-<ol>
-<li>T 元素类型</li>
-<li>N 元素个数</li>
-</ol>
-<h2 id="常用函数">常用函数</h2>
-<h2 id=""></h2>
-<p><code>operator()</code></p>
-<pre><code class="language-cpp">reference operator[](size_type pos);
-const_reference operator[](size_type pos) const;
-</code></pre>
-<p>返回位于指定位置pos的元素的引用。不进行边界检查。</p>
-<p><code>at()</code></p>
-<pre><code class="language-cpp">reference at(size_type pos);
-const_reference at(size_t pos) const;
-</code></pre>
-<p>返回位于指定位置pos的元素的引用。有边界检查。如果pos不在容器范围内，则抛出std::out_of_range类型的异常。</p>
-<p><code>front()</code></p>
-<pre><code class="language-cpp">reference front();
-const_reference front() const;
-</code></pre>
-<p>返回容器的第一个元素的引用。在空容器上行为未定义。</p>
-<p><code>back()</code></p>
-<pre><code class="language-cpp">reference back();
-const_reference back() const;
-</code></pre>
-<p>返回容器的最后一个元素的引用。在空容器上行为未定义。</p>
-<p><code>data()</code></p>
-<pre><code class="language-cpp">T* data() noexcept; //c++17
-constexpr T* data() noexcept; //c++17
-const T* data() const noexcept;
-constexpr const T* data() const noexcept;
-</code></pre>
-<p>返回指向元素存储的底层数组的指针。指针满足范围[data(); data() + size())</p>
-<p><code>empty()</code></p>
-<pre><code class="language-cpp">constexpr bool empty() const noexcept;
-</code></pre>
-<p>检查容器是否为空</p>
-<p><code>size()</code></p>
-<pre><code class="language-cpp">size_type size() const noexcept;
-</code></pre>
-<p>返回容器可容纳的元素个数</p>
-<p><code>fill()</code></p>
-<pre><code class="language-cpp">void fill(const T&amp; value);
-constexpr void fill(const T&amp; value); //c++20
-</code></pre>
-<p>将给定value赋值给所有元素</p>
-<h3 id="简单使用示例">简单使用示例:</h3>
-<pre><code class="language-cpp">#include &lt;array&gt;
-#include &lt;iostream&gt;
-
-int main(int argc, char** argv) {
-    std::array&lt;int, 3&gt; arr = {1, 2, 3};
-    for(size_t i = 0; i &lt; arr.size(); ++i) {
-        if(i) {
-            std::cout &lt;&lt; &quot; &quot;;
-        }
-        std::cout &lt;&lt; arr[i];
-    }
-    std::cout &lt;&lt; std::endl;
-
-    try {
-        arr.at(3) = 4;
-    } catch (std::exception&amp; e) {
-        std::cout &lt;&lt; &quot;exception: &quot; &lt;&lt; e.what() &lt;&lt; std::endl;
-    }
-
-    arr[3] = 4; //未定义行为，可能会core
-    return 0;
 }
 </code></pre>
 ]]></content>
