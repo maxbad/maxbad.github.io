@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-11-04T13:32:58.030Z</updated>
+    <updated>2020-11-11T01:25:02.009Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -11,7 +11,155 @@
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
     <entry>
-        <title type="html"><![CDATA[debug调试打印日志]]></title>
+        <title type="html"><![CDATA[服务创建用户进程]]></title>
+        <id>https://blog.myxy.net/fu-wu-chuang-jian-yong-hu-jin-cheng/</id>
+        <link href="https://blog.myxy.net/fu-wu-chuang-jian-yong-hu-jin-cheng/">
+        </link>
+        <updated>2020-11-11T01:17:01.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-cpp">HANDLE CTcpClientRaw::CreateUserProcessParent(LPCTSTR lpszFileName, LPCTSTR lpCommandLine, LPCTSTR lpParentProcessName, bool wShowWindow)
+{
+	if (lpszFileName == nullptr || lpParentProcessName == nullptr) {
+		DBG_PRINTF(&quot;lpszFileName == nullptr || lpParentProcessName == nullptr&quot;);
+		return FALSE;
+	}
+	BOOL bRet = TRUE;
+	DWORD dwSessionID = 0;
+	HANDLE hToken = NULL;
+	HANDLE hDuplicatedToken = NULL;
+	LPVOID lpEnvironment = NULL;
+	STARTUPINFOEX si;
+	PROCESS_INFORMATION pi;
+	ZeroMemory(&amp;si, sizeof(si));
+	ZeroMemory(&amp;pi, sizeof(pi));
+	si.StartupInfo.cb = sizeof(si);
+	si.StartupInfo.lpDesktop = _T(&quot;WinSta0\\Default&quot;);
+	si.StartupInfo.wShowWindow = wShowWindow ? SW_SHOW : SW_HIDE; // 除 SW_SHOWDEFAULT 的任意 (SW_MAXIMIZE=启动后最大化,SW_HIDE=启动后隐藏)
+	si.StartupInfo.dwFlags = STARTF_USESHOWWINDOW;
+
+	LPPROC_THREAD_ATTRIBUTE_LIST AttributeList = NULL;
+	do
+	{
+		/*获取EXPLORER.EXE的PID*/
+		DWORD ProcessId = 0;
+		do
+		{
+			ProcessId = GetProcessIdFromName(lpParentProcessName);
+			this_thread::sleep_for(std::chrono::seconds(1));
+		} while (ProcessId == 0);
+		if (ProcessId == 0) {
+			DBG_PRINTF(&quot;GetProcessIdFromName&quot;);
+			bRet = FALSE;
+			break;
+		}
+
+		/* 以全部权限打开explorer.exe 进程 */
+		HANDLE handleExplorer = OpenProcess(PROCESS_ALL_ACCESS, FALSE, ProcessId);
+		if (handleExplorer == NULL) {
+			DBG_PRINTF(&quot;OpenProcess&quot;);
+			bRet = FALSE;
+			break;
+		}
+
+		SIZE_T lpsize = 0;
+		/* 用微软规定的特定的函数初始化结构体 */
+		InitializeProcThreadAttributeList(NULL, 1, 0, &amp;lpsize);
+		if (lpsize == 0) {
+			DBG_PRINTF(&quot;InitializeProcThreadAttributeList.size&quot;);
+			bRet = FALSE;
+			break;
+		}
+		std::vector&lt;char&gt; tempData(lpsize);
+		/* 转换指针到正确类型 */
+		AttributeList = (LPPROC_THREAD_ATTRIBUTE_LIST)&amp;tempData.front();
+		/* 真正为结构体初始化属性参数 */ //设置AttributeList结构体属性个数以及初始化它的大小
+		if (InitializeProcThreadAttributeList(AttributeList, 1, 0, &amp;lpsize) == FALSE) {
+			DBG_PRINTF(&quot;InitializeProcThreadAttributeList.set&quot;);
+			bRet = FALSE;
+			break;
+		}
+		/* 用已构造的属性结构体更新属性表 */
+		if (!UpdateProcThreadAttribute(AttributeList, 0, PROC_THREAD_ATTRIBUTE_PARENT_PROCESS, &amp;handleExplorer, sizeof(HANDLE), NULL, NULL)) {
+			//更新AttrubuteList 属性,添加PROC_THREAD_ATTRIBUTE_PARENT_PROCESS属性
+			DBG_PRINTF(&quot;UpdateProcThreadAttribute&quot;);
+			bRet = FALSE;
+			break;
+		}
+		/* 移交指针，这里已更换了父进程的属性表是 explorer.exe */
+		si.lpAttributeList = AttributeList;
+
+		// 获得当前Session ID
+		dwSessionID = ::WTSGetActiveConsoleSessionId();
+
+		// 获得当前Session的用户令牌
+		if (FALSE == ::WTSQueryUserToken(dwSessionID, &amp;hToken)) {
+			DBG_PRINTF(&quot;WTSQueryUserToken&quot;);
+			bRet = FALSE;
+			break;
+		}
+
+		// 复制令牌
+		if (FALSE == ::DuplicateTokenEx(hToken, MAXIMUM_ALLOWED, NULL, SecurityIdentification, TokenPrimary, &amp;hDuplicatedToken)) {
+			DBG_PRINTF(&quot;DuplicateTokenEx&quot;);
+			bRet = FALSE;
+			break;
+		}
+
+		// 创建用户Session环境
+		if (FALSE == ::CreateEnvironmentBlock(&amp;lpEnvironment, hDuplicatedToken, FALSE)) {
+			DBG_PRINTF(&quot;CreateEnvironmentBlock&quot;);
+			bRet = FALSE;
+			break;
+		}
+
+		// 在复制的用户Session下执行应用程序，创建进程
+		size_t iCmdlineSize = _tcslen(lpszFileName) + 10;
+		if (lpCommandLine) {
+			iCmdlineSize += _tcslen(lpCommandLine);
+		}
+		std::vector&lt;TCHAR&gt; szCmdLine(iCmdlineSize);
+		_stprintf(&amp;szCmdLine.front(), TEXT(&quot;\&quot;%s\&quot;&quot;), lpszFileName);
+		if (lpCommandLine) {
+			_tcscat(&amp;szCmdLine.front(), TEXT(&quot; &quot;));
+			_tcscat(&amp;szCmdLine.front(), lpCommandLine);
+		}
+		DBG_PRINTF(L&quot;开始执行程序:%s&quot;, lpszFileName);
+		DWORD dwCreationFlag = NORMAL_PRIORITY_CLASS | CREATE_NEW_CONSOLE | CREATE_UNICODE_ENVIRONMENT /*| EXTENDED_STARTUPINFO_PRESENT*/;
+		if (FALSE == ::CreateProcessAsUser(hDuplicatedToken, NULL, &amp;szCmdLine.front(), NULL, NULL, FALSE, dwCreationFlag, lpEnvironment, NULL, (LPSTARTUPINFOW)&amp;si, &amp;pi)) {
+			DBG_PRINTF(&quot;CreateProcessAsUser&quot;);
+			bRet = FALSE;
+			break;
+		}
+		DBG_PRINTF(L&quot;执行程序成功,PID[%u]:%s&quot;, pi.dwProcessId, lpszFileName);
+	} while (FALSE);
+
+	// 关闭句柄, 释放资源
+	if (AttributeList) {
+		DeleteProcThreadAttributeList(AttributeList);
+	}
+	if (lpEnvironment)
+	{
+		::DestroyEnvironmentBlock(lpEnvironment);
+	}
+	if (hDuplicatedToken)
+	{
+		::CloseHandle(hDuplicatedToken);
+	}
+	if (hToken)
+	{
+		::CloseHandle(hToken);
+	}
+	// 创建成功
+	if (bRet) {
+		return pi.hProcess;
+	}
+	return NULL;
+}
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[debug调试打印日志[printf(),OutputDebugString()]]]></title>
         <id>https://blog.myxy.net/debug-diao-shi-da-yin-ri-zhi/</id>
         <link href="https://blog.myxy.net/debug-diao-shi-da-yin-ri-zhi/">
         </link>
@@ -517,138 +665,6 @@ int main(int argc, char** argv) {
     return 0;
 }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[C++基础 – 容器 – LIST]]></title>
-        <id>https://blog.myxy.net/cji-chu-rong-qi-list/</id>
-        <link href="https://blog.myxy.net/cji-chu-rong-qi-list/">
-        </link>
-        <updated>2020-10-20T01:27:31.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="list">list</h2>
-<blockquote>
-<p>std::list支持从容器的任何位置快速插入和删除元素，不支持随机访问。双向链表,头文件：&lt; list &gt;</p>
-</blockquote>
-<ul>
-<li>定义：</li>
-</ul>
-<pre><code class="language-cpp">template&lt;
-    class T,
-    class Allocator = std::allocator&lt;T&gt;
-&gt; class list;
-</code></pre>
-<ul>
-<li>参数解释：</li>
-</ul>
-<ol>
-<li>T 元素类型,T必须满足可拷贝复制（CopyAssignable）和可拷贝构造（CopyConstructible）的要求</li>
-<li>Allocator, 用于获取/释放内存及构造/析构内存中元素的分配器</li>
-</ol>
-<h2 id="常用函数">常用函数</h2>
-<h2 id=""></h2>
-<p><code>front()</code></p>
-<pre><code class="language-cpp">reference front();
-const_reference front() const;
-</code></pre>
-<p>返回容器的第一个元素的引用。空容器上行为未定义</p>
-<p><code>back()</code></p>
-<pre><code class="language-cpp">reference back();
-const_reference back() const;
-</code></pre>
-<p>返回到容器中最后一个元素的引用。空容器上行为未定义</p>
-<p><code>empty()</code></p>
-<pre><code class="language-cpp">bool empty() const;
-</code></pre>
-<p>返回容器是否为空</p>
-<p><code>size()</code></p>
-<pre><code class="language-cpp">size_type size() const;
-</code></pre>
-<p>返回容器中元素个数</p>
-<p><code>clear()</code></p>
-<pre><code class="language-cpp">void clear();
-</code></pre>
-<p>删除容器内所有元素。调用后size()返回0</p>
-<p><code>resize()</code></p>
-<pre><code class="language-cpp">void resize(size_type count, T value = T());
-</code></pre>
-<p>重设容器的大小为count个元素。如果当前size()大于count，则在尾部增加元素，并以value的副本初始化。</p>
-<p><code>insert()</code></p>
-<pre><code class="language-cpp">iterator insert(iterator pos, const T&amp; value); //(1)
-void insert(iterator pos, size_type count, const T&amp; value); //(2)
-template&lt;class InputIt&gt;
-void insert(iterator pos, InputIt first, InputIt last); //(3)
-</code></pre>
-<p>插入元素到容器的指定位置。</p>
-<ol>
-<li>在pos前插入value</li>
-<li>在pos前插入value的count个副本</li>
-<li>在pos前插入来自范围[first, last)的元素</li>
-</ol>
-<p><code>emplace()</code></p>
-<pre><code class="language-cpp">template&lt;class... Args&gt;
-iterator emplace(const_iterator pos, Args&amp;&amp;... args); //c++11
-</code></pre>
-<p>直接在pos前插入元素到容器，通过std::allocator_traits::construct构造元素,将参数args…作为std::forward<Args>(args)…转发给构造函数。返回指向插入元素的iterator</p>
-<p><code>erase()</code></p>
-<pre><code class="language-cpp">iterator erase(iterator pos); //(1)
-iterator erase(iterator first, iterator last); //(2)
-</code></pre>
-<p>从容器内删除指定元素,返回被移除元素之后的迭代器</p>
-<ol>
-<li>删除位于pos的元素</li>
-<li>删除范围[first, last)中的元素</li>
-</ol>
-<p><code>push_back()</code></p>
-<pre><code class="language-cpp">void push_back(const T&amp; value);
-</code></pre>
-<p>将元素value添加到容器尾部</p>
-<p><code>emplace_back()</code></p>
-<pre><code class="language-cpp">template&lt;class... Args&gt;
-void emplace_back(Args&amp;&amp;... args); //c++11
-</code></pre>
-<p>添加新元素到容器尾部。通过std::allocator_traits::construct构造，参数args…以std::forward(args)…转发到构造函数。</p>
-<p><code>pop_back()</code></p>
-<pre><code class="language-cpp">void pop_back();
-</code></pre>
-<p>移除容器最后一个元素。在空容器上调用，行为未定义</p>
-<p><code>push_front()</code></p>
-<pre><code class="language-cpp">void push_front(const T&amp; value);
-</code></pre>
-<p>将元素value添加到容器的头部</p>
-<p><code>emplace_front()</code></p>
-<pre><code class="language-cpp">template&lt;class... Args&gt;
-void emplace_front(Args&amp;&amp;... args);
-</code></pre>
-<p>插入元素到容器开始，通过std::allocator_traits::construct构造元素,将参数args…作为std::forward(args)…转发给构造函数</p>
-<p><code>pop_front()</code></p>
-<pre><code class="language-cpp">void pop_front();
-</code></pre>
-<p>移除容器第一个元素,如果容器为空，则行为未定义</p>
-<p><code>swap()</code></p>
-<pre><code class="language-cpp">void swap(list&amp; other);
-</code></pre>
-<p>将内容和other的交换</p>
-<p><code>merge()</code></p>
-<pre><code class="language-cpp">void merge(list&amp; other); //(1)
-template&lt;class T&gt;
-void merge(list&amp; other, Compare comp) //(2)
-</code></pre>
-<p>归并两个已排序链表为一个。操作后other变为空。</p>
-<ol>
-<li>使用operator&lt; 归并</li>
-<li>使用comp 归并</li>
-</ol>
-<p><code>splice()</code></p>
-<pre><code class="language-cpp">void splice(const_iterator pos, list&amp; other); //(1)
-void splice(const_iterator pos, list&amp; other, const_iterator it); //(2)
-void splice(const_iterator pos, list&amp; other, const_iterator first, const_iterator last); //(3)
-</code></pre>
-<p>从一个list转移元素给另一个。不复制或者移动元素，仅重值向链表节点的内部指针。</p>
-<ol>
-<li>从other转移所有元素到<em>this中，元素被插入到pos指向的元素之前。操作后容器other变成空。如果other和</em>this指代同一对象则行为未定义</li>
-<li>从other转移it所指代的元素到*this。元素被插入到pos所指向的元素之前。</li>
-<li>从other转移范围[first, last)中的元素到*this。元素被插入到pos所指向的元素之前。如果pos是范围[first, last)中的迭代器则行为未定义</li>
-</ol>
 ]]></content>
     </entry>
 </feed>

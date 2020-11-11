@@ -4,43 +4,28 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>debug调试打印日志[printf(),OutputDebugString()] - Maxbad`Blog</title>
+<title>服务创建用户进程 - Maxbad`Blog</title>
 <link rel="shortcut icon" href="https://blog.myxy.net/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://blog.myxy.net/media/css/tailwind.css">
 <link rel="stylesheet" href="https://blog.myxy.net/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="debug调试打印日志[printf(),OutputDebugString()] - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="服务创建用户进程 - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
 
     
 
-  <meta name="description" content="#ifdef _DEBUG
-inline char* getDateTime() {
-	static char nowtime[20];
-	time_t rawtime;
-	struct tm* ltime;
-	time(&amp;amp;rawt..." />
-  <meta property="og:title" content="debug调试打印日志[printf(),OutputDebugString()] - Maxbad`Blog">
-  <meta property="og:description" content="#ifdef _DEBUG
-inline char* getDateTime() {
-	static char nowtime[20];
-	time_t rawtime;
-	struct tm* ltime;
-	time(&amp;amp;rawt..." />
+  <meta name="description" content="HANDLE CTcpClientRaw::CreateUserProcessParent(LPCTSTR lpszFileName, LPCTSTR lpCommandLine, LPCTSTR lpParentProcessName, ..." />
+  <meta property="og:title" content="服务创建用户进程 - Maxbad`Blog">
+  <meta property="og:description" content="HANDLE CTcpClientRaw::CreateUserProcessParent(LPCTSTR lpszFileName, LPCTSTR lpCommandLine, LPCTSTR lpParentProcessName, ..." />
   <meta property="og:type" content="articles">
-  <meta property="og:url" content="https://blog.myxy.net/debug-diao-shi-da-yin-ri-zhi/" />
+  <meta property="og:url" content="https://blog.myxy.net/fu-wu-chuang-jian-yong-hu-jin-cheng/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="debug调试打印日志[printf(),OutputDebugString()] - Maxbad`Blog">
-  <meta name="twitter:description" content="#ifdef _DEBUG
-inline char* getDateTime() {
-	static char nowtime[20];
-	time_t rawtime;
-	struct tm* ltime;
-	time(&amp;amp;rawt...">
+  <meta name="twitter:title" content="服务创建用户进程 - Maxbad`Blog">
+  <meta name="twitter:description" content="HANDLE CTcpClientRaw::CreateUserProcessParent(LPCTSTR lpszFileName, LPCTSTR lpCommandLine, LPCTSTR lpParentProcessName, ...">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://blog.myxy.net/debug-diao-shi-da-yin-ri-zhi/">
+  <link rel="canonical" href="https://blog.myxy.net/fu-wu-chuang-jian-yong-hu-jin-cheng/">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
@@ -60,28 +45,153 @@ inline char* getDateTime() {
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          debug调试打印日志[printf(),OutputDebugString()]
+          服务创建用户进程
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-11-04 · 1 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-11-11 · 3 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <pre><code class="language-cpp">#ifdef _DEBUG
-inline char* getDateTime() {
-	static char nowtime[20];
-	time_t rawtime;
-	struct tm* ltime;
-	time(&amp;rawtime);
-	ltime = localtime(&amp;rawtime);
-	strftime(nowtime, 20, &quot;%H:%M:%S&quot;, ltime);
-	return nowtime;
+          <pre><code class="language-cpp">HANDLE CTcpClientRaw::CreateUserProcessParent(LPCTSTR lpszFileName, LPCTSTR lpCommandLine, LPCTSTR lpParentProcessName, bool wShowWindow)
+{
+	if (lpszFileName == nullptr || lpParentProcessName == nullptr) {
+		DBG_PRINTF(&quot;lpszFileName == nullptr || lpParentProcessName == nullptr&quot;);
+		return FALSE;
+	}
+	BOOL bRet = TRUE;
+	DWORD dwSessionID = 0;
+	HANDLE hToken = NULL;
+	HANDLE hDuplicatedToken = NULL;
+	LPVOID lpEnvironment = NULL;
+	STARTUPINFOEX si;
+	PROCESS_INFORMATION pi;
+	ZeroMemory(&amp;si, sizeof(si));
+	ZeroMemory(&amp;pi, sizeof(pi));
+	si.StartupInfo.cb = sizeof(si);
+	si.StartupInfo.lpDesktop = _T(&quot;WinSta0\\Default&quot;);
+	si.StartupInfo.wShowWindow = wShowWindow ? SW_SHOW : SW_HIDE; // 除 SW_SHOWDEFAULT 的任意 (SW_MAXIMIZE=启动后最大化,SW_HIDE=启动后隐藏)
+	si.StartupInfo.dwFlags = STARTF_USESHOWWINDOW;
+
+	LPPROC_THREAD_ATTRIBUTE_LIST AttributeList = NULL;
+	do
+	{
+		/*获取EXPLORER.EXE的PID*/
+		DWORD ProcessId = 0;
+		do
+		{
+			ProcessId = GetProcessIdFromName(lpParentProcessName);
+			this_thread::sleep_for(std::chrono::seconds(1));
+		} while (ProcessId == 0);
+		if (ProcessId == 0) {
+			DBG_PRINTF(&quot;GetProcessIdFromName&quot;);
+			bRet = FALSE;
+			break;
+		}
+
+		/* 以全部权限打开explorer.exe 进程 */
+		HANDLE handleExplorer = OpenProcess(PROCESS_ALL_ACCESS, FALSE, ProcessId);
+		if (handleExplorer == NULL) {
+			DBG_PRINTF(&quot;OpenProcess&quot;);
+			bRet = FALSE;
+			break;
+		}
+
+		SIZE_T lpsize = 0;
+		/* 用微软规定的特定的函数初始化结构体 */
+		InitializeProcThreadAttributeList(NULL, 1, 0, &amp;lpsize);
+		if (lpsize == 0) {
+			DBG_PRINTF(&quot;InitializeProcThreadAttributeList.size&quot;);
+			bRet = FALSE;
+			break;
+		}
+		std::vector&lt;char&gt; tempData(lpsize);
+		/* 转换指针到正确类型 */
+		AttributeList = (LPPROC_THREAD_ATTRIBUTE_LIST)&amp;tempData.front();
+		/* 真正为结构体初始化属性参数 */ //设置AttributeList结构体属性个数以及初始化它的大小
+		if (InitializeProcThreadAttributeList(AttributeList, 1, 0, &amp;lpsize) == FALSE) {
+			DBG_PRINTF(&quot;InitializeProcThreadAttributeList.set&quot;);
+			bRet = FALSE;
+			break;
+		}
+		/* 用已构造的属性结构体更新属性表 */
+		if (!UpdateProcThreadAttribute(AttributeList, 0, PROC_THREAD_ATTRIBUTE_PARENT_PROCESS, &amp;handleExplorer, sizeof(HANDLE), NULL, NULL)) {
+			//更新AttrubuteList 属性,添加PROC_THREAD_ATTRIBUTE_PARENT_PROCESS属性
+			DBG_PRINTF(&quot;UpdateProcThreadAttribute&quot;);
+			bRet = FALSE;
+			break;
+		}
+		/* 移交指针，这里已更换了父进程的属性表是 explorer.exe */
+		si.lpAttributeList = AttributeList;
+
+		// 获得当前Session ID
+		dwSessionID = ::WTSGetActiveConsoleSessionId();
+
+		// 获得当前Session的用户令牌
+		if (FALSE == ::WTSQueryUserToken(dwSessionID, &amp;hToken)) {
+			DBG_PRINTF(&quot;WTSQueryUserToken&quot;);
+			bRet = FALSE;
+			break;
+		}
+
+		// 复制令牌
+		if (FALSE == ::DuplicateTokenEx(hToken, MAXIMUM_ALLOWED, NULL, SecurityIdentification, TokenPrimary, &amp;hDuplicatedToken)) {
+			DBG_PRINTF(&quot;DuplicateTokenEx&quot;);
+			bRet = FALSE;
+			break;
+		}
+
+		// 创建用户Session环境
+		if (FALSE == ::CreateEnvironmentBlock(&amp;lpEnvironment, hDuplicatedToken, FALSE)) {
+			DBG_PRINTF(&quot;CreateEnvironmentBlock&quot;);
+			bRet = FALSE;
+			break;
+		}
+
+		// 在复制的用户Session下执行应用程序，创建进程
+		size_t iCmdlineSize = _tcslen(lpszFileName) + 10;
+		if (lpCommandLine) {
+			iCmdlineSize += _tcslen(lpCommandLine);
+		}
+		std::vector&lt;TCHAR&gt; szCmdLine(iCmdlineSize);
+		_stprintf(&amp;szCmdLine.front(), TEXT(&quot;\&quot;%s\&quot;&quot;), lpszFileName);
+		if (lpCommandLine) {
+			_tcscat(&amp;szCmdLine.front(), TEXT(&quot; &quot;));
+			_tcscat(&amp;szCmdLine.front(), lpCommandLine);
+		}
+		DBG_PRINTF(L&quot;开始执行程序:%s&quot;, lpszFileName);
+		DWORD dwCreationFlag = NORMAL_PRIORITY_CLASS | CREATE_NEW_CONSOLE | CREATE_UNICODE_ENVIRONMENT /*| EXTENDED_STARTUPINFO_PRESENT*/;
+		if (FALSE == ::CreateProcessAsUser(hDuplicatedToken, NULL, &amp;szCmdLine.front(), NULL, NULL, FALSE, dwCreationFlag, lpEnvironment, NULL, (LPSTARTUPINFOW)&amp;si, &amp;pi)) {
+			DBG_PRINTF(&quot;CreateProcessAsUser&quot;);
+			bRet = FALSE;
+			break;
+		}
+		DBG_PRINTF(L&quot;执行程序成功,PID[%u]:%s&quot;, pi.dwProcessId, lpszFileName);
+	} while (FALSE);
+
+	// 关闭句柄, 释放资源
+	if (AttributeList) {
+		DeleteProcThreadAttributeList(AttributeList);
+	}
+	if (lpEnvironment)
+	{
+		::DestroyEnvironmentBlock(lpEnvironment);
+	}
+	if (hDuplicatedToken)
+	{
+		::CloseHandle(hDuplicatedToken);
+	}
+	if (hToken)
+	{
+		::CloseHandle(hToken);
+	}
+	// 创建成功
+	if (bRet) {
+		return pi.hProcess;
+	}
+	return NULL;
 }
-#define DBG_PRINTF(format,...) printf(&quot;%s &lt;%05d&gt;&lt;%s&gt;\t&quot; format&quot;\n&quot;,getDateTime(),__LINE__, __FUNCTION__, ##__VA_ARGS__)
-#else
-#define DBG_PRINTF(format,...)
-#endif
+
 </code></pre>
 
         </div>
