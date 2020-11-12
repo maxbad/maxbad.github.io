@@ -54,6 +54,53 @@
     
     <div class="flex-1 order-2 md:order-1">
       <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/c11-stdcall_onceduo-xian-cheng-jin-zhi-xing-yi-ci-de-wan-mei-jie-jue-fang-an/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Ｃ++11 std::call_once：多线程仅执行一次的完美解决方案
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-05-12</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        std::call_once 的作用是很简单的,就是保证函数或者一些代码段在并发或者多线程的情况下,始终只会被执行一次。比如一些初始化函数，多次调用可能导致各种奇怪问题。
+需要包含头文件：#include &lt;mutex&gt;
+   ...
+      </div>
+      <a href="https://blog.myxy.net/c11-stdcall_onceduo-xian-cheng-jin-zhi-xing-yi-ci-de-wan-mei-jie-jue-fang-an/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/stdwcoutwprintf-kong-zhi-tai-shu-chu-unicode-zhong-wen/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          std::wcout,wprintf控制台输出unicode中文
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-05-10</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        wprintf
+_wsetlocale(LC_ALL, L&quot;chs&quot;);
+
+发现一个弊端,strftime格式化本地时间/日期的时候,星期几也会变成中文.
+
+
+std::wcout
+std::wcout.imbue(st...
+      </div>
+      <a href="https://blog.myxy.net/stdwcoutwprintf-kong-zhi-tai-shu-chu-unicode-zhong-wen/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
         <a href="https://blog.myxy.net/biao-zhun-ku-stdminstdmax-yu-minmax-hong-chong-tu/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
           标准库std::min/std::max与min/max宏冲突的解决方案
         </a>

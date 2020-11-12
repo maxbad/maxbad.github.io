@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-11-11T02:44:18.338Z</updated>
+    <updated>2020-11-12T13:23:51.258Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,38 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[C++自定义编译期警告和错误信息]]></title>
+        <id>https://blog.myxy.net/czi-ding-yi-bian-yi-qi-jing-gao-he-cuo-wu-xin-xi/</id>
+        <link href="https://blog.myxy.net/czi-ding-yi-bian-yi-qi-jing-gao-he-cuo-wu-xin-xi/">
+        </link>
+        <updated>2020-11-12T13:23:32.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-cpp">/** Transform expression \a _exp_ to string format. */
+#define __AUX_STR_EXP(_exp_)                    #_exp_
+/** Transform \a _exp_ to string format. */
+#define ___AUX_STR(_exp_)                       __AUX_STR_EXP(_exp_)
+/** location file name and file line */
+#define __LOCATION_STR                          __FILE__ &quot;(&quot;  ___AUX_STR(__LINE__) &quot;)&quot;
+/** define warning message throw */
+#define throw_warning(_code_, _message_)        message(__LOCATION_STR &quot;: warning C&quot; ___AUX_STR(_code_) &quot;: &quot; _message_)
+#define throw_error(_level_, _code_, _message_) message(__LOCATION_STR &quot;:&quot; _level_ &quot; error C&quot; ___AUX_STR(_code_) &quot;: &quot; _message_)
+
+// test
+#pragma throw_warning(10000, &quot;this is a compile time warning message.&quot;)
+#pragma throw_error(&quot;&quot;, 10001, &quot;this is a compile time error message.&quot;)
+#pragma throw_error(&quot;fatal&quot;, 10002, &quot;this is a compile time fatal error message.&quot;)
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[突破Session0隔离在系统服务程序中创建用户桌面进程]]></title>
+        <id>https://blog.myxy.net/tu-po-session0-ge-chi-zai-xi-tong-fu-wu-cheng-xu-zhong-chuang-jian-yong-hu-zhuo-mian-jin-cheng/</id>
+        <link href="https://blog.myxy.net/tu-po-session0-ge-chi-zai-xi-tong-fu-wu-cheng-xu-zhong-chuang-jian-yong-hu-zhuo-mian-jin-cheng/">
+        </link>
+        <updated>2020-11-12T02:17:34.000Z</updated>
+        <content type="html"><![CDATA[<p><code>https://www.write-bug.com/article/2006.html</code></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[ 获取当前系统的语言环境]]></title>
         <id>https://blog.myxy.net/huo-qu-dang-qian-xi-tong-de-yu-yan-huan-jing/</id>
@@ -334,276 +366,6 @@ int main() {
  t1.join();
  t2.join();
  return 0;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[系统服务弹出信息框!]]></title>
-        <id>https://blog.myxy.net/xi-tong-fu-wu-dan-chu-xin-xi-kuang/</id>
-        <link href="https://blog.myxy.net/xi-tong-fu-wu-dan-chu-xin-xi-kuang/">
-        </link>
-        <updated>2020-10-20T11:04:20.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">// dllmain.cpp : 定义 DLL 应用程序的入口点。
-#include &quot;pch.h&quot;
-#include &lt;tchar.h&gt;
-#include &lt;WtsApi32.h&gt;
-#pragma comment(lib, &quot;WtsApi32.lib&quot;)
-
-void ShowMessage(TCHAR* lpszMessage, TCHAR* lpszTitle)
-{
-	// 获取当前的Session ID
-	DWORD dwSessionId = ::WTSGetActiveConsoleSessionId();
-	// 显示消息对话框
-	DWORD dwResponse = 0;
-	::WTSSendMessage(WTS_CURRENT_SERVER_HANDLE, dwSessionId,
-		lpszTitle, static_cast&lt;DWORD&gt;((_tcslen(lpszTitle) + 1) * sizeof(TCHAR)),
-		lpszMessage, static_cast&lt;DWORD&gt;((_tcslen(lpszMessage) + 1) * sizeof(TCHAR)),
-		MB_ICONINFORMATION, 0 /*wait indefinitely*/, &amp;dwResponse, TRUE);
-}
-
-BOOL APIENTRY DllMain(HMODULE hModule,
-	DWORD  ul_reason_for_call,
-	LPVOID lpReserved
-)
-{
-	switch (ul_reason_for_call)
-	{
-	case DLL_PROCESS_ATTACH:
-	{
-		ShowMessage(TEXT(&quot;DLL_PROCESS_加载&quot;), TEXT(&quot;Tips:&quot;));
-	}
-	break;
-	case DLL_THREAD_ATTACH:
-	{
-		ShowMessage(TEXT(&quot;DLL_THREAD_加载&quot;), TEXT(&quot;Tips:&quot;));
-	}
-	break;
-	case DLL_THREAD_DETACH:
-	{
-		ShowMessage(TEXT(&quot;DLL_THREAD_销毁&quot;), TEXT(&quot;Tips:&quot;));
-	}
-	break;
-	case DLL_PROCESS_DETACH:
-	{
-		ShowMessage(TEXT(&quot;DLL_PROCESS_销毁&quot;), TEXT(&quot;Tips:&quot;));
-	}
-	break;
-	}
-	return TRUE;
-}
-
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[C++基础 – 容器 – VECTOR]]></title>
-        <id>https://blog.myxy.net/cji-chu-rong-qi-vector/</id>
-        <link href="https://blog.myxy.net/cji-chu-rong-qi-vector/">
-        </link>
-        <updated>2020-10-20T01:39:02.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="vector">vector</h2>
-<blockquote>
-<p>动态连续数组， 头文件 &lt; vector &gt;</p>
-</blockquote>
-<ul>
-<li>定义：</li>
-</ul>
-<pre><code class="language-cpp">template&lt;
-    class T,
-    class Allocator = std::allocator&lt;T&gt;
-&gt; class vector;
-</code></pre>
-<ul>
-<li>参数解释：</li>
-</ul>
-<ol>
-<li>T 元素类型<br>
-T必须满足可拷贝复制（CopyAssignable）和可拷贝构造（CopyConstructible）的要求</li>
-<li>Allocator 用于获取/释放内存及构造/析构内存中元素的分配器</li>
-</ol>
-<p>常用函数<br>
-<code>operator[]</code></p>
-<pre><code class="language-cpp">refrence operator[](size_type pos);
-const_refrence operator[](size_type pos) const;
-</code></pre>
-<p>返回给定pos位置的元素引用，不检查边界</p>
-<p><code>at()</code></p>
-<pre><code class="language-cpp">refrence at(size_type pos);
-const_refrence at(size_type pos) const;
-</code></pre>
-<p>返回给定pos位置的元素引用，会进行边界检查。如果给定pos超出边界，会报异常 std::out_of_range</p>
-<h3 id="示例">示例：</h3>
-<blockquote>
-<p>(演示operator[] 和 at() 使用上面的差别)</p>
-</blockquote>
-<pre><code class="language-cpp">#include &lt;vector&gt;
-#include &lt;iostream&gt;
-
-int main(int argc, char** argv) {
-    std::vector&lt;int&gt; int_vecs = {2, 3, 4, 5}; //c++ 11
-    std::cout &lt;&lt; int_vecs[3] &lt;&lt; std::endl; // 输出：5
-    int_vecs[3] = 6;
-    std::cout &lt;&lt; int_vecs[3] &lt;&lt; std::endl; // 输出：6
-
-    std::cout &lt;&lt; int_vecs.at(2) &lt;&lt; std::endl; // 输出：4
-    int_vecs.at(2) = 8;
-    std::cout &lt;&lt; int_vecs.at(2) &lt;&lt; std::endl; // 输出：8
-
-    try {
-        std::cout &lt;&lt; int_vecs.at(4) &lt;&lt; std::endl; // 跑出越界异常 std::out_of_range
-    } catch (std::exception&amp; e) {
-        std::cout &lt;&lt; e.what() &lt;&lt; std::endl; //打印异常信息
-    }
-
-    //遍历
-    for(size_t i = 0; i &lt; int_vecs.size(); ++i) {
-        std::cout &lt;&lt; int_vecs[i] &lt;&lt; std::endl;
-        std::cout &lt;&lt; int_vecs.at(i) &lt;&lt; std::endl;
-    }
-
-    std::cout &lt;&lt; int_vecs[4] &lt;&lt; std::endl; //程序崩溃
-    return 0;
-}
-
-//编译 &amp; 运行
-//g++ -std=c++11 main.cc -o test &amp; ./test
-</code></pre>
-<p><code>front()</code></p>
-<pre><code class="language-cpp">refrence front();
-const_refrence front() const;
-</code></pre>
-<p>返回容器中第一个元素的引用。如果容器为空，调用可能会出现coredump</p>
-<p><code>back()</code></p>
-<pre><code class="language-cpp">refrence back();
-const_refrence back() const;
-</code></pre>
-<p>返回容器中最后一个元素的引用。如果容器为空，调用可能会出现coredump</p>
-<p><code>empty()</code></p>
-<pre><code class="language-cpp">bool empty() const;
-</code></pre>
-<p>检查容器是否为空</p>
-<p><code>size()</code></p>
-<pre><code class="language-cpp">size_type size() const;
-</code></pre>
-<p>返回容器中元素的个数</p>
-<p><code>capacity()</code></p>
-<pre><code class="language-cpp">size_type capacity() const;
-</code></pre>
-<p>返回容器当前已分配的元素数</p>
-<p><code>reserve()</code></p>
-<pre><code class="language-cpp">void reserve(size_type new_cap);
-</code></pre>
-<p>增加容器的容量到大于或者等于new_cap的值。如果new_cap大于当前的capacity(),则分配新存储，否则该方法不做任何事。reserve不会更改容器的size<br>
-如果new_cap大于capacity(),则所有迭代器，包括尾迭代器(end,cend)都失效</p>
-<p><code>resize()</code></p>
-<pre><code class="language-cpp">void resize(size_type count, T value = T());
-</code></pre>
-<p>重新设置容器大小为count<br>
-当前大小大于count，则减少容器元素个数<br>
-当前大小小于count，则往后添加额外的元素，并以value的副本初始化<br>
-当前capacity()小于count，则重新分配内存capacity()发生变化</p>
-<p><code>push_back()</code></p>
-<pre><code class="language-cpp">void push_back(const T&amp; value);
-void push_back(T&amp;&amp; vlaue); //(c++11)
-</code></pre>
-<p>把元素添加到容器的末尾，如果新的size()大于capacity(),则所有迭代器（包括尾迭代器)失效</p>
-<p><code>pop_back()</code></p>
-<pre><code class="language-cpp">void pop_back();
-</code></pre>
-<p>移除容器的末尾元素，在空容器上调用，会产生未定义行为。</p>
-<p><code>emplace_back()</code></p>
-<pre><code class="language-cpp">template&lt;class... Args&gt;
-iterator emplace_back(Args&amp;&amp; args); //(C++11)
-</code></pre>
-<p>添加新元素到容器末尾，在容器所提供的位置原位构造元素。可以避免push_back时额外复制或移动操作</p>
-<p><code>insert()</code></p>
-<pre><code class="language-cpp">iterator insert(iterator pos, const T&amp; value);
-iterator insert(iterator pos, size_type count, const T&amp; value);
-template&lt;class InputIt&gt;
-iterator insert(iterator pos, InputIt first, InputIt last)
-</code></pre>
-<ol>
-<li>在pos前插入value，并返回iterator指向value</li>
-<li>在pos前插入value的count个副本，并返回指向插入的第一个value的iterator，如果count = 0，返回pos</li>
-<li>在pos前插入来自范围[first, last)的元素，并返回指向插入的第一个元素的iterator，如果范围为空，则返回pos</li>
-</ol>
-<p><code>erase()</code></p>
-<pre><code class="language-cpp">iterator erase(iterator pos);
-iterator erase(iterator first, iterator last);
-</code></pre>
-<ol>
-<li>移除位于pos的元素， pos需要能合法，可解引用</li>
-<li>移除范围[first, last)中的元素<br>
-使删除点之后的元素的迭代器失效</li>
-</ol>
-<h3 id="基础使用示例">基础使用示例:</h3>
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-
-template&lt;class T&gt;
-void print(const std::vector&lt;T&gt;&amp; vec) {
-    for(auto it = vec.begin(); it != vec.end(); ++it) {
-        if(it != vec.begin()) {
-            std::cout &lt;&lt; &quot; &quot;;
-        }
-        std::cout &lt;&lt; *it;
-    }
-    std::cout &lt;&lt; std::endl;
-}
-
-template&lt;class T&gt;
-void print_size(const std::vector&lt;T&gt;&amp; vec) {
-    std::cout &lt;&lt; &quot;size=&quot; &lt;&lt; vec.size() &lt;&lt; &quot; capacity=&quot; &lt;&lt; vec.capacity() &lt;&lt; std::endl;
-}
-
-int main(int argc, char** argv) {
-    std::vector&lt;int&gt; int_vec;
-    int_vec.resize(3);
-
-    print_size(int_vec); //输出: size=3 capacity=3
-    int_vec.push_back(10);
-    print_size(int_vec); //输出: size=4 capacity=6
-    print(int_vec); //输出: 0 0 0 10
-    int_vec.resize(3);
-    print_size(int_vec); //输出: size=3 capacity=6
-    print(int_vec); //输出: 0 0 0
-    int_vec.reserve(3);
-    print_size(int_vec); //输出: size=3 capacity=6
-
-    auto it = int_vec.insert(int_vec.begin(), 10);
-    print_size(int_vec); //输出: size=4 capacity=6
-    print(int_vec); //输出: 10 0 0 0
-    std::cout &lt;&lt; *it &lt;&lt; &quot; &quot; &lt;&lt; (it == int_vec.begin()) &lt;&lt; std::endl; //输出: 10 1
-
-    std::cout &lt;&lt; int_vec.back() &lt;&lt; &quot; &quot; &lt;&lt; int_vec.front() &lt;&lt; std::endl; //输出： 0 10
-
-    int_vec.push_back(11);
-    print_size(int_vec); //输出: size=5 capacity=6
-    print(int_vec); //输出: 10 0 0 0 11
-
-    int_vec.emplace_back(12);
-    print_size(int_vec); //输出: size=6 capacity=6
-    print(int_vec); //输出: 10 0 0 0 11 12
-
-    int_vec.emplace_back(13);
-    print_size(int_vec); //输出: size=7 capacity=12
-    print(int_vec); //输出: 10 0 0 0 11 12 13
-
-    std::cout &lt;&lt; (it == int_vec.begin()) &lt;&lt; std::endl; //输出： 0
-
-    //循环删除偶数
-    for(auto it = int_vec.begin(); it != int_vec.end();) {
-        if(*it % 2 == 0) {
-            it = int_vec.erase(it);
-        } else {
-            ++it;
-        }
-    }
-
-    print_size(int_vec); //输出: size=2 capacity=12
-    print(int_vec); //输出: 11 13
-    return true;
 }
 </code></pre>
 ]]></content>
