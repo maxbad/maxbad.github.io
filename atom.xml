@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-11-13T07:37:07.270Z</updated>
+    <updated>2020-11-13T08:27:50.203Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,28 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[string_format]]></title>
+        <id>https://blog.myxy.net/string_format/</id>
+        <link href="https://blog.myxy.net/string_format/">
+        </link>
+        <updated>2020-11-13T08:27:24.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-cpp">template&lt;typename ... Args&gt;
+static std::string str_format(const std::string&amp; format, Args ... args)
+{
+	auto size_buf = std::snprintf(nullptr, 0, format.c_str(), args ...) + 1;
+	std::unique_ptr&lt;char[]&gt; buf(new(std::nothrow) char[size_buf]);
+
+	if (!buf)
+		return std::string(&quot;&quot;);
+
+	std::snprintf(buf.get(), size_buf, format.c_str(), args ...);
+	return std::string(buf.get(), buf.get() + size_buf - 1);
+}
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[vmprotect命令行用法]]></title>
         <id>https://blog.myxy.net/vmprotect-ming-ling-xing-yong-fa/</id>
@@ -315,19 +337,6 @@ if (NULL != hProcessHeap &amp;&amp; ::HeapLock(hProcessHeap))
   }
   ::HeapUnlock(hProcessHeap);
 }
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[iview]]></title>
-        <id>https://blog.myxy.net/iview/</id>
-        <link href="https://blog.myxy.net/iview/">
-        </link>
-        <updated>2020-10-29T06:23:00.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="样式覆盖">样式覆盖</h1>
-<p>样式文件:  <code>src\styles\default\index.less</code></p>
-<pre><code class="language-style">// 下拉框,时间弹出动画速度
-@animation-time:.3x;    
 </code></pre>
 ]]></content>
     </entry>
