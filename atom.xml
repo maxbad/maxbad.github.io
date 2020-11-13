@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-11-12T13:23:51.258Z</updated>
+    <updated>2020-11-13T07:37:07.270Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,38 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[vmprotect命令行用法]]></title>
+        <id>https://blog.myxy.net/vmprotect-ming-ling-xing-yong-fa/</id>
+        <link href="https://blog.myxy.net/vmprotect-ming-ling-xing-yong-fa/">
+        </link>
+        <updated>2020-11-13T02:31:12.000Z</updated>
+        <content type="html"><![CDATA[<p>官方提示使用方法</p>
+<pre><code class="language-cpp">vmprotect_con File [Output File] [-pf Project File] [-sf Script File] [-lf Licensing parameters file] [-bd Build Date (yyyy-mm-dd)] [-wm Watermark] [-we]
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[禁止重复运行]]></title>
+        <id>https://blog.myxy.net/jin-zhi-chong-fu-yun-xing/</id>
+        <link href="https://blog.myxy.net/jin-zhi-chong-fu-yun-xing/">
+        </link>
+        <updated>2020-11-12T14:14:57.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-cpp">HANDLE hMutex;  //全局
+
+hMutex = CreateMutex(NULL,FALSE,_T(&quot;ArwenApp&quot;));
+
+ if(GetLastError() == ERROR_ALREADY_EXISTS){ //如果已经存在同名的Mutex会得到这个错误.
+
+     CloseHandle(hMutex);
+
+     return FALSE;
+
+  }
+   CloseHandle(hMutex);// 退出时候关闭句柄
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[C++自定义编译期警告和错误信息]]></title>
         <id>https://blog.myxy.net/czi-ding-yi-bian-yi-qi-jing-gao-he-cuo-wu-xin-xi/</id>
@@ -296,77 +328,6 @@ if (NULL != hProcessHeap &amp;&amp; ::HeapLock(hProcessHeap))
 <p>样式文件:  <code>src\styles\default\index.less</code></p>
 <pre><code class="language-style">// 下拉框,时间弹出动画速度
 @animation-time:.3x;    
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[hp-socket 内存加载失败]]></title>
-        <id>https://blog.myxy.net/hp-socket-nei-cun-jia-zai-shi-bai/</id>
-        <link href="https://blog.myxy.net/hp-socket-nei-cun-jia-zai-shi-bai/">
-        </link>
-        <updated>2020-10-27T05:40:44.000Z</updated>
-        <content type="html"><![CDATA[<p><code>c/c++</code> - <code>命令行</code>  增加  <code>/Zc:threadSafeInit-</code> (注意后面的减号)</p>
-<p><a href="https://docs.microsoft.com/zh-cn/cpp/build/reference/zc-threadsafeinit-thread-safe-local-static-initialization?view=vs-2019">https://docs.microsoft.com/zh-cn/cpp/build/reference/zc-threadsafeinit-thread-safe-local-static-initialization?view=vs-2019</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[C++11 生产者消费者]]></title>
-        <id>https://blog.myxy.net/c11-sheng-chan-zhe-xiao-fei-zhe/</id>
-        <link href="https://blog.myxy.net/c11-sheng-chan-zhe-xiao-fei-zhe/">
-        </link>
-        <updated>2020-10-21T10:50:13.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-CPP">#include &lt;iostream&gt;
-#include &lt;deque&gt;
-#include &lt;thread&gt;
-#include &lt;mutex&gt;
-#include &lt;condition_variable&gt;
-#include&lt;Windows.h&gt;
-using namespace std;
-
-deque&lt;int&gt; q;
-mutex mu;
-condition_variable cond;
-int c = 0;//缓冲区的产品个数
-
-void producer() { 
- int data1;
- while (1) {//通过外层循环，能保证生产不停止
-  if(c &lt; 3) {//限流
-   {
-    data1 = rand();
-    unique_lock&lt;mutex&gt; locker(mu);//锁
-    q.push_front(data1);
-    cout &lt;&lt; &quot;存了&quot; &lt;&lt; data1 &lt;&lt; endl;
-    cond.notify_one();  // 通知取
-    ++c;
-   }
-   Sleep(500);
-  }
- }
-}
-
-void consumer() {
- int data2;//data用来覆盖存放取的数据
- while (1) {
-  {
-   unique_lock&lt;mutex&gt; locker(mu);
-   while(q.empty())
-    cond.wait(locker); //wait()阻塞前先会解锁,解锁后生产者才能获得锁来放产品到缓冲区；生产者notify后，将不再阻塞，且自动又获得了锁。
-   data2 = q.back();//取的第一步
-   q.pop_back();//取的第二步
-   cout &lt;&lt; &quot;取了&quot; &lt;&lt; data2&lt;&lt;endl;
-   --c;
-  }
-  Sleep(1500);
- }
-}
-int main() {
- thread t1(producer);
- thread t2(consumer);
- t1.join();
- t2.join();
- return 0;
-}
 </code></pre>
 ]]></content>
     </entry>
