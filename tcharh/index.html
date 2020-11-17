@@ -1,22 +1,68 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://blog.myxy.net</id>
-    <title>Maxbad`Blog</title>
-    <updated>2020-11-17T09:05:50.738Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://blog.myxy.net"/>
-    <link rel="self" href="https://blog.myxy.net/atom.xml"/>
-    <subtitle>记录一些东西</subtitle>
-    <logo>https://blog.myxy.net/images/avatar.png</logo>
-    <icon>https://blog.myxy.net/favicon.ico</icon>
-    <rights>All rights reserved 2020, Maxbad`Blog</rights>
-    <entry>
-        <title type="html"><![CDATA[tchar.h]]></title>
-        <id>https://blog.myxy.net/tcharh/</id>
-        <link href="https://blog.myxy.net/tcharh/">
-        </link>
-        <updated>2020-11-17T09:05:28.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">/***
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>tchar.h - Maxbad`Blog</title>
+<link rel="shortcut icon" href="https://blog.myxy.net/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://blog.myxy.net/media/css/tailwind.css">
+<link rel="stylesheet" href="https://blog.myxy.net/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="tchar.h - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
+
+    
+
+  <meta name="description" content="/***
+*tchar.h - definitions for generic international text functions
+*
+*       Copyright (c) Microsoft Corporation. All ..." />
+  <meta property="og:title" content="tchar.h - Maxbad`Blog">
+  <meta property="og:description" content="/***
+*tchar.h - definitions for generic international text functions
+*
+*       Copyright (c) Microsoft Corporation. All ..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://blog.myxy.net/tcharh/" />
+  <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="tchar.h - Maxbad`Blog">
+  <meta name="twitter:description" content="/***
+*tchar.h - definitions for generic international text functions
+*
+*       Copyright (c) Microsoft Corporation. All ...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://blog.myxy.net/tcharh/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://blog.myxy.net/media/css/prism-atom-dark.css">
+  
+
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://blog.myxy.net" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      Maxbad`Blog
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          tchar.h
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2020-11-17 · 63 min read</div>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <pre><code class="language-cpp">/***
 *tchar.h - definitions for generic international text functions
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -2436,318 +2482,227 @@ __DEFINE_CPP_OVERLOAD_INLINE_FUNC_0_2_EX(char *, __RETURN_POLICY_DST, _strset_l,
 
 
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[<sstream>流stream与其他数据类型转换]]></title>
-        <id>https://blog.myxy.net/lesssstreamgreaterliu-stream-yu-qi-ta-shu-ju-lei-xing-zhuan-huan/</id>
-        <link href="https://blog.myxy.net/lesssstreamgreaterliu-stream-yu-qi-ta-shu-ju-lei-xing-zhuan-huan/">
-        </link>
-        <updated>2020-11-17T02:19:06.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;sstream&gt;
-using namespace std; 
-int main(int argc, char *argv[])
-{
-	stringstream stream;
-	// 将string转换为int
-	string text = &quot;123456&quot;;
-	stream &lt;&lt; text;
-	int n = 0;
-	stream &gt;&gt; n;
-	n++;
-	cout &lt;&lt; n &lt;&lt; endl;
- 
-	text = &quot;&quot;;
-	// 注意这句clear必不可少，注释掉之后stream的&lt;&lt;操作无效
-	stream.clear();									 // 试试看注释掉？
-	// 将int转换为string
-	stream &lt;&lt; n;
-	stream &gt;&gt; text;
-	// 加一句hello方便区分
-	text += &quot;hello&quot;;
-	cout &lt;&lt; text &lt;&lt; endl;
-	system(&quot;pause&quot;);
-	return 0;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[C++ vector]]></title>
-        <id>https://blog.myxy.net/c-vector/</id>
-        <link href="https://blog.myxy.net/c-vector/">
-        </link>
-        <updated>2020-11-16T10:21:08.000Z</updated>
-        <content type="html"><![CDATA[<p><code>https://www.tuhaoxin.cn/articles/2019/05/07/1557238845847.html</code></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[string_format]]></title>
-        <id>https://blog.myxy.net/string_format/</id>
-        <link href="https://blog.myxy.net/string_format/">
-        </link>
-        <updated>2020-11-13T08:27:24.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">template&lt;typename ... Args&gt;
-static std::string str_format(const std::string&amp; format, Args ... args)
-{
-	auto size_buf = std::snprintf(nullptr, 0, format.c_str(), args ...) + 1;
-	std::unique_ptr&lt;char[]&gt; buf(new(std::nothrow) char[size_buf]);
 
-	if (!buf)
-		return std::string(&quot;&quot;);
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
 
-	std::snprintf(buf.get(), size_buf, format.c_str(), args ...);
-	return std::string(buf.get(), buf.get() + size_buf - 1);
-}
+      
 
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[vmprotect命令行用法]]></title>
-        <id>https://blog.myxy.net/vmprotect-ming-ling-xing-yong-fa/</id>
-        <link href="https://blog.myxy.net/vmprotect-ming-ling-xing-yong-fa/">
-        </link>
-        <updated>2020-11-13T02:31:12.000Z</updated>
-        <content type="html"><![CDATA[<p>官方提示使用方法</p>
-<pre><code class="language-cpp">vmprotect_con File [Output File] [-pf Project File] [-sf Script File] [-lf Licensing parameters file] [-bd Build Date (yyyy-mm-dd)] [-wm Watermark] [-we]
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[禁止重复运行]]></title>
-        <id>https://blog.myxy.net/jin-zhi-chong-fu-yun-xing/</id>
-        <link href="https://blog.myxy.net/jin-zhi-chong-fu-yun-xing/">
-        </link>
-        <updated>2020-11-12T14:14:57.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">HANDLE hMutex;  //全局
+      
+        <div id="vlaine-comment"></div>
+      
 
-hMutex = CreateMutex(NULL,FALSE,_T(&quot;ArwenApp&quot;));
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+   
+</footer>
+    </div>
 
- if(GetLastError() == ERROR_ALREADY_EXISTS){ //如果已经存在同名的Mutex会得到这个错误.
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
 
-     CloseHandle(hMutex);
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        
+      </div>
+    </div>
 
-     return FALSE;
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
 
-  }
-   CloseHandle(hMutex);// 退出时候关闭句柄
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[C++自定义编译期警告和错误信息]]></title>
-        <id>https://blog.myxy.net/czi-ding-yi-bian-yi-qi-jing-gao-he-cuo-wu-xin-xi/</id>
-        <link href="https://blog.myxy.net/czi-ding-yi-bian-yi-qi-jing-gao-he-cuo-wu-xin-xi/">
-        </link>
-        <updated>2020-11-12T13:23:32.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">/** Transform expression \a _exp_ to string format. */
-#define __AUX_STR_EXP(_exp_)                    #_exp_
-/** Transform \a _exp_ to string format. */
-#define ___AUX_STR(_exp_)                       __AUX_STR_EXP(_exp_)
-/** location file name and file line */
-#define __LOCATION_STR                          __FILE__ &quot;(&quot;  ___AUX_STR(__LINE__) &quot;)&quot;
-/** define warning message throw */
-#define throw_warning(_code_, _message_)        message(__LOCATION_STR &quot;: warning C&quot; ___AUX_STR(_code_) &quot;: &quot; _message_)
-#define throw_error(_level_, _code_, _message_) message(__LOCATION_STR &quot;:&quot; _level_ &quot; error C&quot; ___AUX_STR(_code_) &quot;: &quot; _message_)
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-// test
-#pragma throw_warning(10000, &quot;this is a compile time warning message.&quot;)
-#pragma throw_error(&quot;&quot;, 10001, &quot;this is a compile time error message.&quot;)
-#pragma throw_error(&quot;fatal&quot;, 10002, &quot;this is a compile time fatal error message.&quot;)
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[突破Session0隔离在系统服务程序中创建用户桌面进程]]></title>
-        <id>https://blog.myxy.net/tu-po-session0-ge-chi-zai-xi-tong-fu-wu-cheng-xu-zhong-chuang-jian-yong-hu-zhuo-mian-jin-cheng/</id>
-        <link href="https://blog.myxy.net/tu-po-session0-ge-chi-zai-xi-tong-fu-wu-cheng-xu-zhong-chuang-jian-yong-hu-zhuo-mian-jin-cheng/">
-        </link>
-        <updated>2020-11-12T02:17:34.000Z</updated>
-        <content type="html"><![CDATA[<p><code>https://www.write-bug.com/article/2006.html</code></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ 获取当前系统的语言环境]]></title>
-        <id>https://blog.myxy.net/huo-qu-dang-qian-xi-tong-de-yu-yan-huan-jing/</id>
-        <link href="https://blog.myxy.net/huo-qu-dang-qian-xi-tong-de-yu-yan-huan-jing/">
-        </link>
-        <updated>2020-11-11T02:43:22.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">#include &lt;windows.h&gt;
-#include &lt;iostream&gt;
-using namespace std;
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://blog.myxy.net/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://blog.myxy.net/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
 
-int main()
-{
-	LCID lcid = GetSystemDefaultLCID();
-	WORD PriLan = PRIMARYLANGID(lcid);
-	WORD SubLan = SUBLANGID(lcid);
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: 'ShP9GugKCRogT3XJI7ygXVA8-gzGzoHsz',
+    appKey: '7T6zCGYKlMV6sNz4aBoPhLE3',
+    pageSize: 10,
+    notify: true,
+    avatar: 'mp',
+    verify: true,
+    placeholder: '来都来了，不妨评论一下',
+    visitor: true,
+    highlight: true,
+    recordIP: true,
+  })
+</script>
+  
+  
+</body>
 
-	std::cout &lt;&lt; &quot;primary language:&quot; &lt;&lt; PriLan &lt;&lt; &quot;, sub language:&quot; &lt;&lt; SubLan &lt;&lt; std::endl;
-
-	if (PriLan == LANG_CHINESE)
-	{
-		std::cout &lt;&lt; &quot;primary language: Chinese!&quot; &lt;&lt; std::endl;
-	}
-	else if (PriLan == LANG_ENGLISH)
-	{
-		std::cout &lt;&lt; &quot;primary language: English!&quot; &lt;&lt; std::endl;
-	}
-
-	system(&quot;pause&quot;);
-	return 0;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[服务创建用户进程]]></title>
-        <id>https://blog.myxy.net/fu-wu-chuang-jian-yong-hu-jin-cheng/</id>
-        <link href="https://blog.myxy.net/fu-wu-chuang-jian-yong-hu-jin-cheng/">
-        </link>
-        <updated>2020-11-11T01:17:01.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">HANDLE CTcpClientRaw::CreateUserProcessParent(LPCTSTR lpszFileName, LPCTSTR lpCommandLine, LPCTSTR lpParentProcessName, bool wShowWindow)
-{
-	if (lpszFileName == nullptr || lpParentProcessName == nullptr) {
-		DBG_PRINTF(&quot;lpszFileName == nullptr || lpParentProcessName == nullptr&quot;);
-		return FALSE;
-	}
-	BOOL bRet = TRUE;
-	DWORD dwSessionID = 0;
-	HANDLE hToken = NULL;
-	HANDLE hDuplicatedToken = NULL;
-	LPVOID lpEnvironment = NULL;
-	STARTUPINFOEX si;
-	PROCESS_INFORMATION pi;
-	ZeroMemory(&amp;si, sizeof(si));
-	ZeroMemory(&amp;pi, sizeof(pi));
-	si.StartupInfo.cb = sizeof(si);
-	si.StartupInfo.lpDesktop = _T(&quot;WinSta0\\Default&quot;);
-	si.StartupInfo.wShowWindow = wShowWindow ? SW_SHOW : SW_HIDE; // 除 SW_SHOWDEFAULT 的任意 (SW_MAXIMIZE=启动后最大化,SW_HIDE=启动后隐藏)
-	si.StartupInfo.dwFlags = STARTF_USESHOWWINDOW;
-
-	LPPROC_THREAD_ATTRIBUTE_LIST AttributeList = NULL;
-	do
-	{
-		/*获取EXPLORER.EXE的PID*/
-		DWORD ProcessId = 0;
-		do
-		{
-			ProcessId = GetProcessIdFromName(lpParentProcessName);
-			this_thread::sleep_for(std::chrono::seconds(1));
-		} while (ProcessId == 0);
-		if (ProcessId == 0) {
-			DBG_PRINTF(&quot;GetProcessIdFromName&quot;);
-			bRet = FALSE;
-			break;
-		}
-
-		/* 以全部权限打开explorer.exe 进程 */
-		HANDLE handleExplorer = OpenProcess(PROCESS_ALL_ACCESS, FALSE, ProcessId);
-		if (handleExplorer == NULL) {
-			DBG_PRINTF(&quot;OpenProcess&quot;);
-			bRet = FALSE;
-			break;
-		}
-
-		SIZE_T lpsize = 0;
-		/* 用微软规定的特定的函数初始化结构体 */
-		InitializeProcThreadAttributeList(NULL, 1, 0, &amp;lpsize);
-		if (lpsize == 0) {
-			DBG_PRINTF(&quot;InitializeProcThreadAttributeList.size&quot;);
-			bRet = FALSE;
-			break;
-		}
-		std::vector&lt;char&gt; tempData(lpsize);
-		/* 转换指针到正确类型 */
-		AttributeList = (LPPROC_THREAD_ATTRIBUTE_LIST)&amp;tempData.front();
-		/* 真正为结构体初始化属性参数 */ //设置AttributeList结构体属性个数以及初始化它的大小
-		if (InitializeProcThreadAttributeList(AttributeList, 1, 0, &amp;lpsize) == FALSE) {
-			DBG_PRINTF(&quot;InitializeProcThreadAttributeList.set&quot;);
-			bRet = FALSE;
-			break;
-		}
-		/* 用已构造的属性结构体更新属性表 */
-		if (!UpdateProcThreadAttribute(AttributeList, 0, PROC_THREAD_ATTRIBUTE_PARENT_PROCESS, &amp;handleExplorer, sizeof(HANDLE), NULL, NULL)) {
-			//更新AttrubuteList 属性,添加PROC_THREAD_ATTRIBUTE_PARENT_PROCESS属性
-			DBG_PRINTF(&quot;UpdateProcThreadAttribute&quot;);
-			bRet = FALSE;
-			break;
-		}
-		/* 移交指针，这里已更换了父进程的属性表是 explorer.exe */
-		si.lpAttributeList = AttributeList;
-
-		// 获得当前Session ID
-		dwSessionID = ::WTSGetActiveConsoleSessionId();
-
-		// 获得当前Session的用户令牌
-		if (FALSE == ::WTSQueryUserToken(dwSessionID, &amp;hToken)) {
-			DBG_PRINTF(&quot;WTSQueryUserToken&quot;);
-			bRet = FALSE;
-			break;
-		}
-
-		// 复制令牌
-		if (FALSE == ::DuplicateTokenEx(hToken, MAXIMUM_ALLOWED, NULL, SecurityIdentification, TokenPrimary, &amp;hDuplicatedToken)) {
-			DBG_PRINTF(&quot;DuplicateTokenEx&quot;);
-			bRet = FALSE;
-			break;
-		}
-
-		// 创建用户Session环境
-		if (FALSE == ::CreateEnvironmentBlock(&amp;lpEnvironment, hDuplicatedToken, FALSE)) {
-			DBG_PRINTF(&quot;CreateEnvironmentBlock&quot;);
-			bRet = FALSE;
-			break;
-		}
-
-		// 在复制的用户Session下执行应用程序，创建进程
-		size_t iCmdlineSize = _tcslen(lpszFileName) + 10;
-		if (lpCommandLine) {
-			iCmdlineSize += _tcslen(lpCommandLine);
-		}
-		std::vector&lt;TCHAR&gt; szCmdLine(iCmdlineSize);
-		_stprintf(&amp;szCmdLine.front(), TEXT(&quot;\&quot;%s\&quot;&quot;), lpszFileName);
-		if (lpCommandLine) {
-			_tcscat(&amp;szCmdLine.front(), TEXT(&quot; &quot;));
-			_tcscat(&amp;szCmdLine.front(), lpCommandLine);
-		}
-		DBG_PRINTF(L&quot;开始执行程序:%s&quot;, lpszFileName);
-		DWORD dwCreationFlag = NORMAL_PRIORITY_CLASS | CREATE_NEW_CONSOLE | CREATE_UNICODE_ENVIRONMENT /*| EXTENDED_STARTUPINFO_PRESENT*/;
-		if (FALSE == ::CreateProcessAsUser(hDuplicatedToken, NULL, &amp;szCmdLine.front(), NULL, NULL, FALSE, dwCreationFlag, lpEnvironment, NULL, (LPSTARTUPINFOW)&amp;si, &amp;pi)) {
-			DBG_PRINTF(&quot;CreateProcessAsUser&quot;);
-			bRet = FALSE;
-			break;
-		}
-		DBG_PRINTF(L&quot;执行程序成功,PID[%u]:%s&quot;, pi.dwProcessId, lpszFileName);
-	} while (FALSE);
-
-	// 关闭句柄, 释放资源
-	if (AttributeList) {
-		DeleteProcThreadAttributeList(AttributeList);
-	}
-	if (lpEnvironment)
-	{
-		::DestroyEnvironmentBlock(lpEnvironment);
-	}
-	if (hDuplicatedToken)
-	{
-		::CloseHandle(hDuplicatedToken);
-	}
-	if (hToken)
-	{
-		::CloseHandle(hToken);
-	}
-	// 创建成功
-	if (bRet) {
-		return pi.hProcess;
-	}
-	return NULL;
-}
-
-</code></pre>
-]]></content>
-    </entry>
-</feed>
+</html>

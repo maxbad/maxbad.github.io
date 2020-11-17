@@ -54,6 +54,51 @@
     
     <div class="flex-1 order-2 md:order-1">
       <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/debug-diao-shi-da-yin-ri-zhi/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          debug调试打印日志[printf(),OutputDebugString()]
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-11-04</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        #ifdef _DEBUG
+inline char* getDateTime() {
+	static char nowtime[20];
+	time_t rawtime;
+	struct tm* ltime;
+	time(&amp;rawt...
+      </div>
+      <a href="https://blog.myxy.net/debug-diao-shi-da-yin-ri-zhi/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/ptrdiff_t/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          ptrdiff_t
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-11-04</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        int =&gt; ptrdiff_t
+usigned int =&gt; size_t
+
+      </div>
+      <a href="https://blog.myxy.net/ptrdiff_t/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
         <a href="https://blog.myxy.net/jie-jue-dragqueryfilezai-x64-xia-huo-qu-wen-jian-shu-liang-wei-0/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
           解决DragQueryFile()在x64下获取文件数量为0
         </a>
@@ -241,47 +286,6 @@ template&lt;
     class Allocator ...
       </div>
       <a href="https://blog.myxy.net/cji-chu-rong-qi-list/" class="btn">
-        查看
-      </a>
-    </div>
-    
-  </div>
-
-  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
-    
-    <div class="flex-1 order-2 md:order-1">
-      <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://blog.myxy.net/czhi-neng-zhi-zhen/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
-          c++智能指针
-        </a>
-      </h2>
-      <div class="mb-4 text-xs text-gray-500">2020-10-13</div>
-      <div class="mb-4 text-gray-500 dark:text-gray-300">
-        文章来源:https://www.zhihu.com/question/319277442/answer/1517987598
-std::unique_ptr
-std::unique_ptr 对其持有的堆内存具有唯一拥有权，也就是说引用计数...
-      </div>
-      <a href="https://blog.myxy.net/czhi-neng-zhi-zhen/" class="btn">
-        查看
-      </a>
-    </div>
-    
-  </div>
-
-  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
-    
-    <div class="flex-1 order-2 md:order-1">
-      <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://blog.myxy.net/redis-chi-jiu-hua-rdb-he-aof/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
-          Redis持久化RDB和AOF
-        </a>
-      </h2>
-      <div class="mb-4 text-xs text-gray-500">2020-10-11</div>
-      <div class="mb-4 text-gray-500 dark:text-gray-300">
-        
-Redis 还可以同时使用 AOF 持久化和 RDB 持久化。 在这种情况下， 当 Redis 重启时， 它会优先使用 AOF 文件来还原数据集， 因为 AOF 文件保存的数据集通常比 RDB 文件所保存的数据集更完整。你甚至可以关闭持久...
-      </div>
-      <a href="https://blog.myxy.net/redis-chi-jiu-hua-rdb-he-aof/" class="btn">
         查看
       </a>
     </div>
