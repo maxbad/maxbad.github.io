@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-11-19T02:04:21.006Z</updated>
+    <updated>2020-11-19T05:33:58.666Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,20 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[一些常用系统API]]></title>
+        <id>https://blog.myxy.net/yi-xie-chang-yong-xi-tong-api/</id>
+        <link href="https://blog.myxy.net/yi-xie-chang-yong-xi-tong-api/">
+        </link>
+        <updated>2020-11-19T05:31:59.000Z</updated>
+        <content type="html"><![CDATA[<p>##设置当前目录为运行目录</p>
+<pre><code class="language-cpp">	TCHAR run_path[MAX_PATH] = { 0, };
+	::GetModuleFileName(NULL, run_path, MAX_PATH);
+	(_tcsrchr(run_path, '\\'))[1] = 0;
+	::SetCurrentDirectory(run_path);
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[C++单例模式]]></title>
         <id>https://blog.myxy.net/cdan-li-mo-shi/</id>
@@ -2842,39 +2856,6 @@ hMutex = CreateMutex(NULL,FALSE,_T(&quot;ArwenApp&quot;));
         </link>
         <updated>2020-11-12T02:17:34.000Z</updated>
         <content type="html"><![CDATA[<p><code>https://www.write-bug.com/article/2006.html</code></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ 获取当前系统的语言环境]]></title>
-        <id>https://blog.myxy.net/huo-qu-dang-qian-xi-tong-de-yu-yan-huan-jing/</id>
-        <link href="https://blog.myxy.net/huo-qu-dang-qian-xi-tong-de-yu-yan-huan-jing/">
-        </link>
-        <updated>2020-11-11T02:43:22.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">#include &lt;windows.h&gt;
-#include &lt;iostream&gt;
-using namespace std;
-
-int main()
-{
-	LCID lcid = GetSystemDefaultLCID();
-	WORD PriLan = PRIMARYLANGID(lcid);
-	WORD SubLan = SUBLANGID(lcid);
-
-	std::cout &lt;&lt; &quot;primary language:&quot; &lt;&lt; PriLan &lt;&lt; &quot;, sub language:&quot; &lt;&lt; SubLan &lt;&lt; std::endl;
-
-	if (PriLan == LANG_CHINESE)
-	{
-		std::cout &lt;&lt; &quot;primary language: Chinese!&quot; &lt;&lt; std::endl;
-	}
-	else if (PriLan == LANG_ENGLISH)
-	{
-		std::cout &lt;&lt; &quot;primary language: English!&quot; &lt;&lt; std::endl;
-	}
-
-	system(&quot;pause&quot;);
-	return 0;
-}
-</code></pre>
 ]]></content>
     </entry>
 </feed>

@@ -59,13 +59,35 @@
     
   </div>
   <div class="md:mx-8 flex-shrink-0 self-start rounded-full border-4 border-dotted border-transparent hover:border-yellow-50 p-2 w-32 h-32 order-1 md:order-2 mx-auto s3-dotted">
-    <img class="rounded-full object-cover" src="https://blog.myxy.net/images/avatar.png?v=1605751458619" alt="Maxbad`Blog" width="100%" height="100%">
+    <img class="rounded-full object-cover" src="https://blog.myxy.net/images/avatar.png?v=1605764029790" alt="Maxbad`Blog" width="100%" height="100%">
   </div>
 </header>
       
 
       <div class="shadow-box bg-white dark:bg-gray-600 border-gray-300 rounded-none md:rounded-lg -mx-1 md:mx-0 md:px-0">
         
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/yi-xie-chang-yong-xi-tong-api/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          一些常用系统API
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-11-19</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        ##设置当前目录为运行目录
+	TCHAR run_path[MAX_PATH] = { 0, };
+	::GetModuleFileName(NULL, run_path, MAX_PATH);
+	(_tcsrchr(run_path, '...
+      </div>
+      <a href="https://blog.myxy.net/yi-xie-chang-yong-xi-tong-api/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
   <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
     
     <div class="flex-1 order-2 md:order-1">
@@ -253,31 +275,6 @@ hMutex = CreateMutex(NULL,FALSE,_T(&quot;ArwenApp&quot;));
 
       </div>
       <a href="https://blog.myxy.net/tu-po-session0-ge-chi-zai-xi-tong-fu-wu-cheng-xu-zhong-chuang-jian-yong-hu-zhuo-mian-jin-cheng/" class="btn">
-        查看
-      </a>
-    </div>
-    
-  </div>
-
-  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
-    
-    <div class="flex-1 order-2 md:order-1">
-      <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://blog.myxy.net/huo-qu-dang-qian-xi-tong-de-yu-yan-huan-jing/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
-           获取当前系统的语言环境
-        </a>
-      </h2>
-      <div class="mb-4 text-xs text-gray-500">2020-11-11</div>
-      <div class="mb-4 text-gray-500 dark:text-gray-300">
-        #include &lt;windows.h&gt;
-#include &lt;iostream&gt;
-using namespace std;
-
-int main()
-{
-	LCID lcid = GetSystemDefaultLCI...
-      </div>
-      <a href="https://blog.myxy.net/huo-qu-dang-qian-xi-tong-de-yu-yan-huan-jing/" class="btn">
         查看
       </a>
     </div>
