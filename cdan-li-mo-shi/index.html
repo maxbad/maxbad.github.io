@@ -1,0 +1,573 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>C++单例模式 - Maxbad`Blog</title>
+<link rel="shortcut icon" href="https://blog.myxy.net/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://blog.myxy.net/media/css/tailwind.css">
+<link rel="stylesheet" href="https://blog.myxy.net/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="C++单例模式 - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
+
+    
+
+  <meta name="description" content="转载:https://github.com/Light-City/CPlusPlusThings/tree/master/design_pattern/singleton
+C++设计模式之单例模式
+0.导语
+相信大家面试都逃不开设计模式话题..." />
+  <meta property="og:title" content="C++单例模式 - Maxbad`Blog">
+  <meta property="og:description" content="转载:https://github.com/Light-City/CPlusPlusThings/tree/master/design_pattern/singleton
+C++设计模式之单例模式
+0.导语
+相信大家面试都逃不开设计模式话题..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://blog.myxy.net/cdan-li-mo-shi/" />
+  <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="C++单例模式 - Maxbad`Blog">
+  <meta name="twitter:description" content="转载:https://github.com/Light-City/CPlusPlusThings/tree/master/design_pattern/singleton
+C++设计模式之单例模式
+0.导语
+相信大家面试都逃不开设计模式话题...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://blog.myxy.net/cdan-li-mo-shi/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://blog.myxy.net/media/css/prism-atom-dark.css">
+  
+
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://blog.myxy.net" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      Maxbad`Blog
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          C++单例模式
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2020-11-19 · 12 min read</div>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <p>转载:<a href="https://github.com/Light-City/CPlusPlusThings/tree/master/design_pattern/singleton">https://github.com/Light-City/CPlusPlusThings/tree/master/design_pattern/singleton</a></p>
+<h2 id="c设计模式之单例模式">C++设计模式之单例模式</h2>
+<h2 id="0导语">0.导语</h2>
+<p>相信大家面试都逃不开设计模式话题，本节将阐述面试中的最常用的设计模式(单例模式)，从分类，线程安全，不基于C++11标准的角度与基于C++11标准的角度，有哪些解决线程安全的单例模式方案，相信认真看完本篇文章，在以后面试中就不用担忧了。</p>
+<h2 id="1众所周知的单例">1.众所周知的单例</h2>
+<p>在一般书籍中或者大家比较是熟知的单例模式是下面这样：</p>
+<pre><code class="language-cpp">class singleton {
+private:
+    singleton() {}
+    static singleton *p;
+public:
+    static singleton *instance();
+};
+
+singleton *singleton::p = nullptr;
+
+singleton* singleton::instance() {
+    if (p == nullptr)
+        p = new singleton();
+    return p;
+}
+</code></pre>
+<p>这是一个非常简单的实现，将构造函数声明为private或protect防止被外部函数实例化，内部有一个静态的类指针保存唯一的实例，实例的实现由一个public方法来实现，该方法返回该类的唯一实例。</p>
+<p>当然这个代码只适合在单线程下，当多线程时，是不安全的。考虑两个线程同时首次调用instance方法且同时检测到p是nullptr，则两个线程会同时构造一个实例给p，这将违反了单例的准则。</p>
+<h2 id="2懒汉与饿汉">2.懒汉与饿汉</h2>
+<p>单例分为两种实现方法：</p>
+<ul>
+<li>懒汉
+<ul>
+<li>第一次用到类实例的时候才会去实例化，上述就是懒汉实现。</li>
+</ul>
+</li>
+<li>饿汉
+<ul>
+<li>单例类定义的时候就进行了实例化。</li>
+</ul>
+</li>
+</ul>
+<p>这里也给出饿汉的实现：</p>
+<pre><code class="language-cpp">class singleton {
+private:
+    singleton() {}
+    static singleton *p;
+public:
+    static singleton *instance();
+};
+
+singleton *singleton::p = new singleton();
+singleton* singleton::instance() {
+    return p;
+}
+</code></pre>
+<p>当然这个是线程安全的，对于我们通常阐述的线程不安全，为懒汉模式，下面会阐述懒汉模式的线程安全代码优化。</p>
+<h2 id="3多线程加锁">3.多线程加锁</h2>
+<p>在C++中加锁有个类实现原理采用RAII，不用手动管理unlock，那就是lock_guard，这里采用其进行加锁。</p>
+<pre><code class="language-cpp">class singleton {
+private:
+    singleton() {}
+    static singleton *p;
+    static mutex lock_;
+public:
+    static singleton *instance();
+};
+
+singleton *singleton::p = nullptr;
+
+singleton* singleton::instance() {
+    lock_guard&lt;mutex&gt; guard(lock_);
+    if (p == nullptr)
+        p = new singleton();
+    return p;
+}
+</code></pre>
+<p>这种写法不会出现上面两个线程都执行到p=nullptr里面的情况，当线程A在执行<code>p = new Singleton()</code>的时候，线程B如果调用了<code>instance()</code>，一定会被阻塞在加锁处，等待线程A执行结束后释放这个锁。从而是线程安全的。</p>
+<p>但是这种写法性能非常低下，因为每次调用<code>instance()</code>都会加锁释放锁，而这个步骤只有在第一次<code>new Singleton()</code>才是有必要的，只要<code>p</code>被创建出来了，不管多少线程同时访问，使用<code>if (p == nullptr)</code>进行判断都是足够的（只是读操作，不需要加锁），没有线程安全问题，加了锁之后反而存在性能问题。</p>
+<p>因此引出DCL。</p>
+<h2 id="4双重检查锁模式">4.双重检查锁模式</h2>
+<p>上面写法是不管任何情况都会去加锁，然后释放锁，而对于读操作是不存在线程安全的，故只需要在第一次实例创建的时候加锁，以后不需要。下面先看一下DCLP的实现：</p>
+<pre><code class="language-cpp">singleton* singleton::instance() {
+	if(p == nullptr) {  // 第一次检查
+		Lock lock;
+		if(p == nullptr){ // 第二次检查
+			p = new singleton;
+		}
+	}
+	return p;
+}
+</code></pre>
+<p>基于上述，我们可以写出双重检查锁+自动回收</p>
+<pre><code class="language-cpp">class singleton {
+private:
+    singleton() {}
+
+    static singleton *p;
+    static mutex lock_;
+public:
+    singleton *instance();
+
+    // 实现一个内嵌垃圾回收类
+    class CGarbo
+    {
+    public:
+        ~CGarbo()
+        {
+            if(singleton::p)
+                delete singleton::p;
+        }
+    };
+    static CGarbo Garbo; // 定义一个静态成员变量，程序结束时，系统会自动调用它的析构函数从而释放单例对象
+};
+
+singleton *singleton::p = nullptr;
+singleton::CGarbo Garbo;
+
+singleton* singleton::instance() {
+    if (p == nullptr) {
+        lock_guard&lt;mutex&gt; guard(lock_);
+        if (p == nullptr)
+            p = new singleton();
+    }
+    return p;
+}
+
+</code></pre>
+<p>DCLP的关键在于，大多数对instance的调用会看到p是非空的，因此甚至不用尝试去初始化它。因此，DCLP在尝试获取锁之前检查p是否为空。只有当检查成功（也就是p还没有被初始化）时才会去获得锁，然后再次检查p是否仍然为空（因此命名为双重检查锁）。<strong>第二次检查是必要，因为就像我们刚刚看到的，很有可能另一个线程偶然在第一次检查之后，获得锁成功之前初始化p。</strong></p>
+<p>看起来上述代码非常美好，可是过了相当一段时间后，才发现这个漏洞，原因是：<strong>内存读写的乱序执行(编译器问题)</strong>。</p>
+<p>再次考虑初始化<code>p</code>的那一行：</p>
+<pre><code class="language-cpp">p = new singleton;
+</code></pre>
+<p>这条语句会导致三个事情的发生：</p>
+<ol>
+<li>分配能够存储<code>singleton</code>对象的内存；</li>
+<li>在被分配的内存中构造一个<code>singleton</code>对象；</li>
+<li>让<code>p</code>指向这块被分配的内存。</li>
+</ol>
+<p>可能会认为这三个步骤是按顺序执行的，但实际上只能确定步骤<code>1</code>是最先执行的，步骤<code>2</code>，<code>3</code>却不一定。问题就出现在这。</p>
+<ul>
+<li>线程A调用instance，执行第一次p的测试，获得锁，按照1,3,执行，然后被挂起。此时p是非空的，但是p指向的内存中还没有Singleton对象被构造。</li>
+<li>线程B调用instance，判定p非空， 将其返回给instance的调用者。调用者对指针解引用以获得singleton，噢，一个还没有被构造出的对象。bug就出现了。</li>
+</ul>
+<p>DCLP能够良好的工作仅当步骤一和二在步骤三之前被执行，但是并没有方法在C或C++中表达这种限制。这就像是插在DCLP心脏上的一把匕首：我们需要在相对指令顺序上定义限制，但是我们的语言没有给出表达这种限制的方法。</p>
+<h2 id="5memory-barrier指令">5.memory barrier指令</h2>
+<p>DCLP问题在C++11中，这个问题得到了解决。</p>
+<p>因为新的C++11规定了新的内存模型，保证了执行上述3个步骤的时候不会发生线程切换，相当这个初始化过程是“原子性”的的操作，DCL又可以正确使用了，不过在C++11下却有更简洁的多线程singleton写法了，这个留在后面再介绍。</p>
+<p>C++11之前解决方法是barrier指令。要使其正确执行的话，就得在步骤2、3直接加上一道memory barrier。强迫CPU执行的时候按照1、2、3的步骤来运行。</p>
+<p><strong>第一种实现：</strong></p>
+<p>基于operator new+placement new，遵循1,2,3执行顺序依次编写代码。</p>
+<pre><code>// method 1 operator new + placement new
+singleton *instance() {
+    if (p == nullptr) {
+        lock_guard&lt;mutex&gt; guard(lock_);
+        if (p == nullptr) {
+            singleton *tmp = static_cast&lt;singleton *&gt;(operator new(sizeof(singleton)));
+            new(p)singleton();
+            p = tmp;
+        }
+    }
+    return p;
+}
+</code></pre>
+<p><strong>第二种实现：</strong></p>
+<p>基于直接嵌入ASM汇编指令mfence，uninx的barrier宏也是通过该指令实现的。</p>
+<pre><code class="language-cpp">#define barrier() __asm__ volatile (&quot;lwsync&quot;)
+singleton *singleton::instance() {
+    if (p == nullptr) {
+        lock_guard&lt;mutex&gt; guard(lock_);
+        barrier();
+        if (p == nullptr) {
+            p = new singleton();
+        }
+    }
+    return p;
+}
+</code></pre>
+<p>通常情况下是调用cpu提供的一条指令，这条指令的作用是会阻止cpu将该指令之前的指令交换到该指令之后，这条指令也通常被叫做barrier。 上面代码中的<strong>asm</strong>表示这个是一条汇编指令，volatile是可选的，如果用了它，则表示向编译器声明不允许对该汇编指令进行优化。lwsync是POWERPC提供的barrier指令。</p>
+<h2 id="6静态局部变量">6.静态局部变量</h2>
+<p>Scott Meyer在《Effective C++》中提出了一种简洁的singleton写法</p>
+<pre><code class="language-cpp">singleton *singleton::instance() {
+    static singleton p;
+    return &amp;p;
+}
+</code></pre>
+<ul>
+<li>单线程下，正确。</li>
+<li>C++11及以后的版本（如C++14）的多线程下，正确。</li>
+<li>C++11之前的多线程下，不一定正确。</li>
+</ul>
+<p>原因在于在C++11之前的标准中并没有规定local static变量的内存模型。于是乎它就是不是线程安全的了。但是在C++11却是线程安全的，这是因为新的C++标准规定了当一个线程正在初始化一个变量的时候，其他线程必须得等到该初始化完成以后才能访问它。</p>
+<p>上述使用的内存序：</p>
+<ul>
+<li>memory_order_relaxed：松散内存序，只用来保证对原子对象的操作是原子的</li>
+<li>memory_order_acquire：获得操作，在读取某原子对象时，当前线程的任何后面的读写操作都不允许重排到这个操作的前面去，并且其他线程在对同一个原子对象释放之前的所有内存写入都在当前线程可见</li>
+<li>memory_order_release：释放操作，在写入某原子对象时，当前线程的任何前面的读写操作都不允许重排到这个操作的后面去，并且当前线程的所有内存写入都在对同一个原子对象进行获取的其他线程可见</li>
+</ul>
+<h2 id="7atomic">7.Atomic</h2>
+<p>在C++11之前的版本下，除了通过锁实现线程安全的Singleton外，还可以利用各个编译器内置的atomic operation来实现。</p>
+<p><code>java</code>和<code>c#</code>发现乱序问题后，就加了一个关键字<code>volatile</code>，在声明<code>p</code>变量的时候，要加上<code>volatile</code>修饰，编译器看到之后，就知道这个地方不能够reorder（一定要先分配内存，在执行构造器，都完成之后再赋值）。</p>
+<p>而对于<code>c++</code>标准却一直没有改正，所以<code>VC++</code>在<code>2005</code>版本也加入了这个关键字，但是这并不能够跨平台（只支持微软平台）。</p>
+<p>而到了<code>c++ 11</code>版本，为了从根本上消除这些漏洞，引入了适合多线程的内存模型。终于有了这样的机制帮助我们实现跨平台的方案。</p>
+<pre><code class="language-cpp">mutex singleton::lock_;
+atomic&lt;singleton *&gt; singleton::p;
+
+/*
+* std::atomic_thread_fence(std::memory_order_acquire); 
+* std::atomic_thread_fence(std::memory_order_release);
+* 这两句话可以保证他们之间的语句不会发生乱序执行。
+*/
+singleton *singleton::instance() {
+    singleton *tmp = p.load(memory_order_relaxed);
+    atomic_thread_fence(memory_order_acquire);
+    if (tmp == nullptr) {
+        lock_guard&lt;mutex&gt; guard(lock_);
+        tmp = p.load(memory_order_relaxed);
+        if (tmp == nullptr) {
+            tmp = new singleton();
+            atomic_thread_fence(memory_order_release);
+            p.store(tmp, memory_order_relaxed);
+        }
+    }
+    return p;
+}
+</code></pre>
+<p>值得注意的是，上述代码使用两个比较关键的术语，获得与释放：</p>
+<ul>
+<li>获得是一个对内存的读操作，当前线程的任何后面的读写操作都不允许重排到这个操作的前面去。</li>
+<li>释放是一个对内存的写操作，当前线程的任何前面的读写操作都不允许重排到这个操作的后面去。</li>
+</ul>
+<p>acquire 和 release 通常都是配对出现的，目的是保证如果对同一个原子对象的 release 发生在 acquire 之前的话，release 之前发生的内存修改能够被 acquire 之后的内存读取全部看到。</p>
+<h2 id="8pthread_once">8.pthread_once</h2>
+<p>如果是在unix平台的话，除了使用atomic operation外，在不适用C++11的情况下，还可以通过pthread_once来实现Singleton。</p>
+<p>原型如下：</p>
+<pre><code>int pthread_once(pthread_once_t once_control, void (init_routine) (void))；
+</code></pre>
+<p>实现：</p>
+<pre><code class="language-cpp">class singleton {
+private:
+    singleton(); //私有构造函数，不允许使用者自己生成对象
+    singleton(const singleton &amp;other);
+
+    //要写成静态方法的原因：类成员函数隐含传递this指针（第一个参数）
+    static void init() {
+        p = new singleton();
+    }
+
+    static pthread_once_t ponce_;
+    static singleton *p; //静态成员变量 
+public:
+    singleton *instance() {
+        // init函数只会执行一次
+        pthread_once(&amp;ponce_, &amp;singleton::init);
+        return p;
+    }
+};
+</code></pre>
+<h2 id="9总结">9.总结</h2>
+<p>本文讲解了几种单例模式，并讲解了线程安全的单例模式，以及不用C++11实现的几种线程安全的单例模式：memory barrier，静态局部变量，pthread_once方式，C++11的atomic实现等。</p>
+<p>最后值得注意的是，针对上述单例类的析构函数请参考双重锁检查模式+自动回收实现，必须在类中声明一个静态局部变量，静态局部变量可以理解为全局变量，在程序结束时，自动调用该静态局部变量的析构函数，这就是为什么要在类中声明与定义嵌套类，而不是直接编写单例的析构函数。</p>
+<h2 id="10参考资料">10.参考资料</h2>
+<blockquote>
+<p>https://thorns.cn/2019/03/09/DCLP.html</p>
+</blockquote>
+<blockquote>
+<p>https://www.cnblogs.com/liyuan989/p/4264889.html</p>
+</blockquote>
+<blockquote>
+<p>https://segmentfault.com/a/1190000015950693</p>
+</blockquote>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+   
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#c%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F">C++设计模式之单例模式</a></li>
+<li><a href="#0%E5%AF%BC%E8%AF%AD">0.导语</a></li>
+<li><a href="#1%E4%BC%97%E6%89%80%E5%91%A8%E7%9F%A5%E7%9A%84%E5%8D%95%E4%BE%8B">1.众所周知的单例</a></li>
+<li><a href="#2%E6%87%92%E6%B1%89%E4%B8%8E%E9%A5%BF%E6%B1%89">2.懒汉与饿汉</a></li>
+<li><a href="#3%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%8A%A0%E9%94%81">3.多线程加锁</a></li>
+<li><a href="#4%E5%8F%8C%E9%87%8D%E6%A3%80%E6%9F%A5%E9%94%81%E6%A8%A1%E5%BC%8F">4.双重检查锁模式</a></li>
+<li><a href="#5memory-barrier%E6%8C%87%E4%BB%A4">5.memory barrier指令</a></li>
+<li><a href="#6%E9%9D%99%E6%80%81%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F">6.静态局部变量</a></li>
+<li><a href="#7atomic">7.Atomic</a></li>
+<li><a href="#8pthread_once">8.pthread_once</a></li>
+<li><a href="#9%E6%80%BB%E7%BB%93">9.总结</a></li>
+<li><a href="#10%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">10.参考资料</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://blog.myxy.net/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://blog.myxy.net/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: 'ShP9GugKCRogT3XJI7ygXVA8-gzGzoHsz',
+    appKey: '7T6zCGYKlMV6sNz4aBoPhLE3',
+    pageSize: 10,
+    notify: true,
+    avatar: 'mp',
+    verify: true,
+    placeholder: '来都来了，不妨评论一下',
+    visitor: true,
+    highlight: true,
+    recordIP: true,
+  })
+</script>
+  
+  
+</body>
+
+</html>

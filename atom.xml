@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-11-17T09:06:52.829Z</updated>
+    <updated>2020-11-19T02:03:44.608Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,281 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[C++单例模式]]></title>
+        <id>https://blog.myxy.net/cdan-li-mo-shi/</id>
+        <link href="https://blog.myxy.net/cdan-li-mo-shi/">
+        </link>
+        <updated>2020-11-19T01:59:06.000Z</updated>
+        <content type="html"><![CDATA[<p>转载:<a href="https://github.com/Light-City/CPlusPlusThings/tree/master/design_pattern/singleton">https://github.com/Light-City/CPlusPlusThings/tree/master/design_pattern/singleton</a></p>
+<h2 id="c设计模式之单例模式">C++设计模式之单例模式</h2>
+<h2 id="0导语">0.导语</h2>
+<p>相信大家面试都逃不开设计模式话题，本节将阐述面试中的最常用的设计模式(单例模式)，从分类，线程安全，不基于C++11标准的角度与基于C++11标准的角度，有哪些解决线程安全的单例模式方案，相信认真看完本篇文章，在以后面试中就不用担忧了。</p>
+<h2 id="1众所周知的单例">1.众所周知的单例</h2>
+<p>在一般书籍中或者大家比较是熟知的单例模式是下面这样：</p>
+<pre><code class="language-cpp">class singleton {
+private:
+    singleton() {}
+    static singleton *p;
+public:
+    static singleton *instance();
+};
+
+singleton *singleton::p = nullptr;
+
+singleton* singleton::instance() {
+    if (p == nullptr)
+        p = new singleton();
+    return p;
+}
+</code></pre>
+<p>这是一个非常简单的实现，将构造函数声明为private或protect防止被外部函数实例化，内部有一个静态的类指针保存唯一的实例，实例的实现由一个public方法来实现，该方法返回该类的唯一实例。</p>
+<p>当然这个代码只适合在单线程下，当多线程时，是不安全的。考虑两个线程同时首次调用instance方法且同时检测到p是nullptr，则两个线程会同时构造一个实例给p，这将违反了单例的准则。</p>
+<h2 id="2懒汉与饿汉">2.懒汉与饿汉</h2>
+<p>单例分为两种实现方法：</p>
+<ul>
+<li>懒汉
+<ul>
+<li>第一次用到类实例的时候才会去实例化，上述就是懒汉实现。</li>
+</ul>
+</li>
+<li>饿汉
+<ul>
+<li>单例类定义的时候就进行了实例化。</li>
+</ul>
+</li>
+</ul>
+<p>这里也给出饿汉的实现：</p>
+<pre><code class="language-cpp">class singleton {
+private:
+    singleton() {}
+    static singleton *p;
+public:
+    static singleton *instance();
+};
+
+singleton *singleton::p = new singleton();
+singleton* singleton::instance() {
+    return p;
+}
+</code></pre>
+<p>当然这个是线程安全的，对于我们通常阐述的线程不安全，为懒汉模式，下面会阐述懒汉模式的线程安全代码优化。</p>
+<h2 id="3多线程加锁">3.多线程加锁</h2>
+<p>在C++中加锁有个类实现原理采用RAII，不用手动管理unlock，那就是lock_guard，这里采用其进行加锁。</p>
+<pre><code class="language-cpp">class singleton {
+private:
+    singleton() {}
+    static singleton *p;
+    static mutex lock_;
+public:
+    static singleton *instance();
+};
+
+singleton *singleton::p = nullptr;
+
+singleton* singleton::instance() {
+    lock_guard&lt;mutex&gt; guard(lock_);
+    if (p == nullptr)
+        p = new singleton();
+    return p;
+}
+</code></pre>
+<p>这种写法不会出现上面两个线程都执行到p=nullptr里面的情况，当线程A在执行<code>p = new Singleton()</code>的时候，线程B如果调用了<code>instance()</code>，一定会被阻塞在加锁处，等待线程A执行结束后释放这个锁。从而是线程安全的。</p>
+<p>但是这种写法性能非常低下，因为每次调用<code>instance()</code>都会加锁释放锁，而这个步骤只有在第一次<code>new Singleton()</code>才是有必要的，只要<code>p</code>被创建出来了，不管多少线程同时访问，使用<code>if (p == nullptr)</code>进行判断都是足够的（只是读操作，不需要加锁），没有线程安全问题，加了锁之后反而存在性能问题。</p>
+<p>因此引出DCL。</p>
+<h2 id="4双重检查锁模式">4.双重检查锁模式</h2>
+<p>上面写法是不管任何情况都会去加锁，然后释放锁，而对于读操作是不存在线程安全的，故只需要在第一次实例创建的时候加锁，以后不需要。下面先看一下DCLP的实现：</p>
+<pre><code class="language-cpp">singleton* singleton::instance() {
+	if(p == nullptr) {  // 第一次检查
+		Lock lock;
+		if(p == nullptr){ // 第二次检查
+			p = new singleton;
+		}
+	}
+	return p;
+}
+</code></pre>
+<p>基于上述，我们可以写出双重检查锁+自动回收</p>
+<pre><code class="language-cpp">class singleton {
+private:
+    singleton() {}
+
+    static singleton *p;
+    static mutex lock_;
+public:
+    singleton *instance();
+
+    // 实现一个内嵌垃圾回收类
+    class CGarbo
+    {
+    public:
+        ~CGarbo()
+        {
+            if(singleton::p)
+                delete singleton::p;
+        }
+    };
+    static CGarbo Garbo; // 定义一个静态成员变量，程序结束时，系统会自动调用它的析构函数从而释放单例对象
+};
+
+singleton *singleton::p = nullptr;
+singleton::CGarbo Garbo;
+
+singleton* singleton::instance() {
+    if (p == nullptr) {
+        lock_guard&lt;mutex&gt; guard(lock_);
+        if (p == nullptr)
+            p = new singleton();
+    }
+    return p;
+}
+
+</code></pre>
+<p>DCLP的关键在于，大多数对instance的调用会看到p是非空的，因此甚至不用尝试去初始化它。因此，DCLP在尝试获取锁之前检查p是否为空。只有当检查成功（也就是p还没有被初始化）时才会去获得锁，然后再次检查p是否仍然为空（因此命名为双重检查锁）。<strong>第二次检查是必要，因为就像我们刚刚看到的，很有可能另一个线程偶然在第一次检查之后，获得锁成功之前初始化p。</strong></p>
+<p>看起来上述代码非常美好，可是过了相当一段时间后，才发现这个漏洞，原因是：<strong>内存读写的乱序执行(编译器问题)</strong>。</p>
+<p>再次考虑初始化<code>p</code>的那一行：</p>
+<pre><code class="language-cpp">p = new singleton;
+</code></pre>
+<p>这条语句会导致三个事情的发生：</p>
+<ol>
+<li>分配能够存储<code>singleton</code>对象的内存；</li>
+<li>在被分配的内存中构造一个<code>singleton</code>对象；</li>
+<li>让<code>p</code>指向这块被分配的内存。</li>
+</ol>
+<p>可能会认为这三个步骤是按顺序执行的，但实际上只能确定步骤<code>1</code>是最先执行的，步骤<code>2</code>，<code>3</code>却不一定。问题就出现在这。</p>
+<ul>
+<li>线程A调用instance，执行第一次p的测试，获得锁，按照1,3,执行，然后被挂起。此时p是非空的，但是p指向的内存中还没有Singleton对象被构造。</li>
+<li>线程B调用instance，判定p非空， 将其返回给instance的调用者。调用者对指针解引用以获得singleton，噢，一个还没有被构造出的对象。bug就出现了。</li>
+</ul>
+<p>DCLP能够良好的工作仅当步骤一和二在步骤三之前被执行，但是并没有方法在C或C++中表达这种限制。这就像是插在DCLP心脏上的一把匕首：我们需要在相对指令顺序上定义限制，但是我们的语言没有给出表达这种限制的方法。</p>
+<h2 id="5memory-barrier指令">5.memory barrier指令</h2>
+<p>DCLP问题在C++11中，这个问题得到了解决。</p>
+<p>因为新的C++11规定了新的内存模型，保证了执行上述3个步骤的时候不会发生线程切换，相当这个初始化过程是“原子性”的的操作，DCL又可以正确使用了，不过在C++11下却有更简洁的多线程singleton写法了，这个留在后面再介绍。</p>
+<p>C++11之前解决方法是barrier指令。要使其正确执行的话，就得在步骤2、3直接加上一道memory barrier。强迫CPU执行的时候按照1、2、3的步骤来运行。</p>
+<p><strong>第一种实现：</strong></p>
+<p>基于operator new+placement new，遵循1,2,3执行顺序依次编写代码。</p>
+<pre><code>// method 1 operator new + placement new
+singleton *instance() {
+    if (p == nullptr) {
+        lock_guard&lt;mutex&gt; guard(lock_);
+        if (p == nullptr) {
+            singleton *tmp = static_cast&lt;singleton *&gt;(operator new(sizeof(singleton)));
+            new(p)singleton();
+            p = tmp;
+        }
+    }
+    return p;
+}
+</code></pre>
+<p><strong>第二种实现：</strong></p>
+<p>基于直接嵌入ASM汇编指令mfence，uninx的barrier宏也是通过该指令实现的。</p>
+<pre><code class="language-cpp">#define barrier() __asm__ volatile (&quot;lwsync&quot;)
+singleton *singleton::instance() {
+    if (p == nullptr) {
+        lock_guard&lt;mutex&gt; guard(lock_);
+        barrier();
+        if (p == nullptr) {
+            p = new singleton();
+        }
+    }
+    return p;
+}
+</code></pre>
+<p>通常情况下是调用cpu提供的一条指令，这条指令的作用是会阻止cpu将该指令之前的指令交换到该指令之后，这条指令也通常被叫做barrier。 上面代码中的<strong>asm</strong>表示这个是一条汇编指令，volatile是可选的，如果用了它，则表示向编译器声明不允许对该汇编指令进行优化。lwsync是POWERPC提供的barrier指令。</p>
+<h2 id="6静态局部变量">6.静态局部变量</h2>
+<p>Scott Meyer在《Effective C++》中提出了一种简洁的singleton写法</p>
+<pre><code class="language-cpp">singleton *singleton::instance() {
+    static singleton p;
+    return &amp;p;
+}
+</code></pre>
+<ul>
+<li>单线程下，正确。</li>
+<li>C++11及以后的版本（如C++14）的多线程下，正确。</li>
+<li>C++11之前的多线程下，不一定正确。</li>
+</ul>
+<p>原因在于在C++11之前的标准中并没有规定local static变量的内存模型。于是乎它就是不是线程安全的了。但是在C++11却是线程安全的，这是因为新的C++标准规定了当一个线程正在初始化一个变量的时候，其他线程必须得等到该初始化完成以后才能访问它。</p>
+<p>上述使用的内存序：</p>
+<ul>
+<li>memory_order_relaxed：松散内存序，只用来保证对原子对象的操作是原子的</li>
+<li>memory_order_acquire：获得操作，在读取某原子对象时，当前线程的任何后面的读写操作都不允许重排到这个操作的前面去，并且其他线程在对同一个原子对象释放之前的所有内存写入都在当前线程可见</li>
+<li>memory_order_release：释放操作，在写入某原子对象时，当前线程的任何前面的读写操作都不允许重排到这个操作的后面去，并且当前线程的所有内存写入都在对同一个原子对象进行获取的其他线程可见</li>
+</ul>
+<h2 id="7atomic">7.Atomic</h2>
+<p>在C++11之前的版本下，除了通过锁实现线程安全的Singleton外，还可以利用各个编译器内置的atomic operation来实现。</p>
+<p><code>java</code>和<code>c#</code>发现乱序问题后，就加了一个关键字<code>volatile</code>，在声明<code>p</code>变量的时候，要加上<code>volatile</code>修饰，编译器看到之后，就知道这个地方不能够reorder（一定要先分配内存，在执行构造器，都完成之后再赋值）。</p>
+<p>而对于<code>c++</code>标准却一直没有改正，所以<code>VC++</code>在<code>2005</code>版本也加入了这个关键字，但是这并不能够跨平台（只支持微软平台）。</p>
+<p>而到了<code>c++ 11</code>版本，为了从根本上消除这些漏洞，引入了适合多线程的内存模型。终于有了这样的机制帮助我们实现跨平台的方案。</p>
+<pre><code class="language-cpp">mutex singleton::lock_;
+atomic&lt;singleton *&gt; singleton::p;
+
+/*
+* std::atomic_thread_fence(std::memory_order_acquire); 
+* std::atomic_thread_fence(std::memory_order_release);
+* 这两句话可以保证他们之间的语句不会发生乱序执行。
+*/
+singleton *singleton::instance() {
+    singleton *tmp = p.load(memory_order_relaxed);
+    atomic_thread_fence(memory_order_acquire);
+    if (tmp == nullptr) {
+        lock_guard&lt;mutex&gt; guard(lock_);
+        tmp = p.load(memory_order_relaxed);
+        if (tmp == nullptr) {
+            tmp = new singleton();
+            atomic_thread_fence(memory_order_release);
+            p.store(tmp, memory_order_relaxed);
+        }
+    }
+    return p;
+}
+</code></pre>
+<p>值得注意的是，上述代码使用两个比较关键的术语，获得与释放：</p>
+<ul>
+<li>获得是一个对内存的读操作，当前线程的任何后面的读写操作都不允许重排到这个操作的前面去。</li>
+<li>释放是一个对内存的写操作，当前线程的任何前面的读写操作都不允许重排到这个操作的后面去。</li>
+</ul>
+<p>acquire 和 release 通常都是配对出现的，目的是保证如果对同一个原子对象的 release 发生在 acquire 之前的话，release 之前发生的内存修改能够被 acquire 之后的内存读取全部看到。</p>
+<h2 id="8pthread_once">8.pthread_once</h2>
+<p>如果是在unix平台的话，除了使用atomic operation外，在不适用C++11的情况下，还可以通过pthread_once来实现Singleton。</p>
+<p>原型如下：</p>
+<pre><code>int pthread_once(pthread_once_t once_control, void (init_routine) (void))；
+</code></pre>
+<p>实现：</p>
+<pre><code class="language-cpp">class singleton {
+private:
+    singleton(); //私有构造函数，不允许使用者自己生成对象
+    singleton(const singleton &amp;other);
+
+    //要写成静态方法的原因：类成员函数隐含传递this指针（第一个参数）
+    static void init() {
+        p = new singleton();
+    }
+
+    static pthread_once_t ponce_;
+    static singleton *p; //静态成员变量 
+public:
+    singleton *instance() {
+        // init函数只会执行一次
+        pthread_once(&amp;ponce_, &amp;singleton::init);
+        return p;
+    }
+};
+</code></pre>
+<h2 id="9总结">9.总结</h2>
+<p>本文讲解了几种单例模式，并讲解了线程安全的单例模式，以及不用C++11实现的几种线程安全的单例模式：memory barrier，静态局部变量，pthread_once方式，C++11的atomic实现等。</p>
+<p>最后值得注意的是，针对上述单例类的析构函数请参考双重锁检查模式+自动回收实现，必须在类中声明一个静态局部变量，静态局部变量可以理解为全局变量，在程序结束时，自动调用该静态局部变量的析构函数，这就是为什么要在类中声明与定义嵌套类，而不是直接编写单例的析构函数。</p>
+<h2 id="10参考资料">10.参考资料</h2>
+<blockquote>
+<p>https://thorns.cn/2019/03/09/DCLP.html</p>
+</blockquote>
+<blockquote>
+<p>https://www.cnblogs.com/liyuan989/p/4264889.html</p>
+</blockquote>
+<blockquote>
+<p>https://segmentfault.com/a/1190000015950693</p>
+</blockquote>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[tchar.h]]></title>
         <id>https://blog.myxy.net/tcharh/</id>
@@ -2599,154 +2874,6 @@ int main()
 	system(&quot;pause&quot;);
 	return 0;
 }
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[服务创建用户进程]]></title>
-        <id>https://blog.myxy.net/fu-wu-chuang-jian-yong-hu-jin-cheng/</id>
-        <link href="https://blog.myxy.net/fu-wu-chuang-jian-yong-hu-jin-cheng/">
-        </link>
-        <updated>2020-11-11T01:17:01.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">HANDLE CTcpClientRaw::CreateUserProcessParent(LPCTSTR lpszFileName, LPCTSTR lpCommandLine, LPCTSTR lpParentProcessName, bool wShowWindow)
-{
-	if (lpszFileName == nullptr || lpParentProcessName == nullptr) {
-		DBG_PRINTF(&quot;lpszFileName == nullptr || lpParentProcessName == nullptr&quot;);
-		return FALSE;
-	}
-	BOOL bRet = TRUE;
-	DWORD dwSessionID = 0;
-	HANDLE hToken = NULL;
-	HANDLE hDuplicatedToken = NULL;
-	LPVOID lpEnvironment = NULL;
-	STARTUPINFOEX si;
-	PROCESS_INFORMATION pi;
-	ZeroMemory(&amp;si, sizeof(si));
-	ZeroMemory(&amp;pi, sizeof(pi));
-	si.StartupInfo.cb = sizeof(si);
-	si.StartupInfo.lpDesktop = _T(&quot;WinSta0\\Default&quot;);
-	si.StartupInfo.wShowWindow = wShowWindow ? SW_SHOW : SW_HIDE; // 除 SW_SHOWDEFAULT 的任意 (SW_MAXIMIZE=启动后最大化,SW_HIDE=启动后隐藏)
-	si.StartupInfo.dwFlags = STARTF_USESHOWWINDOW;
-
-	LPPROC_THREAD_ATTRIBUTE_LIST AttributeList = NULL;
-	do
-	{
-		/*获取EXPLORER.EXE的PID*/
-		DWORD ProcessId = 0;
-		do
-		{
-			ProcessId = GetProcessIdFromName(lpParentProcessName);
-			this_thread::sleep_for(std::chrono::seconds(1));
-		} while (ProcessId == 0);
-		if (ProcessId == 0) {
-			DBG_PRINTF(&quot;GetProcessIdFromName&quot;);
-			bRet = FALSE;
-			break;
-		}
-
-		/* 以全部权限打开explorer.exe 进程 */
-		HANDLE handleExplorer = OpenProcess(PROCESS_ALL_ACCESS, FALSE, ProcessId);
-		if (handleExplorer == NULL) {
-			DBG_PRINTF(&quot;OpenProcess&quot;);
-			bRet = FALSE;
-			break;
-		}
-
-		SIZE_T lpsize = 0;
-		/* 用微软规定的特定的函数初始化结构体 */
-		InitializeProcThreadAttributeList(NULL, 1, 0, &amp;lpsize);
-		if (lpsize == 0) {
-			DBG_PRINTF(&quot;InitializeProcThreadAttributeList.size&quot;);
-			bRet = FALSE;
-			break;
-		}
-		std::vector&lt;char&gt; tempData(lpsize);
-		/* 转换指针到正确类型 */
-		AttributeList = (LPPROC_THREAD_ATTRIBUTE_LIST)&amp;tempData.front();
-		/* 真正为结构体初始化属性参数 */ //设置AttributeList结构体属性个数以及初始化它的大小
-		if (InitializeProcThreadAttributeList(AttributeList, 1, 0, &amp;lpsize) == FALSE) {
-			DBG_PRINTF(&quot;InitializeProcThreadAttributeList.set&quot;);
-			bRet = FALSE;
-			break;
-		}
-		/* 用已构造的属性结构体更新属性表 */
-		if (!UpdateProcThreadAttribute(AttributeList, 0, PROC_THREAD_ATTRIBUTE_PARENT_PROCESS, &amp;handleExplorer, sizeof(HANDLE), NULL, NULL)) {
-			//更新AttrubuteList 属性,添加PROC_THREAD_ATTRIBUTE_PARENT_PROCESS属性
-			DBG_PRINTF(&quot;UpdateProcThreadAttribute&quot;);
-			bRet = FALSE;
-			break;
-		}
-		/* 移交指针，这里已更换了父进程的属性表是 explorer.exe */
-		si.lpAttributeList = AttributeList;
-
-		// 获得当前Session ID
-		dwSessionID = ::WTSGetActiveConsoleSessionId();
-
-		// 获得当前Session的用户令牌
-		if (FALSE == ::WTSQueryUserToken(dwSessionID, &amp;hToken)) {
-			DBG_PRINTF(&quot;WTSQueryUserToken&quot;);
-			bRet = FALSE;
-			break;
-		}
-
-		// 复制令牌
-		if (FALSE == ::DuplicateTokenEx(hToken, MAXIMUM_ALLOWED, NULL, SecurityIdentification, TokenPrimary, &amp;hDuplicatedToken)) {
-			DBG_PRINTF(&quot;DuplicateTokenEx&quot;);
-			bRet = FALSE;
-			break;
-		}
-
-		// 创建用户Session环境
-		if (FALSE == ::CreateEnvironmentBlock(&amp;lpEnvironment, hDuplicatedToken, FALSE)) {
-			DBG_PRINTF(&quot;CreateEnvironmentBlock&quot;);
-			bRet = FALSE;
-			break;
-		}
-
-		// 在复制的用户Session下执行应用程序，创建进程
-		size_t iCmdlineSize = _tcslen(lpszFileName) + 10;
-		if (lpCommandLine) {
-			iCmdlineSize += _tcslen(lpCommandLine);
-		}
-		std::vector&lt;TCHAR&gt; szCmdLine(iCmdlineSize);
-		_stprintf(&amp;szCmdLine.front(), TEXT(&quot;\&quot;%s\&quot;&quot;), lpszFileName);
-		if (lpCommandLine) {
-			_tcscat(&amp;szCmdLine.front(), TEXT(&quot; &quot;));
-			_tcscat(&amp;szCmdLine.front(), lpCommandLine);
-		}
-		DBG_PRINTF(L&quot;开始执行程序:%s&quot;, lpszFileName);
-		DWORD dwCreationFlag = NORMAL_PRIORITY_CLASS | CREATE_NEW_CONSOLE | CREATE_UNICODE_ENVIRONMENT /*| EXTENDED_STARTUPINFO_PRESENT*/;
-		if (FALSE == ::CreateProcessAsUser(hDuplicatedToken, NULL, &amp;szCmdLine.front(), NULL, NULL, FALSE, dwCreationFlag, lpEnvironment, NULL, (LPSTARTUPINFOW)&amp;si, &amp;pi)) {
-			DBG_PRINTF(&quot;CreateProcessAsUser&quot;);
-			bRet = FALSE;
-			break;
-		}
-		DBG_PRINTF(L&quot;执行程序成功,PID[%u]:%s&quot;, pi.dwProcessId, lpszFileName);
-	} while (FALSE);
-
-	// 关闭句柄, 释放资源
-	if (AttributeList) {
-		DeleteProcThreadAttributeList(AttributeList);
-	}
-	if (lpEnvironment)
-	{
-		::DestroyEnvironmentBlock(lpEnvironment);
-	}
-	if (hDuplicatedToken)
-	{
-		::CloseHandle(hDuplicatedToken);
-	}
-	if (hToken)
-	{
-		::CloseHandle(hToken);
-	}
-	// 创建成功
-	if (bRet) {
-		return pi.hProcess;
-	}
-	return NULL;
-}
-
 </code></pre>
 ]]></content>
     </entry>
