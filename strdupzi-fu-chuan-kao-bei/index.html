@@ -4,40 +4,31 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>禁止重复运行 - Maxbad`Blog</title>
+<title>strdup()字符串拷贝 - Maxbad`Blog</title>
 <link rel="shortcut icon" href="https://blog.myxy.net/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://blog.myxy.net/media/css/tailwind.css">
 <link rel="stylesheet" href="https://blog.myxy.net/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="禁止重复运行 - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="strdup()字符串拷贝 - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
 
     
 
-  <meta name="description" content="HANDLE hMutex;  //全局
-
-hMutex = CreateMutex(NULL,FALSE,_T(&amp;quot;ArwenApp&amp;quot;));
-
- if(GetLastError() == ERROR_ALREADY_EX..." />
-  <meta property="og:title" content="禁止重复运行 - Maxbad`Blog">
-  <meta property="og:description" content="HANDLE hMutex;  //全局
-
-hMutex = CreateMutex(NULL,FALSE,_T(&amp;quot;ArwenApp&amp;quot;));
-
- if(GetLastError() == ERROR_ALREADY_EX..." />
+  <meta name="description" content="strdup() 函数是c语言中常用的一种字符串拷贝库函数，一般和free()函数成对出现。
+" />
+  <meta property="og:title" content="strdup()字符串拷贝 - Maxbad`Blog">
+  <meta property="og:description" content="strdup() 函数是c语言中常用的一种字符串拷贝库函数，一般和free()函数成对出现。
+" />
   <meta property="og:type" content="articles">
-  <meta property="og:url" content="https://blog.myxy.net/jin-zhi-chong-fu-yun-xing/" />
+  <meta property="og:url" content="https://blog.myxy.net/strdupzi-fu-chuan-kao-bei/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="禁止重复运行 - Maxbad`Blog">
-  <meta name="twitter:description" content="HANDLE hMutex;  //全局
-
-hMutex = CreateMutex(NULL,FALSE,_T(&amp;quot;ArwenApp&amp;quot;));
-
- if(GetLastError() == ERROR_ALREADY_EX...">
+  <meta name="twitter:title" content="strdup()字符串拷贝 - Maxbad`Blog">
+  <meta name="twitter:description" content="strdup() 函数是c语言中常用的一种字符串拷贝库函数，一般和free()函数成对出现。
+">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://blog.myxy.net/jin-zhi-chong-fu-yun-xing/">
+  <link rel="canonical" href="https://blog.myxy.net/strdupzi-fu-chuan-kao-bei/">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
@@ -57,25 +48,15 @@ hMutex = CreateMutex(NULL,FALSE,_T(&amp;quot;ArwenApp&amp;quot;));
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          禁止重复运行
+          strdup()字符串拷贝
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-11-12 · 1 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-11-21 · 1 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <pre><code class="language-cpp">HANDLE hMutex;  //全局
-
-hMutex = CreateMutex(NULL,FALSE,_T(&quot;ArwenApp&quot;));
-
- if(GetLastError() == ERROR_ALREADY_EXISTS){ //如果已经存在同名的Mutex会得到这个错误
-     CloseHandle(hMutex);
-	MessageBox(NULL, TEXT(&quot;禁止重复运行&quot;), TEXT(&quot;警告:&quot;), MB_ICONWARNING);
-     return FALSE;
-  }
-   CloseHandle(hMutex);// 退出时候关闭句柄
-</code></pre>
+          <p><code>strdup()</code> 函数是c语言中常用的一种字符串拷贝库函数，一般和<code>free()</code>函数成对出现。</p>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->

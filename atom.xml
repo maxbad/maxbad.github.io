@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-11-19T05:33:58.666Z</updated>
+    <updated>2020-11-21T02:30:46.298Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,15 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[strdup()字符串拷贝]]></title>
+        <id>https://blog.myxy.net/strdupzi-fu-chuan-kao-bei/</id>
+        <link href="https://blog.myxy.net/strdupzi-fu-chuan-kao-bei/">
+        </link>
+        <updated>2020-11-21T02:30:00.000Z</updated>
+        <content type="html"><![CDATA[<p><code>strdup()</code> 函数是c语言中常用的一种字符串拷贝库函数，一般和<code>free()</code>函数成对出现。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[一些常用系统API]]></title>
         <id>https://blog.myxy.net/yi-xie-chang-yong-xi-tong-api/</id>
@@ -2815,12 +2824,10 @@ static std::string str_format(const std::string&amp; format, Args ... args)
 
 hMutex = CreateMutex(NULL,FALSE,_T(&quot;ArwenApp&quot;));
 
- if(GetLastError() == ERROR_ALREADY_EXISTS){ //如果已经存在同名的Mutex会得到这个错误.
-
+ if(GetLastError() == ERROR_ALREADY_EXISTS){ //如果已经存在同名的Mutex会得到这个错误
      CloseHandle(hMutex);
-
+	MessageBox(NULL, TEXT(&quot;禁止重复运行&quot;), TEXT(&quot;警告:&quot;), MB_ICONWARNING);
      return FALSE;
-
   }
    CloseHandle(hMutex);// 退出时候关闭句柄
 </code></pre>
@@ -2847,15 +2854,6 @@ hMutex = CreateMutex(NULL,FALSE,_T(&quot;ArwenApp&quot;));
 #pragma throw_error(&quot;&quot;, 10001, &quot;this is a compile time error message.&quot;)
 #pragma throw_error(&quot;fatal&quot;, 10002, &quot;this is a compile time fatal error message.&quot;)
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[突破Session0隔离在系统服务程序中创建用户桌面进程]]></title>
-        <id>https://blog.myxy.net/tu-po-session0-ge-chi-zai-xi-tong-fu-wu-cheng-xu-zhong-chuang-jian-yong-hu-zhuo-mian-jin-cheng/</id>
-        <link href="https://blog.myxy.net/tu-po-session0-ge-chi-zai-xi-tong-fu-wu-cheng-xu-zhong-chuang-jian-yong-hu-zhuo-mian-jin-cheng/">
-        </link>
-        <updated>2020-11-12T02:17:34.000Z</updated>
-        <content type="html"><![CDATA[<p><code>https://www.write-bug.com/article/2006.html</code></p>
 ]]></content>
     </entry>
 </feed>
