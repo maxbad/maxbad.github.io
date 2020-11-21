@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-11-21T02:30:46.298Z</updated>
+    <updated>2020-11-21T03:13:45.745Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,15 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[DisableThreadLibraryCalls 的作用]]></title>
+        <id>https://blog.myxy.net/disablethreadlibrarycalls-de-zuo-yong/</id>
+        <link href="https://blog.myxy.net/disablethreadlibrarycalls-de-zuo-yong/">
+        </link>
+        <updated>2020-11-21T03:13:28.000Z</updated>
+        <content type="html"><![CDATA[<p>https://blog.csdn.net/wincearm/article/details/5706605</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[strdup()字符串拷贝]]></title>
         <id>https://blog.myxy.net/strdupzi-fu-chuan-kao-bei/</id>
@@ -2830,29 +2839,6 @@ hMutex = CreateMutex(NULL,FALSE,_T(&quot;ArwenApp&quot;));
      return FALSE;
   }
    CloseHandle(hMutex);// 退出时候关闭句柄
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[C++自定义编译期警告和错误信息]]></title>
-        <id>https://blog.myxy.net/czi-ding-yi-bian-yi-qi-jing-gao-he-cuo-wu-xin-xi/</id>
-        <link href="https://blog.myxy.net/czi-ding-yi-bian-yi-qi-jing-gao-he-cuo-wu-xin-xi/">
-        </link>
-        <updated>2020-11-12T13:23:32.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">/** Transform expression \a _exp_ to string format. */
-#define __AUX_STR_EXP(_exp_)                    #_exp_
-/** Transform \a _exp_ to string format. */
-#define ___AUX_STR(_exp_)                       __AUX_STR_EXP(_exp_)
-/** location file name and file line */
-#define __LOCATION_STR                          __FILE__ &quot;(&quot;  ___AUX_STR(__LINE__) &quot;)&quot;
-/** define warning message throw */
-#define throw_warning(_code_, _message_)        message(__LOCATION_STR &quot;: warning C&quot; ___AUX_STR(_code_) &quot;: &quot; _message_)
-#define throw_error(_level_, _code_, _message_) message(__LOCATION_STR &quot;:&quot; _level_ &quot; error C&quot; ___AUX_STR(_code_) &quot;: &quot; _message_)
-
-// test
-#pragma throw_warning(10000, &quot;this is a compile time warning message.&quot;)
-#pragma throw_error(&quot;&quot;, 10001, &quot;this is a compile time error message.&quot;)
-#pragma throw_error(&quot;fatal&quot;, 10002, &quot;this is a compile time fatal error message.&quot;)
 </code></pre>
 ]]></content>
     </entry>
