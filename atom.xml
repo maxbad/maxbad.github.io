@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-11-21T03:13:45.745Z</updated>
+    <updated>2020-11-26T02:17:21.915Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -11,16 +11,55 @@
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
     <entry>
+        <title type="html"><![CDATA[API:路径分割 _splitpath_s()]]></title>
+        <id>https://blog.myxy.net/lu-jing-fen-ge-_splitpath_s/</id>
+        <link href="https://blog.myxy.net/lu-jing-fen-ge-_splitpath_s/">
+        </link>
+        <updated>2020-11-26T02:13:05.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-cpp">#include &lt;iostream&gt;  
+#include &lt;cstdlib&gt;  
+using namespace std;  
+  
+int main()  
+{  
+    char *path=&quot;c:\\111\\222\\xxxx.mp3&quot;;  
+    char drive[5];  
+    char dir[100];  
+    char filename[100];  
+    char fileext[10];  
+    _splitpath(path,drive,dir,filename,fileext);  
+    cout&lt;&lt;&quot;filepath: &quot;&lt;&lt;path&lt;&lt;endl  
+        &lt;&lt;&quot;drive: &quot;&lt;&lt;drive&lt;&lt;endl            // c:
+        &lt;&lt;&quot;dir: &quot;&lt;&lt;dir&lt;&lt;endl                    // \111\222\
+        &lt;&lt;&quot;filename: &quot;&lt;&lt;filename&lt;&lt;endl      // xxx
+        &lt;&lt;&quot;fileext: &quot;&lt;&lt;fileext&lt;&lt;endl;       // .mp3
+    system(&quot;pause&quot;);  
+    return 0;  
+}  
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[继承类的 override 介绍]]></title>
+        <id>https://blog.myxy.net/ji-cheng-lei-de-override-jie-shao/</id>
+        <link href="https://blog.myxy.net/ji-cheng-lei-de-override-jie-shao/">
+        </link>
+        <updated>2020-11-21T08:45:07.000Z</updated>
+        <content type="html"><![CDATA[<p>https://www.cnblogs.com/xinxue/p/5471708.html</p>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[DisableThreadLibraryCalls 的作用]]></title>
         <id>https://blog.myxy.net/disablethreadlibrarycalls-de-zuo-yong/</id>
         <link href="https://blog.myxy.net/disablethreadlibrarycalls-de-zuo-yong/">
         </link>
         <updated>2020-11-21T03:13:28.000Z</updated>
-        <content type="html"><![CDATA[<p>https://blog.csdn.net/wincearm/article/details/5706605</p>
+        <content type="html"><![CDATA[<p>功能:<code>禁用指定的DLL的DLL_THREAD_ATTACH和DLL_THREAD_DETACH通知，这样可以减小某些程序的工作集大小。</code><br>
+https://blog.csdn.net/wincearm/article/details/5706605</p>
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[strdup()字符串拷贝]]></title>
+        <title type="html"><![CDATA[API:字符串拷贝 strdup()]]></title>
         <id>https://blog.myxy.net/strdupzi-fu-chuan-kao-bei/</id>
         <link href="https://blog.myxy.net/strdupzi-fu-chuan-kao-bei/">
         </link>
@@ -1472,7 +1511,7 @@ extern &quot;C&quot; {
 #define _tsearchenv     _searchenv
 #define _tsearchenv_s   _searchenv_s
 #define _tsplitpath     _splitpath
-#define _tsplitpath_s   _splitpath_s
+#define _tsplitpath_s   _splitpath_s            // 路径分割
 
 #ifdef _DEBUG
 #define _tfullpath_dbg  _fullpath_dbg
@@ -2809,36 +2848,6 @@ static std::string str_format(const std::string&amp; format, Args ... args)
 	return std::string(buf.get(), buf.get() + size_buf - 1);
 }
 
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[vmprotect命令行用法]]></title>
-        <id>https://blog.myxy.net/vmprotect-ming-ling-xing-yong-fa/</id>
-        <link href="https://blog.myxy.net/vmprotect-ming-ling-xing-yong-fa/">
-        </link>
-        <updated>2020-11-13T02:31:12.000Z</updated>
-        <content type="html"><![CDATA[<p>官方提示使用方法</p>
-<pre><code class="language-cpp">vmprotect_con File [Output File] [-pf Project File] [-sf Script File] [-lf Licensing parameters file] [-bd Build Date (yyyy-mm-dd)] [-wm Watermark] [-we]
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[禁止重复运行]]></title>
-        <id>https://blog.myxy.net/jin-zhi-chong-fu-yun-xing/</id>
-        <link href="https://blog.myxy.net/jin-zhi-chong-fu-yun-xing/">
-        </link>
-        <updated>2020-11-12T14:14:57.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">HANDLE hMutex;  //全局
-
-hMutex = CreateMutex(NULL,FALSE,_T(&quot;ArwenApp&quot;));
-
- if(GetLastError() == ERROR_ALREADY_EXISTS){ //如果已经存在同名的Mutex会得到这个错误
-     CloseHandle(hMutex);
-	MessageBox(NULL, TEXT(&quot;禁止重复运行&quot;), TEXT(&quot;警告:&quot;), MB_ICONWARNING);
-     return FALSE;
-  }
-   CloseHandle(hMutex);// 退出时候关闭句柄
 </code></pre>
 ]]></content>
     </entry>
