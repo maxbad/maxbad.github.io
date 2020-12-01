@@ -1,0 +1,160 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Maxbad`Blog</title>
+<link rel="shortcut icon" href="https://blog.myxy.net/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://blog.myxy.net/media/css/tailwind.css">
+<link rel="stylesheet" href="https://blog.myxy.net/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
+
+    
+
+  <meta name="description" content="记录一些东西" />
+</head>
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+
+    <div class="nav py-3 md:py-8 fixed w-full z-10 bg-gray-50 dark:bg-gray-700 transition-all duration-300" :class="{ 'scroll': scrolled }">
+  <div class="flex justify-end px-4">
+    <div class="w-8 h-8 flex justify-center items-center rounded-full md:hidden" @click="showMenu = !showMenu">
+      <i class="ri-close-line" v-show="showMenu"></i>
+      <i class="ri-menu-3-line" v-show="!showMenu"></i>
+    </div>
+  </div>
+  <nav class="max-w-4xl w-full mx-auto text-center flex flex-col md:flex-row justify-center md:block" :class="`${ showMenu ? 'block' : 'hidden' }`">
+    
+      <a href="/" target="" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        首页
+      </a>
+    
+      <a href="/archives" target="" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        归档
+      </a>
+    
+      <a href="/tags" target="" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        标签
+      </a>
+    
+    <a href="https://blog.myxy.net/atom.xml" target="_blank" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+      RSS
+    </a>
+  </nav>
+</div>
+
+    <div class="max-w-4xl w-full mx-auto pt-32">
+      
+
+      <div class="shadow-box bg-white dark:bg-gray-600 border-gray-300 rounded-none md:rounded-lg -mx-1 md:mx-0 md:px-0">
+        
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/c98c11-shi-yong-c17-de-string_view/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          C++98、C++11使用C++17的 string_view
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-05-08</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        项目地址:string-view-lite
+使用示例:
+#include &quot;nonstd/string_view.hpp&quot;
+#include &lt;iostream&gt;
+
+using namespace std::...
+      </div>
+      <a href="https://blog.myxy.net/c98c11-shi-yong-c17-de-string_view/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/bian-cheng-zi-ti/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          编程字体
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-05-05</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <p>最近，微软和 JetBrains 纷纷推出了自己的编程字体，你现在在用哪款呢？</p>
+
+      </div>
+      <a href="https://blog.myxy.net/bian-cheng-zi-ti/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/yu-fa/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Markdown语法
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-05-05</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <p><a href="https://guides.github.com/features/mastering-markdown/">Mastering Markdown</a>是一种纯文本格式的标记语言。通过简单的标记语法，它可以使普通文本内容具有一定的格式。</p>
+<p>在线演示:<a href="https://markdown-it.github.io/">https://markdown-it.github.io/</a></p>
+
+      </div>
+      <a href="https://blog.myxy.net/yu-fa/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/messageboxtimeout/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          [定时消失的信息框] Windows API函数之MessageBoxTimeout
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-05-05</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        Windows下的消息框MessagBox，会把程序阻塞住，需要用户与其交互后才能继续往下执行。你可能希望有一个既能弹出消息框，而又不阻塞在界面上，能够超时自动消失，类似于Android下的Toast。如果你有时间可以自己实现一个这样的窗口...
+      </div>
+      <a href="https://blog.myxy.net/messageboxtimeout/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+  
+      </div>
+
+      
+  <div class="my-4 flex justify-between px-4 md:px-0">
+    
+      <a href="https://blog.myxy.net/page/7/" class="btn btn-white">
+        <i class="ri-arrow-left-line mr-4"></i>
+        上一页
+      </a>
+    
+    
+  </div>
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+   
+</footer>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://blog.myxy.net/media/scripts/main.js"></script>
+</body>
+
+</html>

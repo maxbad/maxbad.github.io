@@ -54,6 +54,99 @@
     
     <div class="flex-1 order-2 md:order-1">
       <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/czhi-neng-zhi-zhen/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          c++智能指针
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-10-13</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        文章来源:https://www.zhihu.com/question/319277442/answer/1517987598
+std::unique_ptr
+std::unique_ptr 对其持有的堆内存具有唯一拥有权，也就是说引用计数...
+      </div>
+      <a href="https://blog.myxy.net/czhi-neng-zhi-zhen/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/redis-chi-jiu-hua-rdb-he-aof/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Redis持久化RDB和AOF
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-10-11</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        
+Redis 还可以同时使用 AOF 持久化和 RDB 持久化。 在这种情况下， 当 Redis 重启时， 它会优先使用 AOF 文件来还原数据集， 因为 AOF 文件保存的数据集通常比 RDB 文件所保存的数据集更完整。你甚至可以关闭持久...
+      </div>
+      <a href="https://blog.myxy.net/redis-chi-jiu-hua-rdb-he-aof/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/redis-de-rdb-he-aof-xuan-ze/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Redis的RDB和AOF选择
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-10-11</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        
+aof，rdb是两种 redis持久化的机制,用于crash后，redis的恢复。
+
+rdb特性
+
+写操作频繁的时候，不启用备份来换取更高的性能，待手动运行save的时候，再做备份.
+
+fork一个进程，遍历hash table，利用co...
+      </div>
+      <a href="https://blog.myxy.net/redis-de-rdb-he-aof-xuan-ze/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/c-hong/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          c++ 宏
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-10-11</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        宏“#”的妙用
+
+如果熟悉 C++ 宏的小伙伴，可能知道里面有个 # 的用法，可以将对应的参数变成字符串，效果如下：
+
+#define  toStr(x)  #x
+char *str = toStr(hello);  
+//  等价于 
+c...
+      </div>
+      <a href="https://blog.myxy.net/c-hong/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
         <a href="https://blog.myxy.net/stdstring-zhuan-stdwstring/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
           std::string 转 std::wstring
         </a>
@@ -179,105 +272,6 @@ https://zhuanlan.zhihu.com/p/137662774
 https://zhuanl...
       </div>
       <a href="https://blog.myxy.net/c11-xin-te-xing/" class="btn">
-        查看
-      </a>
-    </div>
-    
-  </div>
-
-  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
-    
-    <div class="flex-1 order-2 md:order-1">
-      <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://blog.myxy.net/redis2/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
-          Redis2
-        </a>
-      </h2>
-      <div class="mb-4 text-xs text-gray-500">2020-09-22</div>
-      <div class="mb-4 text-gray-500 dark:text-gray-300">
-        结构类型
-
-
-
-结构类型
-结构存储的值
-结构的读写能力
-
-
-
-
-STRING
-可以是字符串,整数或者浮点数
-对整个字符串或者字符串的其中一部分执行操作;对整数和浮点数执行自增(increment)或者自减(decrement)操作
-
-
-LI...
-      </div>
-      <a href="https://blog.myxy.net/redis2/" class="btn">
-        查看
-      </a>
-    </div>
-    
-  </div>
-
-  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
-    
-    <div class="flex-1 order-2 md:order-1">
-      <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://blog.myxy.net/bu-long-guo-lu-qi/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
-          布隆过滤器
-        </a>
-      </h2>
-      <div class="mb-4 text-xs text-gray-500">2020-09-19</div>
-      <div class="mb-4 text-gray-500 dark:text-gray-300">
-        https://blog.csdn.net/y1054765649/article/details/88712339
-
-      </div>
-      <a href="https://blog.myxy.net/bu-long-guo-lu-qi/" class="btn">
-        查看
-      </a>
-    </div>
-    
-  </div>
-
-  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
-    
-    <div class="flex-1 order-2 md:order-1">
-      <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://blog.myxy.net/vs-zi-ding-yi-clang-format-ge-shi-hua-dai-ma-ge-shi/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
-          VS  自定义 clang-format 格式化代码格式
-        </a>
-      </h2>
-      <div class="mb-4 text-xs text-gray-500">2020-09-19</div>
-      <div class="mb-4 text-gray-500 dark:text-gray-300">
-        将.clang-format 文件放到工程根目录
-ColumnLimit:     0   # 这样就不会限制行宽，自动折行了
-IndentWidth:     4
-
-官方文档:http://clang.llvm.org/docs/Clan...
-      </div>
-      <a href="https://blog.myxy.net/vs-zi-ding-yi-clang-format-ge-shi-hua-dai-ma-ge-shi/" class="btn">
-        查看
-      </a>
-    </div>
-    
-  </div>
-
-  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
-    
-    <div class="flex-1 order-2 md:order-1">
-      <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://blog.myxy.net/redis/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
-          Redis
-        </a>
-      </h2>
-      <div class="mb-4 text-xs text-gray-500">2020-09-19</div>
-      <div class="mb-4 text-gray-500 dark:text-gray-300">
-        官方命令手册:https://oss.redislabs.com/redisearch/Commands.html
-中文手册:https://www.php.cn/redis/redis-commands.html
-命令参考:http://...
-      </div>
-      <a href="https://blog.myxy.net/redis/" class="btn">
         查看
       </a>
     </div>

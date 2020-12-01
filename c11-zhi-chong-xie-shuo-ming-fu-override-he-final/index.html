@@ -4,37 +4,85 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>string_format - Maxbad`Blog</title>
+<title>C++11之重写说明符override和final - Maxbad`Blog</title>
 <link rel="shortcut icon" href="https://blog.myxy.net/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://blog.myxy.net/media/css/tailwind.css">
 <link rel="stylesheet" href="https://blog.myxy.net/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="string_format - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="C++11之重写说明符override和final - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
 
     
 
-  <meta name="description" content="包含头文件#include &amp;lt;memory&amp;gt;
-string
-template&amp;lt;typename ... Args&amp;gt;
-static std::string str_format(const std::string&amp;am..." />
-  <meta property="og:title" content="string_format - Maxbad`Blog">
-  <meta property="og:description" content="包含头文件#include &amp;lt;memory&amp;gt;
-string
-template&amp;lt;typename ... Args&amp;gt;
-static std::string str_format(const std::string&amp;am..." />
+  <meta name="description" content="c++11引入关键字 override和final 用来解决继承中虚函数的问题。
+
+
+
+关键字
+作用
+
+
+
+
+override
+指明该函数是重载的基类中的一个函数
+
+
+final
+A.禁止该函数从基类继承；B.禁止该函数的重载
+
+
+
+注意:..." />
+  <meta property="og:title" content="C++11之重写说明符override和final - Maxbad`Blog">
+  <meta property="og:description" content="c++11引入关键字 override和final 用来解决继承中虚函数的问题。
+
+
+
+关键字
+作用
+
+
+
+
+override
+指明该函数是重载的基类中的一个函数
+
+
+final
+A.禁止该函数从基类继承；B.禁止该函数的重载
+
+
+
+注意:..." />
   <meta property="og:type" content="articles">
-  <meta property="og:url" content="https://blog.myxy.net/string_format/" />
+  <meta property="og:url" content="https://blog.myxy.net/c11-zhi-chong-xie-shuo-ming-fu-override-he-final/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="string_format - Maxbad`Blog">
-  <meta name="twitter:description" content="包含头文件#include &amp;lt;memory&amp;gt;
-string
-template&amp;lt;typename ... Args&amp;gt;
-static std::string str_format(const std::string&amp;am...">
+  <meta name="twitter:title" content="C++11之重写说明符override和final - Maxbad`Blog">
+  <meta name="twitter:description" content="c++11引入关键字 override和final 用来解决继承中虚函数的问题。
+
+
+
+关键字
+作用
+
+
+
+
+override
+指明该函数是重载的基类中的一个函数
+
+
+final
+A.禁止该函数从基类继承；B.禁止该函数的重载
+
+
+
+注意:...">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://blog.myxy.net/string_format/">
+  <link rel="canonical" href="https://blog.myxy.net/c11-zhi-chong-xie-shuo-ming-fu-override-he-final/">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
@@ -54,44 +102,82 @@ static std::string str_format(const std::string&amp;am...">
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          string_format
+          C++11之重写说明符override和final
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-11-13 · 1 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-12-01 · 2 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <p>包含头文件<code>#include &lt;memory&gt;</code></p>
-<h2 id="string">string</h2>
-<pre><code class="language-cpp">template&lt;typename ... Args&gt;
-static std::string str_format(const std::string&amp; format, Args ... args)
+          <p>c++11引入关键字 <code>override</code>和<code>final</code> 用来解决继承中虚函数的问题。</p>
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th style="text-align:left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>override</td>
+<td style="text-align:left">指明该函数是重载的基类中的一个函数</td>
+</tr>
+<tr>
+<td>final</td>
+<td style="text-align:left">A.禁止该函数从基类继承；B.禁止该函数的重载</td>
+</tr>
+</tbody>
+</table>
+<p>注意: 这俩关键字 必须作用于虚函数。否则，编译提示将出错。</p>
+<ul>
+<li>错误示范</li>
+</ul>
+<pre><code class="language-cpp">class case_err
 {
-	auto size_buf = std::snprintf(nullptr, 0, format.c_str(), args ...) + 1;
-	std::unique_ptr&lt;char[]&gt; buf(new(std::nothrow) char[size_buf]);
+public:
+      // 错误，编译器提示： error C3668: “case_err::name()”: 包含重写说明符“override”的方法没有重写任何基类方法
+      void name() override {}      
 
-	if (!buf)
-		return std::string(&quot;&quot;);
-
-	std::snprintf(buf.get(), size_buf, format.c_str(), args ...);
-	return std::string(buf.get(), buf.get() + size_buf - 1);
-}
-
+      // error C3609: “demo_class::gender”: “final”函数必须是虚函数
+      void gender() final {}
+};
 </code></pre>
-<h2 id="wstring">wstring</h2>
-<pre><code class="language-cpp">template&lt;typename ... Args&gt;
-static std::wstring wstr_format(const std::wstring &amp;format, Args ... args)
+<ul>
+<li>正确用法</li>
+</ul>
+<pre><code class="language-cpp">// 基类
+class base_class
 {
-	auto size_buf = std::snprintf(nullptr, 0, format.c_str(), args ...) + 1; 
-	std::unique_ptr&lt;char[]&gt; buf(new(std::nothrow) char[size_buf]);
+public:
+	// 用作测试 override 关键字的函数
+	virtual void show()  { std::cout &lt;&lt; &quot;base_class::show()\n&quot;; }
+	
+	// 用作测试 final 关键字的函数
+	virtual void say() final { std::cout &lt;&lt; &quot;base_class::say()\n&quot;; }
+};
 
-	if (!buf)
-		return std::wstring(&quot;&quot;);
+// 派生类
+class demo_class : public base_class
+{
+public:
+	// override的作用：指明该函数时重载的基类中的一个函数
+	// 这里明确指明该函数是继承基类的show函数
+	virtual void show() override { std::cout &lt;&lt; &quot;demo_class::show()\n&quot;; }
 
-	std::snprintf(buf.get(), size_buf, format.c_str(), args ...);
-	return std::wstring(buf.get(), buf.get() + size_buf - 1); 
-}
+	// 编译错误： error C3248: “base_class::say”: 声明为“final”的函数无法被“demo_class::say”重写
+	// virtual void say() override { std::cout &lt;&lt; &quot;demo_class::say()\n&quot;; }
+};
 </code></pre>
+<p>纯虚函数一种特殊的虚函数。 but，纯虚函数通常用作基类定义接口。 显然，纯虚函数不能使用关键字override. 那 final 关键字呢? 一个例子：</p>
+<pre><code class="language-cpp">class base_class
+{
+public:
+	virtual void run() final = 0;
+};
+</code></pre>
+<p>理论分析： 纯虚函数 run 使用关键字 final后，run函数不能被派生类（子类）继承并实现，且语法也正确。 实际： 编译通过。<br>
+but，类base_class及继承自base_class的类均无法创建对象。因为： base_class的run函数是一个纯虚函数且无法被派生类继承。结论： 纯虚函数使用final关键字，无实际意义。</p>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -134,15 +220,7 @@ static std::wstring wstr_format(const std::wstring &amp;format, Args ... args)
         </div>
       </div>
       <div class="post-toc-container">
-        <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#string">string</a></li>
-<li><a href="#wstring">wstring</a></li>
-</ul>
-</li>
-</ul>
-
+        
       </div>
     </div>
 
