@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-12-07T02:31:07.220Z</updated>
+    <updated>2020-12-10T02:52:48.207Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,60 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[hpSocket线程池]]></title>
+        <id>https://blog.myxy.net/hpsocket-xian-cheng-chi/</id>
+        <link href="https://blog.myxy.net/hpsocket-xian-cheng-chi/">
+        </link>
+        <updated>2020-12-10T02:50:46.000Z</updated>
+        <content type="html"><![CDATA[<p>HP-Socket v5.4.x版本开始，提供线程池组件IHPThreadPool，协助用户实现通信逻辑与业务逻辑分离，提高应用程序的整体执行效率。IHPThreadPool提供以下主要操作方法。这些方法成功返回TRUE，失败返回FALSE，失败可通过SYS_GetLastError() 获取系统错误代码。</p>
+<h2 id="启动线程池">启动线程池</h2>
+<pre><code class="language-cpp">BOOL Start(dwThreadCount = 0, dwMaxQueueSize = 0, enRejectedPolicy = TRP_CALL_FAIL, dwStackSize = 0)
+
+dwThreadCount  线程数量，（默认：0）
+&gt;0 ：dwThreadCount
+=0 ：(CPU核数 * 2 + 2)
+&lt;0 ：(CPU核数 * (-dwThreadCount))
+dwMaxQueueSize  任务队列最大容量（默认：0，不限制）
+enRejectedPolicy  任务拒绝处理策略
+TRP_CALL_FAIL	：（默认）立刻返回失败
+TRP_WAIT_FOR	：等待（直到成功、超时或线程池关闭等原因导致失败）
+TRP_CALLER_RUN	：调用者线程直接执行
+dwStackSize  线程堆栈空间大小（默认：0 -&gt; 操作系统默认）
+</code></pre>
+<h2 id="关闭线程池">关闭线程池</h2>
+<blockquote>
+<p>在规定时间内关闭线程池组件，如果工作线程在最大等待时间内未能正常关闭，会尝试强制关闭，这种情况下很可能会造成系统资源泄漏。</p>
+</blockquote>
+<pre><code class="language-cpp">BOOL Stop(dwMaxWait = INFINITE)
+
+dwMaxWait  最大等待时间（毫秒，默认：INFINITE，一直等待）
+</code></pre>
+<h2 id="提交任务">提交任务</h2>
+<pre><code class="language-cpp">BOOL Sbumit(fnTaskProc, pvArg, dwMaxWait = INFINITE)
+
+fnTaskProc  任务处理函数
+pvArg  任务参数
+dwMaxWait  任务提交最大等待时间（仅对TRP_WAIT_FOR类型线程池生效，默认：INFINITE，一直等待）。
+** SYS_GetLastError() 错误码ERROR_DESTINATION_ELEMENT_FULL表示任务队列已满。
+</code></pre>
+<h2 id="提交socket任务">提交Socket任务</h2>
+<pre><code class="language-cpp">BOOL Sbumit(pTask, dwMaxWait = INFINITE)
+
+pTask  任务参数
+dwMaxWait  任务提交最大等待时间（仅对TRP_WAIT_FOR类型线程池生效，默认：INFINITE，一直等待）
+** SYS_GetLastError() 错误码ERROR_DESTINATION_ELEMENT_FULL表示任务队列已满。
+</code></pre>
+<h2 id="动态调整线程池大小">动态调整线程池大小</h2>
+<pre><code class="language-cpp">BOOL AdjustThreadCount(dwNewThreadCount)
+
+dwNewThreadCount  线程数量
+&gt;0 ：dwNewThreadCount
+=0 ：(CPU核数 * 2 + 2)
+&lt;0 ：(CPU核数 * (-dwNewThreadCount))
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[thread_local 线程本地数据]]></title>
         <id>https://blog.myxy.net/thread_local-xian-cheng-ben-di-shu-ju/</id>
@@ -319,20 +373,6 @@ https://blog.csdn.net/wincearm/article/details/5706605</p>
         </link>
         <updated>2020-11-21T02:30:00.000Z</updated>
         <content type="html"><![CDATA[<p><code>strdup()</code> 函数是c语言中常用的一种字符串拷贝库函数，一般和<code>free()</code>函数成对出现。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[一些常用系统API]]></title>
-        <id>https://blog.myxy.net/yi-xie-chang-yong-xi-tong-api/</id>
-        <link href="https://blog.myxy.net/yi-xie-chang-yong-xi-tong-api/">
-        </link>
-        <updated>2020-11-19T05:31:59.000Z</updated>
-        <content type="html"><![CDATA[<p>##设置当前目录为运行目录</p>
-<pre><code class="language-cpp">	TCHAR run_path[MAX_PATH] = { 0, };
-	::GetModuleFileName(NULL, run_path, MAX_PATH);
-	(_tcsrchr(run_path, '\\'))[1] = 0;
-	::SetCurrentDirectory(run_path);
-</code></pre>
 ]]></content>
     </entry>
 </feed>
