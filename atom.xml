@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-12-10T02:52:48.207Z</updated>
+    <updated>2020-12-16T11:43:59.917Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,44 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[C++ 类中的构造函数]]></title>
+        <id>https://blog.myxy.net/c-lei-zhong-de-gou-zao-han-shu/</id>
+        <link href="https://blog.myxy.net/c-lei-zhong-de-gou-zao-han-shu/">
+        </link>
+        <updated>2020-12-16T11:33:37.000Z</updated>
+        <content type="html"><![CDATA[<p><a href="https://docs.microsoft.com/zh-cn/cpp/cpp/explicitly-defaulted-and-deleted-functions?view=msvc-160">https://docs.microsoft.com/zh-cn/cpp/cpp/explicitly-defaulted-and-deleted-functions?view=msvc-160</a></p>
+<h2 id="编译器默认为一个类生成的默认函数">编译器默认为一个类生成的默认函数</h2>
+<ul>
+<li>默认构造函数</li>
+<li>默认析构函数</li>
+<li>默认拷贝构造函数</li>
+<li>默认赋值函数</li>
+<li>移动构造函数</li>
+<li>移动拷贝函数</li>
+</ul>
+<pre><code class="language-cpp">class DataOnly {
+public:
+    DataOnly ()                  // 默认构造函数
+    ~DataOnly ()                 // 默认析构函数
+
+    DataOnly (const DataOnly &amp; rhs)         　 　  // 默认拷贝构造函数
+    DataOnly &amp; operator=(const DataOnly &amp; rhs)    // 默认赋值函数
+
+    DataOnly (const DataOnly &amp;&amp; rhs)         // C++11, 移动构造函数
+    DataOnly &amp; operator=(DataOnly &amp;&amp; rhs)    // C++11, 移动拷贝函数
+};
+</code></pre>
+<p>类不可复制的通用写法</p>
+<pre><code class="language-cpp">struct noncopyable
+{
+  noncopyable() =default;
+  noncopyable(const noncopyable&amp;) =delete;
+  noncopyable&amp; operator=(const noncopyable&amp;) =delete;
+};
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[hpSocket线程池]]></title>
         <id>https://blog.myxy.net/hpsocket-xian-cheng-chi/</id>
@@ -364,15 +402,6 @@ int main()
         <updated>2020-11-21T03:13:28.000Z</updated>
         <content type="html"><![CDATA[<p>功能:<code>禁用指定的DLL的DLL_THREAD_ATTACH和DLL_THREAD_DETACH通知，这样可以减小某些程序的工作集大小。</code><br>
 https://blog.csdn.net/wincearm/article/details/5706605</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[API:字符串拷贝 strdup()]]></title>
-        <id>https://blog.myxy.net/strdupzi-fu-chuan-kao-bei/</id>
-        <link href="https://blog.myxy.net/strdupzi-fu-chuan-kao-bei/">
-        </link>
-        <updated>2020-11-21T02:30:00.000Z</updated>
-        <content type="html"><![CDATA[<p><code>strdup()</code> 函数是c语言中常用的一种字符串拷贝库函数，一般和<code>free()</code>函数成对出现。</p>
 ]]></content>
     </entry>
 </feed>
