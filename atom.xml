@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-12-22T03:43:43.520Z</updated>
+    <updated>2020-12-22T03:46:35.486Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -16,7 +16,8 @@
         <link href="https://blog.myxy.net/prettier-pei-zhi/">
         </link>
         <updated>2020-12-22T03:42:30.000Z</updated>
-        <content type="html"><![CDATA[<blockquote>
+        <content type="html"><![CDATA[<p><a href="https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode">https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode</a></p>
+<blockquote>
 <p>自动格式化整理代码，vscode 需要去插件商店下载【Prettier - Code formatter 】这个插件</p>
 </blockquote>
 <pre><code class="language-json">{
