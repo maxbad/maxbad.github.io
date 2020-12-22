@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-12-16T11:43:59.917Z</updated>
+    <updated>2020-12-22T03:43:43.520Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,80 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[prettier 配置]]></title>
+        <id>https://blog.myxy.net/prettier-pei-zhi/</id>
+        <link href="https://blog.myxy.net/prettier-pei-zhi/">
+        </link>
+        <updated>2020-12-22T03:42:30.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>自动格式化整理代码，vscode 需要去插件商店下载【Prettier - Code formatter 】这个插件</p>
+</blockquote>
+<pre><code class="language-json">{
+  &quot;[vue]&quot;: {
+    &quot;editor.defaultFormatter&quot;: &quot;esbenp.prettier-vscode&quot;
+  },
+  &quot;editor.quickSuggestions&quot;: {
+    &quot;strings&quot;: true
+  },
+  &quot;editor.tabSize&quot;: 2,
+  &quot;editor.detectIndentation&quot;: false,
+  &quot;emmet.triggerExpansionOnTab&quot;: true,
+  &quot;editor.formatOnSave&quot;: true,
+  &quot;javascript.format.enable&quot;: true,
+  &quot;[json]&quot;: {
+    &quot;editor.defaultFormatter&quot;: &quot;esbenp.prettier-vscode&quot;
+  },
+  &quot;explorer.confirmDelete&quot;: false,
+  &quot;javascript.updateImportsOnFileMove.enabled&quot;: &quot;always&quot;,
+  &quot;typescript.updateImportsOnFileMove.enabled&quot;: &quot;always&quot;,
+  &quot;files.exclude&quot;: {
+    &quot;**/.idea&quot;: true
+  },
+  &quot;editor.codeActionsOnSave&quot;: {
+    &quot;source.fixAll.stylelint&quot;: true,
+    &quot;source.fixAll.eslint&quot;: true
+  },
+  &quot;[javascript]&quot;: {
+    &quot;editor.defaultFormatter&quot;: &quot;esbenp.prettier-vscode&quot;
+  },
+  &quot;[scss]&quot;: {
+    &quot;editor.defaultFormatter&quot;: &quot;HookyQR.beautify&quot;
+  },
+  &quot;[jsonc]&quot;: {
+    &quot;editor.defaultFormatter&quot;: &quot;esbenp.prettier-vscode&quot;
+  },
+  &quot;[html]&quot;: {
+    &quot;editor.defaultFormatter&quot;: &quot;esbenp.prettier-vscode&quot;
+  },
+  &quot;editor.suggest.snippetsPreventQuickSuggestions&quot;: false,
+  &quot;prettier.htmlWhitespaceSensitivity&quot;: &quot;ignore&quot;,
+  &quot;prettier.vueIndentScriptAndStyle&quot;: true,
+  &quot;vetur.format.defaultFormatter.html&quot;: &quot;prettier&quot;,
+  &quot;files.autoSave&quot;: &quot;onFocusChange&quot;
+}
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[C++ for遍历循环表达示 auto, auto&, auto&&]]></title>
+        <id>https://blog.myxy.net/c-for-bian-li-xun-huan-biao-da-shi-auto-autoand-autoand/</id>
+        <link href="https://blog.myxy.net/c-for-bian-li-xun-huan-biao-da-shi-auto-autoand-autoand/">
+        </link>
+        <updated>2020-12-18T06:44:49.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="创建拷贝无法修改dataarr中的元素">创建拷贝，无法修改dataArr中的元素</h2>
+<pre><code class="language-cpp">for(auto x : dataArr)
+</code></pre>
+<h2 id="参考引用可以修改dataarr中的元素但一般用第二种">参考引用，可以修改dataArr中的元素，但一般用第二种</h2>
+<pre><code class="language-cpp">for(auto&amp; iter : dataArr)
+for(auto&amp;&amp; iter : dataArr)
+</code></pre>
+<h2 id="只读引用不能修改dataarr中的元素">只读引用，不能修改dataArr中的元素</h2>
+<pre><code class="language-cpp">for(const auto&amp; iter : dataArr)
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[C++ 类中的构造函数]]></title>
         <id>https://blog.myxy.net/c-lei-zhong-de-gou-zao-han-shu/</id>
@@ -383,25 +457,6 @@ int main()
     return 0;  
 }  
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[继承类的 override 介绍]]></title>
-        <id>https://blog.myxy.net/ji-cheng-lei-de-override-jie-shao/</id>
-        <link href="https://blog.myxy.net/ji-cheng-lei-de-override-jie-shao/">
-        </link>
-        <updated>2020-11-21T08:45:07.000Z</updated>
-        <content type="html"><![CDATA[<p>https://www.cnblogs.com/xinxue/p/5471708.html</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[DisableThreadLibraryCalls 的作用]]></title>
-        <id>https://blog.myxy.net/disablethreadlibrarycalls-de-zuo-yong/</id>
-        <link href="https://blog.myxy.net/disablethreadlibrarycalls-de-zuo-yong/">
-        </link>
-        <updated>2020-11-21T03:13:28.000Z</updated>
-        <content type="html"><![CDATA[<p>功能:<code>禁用指定的DLL的DLL_THREAD_ATTACH和DLL_THREAD_DETACH通知，这样可以减小某些程序的工作集大小。</code><br>
-https://blog.csdn.net/wincearm/article/details/5706605</p>
 ]]></content>
     </entry>
 </feed>
