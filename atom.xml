@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-12-22T03:46:35.486Z</updated>
+    <updated>2020-12-27T06:35:19.706Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,53 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[proxy配置]]></title>
+        <id>https://blog.myxy.net/proxy-pei-zhi/</id>
+        <link href="https://blog.myxy.net/proxy-pei-zhi/">
+        </link>
+        <updated>2020-12-26T11:29:57.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-js">const address = require('address');
+devServer: {
+        publicPath: Setting.publicPath,
+        host: address.ip(),
+        noInfo: false,
+        progress: true // 将运行进度输出到控制台。
+         openPage: 'admin/version', // 默认打开页
+         proxy: {
+            '/v1': {
+                target: 'http://' + address.ip() + ':8098',
+                changeOrigin: true, // 是否跨域
+                onProxyReq: function (proxyReq, req, res, options) {
+                    console.log('发送', req.method, req.url);
+
+                    if (req.body) {
+                        console.log('发送 Body', req.body);
+                    }
+                },
+                onProxyRes: function (proxyRes, req, res) {
+                    console.log('收到', req.method, req.url);
+
+                    let body = [];
+                    proxyRes.on('data', function (chunk) {
+                        body.push(chunk);
+                    });
+                    proxyRes.on('end', function () {
+                        body = Buffer.concat(body).toString();
+                        console.log('收到 Body', body);
+                        // res.end('my response to cli');
+                    });
+                },
+                onError: function (err, req, res) {
+                    console.log('代理错误消息', err);
+                },
+                logLevel: 'debug'
+            }
+        } 
+    },
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[prettier 配置]]></title>
         <id>https://blog.myxy.net/prettier-pei-zhi/</id>
@@ -429,35 +476,6 @@ int main(void)
 </tr>
 </tbody>
 </table>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[API:路径分割 _splitpath_s()]]></title>
-        <id>https://blog.myxy.net/lu-jing-fen-ge-_splitpath_s/</id>
-        <link href="https://blog.myxy.net/lu-jing-fen-ge-_splitpath_s/">
-        </link>
-        <updated>2020-11-26T02:13:05.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">#include &lt;iostream&gt;  
-#include &lt;cstdlib&gt;  
-using namespace std;  
-  
-int main()  
-{  
-    char *path=&quot;c:\\111\\222\\xxxx.mp3&quot;;  
-    char drive[5];  
-    char dir[100];  
-    char filename[100];  
-    char fileext[10];  
-    _splitpath(path,drive,dir,filename,fileext);  
-    cout&lt;&lt;&quot;filepath: &quot;&lt;&lt;path&lt;&lt;endl  
-        &lt;&lt;&quot;drive: &quot;&lt;&lt;drive&lt;&lt;endl            // c:
-        &lt;&lt;&quot;dir: &quot;&lt;&lt;dir&lt;&lt;endl                    // \111\222\
-        &lt;&lt;&quot;filename: &quot;&lt;&lt;filename&lt;&lt;endl      // xxx
-        &lt;&lt;&quot;fileext: &quot;&lt;&lt;fileext&lt;&lt;endl;       // .mp3
-    system(&quot;pause&quot;);  
-    return 0;  
-}  
-</code></pre>
 ]]></content>
     </entry>
 </feed>

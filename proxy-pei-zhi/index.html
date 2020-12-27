@@ -4,46 +4,40 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>iview - Maxbad`Blog</title>
+<title>proxy配置 - Maxbad`Blog</title>
 <link rel="shortcut icon" href="https://blog.myxy.net/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://blog.myxy.net/media/css/tailwind.css">
 <link rel="stylesheet" href="https://blog.myxy.net/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="iview - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="proxy配置 - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
 
     
 
-  <meta name="description" content="样式覆盖
-样式文件:  src\styles\default\index.less
-// 下拉框,时间弹出动画速度
-@animation-time:.3x;    
-
-Login  赋值
-  &amp;lt;Login ref=&amp;quot;form..." />
-  <meta property="og:title" content="iview - Maxbad`Blog">
-  <meta property="og:description" content="样式覆盖
-样式文件:  src\styles\default\index.less
-// 下拉框,时间弹出动画速度
-@animation-time:.3x;    
-
-Login  赋值
-  &amp;lt;Login ref=&amp;quot;form..." />
+  <meta name="description" content="const address = require(&#39;address&#39;);
+devServer: {
+        publicPath: Setting.publicPath,
+        host: address.ip(),
+   ..." />
+  <meta property="og:title" content="proxy配置 - Maxbad`Blog">
+  <meta property="og:description" content="const address = require(&#39;address&#39;);
+devServer: {
+        publicPath: Setting.publicPath,
+        host: address.ip(),
+   ..." />
   <meta property="og:type" content="articles">
-  <meta property="og:url" content="https://blog.myxy.net/iview/" />
+  <meta property="og:url" content="https://blog.myxy.net/proxy-pei-zhi/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="iview - Maxbad`Blog">
-  <meta name="twitter:description" content="样式覆盖
-样式文件:  src\styles\default\index.less
-// 下拉框,时间弹出动画速度
-@animation-time:.3x;    
-
-Login  赋值
-  &amp;lt;Login ref=&amp;quot;form...">
+  <meta name="twitter:title" content="proxy配置 - Maxbad`Blog">
+  <meta name="twitter:description" content="const address = require(&#39;address&#39;);
+devServer: {
+        publicPath: Setting.publicPath,
+        host: address.ip(),
+   ...">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://blog.myxy.net/iview/">
+  <link rel="canonical" href="https://blog.myxy.net/proxy-pei-zhi/">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
@@ -63,32 +57,52 @@ Login  赋值
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          iview
+          proxy配置
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-10-29 · 1 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-12-26 · 1 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <h1 id="样式覆盖">样式覆盖</h1>
-<p>样式文件:  <code>src\styles\default\index.less</code></p>
-<pre><code class="language-style">// 下拉框,时间弹出动画速度
-@animation-time:.3x;    
-</code></pre>
-<h1 id="login-赋值">Login  赋值</h1>
-<pre><code>  &lt;Login ref=&quot;form&quot; @on-submit=&quot;handleSubmit&quot;&gt;
-        &lt;UserName name=&quot;username&quot; /&gt;
-        &lt;Password name=&quot;password&quot; /&gt;
-        &lt;div class=&quot;demo-auto-login&quot;&gt;
-            &lt;Checkbox v-model=&quot;autoLogin&quot; size=&quot;large&quot;&gt;自动登录&lt;/Checkbox&gt;
-            &lt;a&gt;忘记密码&lt;/a&gt;
-        &lt;/div&gt;
-        &lt;Submit /&gt;
-    &lt;/Login&gt;
+          <pre><code class="language-js">const address = require('address');
+devServer: {
+        publicPath: Setting.publicPath,
+        host: address.ip(),
+        noInfo: false,
+        progress: true // 将运行进度输出到控制台。
+         openPage: 'admin/version', // 默认打开页
+         proxy: {
+            '/v1': {
+                target: 'http://' + address.ip() + ':8098',
+                changeOrigin: true, // 是否跨域
+                onProxyReq: function (proxyReq, req, res, options) {
+                    console.log('发送', req.method, req.url);
 
-// 赋值
-this.$refs.form.formValidate.username = &quot;123456&quot;;
+                    if (req.body) {
+                        console.log('发送 Body', req.body);
+                    }
+                },
+                onProxyRes: function (proxyRes, req, res) {
+                    console.log('收到', req.method, req.url);
+
+                    let body = [];
+                    proxyRes.on('data', function (chunk) {
+                        body.push(chunk);
+                    });
+                    proxyRes.on('end', function () {
+                        body = Buffer.concat(body).toString();
+                        console.log('收到 Body', body);
+                        // res.end('my response to cli');
+                    });
+                },
+                onError: function (err, req, res) {
+                    console.log('代理错误消息', err);
+                },
+                logLevel: 'debug'
+            }
+        } 
+    },
 </code></pre>
 
         </div>
@@ -132,11 +146,7 @@ this.$refs.form.formValidate.username = &quot;123456&quot;;
         </div>
       </div>
       <div class="post-toc-container">
-        <ul class="markdownIt-TOC">
-<li><a href="#%E6%A0%B7%E5%BC%8F%E8%A6%86%E7%9B%96">样式覆盖</a></li>
-<li><a href="#login-%E8%B5%8B%E5%80%BC">Login  赋值</a></li>
-</ul>
-
+        
       </div>
     </div>
 
