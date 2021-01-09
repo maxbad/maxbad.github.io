@@ -2,14 +2,46 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2020-12-27T06:36:00.304Z</updated>
+    <updated>2021-01-09T06:51:36.373Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
     <subtitle>记录一些东西</subtitle>
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
-    <rights>All rights reserved 2020, Maxbad`Blog</rights>
+    <rights>All rights reserved 2021, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[vue项目打包时，去掉console.log输出]]></title>
+        <id>https://blog.myxy.net/vue-xiang-mu-da-bao-shi-qu-diao-consolelog-shu-chu/</id>
+        <link href="https://blog.myxy.net/vue-xiang-mu-da-bao-shi-qu-diao-consolelog-shu-chu/">
+        </link>
+        <updated>2021-01-09T06:50:20.000Z</updated>
+        <content type="html"><![CDATA[<p>安装插件：<code>npm install babel-plugin-transform-remove-console --save-dev</code></p>
+<p>在<code>babel.config.js</code>文件的<code>plugins</code>中添加<code>transform-remove-console</code>，此时再build就不会有console警告了。</p>
+<pre><code class="language-java">// 项目发布阶段需要用到的Babel插件
+const prodPlugins = []
+if (process.env.NODE_ENV === 'production') {
+  prodPlugins.push('transform-remove-console')
+}
+module.exports = {
+  presets: [
+    '@vue/cli-plugin-babel/preset'
+  ],
+  plugins: [
+    [
+      'component',
+      {
+        libraryName: 'element-ui',
+        styleLibraryName: 'theme-chalk'
+      }
+    ],
+    // 发布产品时候的插件数组
+    ...prodPlugins
+  ]
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[proxy配置]]></title>
         <id>https://blog.myxy.net/proxy-pei-zhi/</id>
@@ -435,47 +467,6 @@ int main(void)
 	return 0;
 }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[_WIN32，WIN32，_WIN64 ]]></title>
-        <id>https://blog.myxy.net/_win32win32_win64/</id>
-        <link href="https://blog.myxy.net/_win32win32_win64/">
-        </link>
-        <updated>2020-11-26T10:39:49.000Z</updated>
-        <content type="html"><![CDATA[<p>在 Win32 配置下，_WIN32 有定义，_WIN64 没有定义<br>
-在 x64 配置下，两者都有定义。即 在 VC 下，_WIN32 一定有定义。<br>
-因此，WIN32/_WIN32 可以用来判断是否 Windows 系统（对于跨平台程序），而 _WIN64 用来判断编译环境是 x86 还是 x64。</p>
-<table>
-<thead>
-<tr>
-<th>常量\定义</th>
-<th style="text-align:center">预定义选项</th>
-<th style="text-align:center">Windows.h</th>
-<th style="text-align:right">VC编译器</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>WIN32</td>
-<td style="text-align:center">Win32</td>
-<td style="text-align:center">√(minwindef.h)</td>
-<td style="text-align:right">×</td>
-</tr>
-<tr>
-<td>_WIN32</td>
-<td style="text-align:center">×</td>
-<td style="text-align:center">×</td>
-<td style="text-align:right">√</td>
-</tr>
-<tr>
-<td>_WIN64</td>
-<td style="text-align:center">×</td>
-<td style="text-align:center">×</td>
-<td style="text-align:right">x64</td>
-</tr>
-</tbody>
-</table>
 ]]></content>
     </entry>
 </feed>
