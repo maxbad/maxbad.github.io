@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-01-09T06:51:36.373Z</updated>
+    <updated>2021-01-11T03:55:02.314Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,42 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2021, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[std::string 构造函数]]></title>
+        <id>https://blog.myxy.net/stdstring-gou-zao-han-shu/</id>
+        <link href="https://blog.myxy.net/stdstring-gou-zao-han-shu/">
+        </link>
+        <updated>2021-01-11T03:28:26.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>
+<p>1,将构造的对象初始化为s的前n个字符，s不够n个时将相邻的内存单元的内容当作s的一部分继续复制:<br>
+<code>string(const char *s, size_type n, const Allocator &amp;a = Allocator());</code></p>
+<pre><code class="language-cpp">  std::string testStr(&quot;Telephone home.&quot;, 4);
+  OutputDebugStringA(testStr.c_str());
+  // 输出:Tele
+</code></pre>
+</li>
+<li>
+<p>2,将构造的对象初始化为s的后n个字符，也就是从s指向的内存的第n个字节开始复制：<br>
+<code>string(const string &amp;str, size_type pos,size_type n = npos, const Allocator &amp;a = Allocator());</code></p>
+</li>
+</ul>
+<pre><code class="language-cpp">    std::string text(&quot;Telephone home.&quot;);
+    std::string testStr(text, 4);
+    OutputDebugStringA(testStr.c_str());
+    // 输出:phone home.
+</code></pre>
+<ul>
+<li>3,创建一个n个字符的string对象：<br>
+<code>string(size_type n, char c, const Allocator &amp;a = Allocator())</code><pre><code class="language-cpp">  std::string testStr(10, 'a');
+  OutputDebugStringA(testStr.c_str());
+  // 输出:aaaaaaaaaa
+</code></pre>
+</li>
+</ul>
+<p>其他文档:<a href="http://c.biancheng.net/view/1443.html">http://c.biancheng.net/view/1443.html</a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[vue项目打包时，去掉console.log输出]]></title>
         <id>https://blog.myxy.net/vue-xiang-mu-da-bao-shi-qu-diao-consolelog-shu-chu/</id>
@@ -393,79 +429,6 @@ $DAY               // 日
 $HOUR            // 小时
 $MIN               // 分钟
 $SEC                // 秒
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[_WIN32，WIN32，_WIN64 ,进程是否X64,系统是否X64]]></title>
-        <id>https://blog.myxy.net/_win32win32_win64-jin-cheng-shi-fou-x64xi-tong-shi-fou-x64/</id>
-        <link href="https://blog.myxy.net/_win32win32_win64-jin-cheng-shi-fou-x64xi-tong-shi-fou-x64/">
-        </link>
-        <updated>2020-11-26T10:39:49.000Z</updated>
-        <content type="html"><![CDATA[<p>在 Win32 配置下，_WIN32 有定义，_WIN64 没有定义<br>
-在 x64 配置下，两者都有定义。即 在 VC 下，_WIN32 一定有定义。<br>
-因此，WIN32/_WIN32 可以用来判断是否 Windows 系统（对于跨平台程序），而 _WIN64 用来判断编译环境是 x86 还是 x64。</p>
-<table>
-<thead>
-<tr>
-<th>常量\定义</th>
-<th style="text-align:center">预定义选项</th>
-<th style="text-align:center">Windows.h</th>
-<th style="text-align:right">VC编译器</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>WIN32</td>
-<td style="text-align:center">Win32</td>
-<td style="text-align:center">√(minwindef.h)</td>
-<td style="text-align:right">×</td>
-</tr>
-<tr>
-<td>_WIN32</td>
-<td style="text-align:center">×</td>
-<td style="text-align:center">×</td>
-<td style="text-align:right">√</td>
-</tr>
-<tr>
-<td>_WIN64</td>
-<td style="text-align:center">×</td>
-<td style="text-align:center">×</td>
-<td style="text-align:right">x64</td>
-</tr>
-</tbody>
-</table>
-<p>不通过宏判断,进程是否X64,系统是否X64</p>
-<pre><code class="language-cpp">typedef BOOL(WINAPI* LPFN_ISWOW64PROCESS) (HANDLE, PBOOL);
-
-LPFN_ISWOW64PROCESS fnIsWow64Process = NULL;
-
-BOOL Isx64Application() {
-	return (sizeof(LPFN_ISWOW64PROCESS) == 8) ? TRUE : FALSE;
-}
-
-BOOL IsWow64() {
-	BOOL bIsWow64 = FALSE;
-	if (!fnIsWow64Process)
-		fnIsWow64Process = (LPFN_ISWOW64PROCESS)GetProcAddress(GetModuleHandle(TEXT(&quot;kernel32&quot;)), &quot;IsWow64Process&quot;);
-	if (fnIsWow64Process)
-		if (!fnIsWow64Process(GetCurrentProcess(), &amp;bIsWow64))
-			return FALSE;
-	return bIsWow64;
-}
-
-int main(void)
-{
-	if (Isx64Application())
-		_tprintf(TEXT(&quot;The application is a x64 program.\n&quot;));
-	else {
-		if (!IsWow64())
-			_tprintf(TEXT(&quot;The application is running under Windows x86.\n&quot;));
-		else
-			_tprintf(TEXT(&quot;The application is a x86 program running under Windows x64.\n&quot;));
-	}
-	return 0;
-}
 </code></pre>
 ]]></content>
     </entry>
