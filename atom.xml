@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-01-11T03:55:02.314Z</updated>
+    <updated>2021-01-25T15:39:16.210Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,69 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2021, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[番茄的一些记录]]></title>
+        <id>https://blog.myxy.net/fan-qie-de-yi-xie-ji-lu/</id>
+        <link href="https://blog.myxy.net/fan-qie-de-yi-xie-ji-lu/">
+        </link>
+        <updated>2021-01-25T07:40:17.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="快捷键">快捷键</h1>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alt+o</td>
+<td style="text-align:left">换 .h 和 .cpp</td>
+</tr>
+<tr>
+<td>alt+shift+o</td>
+<td style="text-align:left">全局找文件</td>
+</tr>
+<tr>
+<td>alt+shift+s</td>
+<td style="text-align:left">全局找符号</td>
+</tr>
+<tr>
+<td>alt+shift+f</td>
+<td style="text-align:left">全局找当前光标符号</td>
+</tr>
+<tr>
+<td>f8</td>
+<td style="text-align:left">ctrl+shift+f 之后 f8，查找下一个当前光标符号的引用，这个不是 vax 的功能，是 vs 自带的</td>
+</tr>
+<tr>
+<td>alt+g</td>
+<td style="text-align:left">找定义</td>
+</tr>
+<tr>
+<td>alt+shift+g</td>
+<td style="text-align:left">找继承关系</td>
+</tr>
+<tr>
+<td>alt+shift+q</td>
+<td style="text-align:left">添加 include</td>
+</tr>
+<tr>
+<td>alt+shift+r</td>
+<td style="text-align:left">重构</td>
+</tr>
+<tr>
+<td>ctrl+k,ctrl+s</td>
+<td style="text-align:left">包裹代码</td>
+</tr>
+<tr>
+<td>alt+m</td>
+<td style="text-align:left">当前文件方法</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[std::string 构造函数]]></title>
         <id>https://blog.myxy.net/stdstring-gou-zao-han-shu/</id>
@@ -412,24 +475,6 @@ public:
 </code></pre>
 <p>理论分析： 纯虚函数 run 使用关键字 final后，run函数不能被派生类（子类）继承并实现，且语法也正确。 实际： 编译通过。<br>
 but，类base_class及继承自base_class的类均无法创建对象。因为： base_class的run函数是一个纯虚函数且无法被派生类继承。结论： 纯虚函数使用final关键字，无实际意义。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[fn-log]]></title>
-        <id>https://blog.myxy.net/fn-log/</id>
-        <link href="https://blog.myxy.net/fn-log/">
-        </link>
-        <updated>2020-11-27T02:40:54.000Z</updated>
-        <content type="html"><![CDATA[<p>文件名支持变量:</p>
-<pre><code>$PNAME      // 进程名
-$PID            // 进程ID
-$YEAR              // 年
-$MON             // 月
-$DAY               // 日
-$HOUR            // 小时
-$MIN               // 分钟
-$SEC                // 秒
-</code></pre>
 ]]></content>
     </entry>
 </feed>
