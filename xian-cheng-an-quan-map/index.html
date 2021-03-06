@@ -4,31 +4,49 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>nlohmann/json 使用记录 - Maxbad`Blog</title>
+<title>线程安全-map - Maxbad`Blog</title>
 <link rel="shortcut icon" href="https://blog.myxy.net/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://blog.myxy.net/media/css/tailwind.css">
 <link rel="stylesheet" href="https://blog.myxy.net/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="nlohmann/json 使用记录 - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="线程安全-map - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
 
     
 
-  <meta name="description" content="nlohmann库是C++解析json的库，库使用很简单，程序中使用nlohmann仅需要将json.hpp添加到工程中即可。在线帮助文档
-介绍:https://blog.csdn.net/qq_26189301/article/detai..." />
-  <meta property="og:title" content="nlohmann/json 使用记录 - Maxbad`Blog">
-  <meta property="og:description" content="nlohmann库是C++解析json的库，库使用很简单，程序中使用nlohmann仅需要将json.hpp添加到工程中即可。在线帮助文档
-介绍:https://blog.csdn.net/qq_26189301/article/detai..." />
+  <meta name="description" content="#pragma once
+#include &amp;lt;map&amp;gt;
+#include &amp;lt;mutex&amp;gt;
+
+template&amp;lt;typename Key, typename Val&amp;gt;
+class SafeMap
+{
+pub..." />
+  <meta property="og:title" content="线程安全-map - Maxbad`Blog">
+  <meta property="og:description" content="#pragma once
+#include &amp;lt;map&amp;gt;
+#include &amp;lt;mutex&amp;gt;
+
+template&amp;lt;typename Key, typename Val&amp;gt;
+class SafeMap
+{
+pub..." />
   <meta property="og:type" content="articles">
-  <meta property="og:url" content="https://blog.myxy.net/nlohmannjson-shi-yong-ji-lu/" />
+  <meta property="og:url" content="https://blog.myxy.net/xian-cheng-an-quan-map/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="nlohmann/json 使用记录 - Maxbad`Blog">
-  <meta name="twitter:description" content="nlohmann库是C++解析json的库，库使用很简单，程序中使用nlohmann仅需要将json.hpp添加到工程中即可。在线帮助文档
-介绍:https://blog.csdn.net/qq_26189301/article/detai...">
+  <meta name="twitter:title" content="线程安全-map - Maxbad`Blog">
+  <meta name="twitter:description" content="#pragma once
+#include &amp;lt;map&amp;gt;
+#include &amp;lt;mutex&amp;gt;
+
+template&amp;lt;typename Key, typename Val&amp;gt;
+class SafeMap
+{
+pub...">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://blog.myxy.net/nlohmannjson-shi-yong-ji-lu/">
+  <link rel="canonical" href="https://blog.myxy.net/xian-cheng-an-quan-map/">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
@@ -48,82 +66,62 @@
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          nlohmann/json 使用记录
+          线程安全-map
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-05-12 · 2 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2021-03-06 · 1 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <p><a href="https://github.com/nlohmann/json">nlohmann</a>库是C++解析json的库，库使用很简单，程序中使用nlohmann仅需要将json.hpp添加到工程中即可。<a href="https://nlohmann.github.io/json/">在线帮助文档</a></p>
-<p>介绍:<a href="https://blog.csdn.net/qq_26189301/article/details/108254642">https://blog.csdn.net/qq_26189301/article/details/108254642</a></p>
-<h2 id="定义一个json对象">定义一个JSON对象:</h2>
-<pre><code>//定义一个JSON对象
-nlohmann::json ret_json = { {&quot;code&quot;, 1}, {&quot;msg&quot;, u8&quot;系统开小差, 请稍后再试啊啊啊!&quot;} };
+          <pre><code class="language-cpp">#pragma once
+#include &lt;map&gt;
+#include &lt;mutex&gt;
 
-输出内容:
+template&lt;typename Key, typename Val&gt;
+class SafeMap
 {
-	&quot;code&quot;: 1,
-	&quot;msg&quot;: &quot;系统开小差, 请稍后再试啊啊啊!&quot;
-}
+public:
+	typedef typename std::map&lt;Key, Val&gt;::iterator this_iterator;
+	typedef typename std::map&lt;Key, Val&gt;::const_iterator this_const_iterator;
+	Val&amp; operator [](const Key&amp; key)
+	{
+		std::lock_guard&lt;std::mutex&gt; lk(mtx_);
+		return dataMap_[key];
+	}
 
-// 方式2:
-nlohmann::json j = R&quot;({&quot;name&quot;: &quot;Judd Trump&quot;,&quot;credits&quot;: 1754500,&quot;ranking&quot;: 1})&quot;_json; 
-</code></pre>
-<h2 id="打印json对象内容">打印json对象内容</h2>
-<pre><code>j_object.dump(缩进量)
-</code></pre>
-<h2 id="通过key删除">通过key删除</h2>
-<pre><code>j_object.erase(&quot;one&quot;);
-</code></pre>
-<h2 id="通过索引删除">通过索引删除</h2>
-<pre><code> // create a JSON array
-    json j_array = {0, 1, 2, 3, 4, 5};
- 
-    // call erase
-    j_array.erase(2);
-    
-    // print values
-    std::cout &lt;&lt; j_array &lt;&lt; '\n';
-</code></pre>
-<h2 id="获取值">获取值:</h2>
-<pre><code>auto&amp; username = req_json[&quot;username&quot;].get&lt;std::string&gt;();
-</code></pre>
-<h2 id="遍历对象">遍历对象</h2>
-<pre><code>for (auto it=j.begin(); it!=j.end(); it++) {
-    std::cout &lt;&lt; &quot;key: &quot; &lt;&lt; it.key() &lt;&lt; &quot; : &quot; &lt;&lt; it.value() &lt;&lt; std::endl; 
-    // it.value() 是json对象
-  }
-</code></pre>
-<pre><code class="language-cpp">#include &quot;json.hpp&quot;
-#include &lt;iostream&gt;
+	int erase(const Key&amp; key)
+	{
+		std::lock_guard&lt;std::mutex&gt; lk(mtx_);
+		return dataMap_.erase(key);
+	}
 
-using json = nlohmann::json;
+	this_iterator find(const Key&amp; key)
+	{
+		std::lock_guard&lt;std::mutex&gt; lk(mtx_);
+		return dataMap_.find(key);
+	}
 
-template&lt;class UnaryFunction&gt;
-void recursive_iterate(const json&amp; j, UnaryFunction f)
-{
-    for(auto it = j.begin(); it != j.end(); ++it)
-    {
-        if (it-&gt;is_structured())
-        {
-            recursive_iterate(*it, f);
-        }
-        else
-        {
-            f(it);
-        }
-    }
-}
+	this_const_iterator find(const Key&amp; key) const
+	{
+		std::lock_guard&lt;std::mutex&gt; lk(mtx_);
+		return dataMap_.find(key);
+	}
 
-int main()
-{
-    json j = {{&quot;one&quot;, 1}, {&quot;two&quot;, 2}, {&quot;three&quot;, {&quot;three.one&quot;, 3.1}}};
-    recursive_iterate(j, [](json::const_iterator it){
-        std::cout &lt;&lt; *it &lt;&lt; std::endl;
-    });
-}
+	this_iterator end()
+	{
+		return dataMap_.end();
+	}
+
+	this_const_iterator end() const
+	{
+		return dataMap_.end();
+	}
+
+private:
+	std::map&lt;Key, Val&gt; dataMap_;
+	std::mutex mtx_;
+};
 </code></pre>
 
         </div>
@@ -167,19 +165,7 @@ int main()
         </div>
       </div>
       <div class="post-toc-container">
-        <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AAjson%E5%AF%B9%E8%B1%A1">定义一个JSON对象:</a></li>
-<li><a href="#%E6%89%93%E5%8D%B0json%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AE%B9">打印json对象内容</a></li>
-<li><a href="#%E9%80%9A%E8%BF%87key%E5%88%A0%E9%99%A4">通过key删除</a></li>
-<li><a href="#%E9%80%9A%E8%BF%87%E7%B4%A2%E5%BC%95%E5%88%A0%E9%99%A4">通过索引删除</a></li>
-<li><a href="#%E8%8E%B7%E5%8F%96%E5%80%BC">获取值:</a></li>
-<li><a href="#%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1">遍历对象</a></li>
-</ul>
-</li>
-</ul>
-
+        
       </div>
     </div>
 
