@@ -54,6 +54,54 @@
     
     <div class="flex-1 order-2 md:order-1">
       <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/c11can-shu-an-cheng-yuan-han-shu-qi-dong-xian-cheng/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          C++11：参数按成员函数启动线程
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-10-08</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        使用非静态类成员上述作为线程启动函数
+#include &lt;thread&gt;
+#include &lt;atomic&gt;
+ 
+class Task {
+public:
+Task(){
+    cnt_thread.store(0...
+      </div>
+      <a href="https://blog.myxy.net/c11can-shu-an-cheng-yuan-han-shu-qi-dong-xian-cheng/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/gong-neng-ri-zhi-hui-diao-jie-kou/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          功能日志回调接口
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-09-27</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        功能日志接口
+// 定义一个输出接口
+void on_error(std::function&lt;void(std::string const&amp;)&gt; const&amp; callback) {
+    m_err_call...
+      </div>
+      <a href="https://blog.myxy.net/gong-neng-ri-zhi-hui-diao-jie-kou/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
         <a href="https://blog.myxy.net/c11-xin-te-xing/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
           C++11新特性
         </a>
@@ -234,53 +282,6 @@ http...
 完整的验证规则请参照开源项目 async-validator。...
       </div>
       <a href="https://blog.myxy.net/iview-biao-dan-yan-zheng/" class="btn">
-        查看
-      </a>
-    </div>
-    
-  </div>
-
-  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
-    
-    <div class="flex-1 order-2 md:order-1">
-      <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://blog.myxy.net/es6/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
-          ES6
-        </a>
-      </h2>
-      <div class="mb-4 text-xs text-gray-500">2020-08-28</div>
-      <div class="mb-4 text-gray-500 dark:text-gray-300">
-        对象字面量简写
-https://zhuanlan.zhihu.com/p/56215043
-模板字符串
-
-模板字符串就是一种字符串的新的表现形式,模板字符串的出现，极大的改变传统字符串的拼接方法，减少代码出现错误的几率。提高开发效率
-
-
-基...
-      </div>
-      <a href="https://blog.myxy.net/es6/" class="btn">
-        查看
-      </a>
-    </div>
-    
-  </div>
-
-  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
-    
-    <div class="flex-1 order-2 md:order-1">
-      <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://blog.myxy.net/shi-yong-vue-devtools/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
-          使用 vue-devtools
-        </a>
-      </h2>
-      <div class="mb-4 text-xs text-gray-500">2020-08-10</div>
-      <div class="mb-4 text-gray-500 dark:text-gray-300">
-        找到vue-devtools的github项目，克隆到本地；
-进入到项目根目录，安装依赖 npm install 或着 cpm install；
-找到vue-devtools/shells/chrome/manifest.json 文件，修...
-      </div>
-      <a href="https://blog.myxy.net/shi-yong-vue-devtools/" class="btn">
         查看
       </a>
     </div>

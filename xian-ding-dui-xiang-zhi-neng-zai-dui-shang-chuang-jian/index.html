@@ -4,37 +4,37 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>std::string 构造函数 - Maxbad`Blog</title>
+<title>限定对象只能在堆上创建 - Maxbad`Blog</title>
 <link rel="shortcut icon" href="https://blog.myxy.net/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://blog.myxy.net/media/css/tailwind.css">
 <link rel="stylesheet" href="https://blog.myxy.net/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="std::string 构造函数 - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="限定对象只能在堆上创建 - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
 
     
 
-  <meta name="description" content="C++中的String的常用函数用法总结: https://blog.csdn.net/qq_37941471/article/details/82107077
+  <meta name="description" content="限定对象在堆上创建的需求
 
 
-1,将构造的对象初始化为s的前n个字符，s不够n个时将相邻的内存单元的内容..." />
-  <meta property="og:title" content="std::string 构造函数 - Maxbad`Blog">
-  <meta property="og:description" content="C++中的String的常用函数用法总结: https://blog.csdn.net/qq_37941471/article/details/82107077
+C++对象的一些使用场景其实已经有这种隐喻了，比如一个对象从std::enable_shared_from_this派生，当我们调用this-&amp;gt;shared_from_this()的前提条件是这个对象已经..." />
+  <meta property="og:title" content="限定对象只能在堆上创建 - Maxbad`Blog">
+  <meta property="og:description" content="限定对象在堆上创建的需求
 
 
-1,将构造的对象初始化为s的前n个字符，s不够n个时将相邻的内存单元的内容..." />
+C++对象的一些使用场景其实已经有这种隐喻了，比如一个对象从std::enable_shared_from_this派生，当我们调用this-&amp;gt;shared_from_this()的前提条件是这个对象已经..." />
   <meta property="og:type" content="articles">
-  <meta property="og:url" content="https://blog.myxy.net/stdstring-gou-zao-han-shu/" />
+  <meta property="og:url" content="https://blog.myxy.net/xian-ding-dui-xiang-zhi-neng-zai-dui-shang-chuang-jian/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="std::string 构造函数 - Maxbad`Blog">
-  <meta name="twitter:description" content="C++中的String的常用函数用法总结: https://blog.csdn.net/qq_37941471/article/details/82107077
+  <meta name="twitter:title" content="限定对象只能在堆上创建 - Maxbad`Blog">
+  <meta name="twitter:description" content="限定对象在堆上创建的需求
 
 
-1,将构造的对象初始化为s的前n个字符，s不够n个时将相邻的内存单元的内容...">
+C++对象的一些使用场景其实已经有这种隐喻了，比如一个对象从std::enable_shared_from_this派生，当我们调用this-&amp;gt;shared_from_this()的前提条件是这个对象已经...">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://blog.myxy.net/stdstring-gou-zao-han-shu/">
+  <link rel="canonical" href="https://blog.myxy.net/xian-ding-dui-xiang-zhi-neng-zai-dui-shang-chuang-jian/">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
@@ -54,43 +54,46 @@
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          std::string 构造函数
+          限定对象只能在堆上创建
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2021-01-11 · 1 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2021-03-08 · 2 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <p>C++中的String的常用函数用法总结: <a href="https://blog.csdn.net/qq_37941471/article/details/82107077">https://blog.csdn.net/qq_37941471/article/details/82107077</a></p>
-<ul>
-<li>
-<p>1,将构造的对象初始化为s的前n个字符，s不够n个时将相邻的内存单元的内容当作s的一部分继续复制:<br>
-<code>string(const char *s, size_type n, const Allocator &amp;a = Allocator());</code></p>
-<pre><code class="language-cpp">  std::string testStr(&quot;Telephone home.&quot;, 4);
-  OutputDebugStringA(testStr.c_str());
-  // 输出:Tele
+          <p><strong>限定对象在堆上创建的需求</strong></p>
+<blockquote>
+<blockquote>
+<p>C++对象的一些使用场景其实已经有这种隐喻了，比如一个对象从std::enable_shared_from_this派生，当我们调用this-&gt;shared_from_this()的前提条件是这个对象已经被创建为shared_ptr，如果是一个栈对象去调用shared_from_this时会crash，所以使用派生于std::enable_shared_from_this的对象时，限定它只能在堆上创建可以保证代码的安全性。</p>
+</blockquote>
+</blockquote>
+<pre><code class="language-cpp">struct dummy{
+    class token{
+    private:
+        token(){}
+        friend dummy;
+    };
+
+    static std::shared_ptr&lt;dummy&gt; create(){
+      return std::make_shared&lt;dummy&gt;(token{});
+    }
+
+    dummy(token) : dummy() {
+    }
+
+private:
+    dummy(){}
+};
+
+int main() {
+  dummy d{}; //compile error
+  dummy d(token{}); //compile error
+  auto ptr = dummy::create(); //ok
+}
 </code></pre>
-</li>
-<li>
-<p>2,将构造的对象初始化为s的后n个字符，也就是从s指向的内存的第n个字节开始复制：<br>
-<code>string(const string &amp;str, size_type pos,size_type n = npos, const Allocator &amp;a = Allocator());</code></p>
-</li>
-</ul>
-<pre><code class="language-cpp">    std::string text(&quot;Telephone home.&quot;);
-    std::string testStr(text, 4);
-    OutputDebugStringA(testStr.c_str());
-    // 输出:phone home.
-</code></pre>
-<ul>
-<li>3,创建一个n个字符的string对象：<br>
-<code>string(size_type n, char c, const Allocator &amp;a = Allocator())</code><pre><code class="language-cpp">  std::string testStr(10, 'a');
-  OutputDebugStringA(testStr.c_str());
-  // 输出:aaaaaaaaaa
-</code></pre>
-</li>
-</ul>
-<p>其他文档:<a href="http://c.biancheng.net/view/1443.html">http://c.biancheng.net/view/1443.html</a></p>
+<p>这个代码借助了一个私有内部类token来避免在栈上创建dummy对象，因为外面无法访问这个token，只有它的友元类dummy才能访问token。另外一个问题是dummy的构造函数还是私有的，为什么这次改造之后可以用std::make_shared了？因为这里先通过public的dummy(token)去构造dummy对象的，然后dummy通过代理构造函数dummy()去真正构造一个dummy对象。</p>
+<p>这个token在这里有两个作用，一个是用来避免在栈上构造dummy对象，一个是提供一个public的构造函数给std::make_shared使用。对于创建一个std::unique_ptr对象来说思路也是一样的，读者可以自行实现。至此，我们比较完美地实现了限定对象只能在堆上创建的目标。</p>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->

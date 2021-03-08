@@ -4,37 +4,76 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>std::string 构造函数 - Maxbad`Blog</title>
+<title>C++ 类的关键字 - Maxbad`Blog</title>
 <link rel="shortcut icon" href="https://blog.myxy.net/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://blog.myxy.net/media/css/tailwind.css">
 <link rel="stylesheet" href="https://blog.myxy.net/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="std::string 构造函数 - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="C++ 类的关键字 - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
 
     
 
-  <meta name="description" content="C++中的String的常用函数用法总结: https://blog.csdn.net/qq_37941471/article/details/82107077
+  <meta name="description" content="final
+
+禁用继承
 
 
-1,将构造的对象初始化为s的前n个字符，s不够n个时将相邻的内存单元的内容..." />
-  <meta property="og:title" content="std::string 构造函数 - Maxbad`Blog">
-  <meta property="og:description" content="C++中的String的常用函数用法总结: https://blog.csdn.net/qq_37941471/article/details/82107077
+C++11中允许将类标记为final，方法时直接在类名称后面使用关键字final，如此，意味着继承该类会导致编译错误。
+
+class Super final
+{
+    // 
+};
 
 
-1,将构造的对象初始化为s的前n个字符，s不够n个时将相邻的内存单元的内容..." />
+
+禁用重写
+
+C++中还..." />
+  <meta property="og:title" content="C++ 类的关键字 - Maxbad`Blog">
+  <meta property="og:description" content="final
+
+禁用继承
+
+
+C++11中允许将类标记为final，方法时直接在类名称后面使用关键字final，如此，意味着继承该类会导致编译错误。
+
+class Super final
+{
+    // 
+};
+
+
+
+禁用重写
+
+C++中还..." />
   <meta property="og:type" content="articles">
-  <meta property="og:url" content="https://blog.myxy.net/stdstring-gou-zao-han-shu/" />
+  <meta property="og:url" content="https://blog.myxy.net/c-lei-de-guan-jian-zi/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="std::string 构造函数 - Maxbad`Blog">
-  <meta name="twitter:description" content="C++中的String的常用函数用法总结: https://blog.csdn.net/qq_37941471/article/details/82107077
+  <meta name="twitter:title" content="C++ 类的关键字 - Maxbad`Blog">
+  <meta name="twitter:description" content="final
+
+禁用继承
 
 
-1,将构造的对象初始化为s的前n个字符，s不够n个时将相邻的内存单元的内容...">
+C++11中允许将类标记为final，方法时直接在类名称后面使用关键字final，如此，意味着继承该类会导致编译错误。
+
+class Super final
+{
+    // 
+};
+
+
+
+禁用重写
+
+C++中还...">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://blog.myxy.net/stdstring-gou-zao-han-shu/">
+  <link rel="canonical" href="https://blog.myxy.net/c-lei-de-guan-jian-zi/">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
@@ -54,43 +93,42 @@
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          std::string 构造函数
+          C++ 类的关键字
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2021-01-11 · 1 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2021-03-08 · 1 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <p>C++中的String的常用函数用法总结: <a href="https://blog.csdn.net/qq_37941471/article/details/82107077">https://blog.csdn.net/qq_37941471/article/details/82107077</a></p>
+          <h1 id="final">final</h1>
 <ul>
-<li>
-<p>1,将构造的对象初始化为s的前n个字符，s不够n个时将相邻的内存单元的内容当作s的一部分继续复制:<br>
-<code>string(const char *s, size_type n, const Allocator &amp;a = Allocator());</code></p>
-<pre><code class="language-cpp">  std::string testStr(&quot;Telephone home.&quot;, 4);
-  OutputDebugStringA(testStr.c_str());
-  // 输出:Tele
-</code></pre>
-</li>
-<li>
-<p>2,将构造的对象初始化为s的后n个字符，也就是从s指向的内存的第n个字节开始复制：<br>
-<code>string(const string &amp;str, size_type pos,size_type n = npos, const Allocator &amp;a = Allocator());</code></p>
-</li>
+<li>禁用继承</li>
 </ul>
-<pre><code class="language-cpp">    std::string text(&quot;Telephone home.&quot;);
-    std::string testStr(text, 4);
-    OutputDebugStringA(testStr.c_str());
-    // 输出:phone home.
+<blockquote>
+<p>C++11中允许将类标记为final，方法时直接在类名称后面使用关键字final，如此，意味着继承该类会导致编译错误。</p>
+</blockquote>
+<pre><code class="language-cpp">class Super final
+{
+    // 
+};
+
 </code></pre>
 <ul>
-<li>3,创建一个n个字符的string对象：<br>
-<code>string(size_type n, char c, const Allocator &amp;a = Allocator())</code><pre><code class="language-cpp">  std::string testStr(10, 'a');
-  OutputDebugStringA(testStr.c_str());
-  // 输出:aaaaaaaaaa
-</code></pre>
+<li>禁用重写
+<blockquote>
+<p>C++中还允许将方法标记为fianal，这意味着无法再子类中重写该方法。这时final关键字至于方法参数列表后面，如下</p>
+</blockquote>
 </li>
 </ul>
-<p>其他文档:<a href="http://c.biancheng.net/view/1443.html">http://c.biancheng.net/view/1443.html</a></p>
+<pre><code class="language-cpp">class Super
+{
+  public:
+    Supe();
+    virtual void SomeMethod() final;
+};
+
+</code></pre>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -133,7 +171,10 @@
         </div>
       </div>
       <div class="post-toc-container">
-        
+        <ul class="markdownIt-TOC">
+<li><a href="#final">final</a></li>
+</ul>
+
       </div>
     </div>
 

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-03-06T03:12:26.241Z</updated>
+    <updated>2021-03-08T07:47:19.791Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,82 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2021, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[C++ 类的关键字]]></title>
+        <id>https://blog.myxy.net/c-lei-de-guan-jian-zi/</id>
+        <link href="https://blog.myxy.net/c-lei-de-guan-jian-zi/">
+        </link>
+        <updated>2021-03-08T07:39:32.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="final">final</h1>
+<ul>
+<li>禁用继承</li>
+</ul>
+<blockquote>
+<p>C++11中允许将类标记为final，方法时直接在类名称后面使用关键字final，如此，意味着继承该类会导致编译错误。</p>
+</blockquote>
+<pre><code class="language-cpp">class Super final
+{
+    // 
+};
+
+</code></pre>
+<ul>
+<li>禁用重写
+<blockquote>
+<p>C++中还允许将方法标记为fianal，这意味着无法再子类中重写该方法。这时final关键字至于方法参数列表后面，如下</p>
+</blockquote>
+</li>
+</ul>
+<pre><code class="language-cpp">class Super
+{
+  public:
+    Supe();
+    virtual void SomeMethod() final;
+};
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[限定对象只能在堆上创建]]></title>
+        <id>https://blog.myxy.net/xian-ding-dui-xiang-zhi-neng-zai-dui-shang-chuang-jian/</id>
+        <link href="https://blog.myxy.net/xian-ding-dui-xiang-zhi-neng-zai-dui-shang-chuang-jian/">
+        </link>
+        <updated>2021-03-08T06:46:28.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>限定对象在堆上创建的需求</strong></p>
+<blockquote>
+<blockquote>
+<p>C++对象的一些使用场景其实已经有这种隐喻了，比如一个对象从std::enable_shared_from_this派生，当我们调用this-&gt;shared_from_this()的前提条件是这个对象已经被创建为shared_ptr，如果是一个栈对象去调用shared_from_this时会crash，所以使用派生于std::enable_shared_from_this的对象时，限定它只能在堆上创建可以保证代码的安全性。</p>
+</blockquote>
+</blockquote>
+<pre><code class="language-cpp">struct dummy{
+    class token{
+    private:
+        token(){}
+        friend dummy;
+    };
+
+    static std::shared_ptr&lt;dummy&gt; create(){
+      return std::make_shared&lt;dummy&gt;(token{});
+    }
+
+    dummy(token) : dummy() {
+    }
+
+private:
+    dummy(){}
+};
+
+int main() {
+  dummy d{}; //compile error
+  dummy d(token{}); //compile error
+  auto ptr = dummy::create(); //ok
+}
+</code></pre>
+<p>这个代码借助了一个私有内部类token来避免在栈上创建dummy对象，因为外面无法访问这个token，只有它的友元类dummy才能访问token。另外一个问题是dummy的构造函数还是私有的，为什么这次改造之后可以用std::make_shared了？因为这里先通过public的dummy(token)去构造dummy对象的，然后dummy通过代理构造函数dummy()去真正构造一个dummy对象。</p>
+<p>这个token在这里有两个作用，一个是用来避免在栈上构造dummy对象，一个是提供一个public的构造函数给std::make_shared使用。对于创建一个std::unique_ptr对象来说思路也是一样的，读者可以自行实现。至此，我们比较完美地实现了限定对象只能在堆上创建的目标。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[线程安全-map]]></title>
         <id>https://blog.myxy.net/xian-cheng-an-quan-map/</id>
@@ -248,7 +324,8 @@ private:
         <link href="https://blog.myxy.net/stdstring-gou-zao-han-shu/">
         </link>
         <updated>2021-01-11T03:28:26.000Z</updated>
-        <content type="html"><![CDATA[<ul>
+        <content type="html"><![CDATA[<p>C++中的String的常用函数用法总结: <a href="https://blog.csdn.net/qq_37941471/article/details/82107077">https://blog.csdn.net/qq_37941471/article/details/82107077</a></p>
+<ul>
 <li>
 <p>1,将构造的对象初始化为s的前n个字符，s不够n个时将相邻的内存单元的内容当作s的一部分继续复制:<br>
 <code>string(const char *s, size_type n, const Allocator &amp;a = Allocator());</code></p>
@@ -429,98 +506,6 @@ for(auto&amp;&amp; iter : dataArr)
 </code></pre>
 <h2 id="只读引用不能修改dataarr中的元素">只读引用，不能修改dataArr中的元素</h2>
 <pre><code class="language-cpp">for(const auto&amp; iter : dataArr)
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[C++ 类中的构造函数]]></title>
-        <id>https://blog.myxy.net/c-lei-zhong-de-gou-zao-han-shu/</id>
-        <link href="https://blog.myxy.net/c-lei-zhong-de-gou-zao-han-shu/">
-        </link>
-        <updated>2020-12-16T11:33:37.000Z</updated>
-        <content type="html"><![CDATA[<p><a href="https://docs.microsoft.com/zh-cn/cpp/cpp/explicitly-defaulted-and-deleted-functions?view=msvc-160">https://docs.microsoft.com/zh-cn/cpp/cpp/explicitly-defaulted-and-deleted-functions?view=msvc-160</a></p>
-<h2 id="编译器默认为一个类生成的默认函数">编译器默认为一个类生成的默认函数</h2>
-<ul>
-<li>默认构造函数</li>
-<li>默认析构函数</li>
-<li>默认拷贝构造函数</li>
-<li>默认赋值函数</li>
-<li>移动构造函数</li>
-<li>移动拷贝函数</li>
-</ul>
-<pre><code class="language-cpp">class DataOnly {
-public:
-    DataOnly ()                  // 默认构造函数
-    ~DataOnly ()                 // 默认析构函数
-
-    DataOnly (const DataOnly &amp; rhs)         　 　  // 默认拷贝构造函数
-    DataOnly &amp; operator=(const DataOnly &amp; rhs)    // 默认赋值函数
-
-    DataOnly (const DataOnly &amp;&amp; rhs)         // C++11, 移动构造函数
-    DataOnly &amp; operator=(DataOnly &amp;&amp; rhs)    // C++11, 移动拷贝函数
-};
-</code></pre>
-<p>类不可复制的通用写法</p>
-<pre><code class="language-cpp">struct noncopyable
-{
-  noncopyable() =default;
-  noncopyable(const noncopyable&amp;) =delete;
-  noncopyable&amp; operator=(const noncopyable&amp;) =delete;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[hpSocket线程池]]></title>
-        <id>https://blog.myxy.net/hpsocket-xian-cheng-chi/</id>
-        <link href="https://blog.myxy.net/hpsocket-xian-cheng-chi/">
-        </link>
-        <updated>2020-12-10T02:50:46.000Z</updated>
-        <content type="html"><![CDATA[<p>HP-Socket v5.4.x版本开始，提供线程池组件IHPThreadPool，协助用户实现通信逻辑与业务逻辑分离，提高应用程序的整体执行效率。IHPThreadPool提供以下主要操作方法。这些方法成功返回TRUE，失败返回FALSE，失败可通过SYS_GetLastError() 获取系统错误代码。</p>
-<h2 id="启动线程池">启动线程池</h2>
-<pre><code class="language-cpp">BOOL Start(dwThreadCount = 0, dwMaxQueueSize = 0, enRejectedPolicy = TRP_CALL_FAIL, dwStackSize = 0)
-
-dwThreadCount  线程数量，（默认：0）
-&gt;0 ：dwThreadCount
-=0 ：(CPU核数 * 2 + 2)
-&lt;0 ：(CPU核数 * (-dwThreadCount))
-dwMaxQueueSize  任务队列最大容量（默认：0，不限制）
-enRejectedPolicy  任务拒绝处理策略
-TRP_CALL_FAIL	：（默认）立刻返回失败
-TRP_WAIT_FOR	：等待（直到成功、超时或线程池关闭等原因导致失败）
-TRP_CALLER_RUN	：调用者线程直接执行
-dwStackSize  线程堆栈空间大小（默认：0 -&gt; 操作系统默认）
-</code></pre>
-<h2 id="关闭线程池">关闭线程池</h2>
-<blockquote>
-<p>在规定时间内关闭线程池组件，如果工作线程在最大等待时间内未能正常关闭，会尝试强制关闭，这种情况下很可能会造成系统资源泄漏。</p>
-</blockquote>
-<pre><code class="language-cpp">BOOL Stop(dwMaxWait = INFINITE)
-
-dwMaxWait  最大等待时间（毫秒，默认：INFINITE，一直等待）
-</code></pre>
-<h2 id="提交任务">提交任务</h2>
-<pre><code class="language-cpp">BOOL Sbumit(fnTaskProc, pvArg, dwMaxWait = INFINITE)
-
-fnTaskProc  任务处理函数
-pvArg  任务参数
-dwMaxWait  任务提交最大等待时间（仅对TRP_WAIT_FOR类型线程池生效，默认：INFINITE，一直等待）。
-** SYS_GetLastError() 错误码ERROR_DESTINATION_ELEMENT_FULL表示任务队列已满。
-</code></pre>
-<h2 id="提交socket任务">提交Socket任务</h2>
-<pre><code class="language-cpp">BOOL Sbumit(pTask, dwMaxWait = INFINITE)
-
-pTask  任务参数
-dwMaxWait  任务提交最大等待时间（仅对TRP_WAIT_FOR类型线程池生效，默认：INFINITE，一直等待）
-** SYS_GetLastError() 错误码ERROR_DESTINATION_ELEMENT_FULL表示任务队列已满。
-</code></pre>
-<h2 id="动态调整线程池大小">动态调整线程池大小</h2>
-<pre><code class="language-cpp">BOOL AdjustThreadCount(dwNewThreadCount)
-
-dwNewThreadCount  线程数量
-&gt;0 ：dwNewThreadCount
-=0 ：(CPU核数 * 2 + 2)
-&lt;0 ：(CPU核数 * (-dwNewThreadCount))
 </code></pre>
 ]]></content>
     </entry>

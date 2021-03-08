@@ -59,13 +59,70 @@
     
   </div>
   <div class="md:mx-8 flex-shrink-0 self-start rounded-full border-4 border-dotted border-transparent hover:border-yellow-50 p-2 w-32 h-32 order-1 md:order-2 mx-auto s3-dotted">
-    <img class="rounded-full object-cover" src="https://blog.myxy.net/images/avatar.png?v=1615000341526" alt="Maxbad`Blog" width="100%" height="100%">
+    <img class="rounded-full object-cover" src="https://blog.myxy.net/images/avatar.png?v=1615189632312" alt="Maxbad`Blog" width="100%" height="100%">
   </div>
 </header>
       
 
       <div class="shadow-box bg-white dark:bg-gray-600 border-gray-300 rounded-none md:rounded-lg -mx-1 md:mx-0 md:px-0">
         
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/c-lei-de-guan-jian-zi/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          C++ 类的关键字
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2021-03-08</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        final
+
+禁用继承
+
+
+C++11中允许将类标记为final，方法时直接在类名称后面使用关键字final，如此，意味着继承该类会导致编译错误。
+
+class Super final
+{
+    // 
+};
+
+
+
+禁用重写
+
+C++中还...
+      </div>
+      <a href="https://blog.myxy.net/c-lei-de-guan-jian-zi/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/xian-ding-dui-xiang-zhi-neng-zai-dui-shang-chuang-jian/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          限定对象只能在堆上创建
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2021-03-08</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        限定对象在堆上创建的需求
+
+
+C++对象的一些使用场景其实已经有这种隐喻了，比如一个对象从std::enable_shared_from_this派生，当我们调用this-&gt;shared_from_this()的前提条件是这个对象已经...
+      </div>
+      <a href="https://blog.myxy.net/xian-ding-dui-xiang-zhi-neng-zai-dui-shang-chuang-jian/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
   <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
     
     <div class="flex-1 order-2 md:order-1">
@@ -171,10 +228,10 @@ ctrl+shift+f 之后...
       </h2>
       <div class="mb-4 text-xs text-gray-500">2021-01-11</div>
       <div class="mb-4 text-gray-500 dark:text-gray-300">
-        
+        C++中的String的常用函数用法总结: https://blog.csdn.net/qq_37941471/article/details/82107077
 
-1,将构造的对象初始化为s的前n个字符，s不够n个时将相邻的内存单元的内容当作s的一部分继续复制:
-string(const char *s, size_type n, const Allocator &amp;a = Allocato...
+
+1,将构造的对象初始化为s的前n个字符，s不够n个时将相邻的内存单元的内容...
       </div>
       <a href="https://blog.myxy.net/stdstring-gou-zao-han-shu/" class="btn">
         查看
@@ -265,47 +322,6 @@ for(auto&amp; iter : dataArr)
 for(auto&amp;&amp...
       </div>
       <a href="https://blog.myxy.net/c-for-bian-li-xun-huan-biao-da-shi-auto-autoand-autoand/" class="btn">
-        查看
-      </a>
-    </div>
-    
-  </div>
-
-  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
-    
-    <div class="flex-1 order-2 md:order-1">
-      <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://blog.myxy.net/c-lei-zhong-de-gou-zao-han-shu/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
-          C++ 类中的构造函数
-        </a>
-      </h2>
-      <div class="mb-4 text-xs text-gray-500">2020-12-16</div>
-      <div class="mb-4 text-gray-500 dark:text-gray-300">
-        https://docs.microsoft.com/zh-cn/cpp/cpp/explicitly-defaulted-and-deleted-functions?view=msvc-160
-编译器默认为一个类生成的默认函数
-
-默认构造...
-      </div>
-      <a href="https://blog.myxy.net/c-lei-zhong-de-gou-zao-han-shu/" class="btn">
-        查看
-      </a>
-    </div>
-    
-  </div>
-
-  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
-    
-    <div class="flex-1 order-2 md:order-1">
-      <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://blog.myxy.net/hpsocket-xian-cheng-chi/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
-          hpSocket线程池
-        </a>
-      </h2>
-      <div class="mb-4 text-xs text-gray-500">2020-12-10</div>
-      <div class="mb-4 text-gray-500 dark:text-gray-300">
-        HP-Socket v5.4.x版本开始，提供线程池组件IHPThreadPool，协助用户实现通信逻辑与业务逻辑分离，提高应用程序的整体执行效率。IHPThreadPool提供以下主要操作方法。这些方法成功返回TRUE，失败返回FALSE...
-      </div>
-      <a href="https://blog.myxy.net/hpsocket-xian-cheng-chi/" class="btn">
         查看
       </a>
     </div>
