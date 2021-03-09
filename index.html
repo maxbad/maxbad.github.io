@@ -59,13 +59,37 @@
     
   </div>
   <div class="md:mx-8 flex-shrink-0 self-start rounded-full border-4 border-dotted border-transparent hover:border-yellow-50 p-2 w-32 h-32 order-1 md:order-2 mx-auto s3-dotted">
-    <img class="rounded-full object-cover" src="https://blog.myxy.net/images/avatar.png?v=1615190296111" alt="Maxbad`Blog" width="100%" height="100%">
+    <img class="rounded-full object-cover" src="https://blog.myxy.net/images/avatar.png?v=1615266349680" alt="Maxbad`Blog" width="100%" height="100%">
   </div>
 </header>
       
 
       <div class="shadow-box bg-white dark:bg-gray-600 border-gray-300 rounded-none md:rounded-lg -mx-1 md:mx-0 md:px-0">
         
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/da-yin-hresult-fan-hui-zhi/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          打印 HRESULT 返回值
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2021-03-09</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        #include &lt;comdef.h&gt;
+ 
+ // 打开服务
+HRESULT pulhResult = 0;
+SC_HANDLE schSCManager;
+schSCManager = OpenSCManager(NULL, ...
+      </div>
+      <a href="https://blog.myxy.net/da-yin-hresult-fan-hui-zhi/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
   <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
     
     <div class="flex-1 order-2 md:order-1">
@@ -298,30 +322,6 @@ devServer: {
 自动格式化整理代码，vscode 需要去插件商店下载【Prettier - Code f...
       </div>
       <a href="https://blog.myxy.net/prettier-pei-zhi/" class="btn">
-        查看
-      </a>
-    </div>
-    
-  </div>
-
-  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
-    
-    <div class="flex-1 order-2 md:order-1">
-      <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://blog.myxy.net/c-for-bian-li-xun-huan-biao-da-shi-auto-autoand-autoand/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
-          C++ for遍历循环表达示 auto, auto&amp;, auto&amp;&amp;
-        </a>
-      </h2>
-      <div class="mb-4 text-xs text-gray-500">2020-12-18</div>
-      <div class="mb-4 text-gray-500 dark:text-gray-300">
-        创建拷贝，无法修改dataArr中的元素
-for(auto x : dataArr)
-
-参考引用，可以修改dataArr中的元素，但一般用第二种
-for(auto&amp; iter : dataArr)
-for(auto&amp;&amp...
-      </div>
-      <a href="https://blog.myxy.net/c-for-bian-li-xun-huan-biao-da-shi-auto-autoand-autoand/" class="btn">
         查看
       </a>
     </div>
