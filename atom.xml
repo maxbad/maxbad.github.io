@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-03-09T05:05:53.314Z</updated>
+    <updated>2021-03-12T02:33:42.363Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,42 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2021, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[取EXE文件自身所在的文件夹]]></title>
+        <id>https://blog.myxy.net/qu-exe-wen-jian-zi-shen-suo-zai-de-wen-jian-jia/</id>
+        <link href="https://blog.myxy.net/qu-exe-wen-jian-zi-shen-suo-zai-de-wen-jian-jia/">
+        </link>
+        <updated>2021-03-12T02:29:57.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="方式一">方式一:</h2>
+<pre><code class="language-cpp">
+TCHAR run_path[MAX_PATH] = { 0, };
+//获取应用程序或者DLL的完整路径
+::GetModuleFileName(NULL, run_path, MAX_PATH);
+//去掉路径末尾的文件名留下反斜杠
+(_tcsrchr(run_path, TEXT('\\')))[1] = 0;
+// 设置运行目录
+::SetCurrentDirectory(run_path);
+</code></pre>
+<h2 id="方式二">方式二:</h2>
+<pre><code class="language-cpp">#include &lt;stdio.h&gt;
+#include &lt;Shlwapi.h&gt;
+#pragma comment(lib,&quot;shlwapi.lib&quot;)
+ 
+int main()  
+{  
+	TCHAR szPath[MAX_PATH];
+	//获取应用程序或者DLL的完整路径
+	::GetModuleFileName(NULL, szPath, MAX_PATH);
+	//去掉路径末尾的文件名和反斜杠
+	::PathRemoveFileSpec(szPath);
+ 
+	printf(&quot;%ls\n&quot;, szPath);
+ 
+	return 0;
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[打印 HRESULT 返回值]]></title>
         <id>https://blog.myxy.net/da-yin-hresult-fan-hui-zhi/</id>
@@ -25,9 +61,14 @@ schSCManager = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
 if (NULL == schSCManager)
 {
     pulhResult = HRESULT_FROM_WIN32(GetLastError());
+    // 方法一
     _com_error err(pulhResult);
     LPCTSTR errMsg = err.ErrorMessage();
     wprintf(L&quot;%s&quot;,errMsg);
+    // 方法二
+ std::string err_msg =   std::system_category().message(pulhResult)
+printf(&quot;%s&quot;,err_msg.c_str());
+
     return pulhResult;
 }
 
@@ -455,63 +496,6 @@ devServer: {
             }
         } 
     },
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[prettier 配置]]></title>
-        <id>https://blog.myxy.net/prettier-pei-zhi/</id>
-        <link href="https://blog.myxy.net/prettier-pei-zhi/">
-        </link>
-        <updated>2020-12-22T03:42:30.000Z</updated>
-        <content type="html"><![CDATA[<p><a href="https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode">https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode</a></p>
-<blockquote>
-<p>自动格式化整理代码，vscode 需要去插件商店下载【Prettier - Code formatter 】这个插件</p>
-</blockquote>
-<pre><code class="language-json">{
-  &quot;[vue]&quot;: {
-    &quot;editor.defaultFormatter&quot;: &quot;esbenp.prettier-vscode&quot;
-  },
-  &quot;editor.quickSuggestions&quot;: {
-    &quot;strings&quot;: true
-  },
-  &quot;editor.tabSize&quot;: 2,
-  &quot;editor.detectIndentation&quot;: false,
-  &quot;emmet.triggerExpansionOnTab&quot;: true,
-  &quot;editor.formatOnSave&quot;: true,
-  &quot;javascript.format.enable&quot;: true,
-  &quot;[json]&quot;: {
-    &quot;editor.defaultFormatter&quot;: &quot;esbenp.prettier-vscode&quot;
-  },
-  &quot;explorer.confirmDelete&quot;: false,
-  &quot;javascript.updateImportsOnFileMove.enabled&quot;: &quot;always&quot;,
-  &quot;typescript.updateImportsOnFileMove.enabled&quot;: &quot;always&quot;,
-  &quot;files.exclude&quot;: {
-    &quot;**/.idea&quot;: true
-  },
-  &quot;editor.codeActionsOnSave&quot;: {
-    &quot;source.fixAll.stylelint&quot;: true,
-    &quot;source.fixAll.eslint&quot;: true
-  },
-  &quot;[javascript]&quot;: {
-    &quot;editor.defaultFormatter&quot;: &quot;esbenp.prettier-vscode&quot;
-  },
-  &quot;[scss]&quot;: {
-    &quot;editor.defaultFormatter&quot;: &quot;HookyQR.beautify&quot;
-  },
-  &quot;[jsonc]&quot;: {
-    &quot;editor.defaultFormatter&quot;: &quot;esbenp.prettier-vscode&quot;
-  },
-  &quot;[html]&quot;: {
-    &quot;editor.defaultFormatter&quot;: &quot;esbenp.prettier-vscode&quot;
-  },
-  &quot;editor.suggest.snippetsPreventQuickSuggestions&quot;: false,
-  &quot;prettier.htmlWhitespaceSensitivity&quot;: &quot;ignore&quot;,
-  &quot;prettier.vueIndentScriptAndStyle&quot;: true,
-  &quot;vetur.format.defaultFormatter.html&quot;: &quot;prettier&quot;,
-  &quot;files.autoSave&quot;: &quot;onFocusChange&quot;
-}
-
 </code></pre>
 ]]></content>
     </entry>

@@ -77,9 +77,14 @@ schSCManager = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
 if (NULL == schSCManager)
 {
     pulhResult = HRESULT_FROM_WIN32(GetLastError());
+    // 方法一
     _com_error err(pulhResult);
     LPCTSTR errMsg = err.ErrorMessage();
     wprintf(L&quot;%s&quot;,errMsg);
+    // 方法二
+ std::string err_msg =   std::system_category().message(pulhResult)
+printf(&quot;%s&quot;,err_msg.c_str());
+
     return pulhResult;
 }
 
