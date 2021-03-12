@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-03-12T03:35:13.736Z</updated>
+    <updated>2021-03-12T11:40:20.576Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,39 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2021, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[从资源文件中加载二进制数据]]></title>
+        <id>https://blog.myxy.net/cong-zi-yuan-wen-jian-zhong-jia-zai-er-jin-zhi-shu-ju/</id>
+        <link href="https://blog.myxy.net/cong-zi-yuan-wen-jian-zhong-jia-zai-er-jin-zhi-shu-ju/">
+        </link>
+        <updated>2021-03-12T11:34:09.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-cpp">
+	static uint8_t* load_binary (HMODULE hModule, LPCTSTR resType, LPCTSTR resName) {
+		HRSRC _hRsrc = ::FindResource (hModule, resName, resType);
+		if (!_hRsrc)
+			return nullptr;
+		HGLOBAL _hGlobal = ::LoadResource (hModule, _hRsrc);
+		if (!_hGlobal)
+			return nullptr;
+		LPVOID _src_ptr = ::LockResource (_hGlobal);
+		DWORD _size = ::SizeofResource (hModule, _hRsrc);
+		uint8_t *_ptr = new uint8_t [_size];
+		memcpy (_ptr, _src_ptr, _size);
+		//::UnlockResource (_hGlobal);
+		::FreeResource (_hGlobal);
+		return _ptr;
+	}
+
+
+    uint8_t *pdata =load_binary ((HMODULE) CPaintManagerUI::GetInstance (), _T (&quot;IPDB&quot;), MAKEINTRESOURCE (IDR_IPDB1));
+if (pdata) {
+			delete [] pdata;
+			pdata = nullptr;
+		}
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Windows环境下“路径”处理]]></title>
         <id>https://blog.myxy.net/windows-huan-jing-xia-lu-jing-chu-li/</id>
@@ -495,38 +528,6 @@ private:
 </li>
 </ul>
 <p>其他文档:<a href="http://c.biancheng.net/view/1443.html">http://c.biancheng.net/view/1443.html</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[vue项目打包时，去掉console.log输出]]></title>
-        <id>https://blog.myxy.net/vue-xiang-mu-da-bao-shi-qu-diao-consolelog-shu-chu/</id>
-        <link href="https://blog.myxy.net/vue-xiang-mu-da-bao-shi-qu-diao-consolelog-shu-chu/">
-        </link>
-        <updated>2021-01-09T06:50:20.000Z</updated>
-        <content type="html"><![CDATA[<p>安装插件：<code>npm install babel-plugin-transform-remove-console --save-dev</code></p>
-<p>在<code>babel.config.js</code>文件的<code>plugins</code>中添加<code>transform-remove-console</code>，此时再build就不会有console警告了。</p>
-<pre><code class="language-java">// 项目发布阶段需要用到的Babel插件
-const prodPlugins = []
-if (process.env.NODE_ENV === 'production') {
-  prodPlugins.push('transform-remove-console')
-}
-module.exports = {
-  presets: [
-    '@vue/cli-plugin-babel/preset'
-  ],
-  plugins: [
-    [
-      'component',
-      {
-        libraryName: 'element-ui',
-        styleLibraryName: 'theme-chalk'
-      }
-    ],
-    // 发布产品时候的插件数组
-    ...prodPlugins
-  ]
-}
-</code></pre>
 ]]></content>
     </entry>
 </feed>
