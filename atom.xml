@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-03-15T07:29:56.953Z</updated>
+    <updated>2021-03-18T08:22:46.608Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,24 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2021, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[VUE 子组件设置scoped]]></title>
+        <id>https://blog.myxy.net/vue-zi-zu-jian-she-zhi-scoped/</id>
+        <link href="https://blog.myxy.net/vue-zi-zu-jian-she-zhi-scoped/">
+        </link>
+        <updated>2021-03-18T08:19:21.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-css">&lt;style lang=&quot;less&quot; scoped&gt;
+/deep/.ivu-tree-arrow{
+  padding-top: 10px 0;
+}
+&lt;/style&gt;
+</code></pre>
+<p><em>问题</em><br>
+使用 <code>scoped</code> 后，父组件的样式将不会渗透到子组件中。但是一个子组件的根节点会同时受其父组件的 scoped CSS 和子组件的 scoped CSS 的影响。</p>
+<p><em>解决方案</em><br>
+使用深度作用选择器，即 <code>&gt;&gt;&gt;</code> 操作符，或使用 <code>/deep/</code> 或 <code>::v-deep</code> 操作符，后两者都是 <code>&gt;&gt;&gt;</code> 的别名，三者效果一样。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[从资源文件中加载二进制数据]]></title>
         <id>https://blog.myxy.net/cong-zi-yuan-wen-jian-zhong-jia-zai-er-jin-zhi-shu-ju/</id>
@@ -513,43 +531,6 @@ private:
 </tr>
 </tbody>
 </table>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[std::string 构造函数]]></title>
-        <id>https://blog.myxy.net/stdstring-gou-zao-han-shu/</id>
-        <link href="https://blog.myxy.net/stdstring-gou-zao-han-shu/">
-        </link>
-        <updated>2021-01-11T03:28:26.000Z</updated>
-        <content type="html"><![CDATA[<p>C++中的String的常用函数用法总结: <a href="https://blog.csdn.net/qq_37941471/article/details/82107077">https://blog.csdn.net/qq_37941471/article/details/82107077</a></p>
-<ul>
-<li>
-<p>1,将构造的对象初始化为s的前n个字符，s不够n个时将相邻的内存单元的内容当作s的一部分继续复制:<br>
-<code>string(const char *s, size_type n, const Allocator &amp;a = Allocator());</code></p>
-<pre><code class="language-cpp">  std::string testStr(&quot;Telephone home.&quot;, 4);
-  OutputDebugStringA(testStr.c_str());
-  // 输出:Tele
-</code></pre>
-</li>
-<li>
-<p>2,将构造的对象初始化为s的后n个字符，也就是从s指向的内存的第n个字节开始复制：<br>
-<code>string(const string &amp;str, size_type pos,size_type n = npos, const Allocator &amp;a = Allocator());</code></p>
-</li>
-</ul>
-<pre><code class="language-cpp">    std::string text(&quot;Telephone home.&quot;);
-    std::string testStr(text, 4);
-    OutputDebugStringA(testStr.c_str());
-    // 输出:phone home.
-</code></pre>
-<ul>
-<li>3,创建一个n个字符的string对象：<br>
-<code>string(size_type n, char c, const Allocator &amp;a = Allocator())</code><pre><code class="language-cpp">  std::string testStr(10, 'a');
-  OutputDebugStringA(testStr.c_str());
-  // 输出:aaaaaaaaaa
-</code></pre>
-</li>
-</ul>
-<p>其他文档:<a href="http://c.biancheng.net/view/1443.html">http://c.biancheng.net/view/1443.html</a></p>
 ]]></content>
     </entry>
 </feed>
