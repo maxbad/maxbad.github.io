@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-03-23T11:28:53.462Z</updated>
+    <updated>2021-03-23T14:09:13.747Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -17,13 +17,24 @@
         </link>
         <updated>2021-03-23T08:29:03.000Z</updated>
         <content type="html"><![CDATA[<ul>
+<li>修改数据</li>
+</ul>
+<pre><code class="language-js">this.items[1]='xxxx';  // 不能监听数据变的
+this.$set(this.items,1,'xxxxxx');  // 可以监听数据变化
+
+// 拷贝一份出来,修改后再赋值回去也可以监听
+let temp=[...this.items];
+temp[1]='xxxxx'
+this.tiems=temp;
+</code></pre>
+<ul>
 <li>数据深拷贝,针对数组和对象使用</li>
 </ul>
 <pre><code class="language-js">import { deepCopy } from 'view-design/src/utils/assist';
 // deepCopy(data)
 </code></pre>
 <blockquote>
-<p><code>Object.assign</code> 只针对一层对象可用,多层需要通过<code>JSON.stringify()</code>,和<code>JSON.parse()</code>达到深拷贝</p>
+<p><code>Object.assign</code> 和es6扩展运算符 三个点<code>{...}</code> 只针对一层对象可用,多层需要通过<code>JSON.parse(JSON.stringify())</code>达到深拷贝</p>
 </blockquote>
 <ul>
 <li>获取对象样式</li>

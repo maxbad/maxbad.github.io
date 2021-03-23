@@ -15,22 +15,22 @@
     
 
   <meta name="description" content="
-数据深拷贝,针对数组和对象使用
+修改数据
 
-import { deepCopy } from &#39;view-design/src/utils/assist&#39;;
-// deepCopy(data)
+this.items[1]=&#39;xxxx&#39;;  // 不能监听数据变的
+this.$set(this.items,1,&#39;xxxxxx&#39;);  // 可以监听数据变化
 
-
-Object.assign 只针对一层对象可用,多..." />
+// 拷贝一份出来,修改后再赋值回去也可以监听
+let te..." />
   <meta property="og:title" content="vue-iview使用技巧 - Maxbad`Blog">
   <meta property="og:description" content="
-数据深拷贝,针对数组和对象使用
+修改数据
 
-import { deepCopy } from &#39;view-design/src/utils/assist&#39;;
-// deepCopy(data)
+this.items[1]=&#39;xxxx&#39;;  // 不能监听数据变的
+this.$set(this.items,1,&#39;xxxxxx&#39;);  // 可以监听数据变化
 
-
-Object.assign 只针对一层对象可用,多..." />
+// 拷贝一份出来,修改后再赋值回去也可以监听
+let te..." />
   <meta property="og:type" content="articles">
   <meta property="og:url" content="https://blog.myxy.net/vue-iview-shi-yong-ji-qiao/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
@@ -38,13 +38,13 @@ Object.assign 只针对一层对象可用,多..." />
   <meta property="og:image:width" content="1200">
   <meta name="twitter:title" content="vue-iview使用技巧 - Maxbad`Blog">
   <meta name="twitter:description" content="
-数据深拷贝,针对数组和对象使用
+修改数据
 
-import { deepCopy } from &#39;view-design/src/utils/assist&#39;;
-// deepCopy(data)
+this.items[1]=&#39;xxxx&#39;;  // 不能监听数据变的
+this.$set(this.items,1,&#39;xxxxxx&#39;);  // 可以监听数据变化
 
-
-Object.assign 只针对一层对象可用,多...">
+// 拷贝一份出来,修改后再赋值回去也可以监听
+let te...">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://blog.myxy.net/vue-iview-shi-yong-ji-qiao/">
 
@@ -75,13 +75,24 @@ Object.assign 只针对一层对象可用,多...">
         </div>
         <div class="markdown mb-8" v-pre>
           <ul>
+<li>修改数据</li>
+</ul>
+<pre><code class="language-js">this.items[1]='xxxx';  // 不能监听数据变的
+this.$set(this.items,1,'xxxxxx');  // 可以监听数据变化
+
+// 拷贝一份出来,修改后再赋值回去也可以监听
+let temp=[...this.items];
+temp[1]='xxxxx'
+this.tiems=temp;
+</code></pre>
+<ul>
 <li>数据深拷贝,针对数组和对象使用</li>
 </ul>
 <pre><code class="language-js">import { deepCopy } from 'view-design/src/utils/assist';
 // deepCopy(data)
 </code></pre>
 <blockquote>
-<p><code>Object.assign</code> 只针对一层对象可用,多层需要通过<code>JSON.stringify()</code>,和<code>JSON.parse()</code>达到深拷贝</p>
+<p><code>Object.assign</code> 和es6扩展运算符 三个点<code>{...}</code> 只针对一层对象可用,多层需要通过<code>JSON.parse(JSON.stringify())</code>达到深拷贝</p>
 </blockquote>
 <ul>
 <li>获取对象样式</li>
