@@ -98,9 +98,15 @@ Object.assign 只针对一层对象可用,多...">
 <ul>
 <li>类操作</li>
 </ul>
-<pre><code class="language-js">import { hasClass,addClass } from 'view-design/src/utils/assist';
+<pre><code class="language-js">import { hasClass,addClass,removeClass } from 'view-design/src/utils/assist';
 // hasClass(el, cls) 
 // addClass(el, cls)
+// removeClass(el, cls)
+</code></pre>
+<ul>
+<li>兼容SSR的事件绑定监听dom事件</li>
+</ul>
+<pre><code class="language-js">import { on, off } from 'view-design/src/utils/dom';
 </code></pre>
 
         </div>
