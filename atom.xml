@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-03-19T13:41:55.193Z</updated>
+    <updated>2021-03-23T08:29:53.380Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,19 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2021, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[vue-iview使用技巧]]></title>
+        <id>https://blog.myxy.net/vue-iview-shi-yong-ji-qiao/</id>
+        <link href="https://blog.myxy.net/vue-iview-shi-yong-ji-qiao/">
+        </link>
+        <updated>2021-03-23T08:29:03.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>数据深拷贝</li>
+</ul>
+<pre><code class="language-js">import { deepCopy } from 'view-design/src/utils/assist';
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[VUE components 组件用法]]></title>
         <id>https://blog.myxy.net/vue-components-zu-jian-yong-fa/</id>
@@ -370,63 +383,6 @@ int main() {
 </code></pre>
 <p>这个代码借助了一个私有内部类token来避免在栈上创建dummy对象，因为外面无法访问这个token，只有它的友元类dummy才能访问token。另外一个问题是dummy的构造函数还是私有的，为什么这次改造之后可以用std::make_shared了？因为这里先通过public的dummy(token)去构造dummy对象的，然后dummy通过代理构造函数dummy()去真正构造一个dummy对象。</p>
 <p>这个token在这里有两个作用，一个是用来避免在栈上构造dummy对象，一个是提供一个public的构造函数给std::make_shared使用。对于创建一个std::unique_ptr对象来说思路也是一样的，读者可以自行实现。至此，我们比较完美地实现了限定对象只能在堆上创建的目标。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[线程安全-map]]></title>
-        <id>https://blog.myxy.net/xian-cheng-an-quan-map/</id>
-        <link href="https://blog.myxy.net/xian-cheng-an-quan-map/">
-        </link>
-        <updated>2021-03-06T03:11:58.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">#pragma once
-#include &lt;map&gt;
-#include &lt;mutex&gt;
-
-template&lt;typename Key, typename Val&gt;
-class SafeMap
-{
-public:
-	typedef typename std::map&lt;Key, Val&gt;::iterator this_iterator;
-	typedef typename std::map&lt;Key, Val&gt;::const_iterator this_const_iterator;
-	Val&amp; operator [](const Key&amp; key)
-	{
-		std::lock_guard&lt;std::mutex&gt; lk(mtx_);
-		return dataMap_[key];
-	}
-
-	int erase(const Key&amp; key)
-	{
-		std::lock_guard&lt;std::mutex&gt; lk(mtx_);
-		return dataMap_.erase(key);
-	}
-
-	this_iterator find(const Key&amp; key)
-	{
-		std::lock_guard&lt;std::mutex&gt; lk(mtx_);
-		return dataMap_.find(key);
-	}
-
-	this_const_iterator find(const Key&amp; key) const
-	{
-		std::lock_guard&lt;std::mutex&gt; lk(mtx_);
-		return dataMap_.find(key);
-	}
-
-	this_iterator end()
-	{
-		return dataMap_.end();
-	}
-
-	this_const_iterator end() const
-	{
-		return dataMap_.end();
-	}
-
-private:
-	std::map&lt;Key, Val&gt; dataMap_;
-	std::mutex mtx_;
-};
-</code></pre>
 ]]></content>
     </entry>
 </feed>
