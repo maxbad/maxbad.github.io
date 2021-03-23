@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-03-23T08:31:23.290Z</updated>
+    <updated>2021-03-23T09:10:13.531Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -17,10 +17,13 @@
         </link>
         <updated>2021-03-23T08:29:03.000Z</updated>
         <content type="html"><![CDATA[<ul>
-<li>数据深拷贝</li>
+<li>数据深拷贝,针对数组和对象使用</li>
 </ul>
 <pre><code class="language-js">import { deepCopy } from 'view-design/src/utils/assist';
 </code></pre>
+<blockquote>
+<p><code>Object.assign</code> 只针对一层对象可用,多层需要通过<code>JSON.stringify()</code>,和<code>JSON.parse()</code>达到深拷贝</p>
+</blockquote>
 ]]></content>
     </entry>
     <entry>
