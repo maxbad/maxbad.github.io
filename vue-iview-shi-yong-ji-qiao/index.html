@@ -18,17 +18,19 @@
 数据深拷贝,针对数组和对象使用
 
 import { deepCopy } from &#39;view-design/src/utils/assist&#39;;
+// deepCopy(data)
 
 
-Object.assign 只针对一层对象可用,多层需要通过JSON.stringif..." />
+Object.assign 只针对一层对象可用,多..." />
   <meta property="og:title" content="vue-iview使用技巧 - Maxbad`Blog">
   <meta property="og:description" content="
 数据深拷贝,针对数组和对象使用
 
 import { deepCopy } from &#39;view-design/src/utils/assist&#39;;
+// deepCopy(data)
 
 
-Object.assign 只针对一层对象可用,多层需要通过JSON.stringif..." />
+Object.assign 只针对一层对象可用,多..." />
   <meta property="og:type" content="articles">
   <meta property="og:url" content="https://blog.myxy.net/vue-iview-shi-yong-ji-qiao/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
@@ -39,9 +41,10 @@ Object.assign 只针对一层对象可用,多层需要通过JSON.stringif..." />
 数据深拷贝,针对数组和对象使用
 
 import { deepCopy } from &#39;view-design/src/utils/assist&#39;;
+// deepCopy(data)
 
 
-Object.assign 只针对一层对象可用,多层需要通过JSON.stringif...">
+Object.assign 只针对一层对象可用,多...">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://blog.myxy.net/vue-iview-shi-yong-ji-qiao/">
 
@@ -75,10 +78,30 @@ Object.assign 只针对一层对象可用,多层需要通过JSON.stringif...">
 <li>数据深拷贝,针对数组和对象使用</li>
 </ul>
 <pre><code class="language-js">import { deepCopy } from 'view-design/src/utils/assist';
+// deepCopy(data)
 </code></pre>
 <blockquote>
 <p><code>Object.assign</code> 只针对一层对象可用,多层需要通过<code>JSON.stringify()</code>,和<code>JSON.parse()</code>达到深拷贝</p>
 </blockquote>
+<ul>
+<li>获取对象样式</li>
+</ul>
+<pre><code class="language-js">import { getStyle } from 'view-design/src/utils/assist';
+// getStyle (element, styleName)
+</code></pre>
+<ul>
+<li>判断参数是否是其中之一</li>
+</ul>
+<pre><code class="language-js">import { oneOf } from 'view-design/src/utils/assist';
+// oneOf (value, validList)
+</code></pre>
+<ul>
+<li>类操作</li>
+</ul>
+<pre><code class="language-js">import { hasClass,addClass } from 'view-design/src/utils/assist';
+// hasClass(el, cls) 
+// addClass(el, cls)
+</code></pre>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->

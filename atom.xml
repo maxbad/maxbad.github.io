@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-03-23T09:12:12.789Z</updated>
+    <updated>2021-03-23T09:21:53.588Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -20,10 +20,30 @@
 <li>数据深拷贝,针对数组和对象使用</li>
 </ul>
 <pre><code class="language-js">import { deepCopy } from 'view-design/src/utils/assist';
+// deepCopy(data)
 </code></pre>
 <blockquote>
 <p><code>Object.assign</code> 只针对一层对象可用,多层需要通过<code>JSON.stringify()</code>,和<code>JSON.parse()</code>达到深拷贝</p>
 </blockquote>
+<ul>
+<li>获取对象样式</li>
+</ul>
+<pre><code class="language-js">import { getStyle } from 'view-design/src/utils/assist';
+// getStyle (element, styleName)
+</code></pre>
+<ul>
+<li>判断参数是否是其中之一</li>
+</ul>
+<pre><code class="language-js">import { oneOf } from 'view-design/src/utils/assist';
+// oneOf (value, validList)
+</code></pre>
+<ul>
+<li>类操作</li>
+</ul>
+<pre><code class="language-js">import { hasClass,addClass } from 'view-design/src/utils/assist';
+// hasClass(el, cls) 
+// addClass(el, cls)
+</code></pre>
 ]]></content>
     </entry>
     <entry>
