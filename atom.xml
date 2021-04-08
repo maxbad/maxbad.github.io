@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-03-27T13:27:49.703Z</updated>
+    <updated>2021-04-08T09:49:32.204Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,24 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2021, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[vue 中使用 debounce]]></title>
+        <id>https://blog.myxy.net/vue-zhong-shi-yong-debounce/</id>
+        <link href="https://blog.myxy.net/vue-zhong-shi-yong-debounce/">
+        </link>
+        <updated>2021-04-08T09:48:59.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-vue">import Vue from 'vue'
+import { debounce } from 'lodash'
+export default Vue.extend({
+    methods: {
+        myDebounce: debounce(function(){
+            // 执行内容...
+        },500),
+    }
+})
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[vue-iview使用技巧]]></title>
         <id>https://blog.myxy.net/vue-iview-shi-yong-ji-qiao/</id>
@@ -383,46 +401,6 @@ printf(&quot;%s&quot;,err_msg.c_str());
 };
 
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[限定对象只能在堆上创建]]></title>
-        <id>https://blog.myxy.net/xian-ding-dui-xiang-zhi-neng-zai-dui-shang-chuang-jian/</id>
-        <link href="https://blog.myxy.net/xian-ding-dui-xiang-zhi-neng-zai-dui-shang-chuang-jian/">
-        </link>
-        <updated>2021-03-08T06:46:28.000Z</updated>
-        <content type="html"><![CDATA[<p><strong>限定对象在堆上创建的需求</strong></p>
-<blockquote>
-<blockquote>
-<p>C++对象的一些使用场景其实已经有这种隐喻了，比如一个对象从std::enable_shared_from_this派生，当我们调用this-&gt;shared_from_this()的前提条件是这个对象已经被创建为shared_ptr，如果是一个栈对象去调用shared_from_this时会crash，所以使用派生于std::enable_shared_from_this的对象时，限定它只能在堆上创建可以保证代码的安全性。</p>
-</blockquote>
-</blockquote>
-<pre><code class="language-cpp">struct dummy{
-    class token{
-    private:
-        token(){}
-        friend dummy;
-    };
-
-    static std::shared_ptr&lt;dummy&gt; create(){
-      return std::make_shared&lt;dummy&gt;(token{});
-    }
-
-    dummy(token) : dummy() {
-    }
-
-private:
-    dummy(){}
-};
-
-int main() {
-  dummy d{}; //compile error
-  dummy d(token{}); //compile error
-  auto ptr = dummy::create(); //ok
-}
-</code></pre>
-<p>这个代码借助了一个私有内部类token来避免在栈上创建dummy对象，因为外面无法访问这个token，只有它的友元类dummy才能访问token。另外一个问题是dummy的构造函数还是私有的，为什么这次改造之后可以用std::make_shared了？因为这里先通过public的dummy(token)去构造dummy对象的，然后dummy通过代理构造函数dummy()去真正构造一个dummy对象。</p>
-<p>这个token在这里有两个作用，一个是用来避免在栈上构造dummy对象，一个是提供一个public的构造函数给std::make_shared使用。对于创建一个std::unique_ptr对象来说思路也是一样的，读者可以自行实现。至此，我们比较完美地实现了限定对象只能在堆上创建的目标。</p>
 ]]></content>
     </entry>
 </feed>

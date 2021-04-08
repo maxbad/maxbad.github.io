@@ -4,37 +4,40 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>string_format - Maxbad`Blog</title>
+<title>vue 中使用 debounce - Maxbad`Blog</title>
 <link rel="shortcut icon" href="https://blog.myxy.net/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://blog.myxy.net/media/css/tailwind.css">
 <link rel="stylesheet" href="https://blog.myxy.net/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="string_format - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="vue 中使用 debounce - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
 
     
 
-  <meta name="description" content="包含头文件#include &amp;lt;memory&amp;gt;
-string
-template&amp;lt;typename ... Args&amp;gt;
-static std::string str_format(const std::string&amp;am..." />
-  <meta property="og:title" content="string_format - Maxbad`Blog">
-  <meta property="og:description" content="包含头文件#include &amp;lt;memory&amp;gt;
-string
-template&amp;lt;typename ... Args&amp;gt;
-static std::string str_format(const std::string&amp;am..." />
+  <meta name="description" content="import Vue from &#39;vue&#39;
+import { debounce } from &#39;lodash&#39;
+export default Vue.extend({
+    methods: {
+        myDebounce: d..." />
+  <meta property="og:title" content="vue 中使用 debounce - Maxbad`Blog">
+  <meta property="og:description" content="import Vue from &#39;vue&#39;
+import { debounce } from &#39;lodash&#39;
+export default Vue.extend({
+    methods: {
+        myDebounce: d..." />
   <meta property="og:type" content="articles">
-  <meta property="og:url" content="https://blog.myxy.net/string_format/" />
+  <meta property="og:url" content="https://blog.myxy.net/vue-zhong-shi-yong-debounce/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="string_format - Maxbad`Blog">
-  <meta name="twitter:description" content="包含头文件#include &amp;lt;memory&amp;gt;
-string
-template&amp;lt;typename ... Args&amp;gt;
-static std::string str_format(const std::string&amp;am...">
+  <meta name="twitter:title" content="vue 中使用 debounce - Maxbad`Blog">
+  <meta name="twitter:description" content="import Vue from &#39;vue&#39;
+import { debounce } from &#39;lodash&#39;
+export default Vue.extend({
+    methods: {
+        myDebounce: d...">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://blog.myxy.net/string_format/">
+  <link rel="canonical" href="https://blog.myxy.net/vue-zhong-shi-yong-debounce/">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
@@ -54,55 +57,23 @@ static std::string str_format(const std::string&amp;am...">
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          string_format
+          vue 中使用 debounce
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-11-13 · 2 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2021-04-08 · 1 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <p>包含头文件<code>#include &lt;memory&gt;</code></p>
-<h2 id="string">string</h2>
-<pre><code class="language-cpp">template&lt;typename ... Args&gt;
-static std::string str_format(const std::string&amp; format, Args ... args)
-{
-	auto size_buf = std::snprintf(nullptr, 0, format.c_str(), args ...) + 1;
-	std::unique_ptr&lt;char[]&gt; buf(new(std::nothrow) char[size_buf]);
-
-	if (!buf)
-		return std::string(&quot;&quot;);
-
-	std::snprintf(buf.get(), size_buf, format.c_str(), args ...);
-	return std::string(buf.get(), buf.get() + size_buf - 1);
-}
-
-</code></pre>
-<h2 id="wstring">wstring</h2>
-<pre><code class="language-cpp">template&lt;typename ... Args&gt;
-static std::wstring wstr_format(const std::wstring &amp;format, Args ... args)
-{
-	auto size_buf = std::snprintf(nullptr, 0, format.c_str(), args ...) + 1; 
-	std::unique_ptr&lt;char[]&gt; buf(new(std::nothrow) char[size_buf]);
-
-	if (!buf)
-		return std::wstring(&quot;&quot;);
-
-	std::snprintf(buf.get(), size_buf, format.c_str(), args ...);
-	return std::wstring(buf.get(), buf.get() + size_buf - 1); 
-}
-</code></pre>
-<pre><code class="language-cpp">inline std::wstring StringFormat(const wchar_t* format, ...)
-{
-    va_list marker = NULL;
-    va_start(marker, format);
-
-    std::wstring text(_vsctprintf(format, marker) + 1, 0);
-    _vstprintf_s(&amp;text[0], text.capacity(), format, marker);
-    va_end(marker);
-
-    return text.data();
-}
+          <pre><code class="language-vue">import Vue from 'vue'
+import { debounce } from 'lodash'
+export default Vue.extend({
+    methods: {
+        myDebounce: debounce(function(){
+            // 执行内容...
+        },500),
+    }
+})
 </code></pre>
 
         </div>
@@ -146,15 +117,7 @@ static std::wstring wstr_format(const std::wstring &amp;format, Args ... args)
         </div>
       </div>
       <div class="post-toc-container">
-        <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#string">string</a></li>
-<li><a href="#wstring">wstring</a></li>
-</ul>
-</li>
-</ul>
-
+        
       </div>
     </div>
 
