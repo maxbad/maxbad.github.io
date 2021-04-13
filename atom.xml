@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-04-08T09:49:32.204Z</updated>
+    <updated>2021-04-13T12:22:28.868Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,134 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2021, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[vue2-ace-editor ]]></title>
+        <id>https://blog.myxy.net/vue2-ace-editor/</id>
+        <link href="https://blog.myxy.net/vue2-ace-editor/">
+        </link>
+        <updated>2021-04-13T12:21:20.000Z</updated>
+        <content type="html"><![CDATA[<p><a href="https://www.npmjs.com/package/vue2-ace-editor4">https://www.npmjs.com/package/vue2-ace-editor4</a></p>
+<pre><code class="language-js">var ace = require('brace');
+
+module.exports = {
+    render: function (h) {
+        var height = this.height ? this.px(this.height) : '100%'
+        var width = this.width ? this.px(this.width) : '100%'
+        return h('div', {
+            attrs: {
+                style: &quot;height: &quot; + height + '; width: ' + width,
+            }
+        })
+    },
+    props: {
+        value: String,
+        lang: true,
+        theme: String,
+        height: true,
+        width: true,
+        autoComplete: false, //源码中添加该配置
+        options: Object
+    },
+    data: function () {
+        return {
+            editor: null,
+            contentBackup: &quot;&quot;
+        }
+    },
+    methods: {
+        px: function (n) {
+            if (/^\d*$/.test(n)) {
+                return n + &quot;px&quot;;
+            }
+            return n;
+        }
+    },
+    watch: {
+        value: function (val) {
+            if (this.contentBackup !== val) {
+                this.editor.session.setValue(val, 1);
+                this.contentBackup = val;
+            }
+        },
+        theme: function (newTheme) {
+            this.editor.setTheme('ace/theme/' + newTheme);
+        },
+        lang: function (newLang) {
+            this.editor.getSession().setMode(typeof newLang === 'string' ? ('ace/mode/' + newLang) : newLang);
+        },
+        options: function (newOption) {
+            this.editor.setOptions(newOption);
+        },
+        height: function () {
+            this.$nextTick(function () {
+                this.editor.resize()
+            })
+        },
+        width: function () {
+            this.$nextTick(function () {
+                this.editor.resize()
+            })
+        }
+    },
+    beforeDestroy: function () {
+        this.editor.destroy();
+        this.editor.container.remove();
+    },
+    mounted: function () {
+        var _this = this //插入该行，直接使用this会报错
+        var vm = this;
+        var lang = this.lang || 'text';
+        var theme = this.theme || 'chrome';
+        var autoComplete = this.autoComplete || false //插入该行
+        require('brace/ext/emmet');
+
+        var editor = vm.editor = ace.edit(this.$el);
+        editor.$blockScrolling = Infinity;
+
+        this.$emit('init', editor);
+
+        //editor.setOption(&quot;enableEmmet&quot;, true);
+        editor.getSession().setMode(typeof lang === 'string' ? ('ace/mode/' + lang) : lang);
+        editor.setTheme('ace/theme/' + theme);
+        if (this.value)
+            editor.setValue(this.value, 1);
+        this.contentBackup = this.value;
+
+        // 插入以下代码块
+        if (autoComplete) {
+            var staticWordCompleter = {
+                getCompletions: function (editor, session, pos, prefix, callback) {
+                    _this.$emit('setCompletions', editor, session, pos, prefix, callback)
+                }
+            }
+            var lnTools = ace.acequire(&quot;ace/ext/language_tools&quot;)
+            lnTools.addCompleter(staticWordCompleter)
+            editor.setOptions({
+                enableBasicAutocompletion: true,
+                enableSnippets: true,
+                enableLiveAutocompletion: true, //智能补全
+            })
+        }
+        editor.on('change', function () {
+            var content = editor.getValue();
+            vm.$emit('input', content);
+            vm.contentBackup = content;
+        });
+        // newadd
+        editor.on('focus', function () {
+            vm.$emit('focus');
+        });
+        // newadd
+        editor.on('blur', function () {
+            vm.$emit('blur');
+        });
+        if (vm.options)
+            editor.setOptions(vm.options);
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[vue 中使用 debounce]]></title>
         <id>https://blog.myxy.net/vue-zhong-shi-yong-debounce/</id>
@@ -363,42 +491,6 @@ printf(&quot;%s&quot;,err_msg.c_str());
 
     return pulhResult;
 }
-
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[C++ 类的关键字]]></title>
-        <id>https://blog.myxy.net/c-lei-de-guan-jian-zi/</id>
-        <link href="https://blog.myxy.net/c-lei-de-guan-jian-zi/">
-        </link>
-        <updated>2021-03-08T07:39:32.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="final">final</h1>
-<ul>
-<li>禁用继承</li>
-</ul>
-<blockquote>
-<p>C++11中允许将类标记为final，方法时直接在类名称后面使用关键字final，如此，意味着继承该类会导致编译错误。</p>
-</blockquote>
-<pre><code class="language-cpp">class Super final
-{
-    // 
-};
-
-</code></pre>
-<ul>
-<li>禁用重写
-<blockquote>
-<p>C++中还允许将方法标记为fianal，这意味着无法再子类中重写该方法。这时final关键字至于方法参数列表后面，如下</p>
-</blockquote>
-</li>
-</ul>
-<pre><code class="language-cpp">class Super
-{
-  public:
-    Supe();
-    virtual void SomeMethod() final;
-};
 
 </code></pre>
 ]]></content>
