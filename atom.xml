@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-04-13T12:23:33.021Z</updated>
+    <updated>2021-04-14T00:53:59.072Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,16 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2021, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[const int* 与 int const*]]></title>
+        <id>https://blog.myxy.net/const-int-yu-int-const/</id>
+        <link href="https://blog.myxy.net/const-int-yu-int-const/">
+        </link>
+        <updated>2021-04-14T00:48:39.000Z</updated>
+        <content type="html"><![CDATA[<p><code>cons</code>t默认作用于其左边的东西，否则作用于其右边的东西</p>
+<p><code>const</code>在<code>*</code>的左边，值不能修改。<code>const</code>在<code>*</code>的右边，地址不能修改</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[vue2-ace-editor ]]></title>
         <id>https://blog.myxy.net/vue2-ace-editor/</id>
@@ -462,35 +472,6 @@ int main()
 
 	char path_buffer[_MAX_PATH] = { 0 };
 	GetModuleFilePath(path_buffer, _MAX_PATH);
-
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[打印 HRESULT 返回值]]></title>
-        <id>https://blog.myxy.net/da-yin-hresult-fan-hui-zhi/</id>
-        <link href="https://blog.myxy.net/da-yin-hresult-fan-hui-zhi/">
-        </link>
-        <updated>2021-03-09T05:01:52.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">#include &lt;comdef.h&gt;
- 
- // 打开服务
-HRESULT pulhResult = 0;
-SC_HANDLE schSCManager;
-schSCManager = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
-if (NULL == schSCManager)
-{
-    pulhResult = HRESULT_FROM_WIN32(GetLastError());
-    // 方法一
-    _com_error err(pulhResult);
-    LPCTSTR errMsg = err.ErrorMessage();
-    wprintf(L&quot;%s&quot;,errMsg);
-    // 方法二
- std::string err_msg =   std::system_category().message(pulhResult)
-printf(&quot;%s&quot;,err_msg.c_str());
-
-    return pulhResult;
-}
 
 </code></pre>
 ]]></content>

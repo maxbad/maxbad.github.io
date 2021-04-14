@@ -59,13 +59,34 @@
     
   </div>
   <div class="md:mx-8 flex-shrink-0 self-start rounded-full border-4 border-dotted border-transparent hover:border-yellow-50 p-2 w-32 h-32 order-1 md:order-2 mx-auto s3-dotted">
-    <img class="rounded-full object-cover" src="https://blog.myxy.net/images/avatar.png?v=1618316544932" alt="Maxbad`Blog" width="100%" height="100%">
+    <img class="rounded-full object-cover" src="https://blog.myxy.net/images/avatar.png?v=1618361634774" alt="Maxbad`Blog" width="100%" height="100%">
   </div>
 </header>
       
 
       <div class="shadow-box bg-white dark:bg-gray-600 border-gray-300 rounded-none md:rounded-lg -mx-1 md:mx-0 md:px-0">
         
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/const-int-yu-int-const/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          const int* 与 int const*
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2021-04-14</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        const默认作用于其左边的东西，否则作用于其右边的东西
+const在*的左边，值不能修改。const在*的右边，地址不能修改
+...
+      </div>
+      <a href="https://blog.myxy.net/const-int-yu-int-const/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
   <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
     
     <div class="flex-1 order-2 md:order-1">
@@ -273,30 +294,6 @@ TCHAR run_path[MAX_PATH] = { 0, };
 //去掉路径末尾的文件名留...
       </div>
       <a href="https://blog.myxy.net/qu-exe-wen-jian-zi-shen-suo-zai-de-wen-jian-jia/" class="btn">
-        查看
-      </a>
-    </div>
-    
-  </div>
-
-  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
-    
-    <div class="flex-1 order-2 md:order-1">
-      <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://blog.myxy.net/da-yin-hresult-fan-hui-zhi/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
-          打印 HRESULT 返回值
-        </a>
-      </h2>
-      <div class="mb-4 text-xs text-gray-500">2021-03-09</div>
-      <div class="mb-4 text-gray-500 dark:text-gray-300">
-        #include &lt;comdef.h&gt;
- 
- // 打开服务
-HRESULT pulhResult = 0;
-SC_HANDLE schSCManager;
-schSCManager = OpenSCManager(NULL, ...
-      </div>
-      <a href="https://blog.myxy.net/da-yin-hresult-fan-hui-zhi/" class="btn">
         查看
       </a>
     </div>
