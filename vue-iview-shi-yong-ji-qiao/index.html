@@ -70,7 +70,7 @@ let te...">
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2021-03-23 · 1 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2021-03-23 · 2 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
@@ -118,6 +118,31 @@ this.tiems=temp;
 <li>兼容SSR的事件绑定监听dom事件</li>
 </ul>
 <pre><code class="language-js">import { on, off } from 'view-design/src/utils/dom';
+</code></pre>
+<ul>
+<li>清空Select 选择器</li>
+</ul>
+<pre><code class="language-js">this.$refs.xxxxxx.clearSingleSelect();
+</code></pre>
+<ul>
+<li>清空DatePicker（日期选择器）</li>
+</ul>
+<pre><code class="language-js">this.$refs.xxxxxx.handleClear()
+</code></pre>
+<ul>
+<li>清空TimePicker（时间选择器）</li>
+</ul>
+<pre><code class="language-js">this.$refs.xxxxxx.handleClear()
+</code></pre>
+<ul>
+<li>清空Table (表格) 选中的所有项</li>
+</ul>
+<pre><code class="language-js">this.$refs.xxxxxx.selectAll(false);
+</code></pre>
+<ul>
+<li>清空Form验证</li>
+</ul>
+<pre><code class="language-js">this.$refs.xxxxxx.resetFields();
 </code></pre>
 
         </div>
