@@ -52,7 +52,7 @@
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-05-12 · 2 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-05-12 · 3 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
@@ -125,6 +125,24 @@ int main()
     });
 }
 </code></pre>
+<h1 id="解析">解析</h1>
+<pre><code>nlohmann::json::parse如果是非法的json会直接丢一个异常，可以通过nlohmann::json::accept判断是否合法
+</code></pre>
+<p>#对象是否存在</p>
+<pre><code>// find an entry
+if (o.contains(&quot;foo&quot;)) {
+  // there is an entry with key &quot;foo&quot;
+}
+
+// or via find and an iterator
+if (o.find(&quot;foo&quot;) != o.end()) {
+  // there is an entry with key &quot;foo&quot;
+}
+
+// or simpler using count()
+int foo_present = o.count(&quot;foo&quot;); // 1
+int fob_present = o.count(&quot;fob&quot;); // 0
+</code></pre>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -178,6 +196,7 @@ int main()
 <li><a href="#%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1">遍历对象</a></li>
 </ul>
 </li>
+<li><a href="#%E8%A7%A3%E6%9E%90">解析</a></li>
 </ul>
 
       </div>
