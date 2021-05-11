@@ -20,8 +20,9 @@
   components: {
        iCopyright,buttom
    },
-// ===生命周期事件====
-..." />
+
+// 计算属性
+computed..." />
   <meta property="og:title" content="vue - Maxbad`Blog">
   <meta property="og:description" content="props : https://www.jianshu.com/p/89bd18e44e73
 // 注册组件
@@ -29,8 +30,9 @@
   components: {
        iCopyright,buttom
    },
-// ===生命周期事件====
-..." />
+
+// 计算属性
+computed..." />
   <meta property="og:type" content="articles">
   <meta property="og:url" content="https://blog.myxy.net/vue/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
@@ -43,8 +45,9 @@
   components: {
        iCopyright,buttom
    },
-// ===生命周期事件====
-...">
+
+// 计算属性
+computed...">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://blog.myxy.net/vue/">
 
@@ -80,6 +83,16 @@
   components: {
        iCopyright,buttom
    },
+
+// 计算属性
+computed: {
+    // 计算属性的 getter
+    reversedMessage: function () {
+      // `this` 指向 vm 实例
+      return this.message.split('').reverse().join('')
+    }
+  }
+  
 // ===生命周期事件====
 beforeCreate: function() {
     console.log('------beforeCreate创建前状态------');
