@@ -21,8 +21,8 @@
        iCopyright,buttom
    },
 
-// 计算属性
-computed..." />
+// props类型及默认值
+ ..." />
   <meta property="og:title" content="vue - Maxbad`Blog">
   <meta property="og:description" content="props : https://www.jianshu.com/p/89bd18e44e73
 // 注册组件
@@ -31,8 +31,8 @@ computed..." />
        iCopyright,buttom
    },
 
-// 计算属性
-computed..." />
+// props类型及默认值
+ ..." />
   <meta property="og:type" content="articles">
   <meta property="og:url" content="https://blog.myxy.net/vue/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
@@ -46,8 +46,8 @@ computed..." />
        iCopyright,buttom
    },
 
-// 计算属性
-computed...">
+// props类型及默认值
+ ...">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://blog.myxy.net/vue/">
 
@@ -84,6 +84,41 @@ computed...">
        iCopyright,buttom
    },
 
+// props类型及默认值
+ props: {
+     
+    demoString: {
+      type: String,
+      default: ''
+    },
+    demoNumber: {
+      type: Number,
+      default: 0
+    },
+    demoBoolean: {
+      type: Boolean,
+      default: true
+    },
+    demoArray: {
+      type: Array,
+      default: () =&gt; []
+    },
+    demoObject: {
+      type: Object,
+      default: () =&gt; ({})
+    },
+    demoObject2: {
+      type: Object,
+      default: function () {
+        return {};
+      }
+    },
+    demoFunction: {
+      type: Function,
+      default: function () { }
+    }
+  }
+  
 // 计算属性
 computed: {
     // 计算属性的 getter
