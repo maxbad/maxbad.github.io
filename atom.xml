@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-05-12T12:38:08.164Z</updated>
+    <updated>2021-05-14T03:02:38.032Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,24 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2021, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[noncopyable,不可拷贝的类]]></title>
+        <id>https://blog.myxy.net/noncopyablebu-ke-kao-bei-de-lei/</id>
+        <link href="https://blog.myxy.net/noncopyablebu-ke-kao-bei-de-lei/">
+        </link>
+        <updated>2021-05-14T03:01:29.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-cpp">class noncopyable {
+protected:
+	noncopyable() = default;
+	~noncopyable() = default;
+
+private:
+	noncopyable(const noncopyable&amp;) = delete;
+	const noncopyable&amp; operator=(const noncopyable&amp;) = delete;
+};
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[const int* 与 int const*]]></title>
         <id>https://blog.myxy.net/const-int-yu-int-const/</id>
@@ -439,64 +457,6 @@ PathIsURL                     路径是否是http格式。
 PathYetAnotherMakeUniqueName  基于已存在的文件，自动创建一个唯一的文件名。比较有用，比如存在“新建文件”，此函数会创建文件名“新建文件夹 (2)”。
 
 
-
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[取EXE文件自身所在的文件夹]]></title>
-        <id>https://blog.myxy.net/qu-exe-wen-jian-zi-shen-suo-zai-de-wen-jian-jia/</id>
-        <link href="https://blog.myxy.net/qu-exe-wen-jian-zi-shen-suo-zai-de-wen-jian-jia/">
-        </link>
-        <updated>2021-03-12T02:29:57.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="方式一">方式一:</h2>
-<pre><code class="language-cpp">
-TCHAR run_path[MAX_PATH] = { 0, };
-//获取应用程序或者DLL的完整路径
-::GetModuleFileName(NULL, run_path, MAX_PATH);
-//去掉路径末尾的文件名留下反斜杠
-(_tcsrchr(run_path, TEXT('\\')))[1] = 0;
-// 设置运行目录
-::SetCurrentDirectory(run_path);
-</code></pre>
-<h2 id="方式二">方式二:</h2>
-<pre><code class="language-cpp">#include &lt;stdio.h&gt;
-#include &lt;Shlwapi.h&gt;
-#pragma comment(lib,&quot;shlwapi.lib&quot;)
- 
-int main()  
-{  
-	TCHAR szPath[MAX_PATH];
-	//获取应用程序或者DLL的完整路径
-	::GetModuleFileName(NULL, szPath, MAX_PATH);
-	//去掉路径末尾的文件名和反斜杠
-	::PathRemoveFileSpec(szPath);
- 
-	printf(&quot;%ls\n&quot;, szPath);
- 
-	return 0;
-}
-</code></pre>
-<h2 id="方式三">方式三</h2>
-<pre><code class="language-cpp">void GetModuleFilePath(IN char* pPath, IN DWORD nSize)
-{
-	char path_buffer[_MAX_PATH] = { 0 };
-	char drive[_MAX_DRIVE] = { 0 };
-	char dir[_MAX_DIR] = { 0 };
-	char fname[_MAX_FNAME] = { 0 };
-	char ext[_MAX_EXT] = { 0 };
-	if (NULL == pPath)
-	{
-		return;
-	}
-	GetModuleFileNameA(NULL, path_buffer, _MAX_PATH);
-	_splitpath(path_buffer, drive, dir, fname, ext);
-	strcat(pPath, drive);
-	strcat(pPath, dir);
-}
-
-	char path_buffer[_MAX_PATH] = { 0 };
-	GetModuleFilePath(path_buffer, _MAX_PATH);
 
 </code></pre>
 ]]></content>
