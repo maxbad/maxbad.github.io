@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-05-15T08:16:38.093Z</updated>
+    <updated>2021-05-15T09:57:26.192Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -23,28 +23,70 @@
 BasedOnStyle: Google
 # 
 # 单行最大字符串,超过自动换行
-ColumnLimit: 500
+ColumnLimit: 200
+# 
+# 构造函数初始化样式
+BreakConstructorInitializers: AfterColon
 # 
 # 水平对齐二进制和三元表达式的操作数
 AlignOperands: true
 # 
-# 对齐注释
+# 对齐尾部注释
 AlignTrailingComments: true
 # 
 # 对比变量声明
-AlignConsecutiveAssignments: true
+AlignConsecutiveAssignments: true 	
+#
+# 如果函数调用或支撑初始化程序列表不适合一行，则允许将所有参数放到下一行
+AllowAllArgumentsOnNextLine: true 
+#
+# 如果具有成员初始化程序列表的构造函数定义不适合单行，则允许将所有成员初始化器放在下一行
+AllowAllConstructorInitializersOnNextLine : true 
+#
+# 如果函数声明不适合一行，允许将函数声明的所有参数放在下一行
+AllowAllParametersOfDeclarationOnNextLine : true 
 # 
-# 很短的while(true){ continue; }语句块放到一行
-AllowShortBlocksOnASingleLine: Always	 
+# 很短的 “while (true) continue;” 放到一行
+AllowShortLoopsOnASingleLine: true 
 # 
-# 很短的case 1: x = 1; break;放到一行
+# 很短的 “case 1: x = 1; break;” 放到一行 
 AllowShortCaseLabelsOnASingleLine: true
+#
+# 很短的 “enum { A, B } myEnum;” 放到一行
+AllowShortEnumsOnASingleLine: true 
 # 
-# 很短的if (a) return语句块放到一行
-AllowShortIfStatementsOnASingleLine: true
+# 很短的 “if (a) return” 放到一行
+AllowShortIfStatementsOnASingleLine: Always
+#
+# 很短的 “int f() { return 0; }” 放到一行
+AllowShortFunctionsOnASingleLine: All
+#
+# 很短的 “auto lambda []() { return 0; }”  放到一行
+AllowShortLambdasOnASingleLine: All
 # 
 # 格式化大括号列表达到最适合c++11列表
 Cpp11BracedListStyle: true
+#
+# 函数声明返回类型样式:在顶层定义的返回类型后总是换行
+AlwaysBreakAfterReturnType: TopLevelDefinitions
+# 
+# 函数定义返回类型换行样式
+AlwaysBreakAfterDefinitionReturnType: TopLevel
+#
+#  在多行字面量字符串前总是换行
+AlwaysBreakBeforeMultilineStrings: true
+#
+# 在模板声明“template&lt;...&gt;”后总是换行
+AlwaysBreakTemplateDeclarations: Yes
+#
+# 方法返回类型放到函数的同一行
+PenaltyReturnTypeOnItsOwnLine: 0
+#
+# 函数调用的参数,要么是在同一行上，要么一行一个参数
+BinPackArguments: true
+#
+# 函数声明或函数定义的参数,将都在同一行上，或各有一行
+BinPackParameters: true
 # 
 # 将会在“(”之后和“)”之前插入空格
 SpacesInParentheses: true
@@ -63,6 +105,9 @@ TabWidth: 4
 # 
 # 缩进的列数
 IndentWidth: 4
+#
+# 不自动排序 #Includes
+SortIncludes: false 
 </code></pre>
 ]]></content>
     </entry>
