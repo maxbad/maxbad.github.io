@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-05-14T05:43:44.580Z</updated>
+    <updated>2021-05-15T08:16:38.093Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,62 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2021, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[Visual Studio 格式化配置 .clang-format ]]></title>
+        <id>https://blog.myxy.net/visual-studio-ge-shi-hua-pei-zhi-clang-format/</id>
+        <link href="https://blog.myxy.net/visual-studio-ge-shi-hua-pei-zhi-clang-format/">
+        </link>
+        <updated>2021-05-15T08:14:29.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-js">#
+# 文档地址:https://clang.llvm.org/docs/ClangFormatStyleOptions.html 
+#
+# 基础样式,用于所有没有特殊指定配置的选项
+BasedOnStyle: Google
+# 
+# 单行最大字符串,超过自动换行
+ColumnLimit: 500
+# 
+# 水平对齐二进制和三元表达式的操作数
+AlignOperands: true
+# 
+# 对齐注释
+AlignTrailingComments: true
+# 
+# 对比变量声明
+AlignConsecutiveAssignments: true
+# 
+# 很短的while(true){ continue; }语句块放到一行
+AllowShortBlocksOnASingleLine: Always	 
+# 
+# 很短的case 1: x = 1; break;放到一行
+AllowShortCaseLabelsOnASingleLine: true
+# 
+# 很短的if (a) return语句块放到一行
+AllowShortIfStatementsOnASingleLine: true
+# 
+# 格式化大括号列表达到最适合c++11列表
+Cpp11BracedListStyle: true
+# 
+# 将会在“(”之后和“)”之前插入空格
+SpacesInParentheses: true
+# 
+# 将会在“[”之后和“]”之前插入空格
+SpacesInSquareBrackets: true 
+# 
+# 命名空间的缩进
+NamespaceIndentation: All
+# 
+# 大括号换行样式
+BreakBeforeBraces: Linux	
+# 
+# 制表符列数
+TabWidth: 4
+# 
+# 缩进的列数
+IndentWidth: 4
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[noncopyable,不可拷贝的类]]></title>
         <id>https://blog.myxy.net/noncopyablebu-ke-kao-bei-de-lei/</id>
@@ -380,83 +436,6 @@ if (pdata) {
 			delete [] pdata;
 			pdata = nullptr;
 		}
-
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Windows环境下“路径”处理]]></title>
-        <id>https://blog.myxy.net/windows-huan-jing-xia-lu-jing-chu-li/</id>
-        <link href="https://blog.myxy.net/windows-huan-jing-xia-lu-jing-chu-li/">
-        </link>
-        <updated>2021-03-12T03:11:38.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">#include &lt;Shlwapi.h&gt;
-#pragma comment(lib, &quot;shlwapi.lib&quot;)
-
-
-// 路径截断与合并函数
-PathRemoveArgs                去除路径后面的参数
-PathRemoveBackslash           去除路径最后的反斜杠“\”
-PathAddBackslash              在路径最后加上反斜杠“\”
-PathRemoveBlanks              去除路径前后的空格
-PathAddExtension              在文件路径后面加上扩展名
-PathRemoveExtension           去除文件路径扩展名
-PathRenameExtension           更改文件路径扩展名
-PathRemoveFileSpec            去除文件名，得到目录
-PathUnquoteSpaces             去除路径中的首尾引号
-PathQuoteSpaces               判断路径中是否有空格，有的话，就是用“”引号把整个路径包含起来
-PathAppend                    将一个路径追加到另一个路径后面
-PathCombine                   合并两个路径
-PathSkipRoot                  去掉路径中的磁盘符或UNC部分。
-PathStripPath                 去掉路径中的目录部分，得到文件名。
-PathStripToRoot               去掉路径的文件部分，得到根目录。
-PathCompactPath               根据像素值生成符合长度的路径。
-                              如原始路径：          C:\path1\path2\sample.txt
-                              根据120像素截断后为：  C:\pat...\sample.txt
-                              根据25像素截断后为:   ...\sample.txt
- 
-PathCompactPathEx             根据字符个数来生成符合长度的路径。
-PathSetDlgItemPath            将路径数据设置到对话框的子控件上。
-PathUndecorate                去除路径中的修饰 
-PathUnExpandEnvStrings        将路径中部分数据替换为系统环境变量格式
-
-// 路径查找比较函数
-PathFindOnPath                从路径中查找路径
-PathFindExtension             查找路径的扩展名
-PathFindFileName              获取路径的文件名
-PathFindNextComponent         查找匹配路径（不太熟悉）
-PathFindSuffixArray           查找给定的文件名是否有给定的后缀。
-PathGetArgs                   获取路径参数
-PathGetCharType               获取路径字符类型
-PathGetDriveNumber            根据逻辑盘符返回驱动器序号
-
-// 路径验证函数
-PathCleanupSpec               去除路径中不合法的字符
-PathCommonPrefix              比较并提取两个路径相同的前缀
-PathFileExists                验证路径是否存在
-PathMatchSpec                 判断路径是否匹配制定的扩展名。
-PathIsDirectory               判断路径是否是一个有效的目录
-PathIsFileSpec                验证路径是否一个文件名（有可能是一个路径）
-PathIsExe                     验证路径是否是可执行文件。注意：不仅仅是.exe，还有.bat，.com，.src等
-PathIsRoot                    路径是否为根路径
-PathIsRelative                判断路径是否是相对路径
-PathIsContentType             检测文件是否为制定类型。
-                              例如：PathIsContentType( “hello.txt” , “text/plain” ) 返回TRUE
-　                                  PathIsContentType( “hello.txt” , “image/gif” ) 返回FALSE
-PathIsHTMLFile                判断路径是否是html文件类型——根据系统注册类型判断。
-PathIsLFNFileSpec             判断路径是否是长路径格式
-PathIsNetworkPath             判断路径是否是一个网络路径。
-PathIsPrefix                  判断路径是否含有指定前缀
-PathIsSameRoot                判断路径是否有相同根目录
-PathIsSlow                    判断路径是否是一个高度延迟的网络连接
-PathIsSystemFolder            判断路径是否有系统属性（属性可以自己设定）
-PathIsUNC                     路径是否是UNC格式（网络路径）
-PathIsUNCServer               路径是否是UNC服务器
-PathIsUNCServerShare          路径是否仅仅是UNC的共享路径格式
-PathIsURL                     路径是否是http格式。
-PathYetAnotherMakeUniqueName  基于已存在的文件，自动创建一个唯一的文件名。比较有用，比如存在“新建文件”，此函数会创建文件名“新建文件夹 (2)”。
-
-
 
 </code></pre>
 ]]></content>

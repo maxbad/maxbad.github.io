@@ -4,49 +4,46 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>c++ 宏 - Maxbad`Blog</title>
+<title>Visual Studio 格式化配置 .clang-format  - Maxbad`Blog</title>
 <link rel="shortcut icon" href="https://blog.myxy.net/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://blog.myxy.net/media/css/tailwind.css">
 <link rel="stylesheet" href="https://blog.myxy.net/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="c++ 宏 - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="Visual Studio 格式化配置 .clang-format  - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
 
     
 
-  <meta name="description" content="宏“#”的妙用
-
-如果熟悉 C++ 宏的小伙伴，可能知道里面有个 # 的用法，可以将对应的参数变成字符串，效果如下：
-
-#define  toStr(x)  #x
-char *str = toStr(hello);  
-//  等价于 
-c..." />
-  <meta property="og:title" content="c++ 宏 - Maxbad`Blog">
-  <meta property="og:description" content="宏“#”的妙用
-
-如果熟悉 C++ 宏的小伙伴，可能知道里面有个 # 的用法，可以将对应的参数变成字符串，效果如下：
-
-#define  toStr(x)  #x
-char *str = toStr(hello);  
-//  等价于 
-c..." />
+  <meta name="description" content="#
+# 文档地址:https://clang.llvm.org/docs/ClangFormatStyleOptions.html 
+#
+# 基础样式,用于所有没有特殊指定配置的选项
+BasedOnStyle: Google
+# 
+# 单行..." />
+  <meta property="og:title" content="Visual Studio 格式化配置 .clang-format  - Maxbad`Blog">
+  <meta property="og:description" content="#
+# 文档地址:https://clang.llvm.org/docs/ClangFormatStyleOptions.html 
+#
+# 基础样式,用于所有没有特殊指定配置的选项
+BasedOnStyle: Google
+# 
+# 单行..." />
   <meta property="og:type" content="articles">
-  <meta property="og:url" content="https://blog.myxy.net/c-hong/" />
+  <meta property="og:url" content="https://blog.myxy.net/visual-studio-ge-shi-hua-pei-zhi-clang-format/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="c++ 宏 - Maxbad`Blog">
-  <meta name="twitter:description" content="宏“#”的妙用
-
-如果熟悉 C++ 宏的小伙伴，可能知道里面有个 # 的用法，可以将对应的参数变成字符串，效果如下：
-
-#define  toStr(x)  #x
-char *str = toStr(hello);  
-//  等价于 
-c...">
+  <meta name="twitter:title" content="Visual Studio 格式化配置 .clang-format  - Maxbad`Blog">
+  <meta name="twitter:description" content="#
+# 文档地址:https://clang.llvm.org/docs/ClangFormatStyleOptions.html 
+#
+# 基础样式,用于所有没有特殊指定配置的选项
+BasedOnStyle: Google
+# 
+# 单行...">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://blog.myxy.net/c-hong/">
+  <link rel="canonical" href="https://blog.myxy.net/visual-studio-ge-shi-hua-pei-zhi-clang-format/">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
@@ -66,46 +63,61 @@ c...">
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          c++ 宏
+          Visual Studio 格式化配置 .clang-format 
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-10-11 · 1 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2021-05-15 · 1 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <h2 id="宏的妙用">宏“#”的妙用</h2>
-<blockquote>
-<p>如果熟悉 C++ 宏的小伙伴，可能知道里面有个 # 的用法，可以将对应的参数变成字符串，效果如下：</p>
-</blockquote>
-<pre><code class="language-cpp">#define  toStr(x)  #x
-char *str = toStr(hello);  
-//  等价于 
-char *str = &quot;hello&quot;;
-</code></pre>
-<p>那么对于单个变量最简单的宏实现方式就是：</p>
-<pre><code class="language-cpp">#define logs(x)  std::cout &lt;&lt; #x&quot;:&quot; &lt;&lt; x &lt;&lt; std::endl;
-......
-int delay = 5;
-int other = 3;
-logs(delay);
-logs(other);
-
-// 输出结果
-// delay:5
-// other:3
-</code></pre>
-<h2 id="将前后两个的单词拼接在一起">将前后两个的单词拼接在一起“##”</h2>
-<pre><code class="language-cpp">  #define cat(x,y) x##y 
-  //调用
-  cat(var, 123)
-  //展开后成为:  var123
-</code></pre>
-<h2 id="将值序列变为一个字符">将值序列变为一个字符 &quot;#@&quot;</h2>
-<pre><code class="language-cpp">#define ch(c) #@c
- //  调用
- ch(a)
- // 展开后成为:'a'
+          <pre><code class="language-js">#
+# 文档地址:https://clang.llvm.org/docs/ClangFormatStyleOptions.html 
+#
+# 基础样式,用于所有没有特殊指定配置的选项
+BasedOnStyle: Google
+# 
+# 单行最大字符串,超过自动换行
+ColumnLimit: 500
+# 
+# 水平对齐二进制和三元表达式的操作数
+AlignOperands: true
+# 
+# 对齐注释
+AlignTrailingComments: true
+# 
+# 对比变量声明
+AlignConsecutiveAssignments: true
+# 
+# 很短的while(true){ continue; }语句块放到一行
+AllowShortBlocksOnASingleLine: Always	 
+# 
+# 很短的case 1: x = 1; break;放到一行
+AllowShortCaseLabelsOnASingleLine: true
+# 
+# 很短的if (a) return语句块放到一行
+AllowShortIfStatementsOnASingleLine: true
+# 
+# 格式化大括号列表达到最适合c++11列表
+Cpp11BracedListStyle: true
+# 
+# 将会在“(”之后和“)”之前插入空格
+SpacesInParentheses: true
+# 
+# 将会在“[”之后和“]”之前插入空格
+SpacesInSquareBrackets: true 
+# 
+# 命名空间的缩进
+NamespaceIndentation: All
+# 
+# 大括号换行样式
+BreakBeforeBraces: Linux	
+# 
+# 制表符列数
+TabWidth: 4
+# 
+# 缩进的列数
+IndentWidth: 4
 </code></pre>
 
         </div>
@@ -149,16 +161,7 @@ logs(other);
         </div>
       </div>
       <div class="post-toc-container">
-        <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E5%AE%8F%E7%9A%84%E5%A6%99%E7%94%A8">宏“#”的妙用</a></li>
-<li><a href="#%E5%B0%86%E5%89%8D%E5%90%8E%E4%B8%A4%E4%B8%AA%E7%9A%84%E5%8D%95%E8%AF%8D%E6%8B%BC%E6%8E%A5%E5%9C%A8%E4%B8%80%E8%B5%B7">将前后两个的单词拼接在一起“##”</a></li>
-<li><a href="#%E5%B0%86%E5%80%BC%E5%BA%8F%E5%88%97%E5%8F%98%E4%B8%BA%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6">将值序列变为一个字符 &quot;#@&quot;</a></li>
-</ul>
-</li>
-</ul>
-
+        
       </div>
     </div>
 
