@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-05-15T10:05:27.816Z</updated>
+    <updated>2021-05-24T04:39:19.896Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,36 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2021, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[整数转IP地址]]></title>
+        <id>https://blog.myxy.net/zheng-shu-zhuan-ip-di-zhi/</id>
+        <link href="https://blog.myxy.net/zheng-shu-zhuan-ip-di-zhi/">
+        </link>
+        <updated>2021-05-24T04:38:35.000Z</updated>
+        <content type="html"><![CDATA[<p>这个例子很巧妙的利用了联合体共享内存的特点。</p>
+<pre><code class="language-cpp">union IPNode
+{
+　　unsigned int addr;
+　　struct
+　　{
+　　　　unsigned char s4,s3,s2,s1;
+　　};
+};
+
+void PrintIP(unsigned int x)
+{
+　　IPNode a;
+　　a.addr = x;
+　　printf(&quot;%d.%d.%d.%d\n&quot;,a.s1,a.s2,a.s3,a.s4);
+}
+void main()
+{
+　　unsigned int ip = 1567898765;// &quot;192.11.23.22&quot;
+　　PrintIP(ip);
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Visual Studio 格式化配置 .clang-format ]]></title>
         <id>https://blog.myxy.net/visual-studio-ge-shi-hua-pei-zhi-clang-format/</id>
@@ -450,39 +480,6 @@ showFaceDia(msg){
 使用 <code>scoped</code> 后，父组件的样式将不会渗透到子组件中。但是一个子组件的根节点会同时受其父组件的 scoped CSS 和子组件的 scoped CSS 的影响。</p>
 <p><em>解决方案</em><br>
 使用深度作用选择器，即 <code>&gt;&gt;&gt;</code> 操作符，或使用 <code>/deep/</code> 或 <code>::v-deep</code> 操作符，后两者都是 <code>&gt;&gt;&gt;</code> 的别名，三者效果一样。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[从资源文件中加载二进制数据]]></title>
-        <id>https://blog.myxy.net/cong-zi-yuan-wen-jian-zhong-jia-zai-er-jin-zhi-shu-ju/</id>
-        <link href="https://blog.myxy.net/cong-zi-yuan-wen-jian-zhong-jia-zai-er-jin-zhi-shu-ju/">
-        </link>
-        <updated>2021-03-12T11:34:09.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-cpp">
-	static uint8_t* load_binary (HMODULE hModule, LPCTSTR resType, LPCTSTR resName) {
-		HRSRC _hRsrc = ::FindResource (hModule, resName, resType);
-		if (!_hRsrc)
-			return nullptr;
-		HGLOBAL _hGlobal = ::LoadResource (hModule, _hRsrc);
-		if (!_hGlobal)
-			return nullptr;
-		LPVOID _src_ptr = ::LockResource (_hGlobal);
-		DWORD _size = ::SizeofResource (hModule, _hRsrc);
-		uint8_t *_ptr = new uint8_t [_size];
-		memcpy (_ptr, _src_ptr, _size);
-		//::UnlockResource (_hGlobal);
-		::FreeResource (_hGlobal);
-		return _ptr;
-	}
-
-
-    uint8_t *pdata =load_binary ((HMODULE) CPaintManagerUI::GetInstance (), _T (&quot;IPDB&quot;), MAKEINTRESOURCE (IDR_IPDB1));
-if (pdata) {
-			delete [] pdata;
-			pdata = nullptr;
-		}
-
-</code></pre>
 ]]></content>
     </entry>
 </feed>
