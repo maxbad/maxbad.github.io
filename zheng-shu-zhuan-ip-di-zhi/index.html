@@ -99,10 +99,37 @@ void PrintIP(unsigned int x)
 　　a.addr = x;
 　　printf(&quot;%d.%d.%d.%d\n&quot;,a.s1,a.s2,a.s3,a.s4);
 }
+
 void main()
 {
 　　unsigned int ip = 1567898765;// &quot;192.11.23.22&quot;
 　　PrintIP(ip);
+}
+</code></pre>
+<p>IP文本转整数</p>
+<pre><code class="language-cpp">uint32_t ip2long( char* addr )
+{
+    uint32_t c, octet, t;
+    uint32_t ipnum;
+    int i = 3;
+    octet = ipnum = 0;
+    while ( ( c = *addr++ ) ) {
+        if ( c == '.' ) {
+            ipnum &lt;&lt;= 8;
+            ipnum += octet;
+            i--;
+            octet = 0;
+        } else {
+            t = octet;
+            octet &lt;&lt;= 3;
+            octet += t;
+            octet += t;
+            c -= '0';
+            octet += c;
+        }
+    }
+    ipnum &lt;&lt;= 8;
+    return ipnum + octet;
 }
 </code></pre>
 
