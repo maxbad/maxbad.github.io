@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-05-24T04:41:08.843Z</updated>
+    <updated>2021-05-25T03:11:45.676Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,32 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2021, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[一些小功能函数]]></title>
+        <id>https://blog.myxy.net/yi-xie-xiao-gong-neng-han-shu/</id>
+        <link href="https://blog.myxy.net/yi-xie-xiao-gong-neng-han-shu/">
+        </link>
+        <updated>2021-05-25T03:10:01.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="文件是否存在">文件是否存在</h2>
+<pre><code class="language-cpp">bool file_exists(const std::string&amp; name)
+{
+    struct stat info;
+	return (stat(name.c_str(), &amp;info) == 0);
+}
+</code></pre>
+<h2 id="目录是否存在">目录是否存在</h2>
+<pre><code class="language-cpp">bool dir_exists(const std::string&amp; path)
+{
+	struct stat info;
+	if(stat(path.c_str(), &amp;info) != 0)
+		return false; // cannot access
+	if(info.st_mode &amp; S_IFDIR)
+		return true;
+	return false;
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[整数转IP地址]]></title>
         <id>https://blog.myxy.net/zheng-shu-zhuan-ip-di-zhi/</id>
@@ -489,24 +515,6 @@ showFaceDia(msg){
 &lt;test :title=&quot;title&quot; @showFaceDia=&quot;showFaceDia&quot;&gt;&lt;/test&gt;//注意showFaceDia后不能加括号
 
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[VUE 子组件设置scoped]]></title>
-        <id>https://blog.myxy.net/vue-zi-zu-jian-she-zhi-scoped/</id>
-        <link href="https://blog.myxy.net/vue-zi-zu-jian-she-zhi-scoped/">
-        </link>
-        <updated>2021-03-18T08:19:21.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-css">&lt;style lang=&quot;less&quot; scoped&gt;
-/deep/.ivu-tree-arrow{
-  padding-top: 10px 0;
-}
-&lt;/style&gt;
-</code></pre>
-<p><em>问题</em><br>
-使用 <code>scoped</code> 后，父组件的样式将不会渗透到子组件中。但是一个子组件的根节点会同时受其父组件的 scoped CSS 和子组件的 scoped CSS 的影响。</p>
-<p><em>解决方案</em><br>
-使用深度作用选择器，即 <code>&gt;&gt;&gt;</code> 操作符，或使用 <code>/deep/</code> 或 <code>::v-deep</code> 操作符，后两者都是 <code>&gt;&gt;&gt;</code> 的别名，三者效果一样。</p>
 ]]></content>
     </entry>
 </feed>

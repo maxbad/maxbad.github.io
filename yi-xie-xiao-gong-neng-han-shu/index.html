@@ -4,37 +4,40 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>c++ 宏 - Maxbad`Blog</title>
+<title>一些小功能函数 - Maxbad`Blog</title>
 <link rel="shortcut icon" href="https://blog.myxy.net/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://blog.myxy.net/media/css/tailwind.css">
 <link rel="stylesheet" href="https://blog.myxy.net/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="c++ 宏 - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="一些小功能函数 - Maxbad`Blog - Atom Feed" href="https://blog.myxy.net/atom.xml">
 
     
 
-  <meta name="description" content="https://github.com/Light-City/CPlusPlusThings/tree/master/basic_content/macro
-字符串化操作符“#”
-
-如果熟悉 C++ 宏的小伙伴，可能知道里面有个 # 的用法，..." />
-  <meta property="og:title" content="c++ 宏 - Maxbad`Blog">
-  <meta property="og:description" content="https://github.com/Light-City/CPlusPlusThings/tree/master/basic_content/macro
-字符串化操作符“#”
-
-如果熟悉 C++ 宏的小伙伴，可能知道里面有个 # 的用法，..." />
+  <meta name="description" content="文件是否存在
+bool file_exists(const std::string&amp;amp; name)
+{
+    struct stat info;
+	return (stat(name.c_str(), &amp;amp;info) == 0..." />
+  <meta property="og:title" content="一些小功能函数 - Maxbad`Blog">
+  <meta property="og:description" content="文件是否存在
+bool file_exists(const std::string&amp;amp; name)
+{
+    struct stat info;
+	return (stat(name.c_str(), &amp;amp;info) == 0..." />
   <meta property="og:type" content="articles">
-  <meta property="og:url" content="https://blog.myxy.net/c-hong/" />
+  <meta property="og:url" content="https://blog.myxy.net/yi-xie-xiao-gong-neng-han-shu/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="c++ 宏 - Maxbad`Blog">
-  <meta name="twitter:description" content="https://github.com/Light-City/CPlusPlusThings/tree/master/basic_content/macro
-字符串化操作符“#”
-
-如果熟悉 C++ 宏的小伙伴，可能知道里面有个 # 的用法，...">
+  <meta name="twitter:title" content="一些小功能函数 - Maxbad`Blog">
+  <meta name="twitter:description" content="文件是否存在
+bool file_exists(const std::string&amp;amp; name)
+{
+    struct stat info;
+	return (stat(name.c_str(), &amp;amp;info) == 0...">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://blog.myxy.net/c-hong/">
+  <link rel="canonical" href="https://blog.myxy.net/yi-xie-xiao-gong-neng-han-shu/">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
@@ -54,79 +57,31 @@
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          c++ 宏
+          一些小功能函数
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-10-11 · 3 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2021-05-25 · 1 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <p><a href="https://github.com/Light-City/CPlusPlusThings/tree/master/basic_content/macro">https://github.com/Light-City/CPlusPlusThings/tree/master/basic_content/macro</a></p>
-<h2 id="字符串化操作符">字符串化操作符“#”</h2>
-<blockquote>
-<p>如果熟悉 C++ 宏的小伙伴，可能知道里面有个 # 的用法，可以将对应的参数变成字符串，<br>
-注意：其只能用于有传入参数的宏定义中，且必须置于宏定义体中的参数名前。<br>
-效果如下：</p>
-</blockquote>
-<pre><code class="language-cpp">#define exp(s) printf(&quot;test s is:%s\n&quot;,s)
-#define exp1(s) printf(&quot;test s is:%s\n&quot;,#s)
-#define exp2(s) #s 
-int main() {
-    exp(&quot;hello&quot;);
-    exp1(hello);
-
-    string str = exp2(   bac );
-    cout&lt;&lt;str&lt;&lt;&quot; &quot;&lt;&lt;str.size()&lt;&lt;endl;
-    /**
-     * 忽略传入参数名前面和后面的空格。
-     */
-    string str1 = exp2( asda  bac );
-    /**
-     * 当传入参数名间存在空格时，编译器将会自动连接各个子字符串，
-     * 用每个子字符串之间以一个空格连接，忽略剩余空格。
-     */
-    cout&lt;&lt;str1&lt;&lt;&quot; &quot;&lt;&lt;str1.size()&lt;&lt;endl;
-    return 0;
+          <h2 id="文件是否存在">文件是否存在</h2>
+<pre><code class="language-cpp">bool file_exists(const std::string&amp; name)
+{
+    struct stat info;
+	return (stat(name.c_str(), &amp;info) == 0);
 }
 </code></pre>
-<p>那么对于单个变量最简单的宏实现方式就是：</p>
-<pre><code class="language-cpp">#define logs(x)  std::cout &lt;&lt; #x&quot;:&quot; &lt;&lt; x &lt;&lt; std::endl;
-......
-int delay = 5;
-int other = 3;
-logs(delay);
-logs(other);
-
-// 输出结果
-// delay:5
-// other:3
-</code></pre>
-<h2 id="符号连接操作符-将前后两个的单词拼接在一起">符号连接操作符 ，将前后两个的单词拼接在一起“##”</h2>
-<blockquote>
-<p>“##”是一种分隔连接方式，它的作用是先分隔，然后进行强制连接。将宏定义的多个形参转换成一个实际参数名。<br>
-注意事项：<br>
-（1）当用##连接形参时，##前后的空格可有可无。<br>
-（2）连接后的实际参数名，必须为实际存在的参数名或是编译器已知的宏定义。<br>
-（3）如果##后的参数本身也是一个宏的话，##会阻止这个宏的展开。</p>
-</blockquote>
-<pre><code class="language-cpp">#define expA(s) printf(&quot;前缀加上后的字符串为:%s\n&quot;,gc_##s)  //gc_s必须存在
-// 注意事项2
-#define expB(s) printf(&quot;前缀加上后的字符串为:%s\n&quot;,gc_  ##  s)  //gc_s必须存在
-// 注意事项1
-#define gc_hello1 &quot;I am gc_hello1&quot;
-int main() {
-    // 注意事项1
-    const char * gc_hello = &quot;I am gc_hello&quot;;
-    expA(hello);
-    expB(hello1);
+<h2 id="目录是否存在">目录是否存在</h2>
+<pre><code class="language-cpp">bool dir_exists(const std::string&amp; path)
+{
+	struct stat info;
+	if(stat(path.c_str(), &amp;info) != 0)
+		return false; // cannot access
+	if(info.st_mode &amp; S_IFDIR)
+		return true;
+	return false;
 }
-</code></pre>
-<h2 id="将值序列变为一个字符">将值序列变为一个字符 &quot;#@&quot;</h2>
-<pre><code class="language-cpp">#define ch(c) #@c
- //  调用
- ch(a)
- // 展开后成为:'a'
 </code></pre>
 
         </div>
@@ -173,9 +128,8 @@ int main() {
         <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%96%E6%93%8D%E4%BD%9C%E7%AC%A6">字符串化操作符“#”</a></li>
-<li><a href="#%E7%AC%A6%E5%8F%B7%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%AC%A6-%E5%B0%86%E5%89%8D%E5%90%8E%E4%B8%A4%E4%B8%AA%E7%9A%84%E5%8D%95%E8%AF%8D%E6%8B%BC%E6%8E%A5%E5%9C%A8%E4%B8%80%E8%B5%B7">符号连接操作符 ，将前后两个的单词拼接在一起“##”</a></li>
-<li><a href="#%E5%B0%86%E5%80%BC%E5%BA%8F%E5%88%97%E5%8F%98%E4%B8%BA%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6">将值序列变为一个字符 &quot;#@&quot;</a></li>
+<li><a href="#%E6%96%87%E4%BB%B6%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8">文件是否存在</a></li>
+<li><a href="#%E7%9B%AE%E5%BD%95%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8">目录是否存在</a></li>
 </ul>
 </li>
 </ul>

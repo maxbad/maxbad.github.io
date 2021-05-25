@@ -54,20 +54,42 @@
     
     <div class="flex-1 order-2 md:order-1">
       <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://blog.myxy.net/redis-de-rdb-he-aof-xuan-ze/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Redis的RDB和AOF选择
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-10-11</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        
+aof，rdb是两种 redis持久化的机制,用于crash后，redis的恢复。
+
+rdb特性
+
+写操作频繁的时候，不启用备份来换取更高的性能，待手动运行save的时候，再做备份.
+
+fork一个进程，遍历hash table，利用co...
+      </div>
+      <a href="https://blog.myxy.net/redis-de-rdb-he-aof-xuan-ze/" class="btn">
+        查看
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
         <a href="https://blog.myxy.net/c-hong/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
           c++ 宏
         </a>
       </h2>
       <div class="mb-4 text-xs text-gray-500">2020-10-11</div>
       <div class="mb-4 text-gray-500 dark:text-gray-300">
-        宏“#”的妙用
+        https://github.com/Light-City/CPlusPlusThings/tree/master/basic_content/macro
+字符串化操作符“#”
 
-如果熟悉 C++ 宏的小伙伴，可能知道里面有个 # 的用法，可以将对应的参数变成字符串，效果如下：
-
-#define  toStr(x)  #x
-char *str = toStr(hello);  
-//  等价于 
-c...
+如果熟悉 C++ 宏的小伙伴，可能知道里面有个 # 的用法，...
       </div>
       <a href="https://blog.myxy.net/c-hong/" class="btn">
         查看
@@ -260,29 +282,6 @@ LI...
 
       </div>
       <a href="https://blog.myxy.net/bu-long-guo-lu-qi/" class="btn">
-        查看
-      </a>
-    </div>
-    
-  </div>
-
-  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
-    
-    <div class="flex-1 order-2 md:order-1">
-      <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://blog.myxy.net/vs-zi-ding-yi-clang-format-ge-shi-hua-dai-ma-ge-shi/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
-          VS  自定义 clang-format 格式化代码格式
-        </a>
-      </h2>
-      <div class="mb-4 text-xs text-gray-500">2020-09-19</div>
-      <div class="mb-4 text-gray-500 dark:text-gray-300">
-        将.clang-format 文件放到工程根目录
-ColumnLimit:     0   # 这样就不会限制行宽，自动折行了
-IndentWidth:     4
-
-官方文档:http://clang.llvm.org/docs/Clan...
-      </div>
-      <a href="https://blog.myxy.net/vs-zi-ding-yi-clang-format-ge-shi-hua-dai-ma-ge-shi/" class="btn">
         查看
       </a>
     </div>
