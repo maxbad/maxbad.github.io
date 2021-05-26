@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-05-26T05:22:03.419Z</updated>
+    <updated>2021-05-26T09:28:14.602Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,57 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2021, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[windows 安装linux子系统]]></title>
+        <id>https://blog.myxy.net/windows-an-zhuang-linux-zi-xi-tong/</id>
+        <link href="https://blog.myxy.net/windows-an-zhuang-linux-zi-xi-tong/">
+        </link>
+        <updated>2021-05-26T08:56:43.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="windows-10">windows 10</h1>
+<p>1:以管理员身份运行Window  PowerShell<br>
+路径:<code>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</code></p>
+<pre><code>Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+</code></pre>
+<p>安装好后会提示重启电脑，重启即可</p>
+<p>2:打开电脑自带的Microsoft Store 输入WSL,选择下载安装 Ubuntu,安装完毕设置root用户名和密码即可</p>
+<h1 id="windows-server-2019">windows server 2019</h1>
+<p>1:以管理员身份运行PowerShell<br>
+路径:<code>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</code></p>
+<pre><code>Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linuxs
+</code></pre>
+<p>安装好后会提示重启服务器，重启即可</p>
+<p>2.安装Linux Distribution of Choice</p>
+<pre><code>// 进入到安装目录
+
+// 下载
+curl.exe -L -o ubuntu-2004.appx https://aka.ms/wslubuntu2004
+
+// 改名
+Rename-Item ubuntu-2004.appx ubuntu-2004.zip
+
+// 解压
+Expand-Archive ubuntu-2004.zip ubuntu2004
+
+// 进入文件夹
+ cd ubuntu2004
+
+ // 启动安装
+ .\ubuntu2004.exe
+</code></pre>
+<p>完成后会让你创建用户和用户密码,到这里就安装完成了</p>
+<p>3.更新系统命令</p>
+<pre><code>sudo apt update &amp;&amp; sudo apt upgrade
+sudo apt install ansible
+</code></pre>
+<p>4:卸载</p>
+<pre><code>// 显示出你安装的列表
+wslconfig /l  
+
+// 注销子系统  Ubuntu-20.04为上述列表中的名字
+wslconfig /u Ubuntu-20.04
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[nana Div-Text]]></title>
         <id>https://blog.myxy.net/nana-div-text/</id>
@@ -476,55 +527,6 @@ this.tiems=temp;
 </ul>
 <pre><code class="language-js">this.$refs.xxxxxx.resetFields();
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[VUE components 组件用法]]></title>
-        <id>https://blog.myxy.net/vue-components-zu-jian-yong-fa/</id>
-        <link href="https://blog.myxy.net/vue-components-zu-jian-yong-fa/">
-        </link>
-        <updated>2021-03-19T06:13:34.000Z</updated>
-        <content type="html"><![CDATA[<p><em>子组件给父组件传递数据</em></p>
-<pre><code class="language-js">子组件中：
-this.showFaceDia = false  
-this.$emit('showFaceDia',this.showFaceDia)  //执行showFaceDia函数并把要改变的值作为参数带过去
-
-父组件：
-methods:{
-showFaceDia(msg){
-    this.showFaceDia = msg
-  }
-}
-不要忘记在DOM中引用：
-&lt;test :title=&quot;title&quot; @showFaceDia=&quot;showFaceDia&quot;&gt;&lt;/test&gt;//注意showFaceDia后不能加括号
-
-</code></pre>
-<p><em>父组件调用子组件的方法</em></p>
-<pre><code class="language-js">//父组件
-&lt;v-test :title=&quot;title&quot; ref=&quot;aa&quot;&gt;&lt;/v-test&gt; //通过ref为子组件赋予ID引用
-&lt;div @click=&quot;getChild()&quot;&gt;&lt;/div&gt;
-getChild(){
-  this.$refs.aa.childFun()   // 此处使用
-}
-</code></pre>
-<p><em>子组件调用父组件的方法</em></p>
-<pre><code class="language-js">（1）直接在子组件中通过this.$parent.event来调用父组件的方法
-（2）在子组件里用$emit向父组件触发一个事件，父组件监听这个事件就行了
-实例:
-子组件：
-methods: {
-        getParent () {
-            this.$emit('togglePop')  //此处直接写父组件的事件名称
-        }
-    }
-父组件：
-DOM中：&lt;test :title=&quot;title&quot; @togglePop=&quot;togglePop&quot;&gt;&lt;/test&gt;
-togglePop(){
-            console.log('ddddddd')
-        },
-</code></pre>
-<p><a href="https://www.jianshu.com/p/6dfb2d2cbc71">https://www.jianshu.com/p/6dfb2d2cbc71</a></p>
-<p><a href="https://www.jianshu.com/p/816971e4269b">https://www.jianshu.com/p/816971e4269b</a></p>
 ]]></content>
     </entry>
 </feed>
