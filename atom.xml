@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-05-25T03:11:45.676Z</updated>
+    <updated>2021-05-26T05:22:03.419Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,38 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2021, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[nana Div-Text]]></title>
+        <id>https://blog.myxy.net/nana-div-text/</id>
+        <link href="https://blog.myxy.net/nana-div-text/">
+        </link>
+        <updated>2021-05-25T11:29:45.000Z</updated>
+        <content type="html"><![CDATA[<p>文档地址: <a href="https://github.com/cnjinhao/nana/wiki/Div-Text">https://github.com/cnjinhao/nana/wiki/Div-Text</a></p>
+<p>#基本概念</p>
+<blockquote></blockquote>
+<h1 id="字段属性">字段属性</h1>
+<h2 id="vert">vert</h2>
+<blockquote>
+<p>当前为垂直布局,默认为水平布局</p>
+</blockquote>
+<h2 id="weight">weight</h2>
+<blockquote>
+<p>组件的宽度或高度, 当水平布局(horizontal)时为宽度, 当垂直布局(vertical)时为高度</p>
+</blockquote>
+<h2 id="maxmin">max/min</h2>
+<blockquote></blockquote>
+<h2 id="arrange">arrange</h2>
+<blockquote></blockquote>
+<h2 id="gap">gap</h2>
+<blockquote>
+<p>组件之间的间隔像素</p>
+</blockquote>
+<h2 id="margin">margin</h2>
+<blockquote>
+<p>外边距,数组,顺序是[上,右,下,左] 或 [上,右,下] 或 [上下,左右] 或 [上下左右]</p>
+</blockquote>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[一些小功能函数]]></title>
         <id>https://blog.myxy.net/yi-xie-xiao-gong-neng-han-shu/</id>
@@ -493,28 +525,6 @@ togglePop(){
 </code></pre>
 <p><a href="https://www.jianshu.com/p/6dfb2d2cbc71">https://www.jianshu.com/p/6dfb2d2cbc71</a></p>
 <p><a href="https://www.jianshu.com/p/816971e4269b">https://www.jianshu.com/p/816971e4269b</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[VUE子组件向父组件传值]]></title>
-        <id>https://blog.myxy.net/vue-zi-zu-jian-xiang-fu-zu-jian-chuan-zhi/</id>
-        <link href="https://blog.myxy.net/vue-zi-zu-jian-xiang-fu-zu-jian-chuan-zhi/">
-        </link>
-        <updated>2021-03-19T06:13:34.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-VUE">子组件中：
-this.showFaceDia = false  
-this.$emit('showFaceDia',this.showFaceDia)  //执行showFaceDia函数并把要改变的值作为参数带过去
-
-父组件：
-methods:{
-showFaceDia(msg){
-    this.showFaceDia = msg
-  }
-}
-不要忘记在DOM中引用：
-&lt;test :title=&quot;title&quot; @showFaceDia=&quot;showFaceDia&quot;&gt;&lt;/test&gt;//注意showFaceDia后不能加括号
-
-</code></pre>
 ]]></content>
     </entry>
 </feed>
