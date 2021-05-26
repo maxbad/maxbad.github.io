@@ -14,25 +14,25 @@
 
     
 
-  <meta name="description" content="windows 10
+  <meta name="description" content="微软WSL介绍:https://docs.microsoft.com/zh-cn/windows/wsl/about
+windows 10
 1:以管理员身份运行Window  PowerShell
-路径:C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
-Enable-WindowsOptio..." />
+路径:C:\Windows\System3..." />
   <meta property="og:title" content="windows 安装linux子系统 - Maxbad`Blog">
-  <meta property="og:description" content="windows 10
+  <meta property="og:description" content="微软WSL介绍:https://docs.microsoft.com/zh-cn/windows/wsl/about
+windows 10
 1:以管理员身份运行Window  PowerShell
-路径:C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
-Enable-WindowsOptio..." />
+路径:C:\Windows\System3..." />
   <meta property="og:type" content="articles">
   <meta property="og:url" content="https://blog.myxy.net/windows-an-zhuang-linux-zi-xi-tong/" />
   <meta property="og:image" content="https://blog.myxy.net/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
   <meta name="twitter:title" content="windows 安装linux子系统 - Maxbad`Blog">
-  <meta name="twitter:description" content="windows 10
+  <meta name="twitter:description" content="微软WSL介绍:https://docs.microsoft.com/zh-cn/windows/wsl/about
+windows 10
 1:以管理员身份运行Window  PowerShell
-路径:C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
-Enable-WindowsOptio...">
+路径:C:\Windows\System3...">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://blog.myxy.net/windows-an-zhuang-linux-zi-xi-tong/">
 
@@ -62,7 +62,8 @@ Enable-WindowsOptio...">
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <h1 id="windows-10">windows 10</h1>
+          <p>微软WSL介绍:<a href="https://docs.microsoft.com/zh-cn/windows/wsl/about">https://docs.microsoft.com/zh-cn/windows/wsl/about</a></p>
+<h1 id="windows-10">windows 10</h1>
 <p>1:以管理员身份运行Window  PowerShell<br>
 路径:<code>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</code></p>
 <pre><code>Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
@@ -104,6 +105,17 @@ wslconfig /l
 
 // 注销子系统  Ubuntu-20.04为上述列表中的名字
 wslconfig /u Ubuntu-20.04
+</code></pre>
+<p>5: 其他</p>
+<pre><code>// 查看已安装版本,运行状态
+wsl --list --verbose
+
+// 版本转换
+wsl --set-version &lt;distribution name&gt; &lt;versionNumber&gt;
+ 
+ // 将 WSL 2 设置为默认版本
+ wsl --set-default-version 2
+
 </code></pre>
 
         </div>
