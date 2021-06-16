@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-05-26T10:03:34.659Z</updated>
+    <updated>2021-06-16T01:16:31.493Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,65 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2021, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[win10wsl安装redis]]></title>
+        <id>https://blog.myxy.net/win10wsl-an-zhuang-redis/</id>
+        <link href="https://blog.myxy.net/win10wsl-an-zhuang-redis/">
+        </link>
+        <updated>2021-06-01T15:35:26.000Z</updated>
+        <content type="html"><![CDATA[<pre><code>// 先准备必须的更新
+sudo apt-get update
+sudo apt-get install make
+sudo apt-get install gcc
+
+// 在线下载redis源码，编译
+wget http://download.redis.io/redis-stable.tar.gz
+tar xvzf redis-stable.tar.gz
+cd redis-stable
+make
+
+// 部署
+sudo cp src/redis-server /usr/local/bin/
+sudo cp src/redis-cli /usr/local/bin/
+
+// 创建存储Redis配置文件和数据的目录
+sudo mkdir /etc/redis
+sudo mkdir /var/redis
+
+// 复制启动脚本到指定位置
+sudo cp utils/redis_init_script /etc/init.d/redis_6379
+
+// 创建数据存放目录和工作目录
+sudo mkdir /var/redis/6379
+
+// 修改配置redis.conf
+    daemonize yes
+    pidfile /var/run/redis_6379.pid
+    port 6379
+    loglevel notice
+    logfile &quot;/var/log/redis_6379.log&quot;
+
+// 复制配置文件
+sudo cp redis.conf /etc/redis/6379.conf
+
+// 将新的 Redis init 脚本添加到所有默认的运行级别
+sudo update-rc.d redis_6379 defaults
+
+// 已经完成了，输入以下代码可以启动服务
+sudo /etc/init.d/redis_6379 start
+等同于
+sudo service redis_6379 start
+
+// 设置自动启动服务
+百度一下
+
+//  附加可能用到的命令
+// 设置默认登录用户为root
+ubuntu2004.exe config --default-user root
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[windows 安装linux子系统]]></title>
         <id>https://blog.myxy.net/windows-an-zhuang-linux-zi-xi-tong/</id>
@@ -467,84 +526,6 @@ export default Vue.extend({
         },500),
     }
 })
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[vue-iview使用技巧]]></title>
-        <id>https://blog.myxy.net/vue-iview-shi-yong-ji-qiao/</id>
-        <link href="https://blog.myxy.net/vue-iview-shi-yong-ji-qiao/">
-        </link>
-        <updated>2021-03-23T08:29:03.000Z</updated>
-        <content type="html"><![CDATA[<ul>
-<li>修改数据</li>
-</ul>
-<pre><code class="language-js">this.items[1]='xxxx';  // 不能监听数据变的
-this.$set(this.items,1,'xxxxxx');  // 可以监听数据变化
-
-// 拷贝一份出来,修改后再赋值回去也可以监听
-let temp=[...this.items];
-temp[1]='xxxxx'
-this.tiems=temp;
-</code></pre>
-<ul>
-<li>数据深拷贝,针对数组和对象使用</li>
-</ul>
-<pre><code class="language-js">import { deepCopy } from 'view-design/src/utils/assist';
-// deepCopy(data)
-</code></pre>
-<blockquote>
-<p><code>Object.assign</code> 和es6扩展运算符 三个点<code>{...}</code> 只针对一层对象可用,多层需要通过<code>JSON.parse(JSON.stringify())</code>达到深拷贝</p>
-</blockquote>
-<ul>
-<li>获取对象样式</li>
-</ul>
-<pre><code class="language-js">import { getStyle } from 'view-design/src/utils/assist';
-// getStyle (element, styleName)
-</code></pre>
-<ul>
-<li>判断参数是否是其中之一</li>
-</ul>
-<pre><code class="language-js">import { oneOf } from 'view-design/src/utils/assist';
-// oneOf (value, validList)
-</code></pre>
-<ul>
-<li>类操作</li>
-</ul>
-<pre><code class="language-js">import { hasClass,addClass,removeClass } from 'view-design/src/utils/assist';
-// hasClass(el, cls) 
-// addClass(el, cls)
-// removeClass(el, cls)
-</code></pre>
-<ul>
-<li>兼容SSR的事件绑定监听dom事件</li>
-</ul>
-<pre><code class="language-js">import { on, off } from 'view-design/src/utils/dom';
-</code></pre>
-<ul>
-<li>清空Select 选择器</li>
-</ul>
-<pre><code class="language-js">this.$refs.xxxxxx.clearSingleSelect();
-</code></pre>
-<ul>
-<li>清空DatePicker（日期选择器）</li>
-</ul>
-<pre><code class="language-js">this.$refs.xxxxxx.handleClear()
-</code></pre>
-<ul>
-<li>清空TimePicker（时间选择器）</li>
-</ul>
-<pre><code class="language-js">this.$refs.xxxxxx.handleClear()
-</code></pre>
-<ul>
-<li>清空Table (表格) 选中的所有项</li>
-</ul>
-<pre><code class="language-js">this.$refs.xxxxxx.selectAll(false);
-</code></pre>
-<ul>
-<li>清空Form验证</li>
-</ul>
-<pre><code class="language-js">this.$refs.xxxxxx.resetFields();
 </code></pre>
 ]]></content>
     </entry>
