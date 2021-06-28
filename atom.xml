@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.myxy.net</id>
     <title>Maxbad`Blog</title>
-    <updated>2021-06-16T01:16:31.493Z</updated>
+    <updated>2021-06-28T12:36:58.294Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.myxy.net"/>
     <link rel="self" href="https://blog.myxy.net/atom.xml"/>
@@ -10,6 +10,18 @@
     <logo>https://blog.myxy.net/images/avatar.png</logo>
     <icon>https://blog.myxy.net/favicon.ico</icon>
     <rights>All rights reserved 2021, Maxbad`Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[网页元素常用操作]]></title>
+        <id>https://blog.myxy.net/wang-ye-yuan-su-chang-yong-cao-zuo/</id>
+        <link href="https://blog.myxy.net/wang-ye-yuan-su-chang-yong-cao-zuo/">
+        </link>
+        <updated>2021-06-28T12:35:31.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="获取元素指定样式">获取元素指定样式</h2>
+<pre><code class="language-html">const app = document.getElementById('menu-head-wrapper');
+const appMargin = window.getComputedStyle(app).margin;
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[win10wsl安装redis]]></title>
         <id>https://blog.myxy.net/win10wsl-an-zhuang-redis/</id>
@@ -508,24 +520,6 @@ module.exports = {
             editor.setOptions(vm.options);
     }
 }
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[vue 中使用 debounce]]></title>
-        <id>https://blog.myxy.net/vue-zhong-shi-yong-debounce/</id>
-        <link href="https://blog.myxy.net/vue-zhong-shi-yong-debounce/">
-        </link>
-        <updated>2021-04-08T09:48:59.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-vue">import Vue from 'vue'
-import { debounce } from 'lodash'
-export default Vue.extend({
-    methods: {
-        myDebounce: debounce(function(){
-            // 执行内容...
-        },500),
-    }
-})
 </code></pre>
 ]]></content>
     </entry>
